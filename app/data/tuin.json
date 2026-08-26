@@ -1,0 +1,538 @@
+[
+ {
+  "id": "vrij-01",
+  "label": "1",
+  "soort": "vrij",
+  "badge": {
+   "x": 20.88,
+   "y": 30.54
+  },
+  "planten": [
+   "framboos"
+  ],
+  "vorm": {
+   "type": "ellipse",
+   "cx": 31.86,
+   "cy": 33.32,
+   "rx": 26.29,
+   "ry": 6.13
+  },
+  "svg_label": "v1"
+ },
+ {
+  "id": "vak-02",
+  "label": "2",
+  "soort": "bak",
+  "badge": {
+   "x": 22.45,
+   "y": 75.46
+  },
+  "planten": [
+   "bieslook",
+   "bosbes"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 12.75,
+   "y": 61.0,
+   "b": 22.7,
+   "h": 13.92
+  },
+  "svg_label": "pl1"
+ },
+ {
+  "id": "vak-03",
+  "label": "3",
+  "soort": "bak",
+  "badge": {
+   "x": 49.05,
+   "y": 75.59
+  },
+  "planten": [
+   "lavendel",
+   "bosbes"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 39.08,
+   "y": 60.69,
+   "b": 22.24,
+   "h": 14.37
+  },
+  "svg_label": "pl2"
+ },
+ {
+  "id": "vak-04",
+  "label": "4",
+  "soort": "bak",
+  "badge": {
+   "x": 75.52,
+   "y": 88.19
+  },
+  "planten": [
+   "knopherik",
+   "teunisbloem",
+   "edel-duizendblad"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 67.88,
+   "y": 59.23,
+   "b": 15.95,
+   "h": 28.37
+  },
+  "svg_label": "pl3"
+ },
+ {
+  "id": "vak-05",
+  "label": "5",
+  "soort": "bak",
+  "badge": {
+   "x": 97.52,
+   "y": 86.14
+  },
+  "planten": [
+   "teunisbloem",
+   "edel-duizendblad"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 89.51,
+   "y": 59.52,
+   "b": 15.96,
+   "h": 27.3
+  },
+  "svg_label": "pl4"
+ },
+ {
+  "id": "vak-06",
+  "label": "6",
+  "soort": "bak",
+  "badge": {
+   "x": 124.29,
+   "y": 79.63
+  },
+  "planten": [
+   "munt"
+  ],
+  "vorm": {
+   "type": "ellipse",
+   "cx": 123.82,
+   "cy": 74.91,
+   "rx": 13.92,
+   "ry": 13.92
+  },
+  "svg_label": "pl5"
+ },
+ {
+  "id": "vrij-07",
+  "label": "7",
+  "soort": "vrij",
+  "badge": {
+   "x": 122.12,
+   "y": 96.0
+  },
+  "planten": [
+   "citroenmelisse"
+  ],
+  "vorm": {
+   "type": "ellipse",
+   "cx": 128.97,
+   "cy": 93.58,
+   "rx": 10.31,
+   "ry": 9.31
+  },
+  "svg_label": "v2"
+ },
+ {
+  "id": "vrij-08",
+  "label": "8",
+  "soort": "vrij",
+  "badge": {
+   "x": 174.58,
+   "y": 76.28
+  },
+  "planten": [
+   "kiwi"
+  ],
+  "vorm": {
+   "type": "ellipse",
+   "cx": 177.51,
+   "cy": 73.11,
+   "rx": 2.95,
+   "ry": 8.72
+  },
+  "svg_label": "v3"
+ },
+ {
+  "id": "vak-09",
+  "label": "9",
+  "soort": "bak",
+  "badge": {
+   "x": 144.1,
+   "y": 117.88
+  },
+  "planten": [
+   "salie",
+   "edel-duizendblad"
+  ],
+  "vorm": {
+   "type": "ellipse",
+   "cx": 150.55,
+   "cy": 115.15,
+   "rx": 7.93,
+   "ry": 7.93
+  },
+  "svg_label": "pl6"
+ },
+ {
+  "id": "vak-10",
+  "label": "10",
+  "soort": "bak",
+  "badge": {
+   "x": 166.3,
+   "y": 149.09
+  },
+  "planten": [
+   "venkel"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 154.92,
+   "y": 133.81,
+   "b": 22.39,
+   "h": 16.04
+  },
+  "svg_label": "pl7"
+ },
+ {
+  "id": "vak-11",
+  "label": "11",
+  "soort": "bak",
+  "badge": {
+   "x": 164.77,
+   "y": 173.49
+  },
+  "planten": [
+   "tijm",
+   "marjolein",
+   "rode-bes"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 149.47,
+   "y": 154.1,
+   "b": 28.0,
+   "h": 18.93
+  },
+  "svg_label": "pl8"
+ },
+ {
+  "id": "vak-12",
+  "label": "12",
+  "soort": "bak",
+  "badge": {
+   "x": 164.77,
+   "y": 200.26
+  },
+  "planten": [
+   "rozemarijn",
+   "zwarte-bes",
+   "dragon"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 149.82,
+   "y": 178.43,
+   "b": 27.35,
+   "h": 22.17
+  },
+  "svg_label": "pl9"
+ },
+ {
+  "id": "vak-13",
+  "label": "13",
+  "soort": "bak",
+  "badge": {
+   "x": 164.77,
+   "y": 227.07
+  },
+  "planten": [
+   "marjolein",
+   "rode-bes",
+   "munt"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 149.74,
+   "y": 205.95,
+   "b": 27.48,
+   "h": 22.16
+  },
+  "svg_label": "pl10"
+ },
+ {
+  "id": "vak-14",
+  "label": "14",
+  "soort": "bak",
+  "badge": {
+   "x": 164.77,
+   "y": 251.13
+  },
+  "planten": [
+   "salie",
+   "zwarte-bes",
+   "marjolein"
+  ],
+  "vorm": {
+   "type": "rect",
+   "x": 150.38,
+   "y": 234.03,
+   "b": 27.04,
+   "h": 17.32
+  },
+  "svg_label": "pl11"
+ },
+ {
+  "id": "vrij-15",
+  "label": "15",
+  "soort": "vrij",
+  "badge": {
+   "x": 140.57,
+   "y": 229.03
+  },
+  "planten": [
+   "framboos",
+   "aardbei"
+  ],
+  "vorm": {
+   "type": "ellipse",
+   "cx": 139.11,
+   "cy": 222.12,
+   "rx": 6.44,
+   "ry": 11.88
+  },
+  "svg_label": "v4"
+ },
+ {
+  "id": "heester-a-1",
+  "label": "A",
+  "soort": "heester",
+  "badge": {
+   "x": 95.8,
+   "y": 95.91
+  },
+  "planten": [
+   "azarooldoorn"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 95.8,
+   "y": 95.91
+  }
+ },
+ {
+  "id": "heester-k-1",
+  "label": "K",
+  "soort": "heester",
+  "badge": {
+   "x": 112.85,
+   "y": 99.62
+  },
+  "planten": [
+   "kardinaalmuts"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 112.85,
+   "y": 99.62
+  }
+ },
+ {
+  "id": "heester-m-1",
+  "label": "M",
+  "soort": "heester",
+  "badge": {
+   "x": 127.05,
+   "y": 105.13
+  },
+  "planten": [
+   "witte-moerbei"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 127.05,
+   "y": 105.13
+  }
+ },
+ {
+  "id": "heester-d-1",
+  "label": "D",
+  "soort": "heester",
+  "badge": {
+   "x": 114.16,
+   "y": 114.0
+  },
+  "planten": [
+   "meidoorn"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 114.16,
+   "y": 114.0
+  }
+ },
+ {
+  "id": "heester-k-2",
+  "label": "K",
+  "soort": "heester",
+  "badge": {
+   "x": 123.8,
+   "y": 125.12
+  },
+  "planten": [
+   "kardinaalmuts"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 123.8,
+   "y": 125.12
+  }
+ },
+ {
+  "id": "heester-s-1",
+  "label": "S",
+  "soort": "heester",
+  "badge": {
+   "x": 131.53,
+   "y": 118.38
+  },
+  "planten": [
+   "spaanse-aak"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 131.53,
+   "y": 118.38
+  }
+ },
+ {
+  "id": "heester-w-1",
+  "label": "W",
+  "soort": "heester",
+  "badge": {
+   "x": 128.54,
+   "y": 137.46
+  },
+  "planten": [
+   "wegedoorn"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 128.54,
+   "y": 137.46
+  }
+ },
+ {
+  "id": "heester-s-2",
+  "label": "S",
+  "soort": "heester",
+  "badge": {
+   "x": 133.95,
+   "y": 149.9
+  },
+  "planten": [
+   "spaanse-aak"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 133.95,
+   "y": 149.9
+  }
+ },
+ {
+  "id": "heester-k-3",
+  "label": "K",
+  "soort": "heester",
+  "badge": {
+   "x": 143.09,
+   "y": 133.28
+  },
+  "planten": [
+   "kardinaalmuts"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 143.09,
+   "y": 133.28
+  }
+ },
+ {
+  "id": "heester-w-2",
+  "label": "W",
+  "soort": "heester",
+  "badge": {
+   "x": 151.28,
+   "y": 130.33
+  },
+  "planten": [
+   "wegedoorn"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 151.28,
+   "y": 130.33
+  }
+ },
+ {
+  "id": "heester-w-3",
+  "label": "W",
+  "soort": "heester",
+  "badge": {
+   "x": 148.27,
+   "y": 145.87
+  },
+  "planten": [
+   "wegedoorn"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 148.27,
+   "y": 145.87
+  }
+ },
+ {
+  "id": "heester-k-4",
+  "label": "K",
+  "soort": "heester",
+  "badge": {
+   "x": 143.28,
+   "y": 160.33
+  },
+  "planten": [
+   "kardinaalmuts"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 143.28,
+   "y": 160.33
+  }
+ },
+ {
+  "id": "heester-s-3",
+  "label": "S",
+  "soort": "heester",
+  "badge": {
+   "x": 141.88,
+   "y": 182.45
+  },
+  "planten": [
+   "spaanse-aak"
+  ],
+  "vorm": {
+   "type": "punt",
+   "x": 141.88,
+   "y": 182.45
+  }
+ }
+]
