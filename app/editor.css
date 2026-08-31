@@ -44,3 +44,29 @@
 .plant-form-actions .primary-action{min-height:53px;white-space:nowrap}
 @media(max-width:900px){.automatic-creator{grid-template-columns:1fr}.plant-creator{padding:23px}}
 @media(max-width:650px){.manage-mode-bar{width:100%;margin-top:25px}.manage-mode-bar button{flex:1;padding:11px 8px}.creator-mode-switch{overflow:auto}.creator-mode-switch button{white-space:nowrap}.plant-field-grid{grid-template-columns:1fr}.plant-field.wide{grid-column:auto}.plant-form-actions{align-items:stretch;flex-direction:column}.plant-form-actions .primary-action{width:100%}.prompt-card{padding:17px}.prompt-card-head{display:block}.prompt-card-head button{margin-bottom:10px}.plant-creator-intro h2{font-size:32px}}
+
+/* Weener XL huisstijl voor werkbladen en beheer */
+.editor-steps li{background:var(--wx-blue-tint);color:var(--wx-muted);border-radius:14px 14px 14px 5px}
+.editor-steps li.active{background:var(--wx-dark-blue);color:#fff}
+.editor-steps li.active b{background:var(--wx-bright-green);color:var(--wx-dark-blue)}
+.placement-editor>aside,.editor-panel,.review-card,.success-card,.plant-creator{border-radius:22px 22px 22px 7px;box-shadow:0 5px 22px #1e3a6a14}
+.placement-editor label,.add-plant label,.plant-field{color:var(--wx-dark-blue)}
+.placement-editor select,.add-plant select,.plant-field input,.plant-field textarea,.prompt-input-card textarea{border-color:var(--wx-border);border-radius:12px 12px 12px 4px;color:var(--wx-dark-blue);background:#F7FAFD}
+.placement-editor select:focus,.add-plant select:focus,.plant-field input:focus,.plant-field textarea:focus,.prompt-input-card textarea:focus{outline:3px solid #4be16e66;border-color:var(--wx-dark-green)}
+.add-plant button,.primary-action,.prompt-card-head button{background:var(--wx-dark-green);border-radius:12px 12px 12px 4px}
+.add-plant button:hover,.primary-action:hover,.prompt-card-head button:hover{background:var(--wx-dark-blue)}
+.draft-plants button{background:var(--wx-fuchsia-tint);color:var(--wx-fuchsia)}
+.review-card section{background:var(--wx-green-tint);border-color:var(--wx-bright-green)}
+.review-card section.removed{background:var(--wx-fuchsia-tint);border-color:var(--wx-fuchsia)}
+.review-note,.prompt-card{background:var(--wx-blue-tint);color:var(--wx-muted)}
+.error-message,.creator-error{color:var(--wx-fuchsia)!important;background:var(--wx-fuchsia-tint)}
+.success-card>span{background:var(--wx-bright-green);color:var(--wx-dark-blue)}
+.success-card button{border-color:var(--wx-dark-blue);color:var(--wx-dark-blue)}
+.success-card button:first-child{background:var(--wx-dark-blue)}
+.manage-mode-bar{background:var(--wx-blue-tint);border-radius:15px 15px 15px 5px}
+.manage-mode-bar button{color:var(--wx-dark-blue);border-radius:11px}
+.manage-mode-bar button.active{background:var(--wx-dark-blue)}
+.creator-mode-switch button{color:var(--wx-muted)}
+.creator-mode-switch button.active{border-color:var(--wx-bright-green);color:var(--wx-dark-blue)}
+.creator-notice{background:var(--wx-green-tint);color:var(--wx-dark-green)}
+.prompt-input-card{background:var(--wx-green-tint)}

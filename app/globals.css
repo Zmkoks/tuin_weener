@@ -7,3 +7,58 @@
 .map-card img,.large-map img{height:auto;object-fit:contain;display:block}
 .map-card span{line-height:1.2}
 .large-map{height:auto;min-height:0;display:flex;justify-content:center;align-items:flex-start}
+
+/* Weener XL huisstijl */
+@font-face{font-family:Poppins;src:url('/Poppins-Regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:Poppins;src:url('/Poppins-SemiBold.ttf') format('truetype');font-style:normal;font-weight:600;font-display:swap}
+@font-face{font-family:RalewayWX;src:url('/Raleway-Bold.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+:root{--wx-bright-green:#4BE16E;--wx-dark-green:#005D55;--wx-dark-blue:#1E3A6A;--wx-blue:#689CD4;--wx-yellow:#FDC743;--wx-fuchsia:#BA2973;--wx-page:#F3F7FB;--wx-blue-tint:#E8F0F8;--wx-green-tint:#E9FBED;--wx-fuchsia-tint:#FAEAF2;--wx-border:#CAD8E6;--wx-muted:#52667D;--wx-white:#fff}
+body{background:var(--wx-page);color:var(--wx-dark-blue);font-family:Poppins,Arial,sans-serif}
+button,input,select,textarea{font-family:Poppins,Arial,sans-serif}
+h1,h2,.brand strong{font-family:RalewayWX,Arial,sans-serif;font-weight:700}
+.topbar{height:92px;padding:0 max(32px,5vw);border-color:var(--wx-border)}
+.brand{gap:14px;color:var(--wx-dark-blue);padding:12px 18px 12px 12px;margin-left:-12px;border-radius:18px}
+.brand:focus-visible{outline:3px solid var(--wx-bright-green);outline-offset:3px}
+.brand span{width:46px;height:46px;border-radius:14px 14px 14px 5px;background:var(--wx-bright-green);color:var(--wx-dark-blue);font-family:RalewayWX,Arial,sans-serif;font-size:24px}
+.topbar nav button,.manage{border-radius:14px;font-weight:600;color:var(--wx-dark-blue)}
+.topbar nav button:hover{background:var(--wx-blue-tint)}
+.topbar nav .active{background:var(--wx-dark-blue);color:#fff}
+.manage{background:var(--wx-dark-green);color:#fff;padding-inline:19px}
+.manage:hover{background:var(--wx-dark-blue)}
+.hero{background:linear-gradient(118deg,var(--wx-green-tint) 0 48%,var(--wx-page) 48% 100%)}
+.eyebrow,.number{color:var(--wx-dark-green)}
+.lead,.plant-card p,.task-grid small,.results,.terms dd,.zone-plant small,.passport-grid p,.pdf-list small{color:var(--wx-muted)}
+.hero h1,.workspace h1{letter-spacing:-.035em;color:var(--wx-dark-blue)}
+.hero-actions button,.notice button,.close{background:var(--wx-dark-blue)}
+.hero-actions .secondary{color:var(--wx-dark-blue);border-color:var(--wx-dark-blue);background:#fff}
+.hero-actions button:hover,.notice button:hover{background:var(--wx-dark-green)}
+.map-card,.large-map,.editor-map{background:var(--wx-blue-tint);border-radius:30px 30px 30px 8px;box-shadow:0 16px 42px #1e3a6a1f}
+.map-card span{border-radius:14px 14px 14px 5px;color:var(--wx-dark-blue)}
+.stats{background:var(--wx-dark-blue)}
+.stats b{color:var(--wx-bright-green)}
+.search{border-color:var(--wx-border);border-radius:14px;background:#fff}
+.search:focus-within{outline:3px solid #4be16e66;border-color:var(--wx-dark-green)}
+.filters button,.zone-buttons button{border-color:var(--wx-border);color:var(--wx-dark-blue);border-radius:13px}
+.filters button:hover,.zone-buttons button:hover{border-color:var(--wx-blue);background:var(--wx-blue-tint)}
+.filters .selected,.zone-buttons .selected{background:var(--wx-dark-blue);border-color:var(--wx-dark-blue)}
+.plant-card,.task-grid>button,.zone-result,.terms>div,.passport-grid section,.pdf-list a{border-radius:20px 20px 20px 6px;box-shadow:0 4px 18px #1e3a6a14}
+.plant-card button,.pdf-list strong{color:var(--wx-dark-green)}
+.plant-card:hover{box-shadow:0 12px 28px #1e3a6a24}
+.pill{border-radius:10px 10px 10px 3px;background:var(--wx-green-tint);color:var(--wx-dark-green)}
+.task-grid>button{color:var(--wx-dark-blue)}
+.task-grid>button>span{color:var(--wx-dark-green)}
+.zone-plant{color:var(--wx-dark-blue)}
+.notice{background:var(--wx-blue-tint);border-radius:22px 22px 22px 7px}
+.pdf-list a>span{background:var(--wx-dark-blue);border-radius:12px 12px 12px 4px}
+.modal-backdrop{background:#10284db8}
+.passport{background:var(--wx-page);border-radius:28px 28px 28px 8px}
+.passport-grid .allowed{border-color:var(--wx-bright-green);background:var(--wx-green-tint)}
+.passport-grid .forbidden{border-color:var(--wx-fuchsia);background:var(--wx-fuchsia-tint)}
+.passport-grid .fact{background:var(--wx-yellow)}
+.calendar-row i.grow{background:var(--wx-bright-green)}
+.calendar-row i.bloom{background:var(--wx-blue)}
+.calendar-row i.harvest{background:var(--wx-yellow)}
+.calendar-row i.prune{background:var(--wx-fuchsia)}
+.calendar-row i.rest{background:#BFC9D5}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--wx-bright-green);outline-offset:3px}
+@media(max-width:650px){.topbar{height:76px;padding:0 18px}.brand{padding:7px 9px 7px 7px;margin-left:-7px}.brand span{width:40px;height:40px}.hero{background:var(--wx-green-tint)}}
