@@ -9,3 +9,10 @@ export const zonePlants = sqliteTable(
   },
   (table) => [primaryKey({ columns: [table.zoneId, table.plantSlug] })],
 );
+
+export const customPlants = sqliteTable('custom_plants', {
+  slug: text('slug').primaryKey(),
+  plantJson: text('plant_json').notNull(),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});

@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-import plants from '@/app/data/planten.json';
 import zones from '@/app/data/tuin.json';
 import { readPlacements, replaceZonePlants } from '@/db/garden';
+import { readAllPlants } from '@/db/plants';
 
 const validZones = new Set(zones.map((zone) => zone.id));
-const validPlants = new Set(plants.map((plant) => plant.slug));
 
 export async function GET() {
   try {
@@ -17,6 +16,7 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     const body = await request.json() as { zoneId?: unknown; plantSlugs?: unknown };
+    const validPlants = new Set((await readAllPlants()).map((plant) => plant.slug));
     if (typeof body.zoneId !== 'string' || !validZones.has(body.zoneId)) {
       return NextResponse.json({ error: 'Deze tuinplek bestaat niet.' }, { status: 400 });
     }
