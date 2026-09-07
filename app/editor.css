@@ -1,46 +1,117 @@
-.editor-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;list-style:none;padding:0;margin:42px 0 24px}.editor-steps li{display:flex;align-items:center;gap:10px;background:#ebe9e1;color:#74817c;border-radius:15px;padding:14px;font-weight:750}.editor-steps li b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#d5d9d5}.editor-steps li.active{background:#dfe9d9;color:#163d31}.editor-steps li.active b{background:#163d31;color:#fff}.placement-editor{display:grid;grid-template-columns:minmax(300px,.75fr) minmax(420px,1.25fr);gap:24px}.placement-editor>aside,.editor-panel,.review-card,.success-card{background:#fff;border-radius:24px;padding:26px;box-shadow:0 5px 22px #254a3419}.placement-editor label,.add-plant label{display:block;font-weight:850;margin-bottom:9px}.placement-editor select,.add-plant select{width:100%;min-height:50px;border:1.5px solid #b9c7c0;border-radius:13px;background:#fff;padding:0 14px;color:#163d31}.editor-map{height:370px;margin-top:18px;border-radius:18px;overflow:hidden;background:#dfe9d9}.editor-map img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}.editor-panel h2,.review-card h2,.success-card h2{font-size:35px;margin:12px 0}.draft-plants{margin:16px 0}.draft-plants>div{display:flex;align-items:center;gap:13px;border-top:1px solid #e4e8e5;padding:12px 0}.draft-plants img{width:54px;height:54px;border-radius:12px;object-fit:cover}.draft-plants span{flex:1}.draft-plants small{display:block;color:#71827c;margin-top:3px}.draft-plants button{border:0;background:#faedf2;color:#9c2856;border-radius:99px;padding:9px 13px;font-weight:800}.empty{padding:18px;border-radius:14px;background:#f4f4ef;color:#68766f}.add-plant{border-top:2px solid #e5e9e6;padding-top:20px}.add-plant>div{display:grid;grid-template-columns:1fr auto;gap:9px}.add-plant button,.primary-action{border:0;border-radius:13px;background:#163d31;color:#fff;padding:0 18px;font-weight:850}.add-plant button:disabled,.primary-action:disabled{opacity:.45;cursor:not-allowed}.primary-action{min-height:52px;padding:0 22px;margin-top:22px}.review-card{max-width:720px;margin:0 auto}.review-card section{background:#eaf8ed;border-left:6px solid #48be6c;border-radius:14px;padding:15px 20px;margin:16px 0}.review-card section.removed{background:#faedf2;border-color:#c63871}.review-card h3{margin:0 0 8px}.review-card p{margin:5px 0;text-transform:capitalize}.review-note{padding:16px;border-radius:14px;background:#f3f0e6;color:#536860}.review-actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.review-actions>button:first-child{border:0;background:transparent;color:#163d31;font-weight:800}.review-actions .primary-action{margin:0}.error-message{color:#a4214e!important;font-weight:800}.success-card{text-align:center;max-width:650px;margin:0 auto;padding:45px}.success-card>span{display:grid;place-items:center;width:68px;height:68px;border-radius:50%;background:#4ac978;color:#fff;font-size:35px;margin:0 auto}.success-card p{color:#567067;font-size:18px}.success-card>div{display:flex;justify-content:center;gap:10px;margin-top:25px}.success-card button{border:2px solid #163d31;border-radius:99px;background:#fff;color:#163d31;padding:12px 18px;font-weight:850}.success-card button:first-child{background:#163d31;color:#fff}@media(max-width:900px){.placement-editor{grid-template-columns:1fr}.editor-map{height:300px}}@media(max-width:650px){.editor-steps{grid-template-columns:1fr}.editor-steps li{padding:9px 12px}.placement-editor>aside,.editor-panel,.review-card,.success-card{padding:18px}.editor-map{height:230px}.add-plant>div{grid-template-columns:1fr}.add-plant button{min-height:48px}.review-actions,.success-card>div{flex-direction:column}.review-actions button,.success-card button{min-height:48px}}
-.editor-map{height:auto;min-height:0;display:flex;justify-content:center;align-items:flex-start;line-height:0}
-.editor-map img{height:auto;object-fit:contain;display:block}
-.manage-mode-bar{display:flex;flex-wrap:wrap;gap:9px;margin:34px 0 24px;padding:6px;border-radius:17px;background:#e9eee8;width:fit-content}
-.manage-mode-bar button{border:0;border-radius:12px;background:transparent;color:#557066;padding:12px 17px;font-weight:850}
-.manage-mode-bar button.active{background:#163d31;color:#fff;box-shadow:0 3px 10px #163d3130}
-.plant-creator{background:#fff;border-radius:26px;padding:30px;box-shadow:0 5px 22px #254a3419}
+/* Opmaak van het plantformulier (plantFormulier.tsx) en de plantmaker (PlantCreator.tsx).
+   Het oude beheerscherm met "bestaande plek aanpassen" is vervallen; de opmaak van het
+   nieuwe beheren staat in beheer.css. */
+.add-plant button,.primary-action{border:0;border-radius:13px;background:var(--blauw);color:#fff;padding:0 18px;font-weight:850}.add-plant button:disabled,.primary-action:disabled{opacity:.45;cursor:not-allowed}.primary-action{min-height:52px;padding:0 22px;margin-top:22px}.review-actions .primary-action{margin:0}
+.plant-creator{background:#fff;border-radius:26px;padding:30px;box-shadow:0 5px 22px #1e3a6a19}
 .plant-creator-intro{max-width:760px}
 .plant-creator-intro h2{font-size:38px;margin:12px 0 7px}
-.plant-creator-intro p{color:#5b7169;line-height:1.6;font-size:17px}
-.creator-mode-switch{display:flex;gap:8px;margin:28px 0 25px;border-bottom:1px solid #e0e7e1}
-.creator-mode-switch button{border:0;border-bottom:3px solid transparent;background:transparent;color:#5c7169;padding:12px 15px;font-weight:850}
-.creator-mode-switch button.active{border-color:#d27938;color:#163d31}
+.plant-creator-intro p{color:var(--grijs);line-height:1.6;font-size:17px}
+.creator-mode-switch{display:flex;gap:8px;margin:28px 0 25px;border-bottom:1px solid var(--lijn)}
+.creator-mode-switch button{border:0;border-bottom:3px solid transparent;background:transparent;color:var(--grijs);padding:12px 15px;font-weight:850}
+.creator-mode-switch button.active{border-color:var(--fris);color:var(--blauw)}
 .creator-error,.creator-notice{padding:14px 17px;border-radius:13px;font-weight:750;margin:14px 0}
-.creator-error{background:#faedf2;color:#9c2856}
-.creator-notice{background:#eaf8ed;color:#24643d}
+.creator-error{background:rgba(186,41,115,.07);color:var(--roze)}
+.creator-notice{background:rgba(74,224,110,.1);color:var(--groen)}
 .automatic-creator{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:20px}
-.prompt-card{background:#f5f3ec;border-radius:18px;padding:21px}
+.recognition-help{margin:0 0 20px;border:1px solid var(--lijn);border-radius:14px;background:var(--licht)}
+.recognition-help summary,.media-help-grid>details>summary,.symbool-routes>details>summary{cursor:pointer;list-style:none;padding:16px 48px 16px 17px;color:var(--blauw);font-weight:850;position:relative}
+.recognition-help summary::-webkit-details-marker,.media-help-grid summary::-webkit-details-marker,.symbool-routes summary::-webkit-details-marker{display:none}
+.recognition-help summary:after,.media-help-grid>details>summary:after,.symbool-routes>details>summary:after{content:'›';position:absolute;right:18px;top:50%;font-size:28px;line-height:1;transform:translateY(-50%) rotate(90deg);transition:transform .15s}
+.recognition-help[open] summary:after,.media-help-grid>details[open]>summary:after,.symbool-routes>details[open]>summary:after{transform:translateY(-50%) rotate(-90deg)}
+.recognition-help summary span,.media-help-grid summary span,.symbool-routes summary span{display:block;margin-bottom:3px;color:var(--groen);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.recognition-help>div,.media-help-grid>details>div,.symbool-routes>details>div{padding:0 17px 17px}
+.recognition-help p{color:var(--grijs);line-height:1.55}.recognition-help a{color:var(--groen);font-weight:750}
+.prompt-card{background:var(--licht);border-radius:18px;padding:21px}
 .prompt-card-head{display:flex;justify-content:space-between;gap:15px;align-items:start}
 .prompt-card h3{font-size:24px;margin:7px 0 12px}
-.prompt-card .number{font-size:11px;letter-spacing:.15em;font-weight:900;color:#d27938}
-.prompt-card-head button{border:0;border-radius:99px;padding:10px 14px;background:#163d31;color:#fff;font-weight:850;white-space:nowrap}
-.prompt-card pre{margin:0;background:#fff;border:1px solid #dce4dc;border-radius:12px;padding:15px;max-height:450px;overflow:auto;white-space:pre-wrap;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;color:#294e40}
-.prompt-card>small{display:block;margin-top:12px;color:#687a72;line-height:1.5}
-.prompt-input-card{background:#dfe9d9}
-.prompt-input-card p{color:#526c61;line-height:1.5}
-.prompt-input-card textarea{width:100%;resize:vertical;border:1px solid #b8c9bd;border-radius:12px;padding:14px;background:#fff;color:#163d31;line-height:1.5}
+.prompt-card .number{font-size:11px;letter-spacing:.15em;font-weight:900;color:var(--groen)}
+.prompt-card-head button{border:0;border-radius:99px;padding:10px 14px;background:var(--blauw);color:#fff;font-weight:850;white-space:nowrap}
+.prompt-card pre{margin:0;background:#fff;border:1px solid var(--lijn);border-radius:12px;padding:15px;max-height:450px;overflow:auto;white-space:pre-wrap;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--blauw)}
+.prompt-card>small{display:block;margin-top:12px;color:var(--grijs);line-height:1.5}
+.prompt-input-card{background:rgba(74,224,110,.1)}
+.prompt-input-card p{color:var(--grijs);line-height:1.5}
+.prompt-input-card textarea{width:100%;resize:vertical;border:1px solid #cbd5e1;border-radius:12px;padding:14px;background:#fff;color:var(--blauw);line-height:1.5}
 .prompt-input-card .primary-action{width:100%;min-height:50px;margin-top:12px}
 .plant-form{display:grid;gap:18px}
-.plant-form-section{border-top:1px solid #e1e8e2;padding-top:22px}
+.plant-form-section{border-top:1px solid var(--lijn);padding-top:22px}
 .plant-form-section:first-child{border-top:0;padding-top:0}
 .plant-form-section h3{font-size:23px;margin:0 0 16px}
 .plant-field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.plant-field{display:block;color:#254e40;font-weight:800}
+.plant-field{display:block;color:var(--blauw);font-weight:800}
 .plant-field.wide{grid-column:1/-1}
 .plant-field>span{display:block;margin-bottom:7px}
-.plant-field input,.plant-field textarea{display:block;width:100%;border:1.5px solid #bac9c0;border-radius:12px;background:#fff;padding:12px 13px;color:#163d31}
+.plant-field input,.plant-field textarea{display:block;width:100%;border:1.5px solid #cbd5e1;border-radius:12px;background:#fff;padding:12px 13px;color:var(--blauw)}
 .plant-field textarea{resize:vertical;line-height:1.45;min-height:90px}
-.plant-field input:focus,.plant-field textarea:focus,.prompt-input-card textarea:focus{outline:3px solid #f2c94c66;border-color:#163d31}
-.plant-field small{display:block;margin-top:6px;color:#6c7e76;font-weight:500;line-height:1.35}
-.field-note{margin:14px 0 0;color:#657970;line-height:1.5}
-.plant-form-actions{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:2px solid #e2e8e3;padding-top:20px}
-.plant-form-actions p{margin:0;color:#61756d;line-height:1.45}
+.plant-field input:focus,.plant-field textarea:focus,.prompt-input-card textarea:focus{outline:3px solid rgba(253,199,67,.4);border-color:var(--blauw)}
+.plant-field small{display:block;margin-top:6px;color:var(--grijs);font-weight:500;line-height:1.35}
+.field-note{margin:14px 0 0;color:var(--grijs);line-height:1.5}
+.plant-form-actions{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:2px solid var(--lijn);padding-top:20px}
+.plant-form-actions p{margin:0;color:var(--grijs);line-height:1.45}
 .plant-form-actions .primary-action{min-height:53px;white-space:nowrap}
 @media(max-width:900px){.automatic-creator{grid-template-columns:1fr}.plant-creator{padding:23px}}
-@media(max-width:650px){.manage-mode-bar{width:100%;margin-top:25px}.manage-mode-bar button{flex:1;padding:11px 8px}.creator-mode-switch{overflow:auto}.creator-mode-switch button{white-space:nowrap}.plant-field-grid{grid-template-columns:1fr}.plant-field.wide{grid-column:auto}.plant-form-actions{align-items:stretch;flex-direction:column}.plant-form-actions .primary-action{width:100%}.prompt-card{padding:17px}.prompt-card-head{display:block}.prompt-card-head button{margin-bottom:10px}.plant-creator-intro h2{font-size:32px}}
+@media(max-width:650px){.creator-mode-switch{overflow:auto}.creator-mode-switch button{white-space:nowrap}.plant-field-grid{grid-template-columns:1fr}.plant-field.wide{grid-column:auto}.plant-form-actions{align-items:stretch;flex-direction:column}.plant-form-actions .primary-action{width:100%}.prompt-card{padding:17px}.prompt-card-head{display:block}.prompt-card-head button{margin-bottom:10px}.plant-creator-intro h2{font-size:32px}}
+
+/* Foto en illustratie kiezen en bijstellen (AfbeeldingVeld.tsx). Links het voorbeeld in
+   dezelfde vorm als op de plantenpagina, rechts de knoppen en de schuiven. */
+.afbeelding-veld{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:22px;align-items:start;padding:20px 0;border-top:1px solid var(--lijn)}
+.afbeelding-veld:first-of-type{border-top:0;padding-top:0}
+.afbeelding-leeg{color:var(--lucht);font-weight:750;font-size:13px;text-align:center;padding:0 12px}
+.afbeelding-knoppen h4{margin:0 0 12px;font-family:Raleway,Arial,sans-serif;font-size:20px;color:var(--blauw)}
+.afbeelding-knoppen>button{min-height:46px;border:0;border-radius:12px;background:var(--blauw);color:#fff;padding:0 18px;font-weight:800}
+.afbeelding-knoppen>button:disabled{opacity:.45;cursor:not-allowed}
+.afbeelding-knoppen .afbeelding-terug{display:block;min-height:0;margin-top:8px;padding:0;background:none;color:var(--groen);font-weight:750}
+.afbeelding-schuif{display:block;margin-top:14px}
+.afbeelding-schuif span{display:block;margin-bottom:4px;color:var(--blauw);font-weight:750;font-size:14px}
+.afbeelding-schuif span b{color:var(--groen)}
+.afbeelding-schuif input{width:100%;max-width:340px;display:block}
+.afbeelding-knoppen .plant-field{margin-top:16px}
+@media(max-width:650px){.afbeelding-veld{grid-template-columns:1fr}.afbeelding-voorbeeld{width:150px;height:150px}}
+/* Is er een eigen bestand, dan staan de twee mogelijkheden naast elkaar en klik je aan
+   welke geldt. De gekozen krijgt een groene rand, de andere vervaagt. */
+.symbool-veld{grid-template-columns:1fr}
+.media-intro{max-width:760px;color:var(--grijs);line-height:1.6;margin:0 0 20px}
+.media-help-grid,.symbool-routes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:20px}
+.media-help-grid>details,.symbool-routes>details{border:1px solid var(--lijn);border-radius:14px;background:#fff}
+.media-help-grid h4,.symbool-uitleg h4,.symbool-routes h5{margin:0 0 8px;color:var(--blauw)}
+.media-help-grid p,.symbool-uitleg p,.symbool-routes p,.symbool-routes li{color:var(--grijs);line-height:1.55}
+.media-help-grid a,.symbool-routes a{color:var(--groen);font-weight:750}
+.symbool-uitleg{padding-bottom:20px;border-bottom:1px solid var(--lijn)}
+.symbool-routes{margin:16px 0 0}
+.symbool-routes article:last-child{grid-column:auto}
+.symbool-routes ol{padding-left:21px}
+.symbool-routes li+li{margin-top:7px}
+.symbool-routes button{border:0;border-radius:99px;padding:10px 14px;background:var(--blauw);color:#fff;font-weight:850}
+.symbool-routes details{margin-top:13px}
+.symbool-routes summary{cursor:pointer;color:var(--blauw);font-weight:750}
+.symbool-routes pre{max-height:300px;overflow:auto;white-space:pre-wrap;background:var(--licht);border-radius:10px;padding:12px;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+@media(max-width:650px){.media-help-grid,.symbool-routes{grid-template-columns:1fr}}
+.beeldkeuzes{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px}
+.beeldkeuze{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;border:1px solid var(--lijn);border-radius:18px;background:#fff;cursor:pointer;transition:border-color .15s,opacity .15s}
+.beeldkeuze:not(.gekozen):not(.enkel){opacity:.45}
+.beeldkeuze:hover{opacity:1;border-color:var(--fris)}
+.beeldkeuze.gekozen{border-color:var(--fris);box-shadow:0 0 0 2px rgba(74,224,110,.25);opacity:1}
+.beeldkeuze:focus-visible{outline:2px solid var(--roze);outline-offset:2px}
+.beeldkeuze.enkel{cursor:default;padding:0;border:0;background:none}
+.beeldkeuze-label{font-size:11px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--lucht)}
+.beeldkeuze.gekozen .beeldkeuze-label{color:var(--groen)}
+
+/* Het kader heeft een vaste maat en knipt af; de afbeelding vult het en beweegt eronder.
+   Zou de zoom op de afbeelding zelf staan, dan groeide het kader mee en werd er niets
+   afgesneden - dat is precies wat de zoom hoort te doen. */
+.beeldvlak{display:block;width:150px;height:150px;overflow:hidden;background:var(--licht)}
+.beeldvlak.foto{border-radius:50%;border:4px solid var(--fris)}
+.beeldvlak.illustratie{border-radius:14px}
+.beeldvlak>img{display:block;width:100%;height:100%}
+.beeldvlak.foto>img{object-fit:cover}
+.beeldvlak.illustratie>img{object-fit:contain}
+.beeldvlak .afbeelding-leeg{display:grid;place-items:center;width:100%;height:100%;text-align:center;padding:0 12px}
+/* De symbolen zijn los aan te vinken: meerdere mogen tegelijk aanstaan, want de
+   plattegrond kiest er per plant zelf uit. */
+.symbool-keuzes{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px}
+.symbool-tegel{display:flex;align-items:flex-end;justify-content:center;height:104px;width:88px}
+.symbool-tegel svg,.symbool-tegel img{height:100%;max-width:100%;object-fit:contain;display:block}
+.symbool-leeg{color:var(--lucht);font-size:13px;font-weight:750;padding:30px 10px;text-align:center}
+.symbool-teller{margin:0 0 12px;color:var(--groen);font-weight:750;font-size:14px}
+
+/* De kopieerknop is de eerste stap van de LLM-route; die moet je niet hoeven zoeken. */
+.prompt-card-head .prompt-kopieer{min-height:52px;padding:0 22px;font-size:16px;border-radius:14px;box-shadow:0 4px 14px #1e3a6a30}

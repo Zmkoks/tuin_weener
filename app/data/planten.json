@@ -8,10 +8,14 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets. Controleer vaker wanneer er aardbeien groeien.",
   "zon": "zon",
   "zonInfo": "Groeit en rijpt het beste in de zon. Lichte halfschaduw kan ook, maar geeft vaak minder vruchten.",
-  "functies": [
-   "fruit",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "fruit"
+   ],
+   "secundair": [
+    "insecten"
+   ]
+  },
   "oogstTijd": [
    "Mei",
    "Juni",
@@ -50,7 +54,21 @@
   "botanischeNaam": "Fragaria × ananassa (Duchesne ex Weston) Duchesne ex Rozier",
   "commons": "https://commons.wikimedia.org/wiki/Category:Fragaria_%C3%97_ananassa",
   "intro": "De aardbei geeft zoete rode vruchten in de vroege zomer. De witte bloemen zijn geliefd bij bijen en hommels.",
-  "weetje": "De aardbei is geen echte bes. Het rode deel is de bloembodem; de gele zaadjes aan de buitenkant zijn de eigenlijke vruchtjes."
+  "weetje": "De aardbei is geen echte bes. Het rode deel is de bloembodem; de gele zaadjes aan de buitenkant zijn de eigenlijke vruchtjes.",
+  "foto": {
+   "bestand": "",
+   "x": 27,
+   "y": 35,
+   "zoom": 1.06,
+   "bron": "https://plants.ces.ncsu.edu/plants/fragaria-x-ananassa/"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=45331896"
+  }
  },
  {
   "slug": "bosbes",
@@ -61,11 +79,15 @@
   "waterInfo": "Voel eerst de grond. Geef water zodra de bovenste laag droog is. Houd de grond licht vochtig, vooral wanneer de bessen groeien, maar laat geen plas staan.",
   "zon": "zon",
   "zonInfo": "Staat goed in de zon of halfschaduw. Heeft zure grond nodig en verdraagt kalkrijke grond slecht.",
-  "functies": [
-   "fruit",
-   "vogel",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "fruit"
+   ],
+   "secundair": [
+    "vogel",
+    "insecten"
+   ]
+  },
   "oogstTijd": [
    "Juli",
    "Augustus",
@@ -102,7 +124,21 @@
   "botanischeNaam": "Vaccinium corymbosum L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Vaccinium_corymbosum",
   "intro": "De bosbes is een struik met blauwe, zoete bessen in de nazomer. In de herfst kleurt het blad mooi rood.",
-  "weetje": "Het blauwe waas op een bosbes is een natuurlijk waslaagje dat de bes beschermt. Poets je het weg, dan is de bes eronder bijna zwart."
+  "weetje": "Het blauwe waas op een bosbes is een natuurlijk waslaagje dat de bes beschermt. Poets je het weg, dan is de bes eronder bijna zwart.",
+  "foto": {
+   "bestand": "",
+   "x": 91,
+   "y": 0,
+   "zoom": 0.94,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=1764936"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/wiki/File:203_Vaccinium_Murtillus_L.jpg"
+  }
  },
  {
   "slug": "bieslook",
@@ -113,10 +149,14 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
   "zon": "halfschaduw",
   "zonInfo": "Groeit in de zon en in halfschaduw. Op een zeer hete plek droogt de grond sneller uit.",
-  "functies": [
-   "kruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "kruid"
+   ],
+   "secundair": [
+    "insecten"
+   ]
+  },
   "oogstTijd": [
    "April",
    "Mei",
@@ -161,7 +201,21 @@
   "botanischeNaam": "Allium schoenoprasum L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Allium_schoenoprasum",
   "intro": "Bieslook groeit als een pol groene sprieten die naar ui smaken. De paarse bolbloemen worden druk bezocht door bijen.",
-  "weetje": "Bieslook is familie van de ui en de knoflook. De paarse bloemen kun je gewoon eten — ze smaken zacht naar ui en staan mooi op een salade."
+  "weetje": "Bieslook is familie van de ui en de knoflook. De paarse bloemen kun je gewoon eten — ze smaken zacht naar ui en staan mooi op een salade.",
+  "foto": {
+   "bestand": "",
+   "x": 52,
+   "y": 100,
+   "zoom": 1.23,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=58878873"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=4064771"
+  }
  },
  {
   "slug": "kiwi",
@@ -172,10 +226,14 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral tijdens warm weer en wanneer vruchten groeien. Is de grond nog vochtig, geef dan niets.",
   "zon": "zon",
   "zonInfo": "Staat het liefst zonnig, warm en beschut bij een stevig rek, een schutting of een muur.",
-  "functies": [
-   "sier",
-   "fruit"
-  ],
+  "functies": {
+   "primair": [
+    "sier"
+   ],
+   "secundair": [
+    "fruit"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [
@@ -215,7 +273,21 @@
   "botanischeNaam": "Actinidia chinensis Planch.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Actinidia_chinensis",
   "intro": "De kiwi is een sterke klimplant met grote, zachte bladeren. Vruchten komen alleen als er een tweede kiwiplant in de buurt staat.",
-  "weetje": "De kiwi komt oorspronkelijk uit China en heette hier vroeger \"Chinese kruisbes\". Kwekers in Nieuw-Zeeland gaven hem de naam van hun nationale vogel: de kiwi."
+  "weetje": "De kiwi komt oorspronkelijk uit China en heette hier vroeger \"Chinese kruisbes\". Kwekers in Nieuw-Zeeland gaven hem de naam van hun nationale vogel: de kiwi.",
+  "foto": {
+   "bestand": "",
+   "x": 63,
+   "y": 42,
+   "zoom": 1.07,
+   "bron": "eigen beeld"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": ""
+  }
  },
  {
   "slug": "citroenmelisse",
@@ -226,10 +298,13 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
   "zon": "zon",
   "zonInfo": "Groeit in de zon en in halfschaduw. Op een beschutte plek blijven de bladeren langer mooi.",
-  "functies": [
-   "kruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "kruid",
+    "insecten"
+   ],
+   "secundair": []
+  },
   "oogstTijd": [
    "Mei",
    "Juni",
@@ -271,7 +346,21 @@
   "botanischeNaam": "Melissa officinalis L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Melissa_officinalis",
   "intro": "Citroenmelisse ruikt bij het aanraken sterk naar citroen. De blaadjes zijn lekker in thee.",
-  "weetje": "Melissa is Grieks voor honingbij. Imkers wreven vroeger hun korven in met citroenmelisse om zwermende bijen te lokken."
+  "weetje": "Melissa is Grieks voor honingbij. Imkers wreven vroeger hun korven in met citroenmelisse om zwermende bijen te lokken.",
+  "foto": {
+   "bestand": "",
+   "x": 78,
+   "y": 22,
+   "zoom": 1.05,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=75764022"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=767482"
+  }
  },
  {
   "slug": "dragon",
@@ -282,9 +371,12 @@
   "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef pas een beetje water wanneer de grond daar droog is.",
   "zon": "zon",
   "zonInfo": "Staat graag zonnig en beschut in grond waar overtollig water makkelijk weg kan.",
-  "functies": [
-   "kruid"
-  ],
+  "functies": {
+   "primair": [
+    "kruid"
+   ],
+   "secundair": []
+  },
   "oogstTijd": [
    "Mei",
    "Juni",
@@ -327,7 +419,21 @@
   "botanischeNaam": "Artemisia dracunculus L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Artemisia_dracunculus",
   "intro": "Dragon is een keukenkruid met smalle blaadjes en een zachte anijssmaak. De plant komt elk jaar terug vanaf de basis.",
-  "weetje": "Er bestaan twee soorten dragon: Franse dragon smaakt het lekkerst maar maakt bijna nooit zaad, Russische dragon is sterker maar smaakt flauwer. De naam komt van \"draakje\" — de kronkelende wortels deden mensen aan slangen denken."
+  "weetje": "Er bestaan twee soorten dragon: Franse dragon smaakt het lekkerst maar maakt bijna nooit zaad, Russische dragon is sterker maar smaakt flauwer. De naam komt van \"draakje\" — de kronkelende wortels deden mensen aan slangen denken.",
+  "foto": {
+   "bestand": "",
+   "x": 29,
+   "y": 0,
+   "zoom": 1.24,
+   "bron": "Bron niet teruggevonden."
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=43439649"
+  }
  },
  {
   "slug": "edel-duizendblad",
@@ -338,11 +444,15 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water als de grond enkele centimeters diep droog is. Is de grond nog vochtig, geef dan niets.",
   "zon": "zon",
   "zonInfo": "Bloeit het beste in de zon, in grond waar overtollig water makkelijk weg kan.",
-  "functies": [
-   "insecten",
-   "sier",
-   "onkruid"
-  ],
+  "functies": {
+   "primair": [
+    "insecten",
+    "sier"
+   ],
+   "secundair": [
+    "onkruid"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -376,7 +486,21 @@
   "botanischeNaam": "Achillea nobilis L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Achillea_nobilis",
   "intro": "Edel duizendblad heeft fijne, geveerde blaadjes en witte bloemschermen. Zweefvliegen en bijen komen er graag op af.",
-  "weetje": "Duizendblad is genoemd naar de Griekse held Achilles, die er volgens de verhalen wonden mee verzorgde. De naam \"duizendblad\" slaat op de fijn verdeelde blaadjes."
+  "weetje": "Duizendblad is genoemd naar de Griekse held Achilles, die er volgens de verhalen wonden mee verzorgde. De naam \"duizendblad\" slaat op de fijn verdeelde blaadjes.",
+  "foto": {
+   "bestand": "",
+   "x": 31,
+   "y": 0,
+   "zoom": 1.26,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=8942374"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=18901843"
+  }
  },
  {
   "slug": "framboos",
@@ -387,10 +511,14 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral wanneer de frambozen groeien. Is de grond nog vochtig, geef dan niets.",
   "zon": "zon",
   "zonInfo": "Groeit goed in de zon en in lichte halfschaduw. Een open plek met lucht rond de takken helpt tegen schimmel.",
-  "functies": [
-   "fruit",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "fruit"
+   ],
+   "secundair": [
+    "insecten"
+   ]
+  },
   "oogstTijd": [
    "Juli",
    "Augustus",
@@ -432,7 +560,21 @@
   "botanischeNaam": "Rubus idaeus L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Rubus_idaeus",
   "intro": "De framboos maakt lange stengels die elk jaar opnieuw uit de grond komen. Rijpe frambozen laten bijna vanzelf los.",
-  "weetje": "Eén framboos is eigenlijk een trosje van tientallen mini-vruchtjes, elk met een eigen pitje. Daarom valt een framboos zo makkelijk uit elkaar."
+  "weetje": "Eén framboos is eigenlijk een trosje van tientallen mini-vruchtjes, elk met een eigen pitje. Daarom valt een framboos zo makkelijk uit elkaar.",
+  "foto": {
+   "bestand": "",
+   "x": 19,
+   "y": 2,
+   "zoom": 1.04,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=2350347"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=5771131"
+  }
  },
  {
   "slug": "knopherik",
@@ -443,10 +585,13 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water bij aanhoudende droogte en als de grond diep droog is.",
   "zon": "zon",
   "zonInfo": "Groeit op een zonnige, open plek en verdraagt arme of omgewerkte grond.",
-  "functies": [
-   "onkruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "onkruid",
+    "insecten"
+   ],
+   "secundair": []
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -481,7 +626,21 @@
   "botanischeNaam": "Raphanus raphanistrum L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Raphanus_raphanistrum",
   "intro": "Knopherik is een akkerbloem die vanzelf opkomt. Wat vroeger onkruid heette, is nu eten voor bijen en zweefvliegen.",
-  "weetje": "Zaden van knopherik kunnen tientallen jaren in de grond overleven. Wordt de grond omgewerkt, dan komen ze ineens op — daarom verschijnt deze plant \"vanzelf\"."
+  "weetje": "Zaden van knopherik kunnen tientallen jaren in de grond overleven. Wordt de grond omgewerkt, dan komen ze ineens op — daarom verschijnt deze plant \"vanzelf\".",
+  "foto": {
+   "bestand": "",
+   "x": 8,
+   "y": 21,
+   "zoom": 1.76,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=99649295"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=43560328"
+  }
  },
  {
   "slug": "lavendel",
@@ -492,11 +651,15 @@
   "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
   "zon": "zon",
   "zonInfo": "Heeft veel zon nodig en grond waar water snel uit wegloopt. Natte wintergrond is ongunstig.",
-  "functies": [
-   "sier",
-   "insecten",
-   "kruid"
-  ],
+  "functies": {
+   "primair": [
+    "sier",
+    "insecten"
+   ],
+   "secundair": [
+    "kruid"
+   ]
+  },
   "oogstTijd": [
    "Juni",
    "Juli",
@@ -532,7 +695,21 @@
   "botanischeNaam": "Lavandula angustifolia Mill.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Lavandula_angustifolia",
   "intro": "Lavendel geurt sterk en bloeit paars in de zomer. Bijen en hommels zijn er dol op.",
-  "weetje": "De naam lavendel komt van het Latijnse \"lavare\": wassen. De Romeinen deden lavendel in hun badwater."
+  "weetje": "De naam lavendel komt van het Latijnse \"lavare\": wassen. De Romeinen deden lavendel in hun badwater.",
+  "foto": {
+   "bestand": "",
+   "x": 39,
+   "y": 29,
+   "zoom": 1.1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=1830859"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=255365"
+  }
  },
  {
   "slug": "marjolein",
@@ -543,10 +720,13 @@
   "waterInfo": "Voel eerst de grond. Geef water wanneer de bovenste laag droog is. Laat de grond daarna weer iets opdrogen en laat geen water rond de wortels staan.",
   "zon": "zon",
   "zonInfo": "Staat graag zonnig en beschut in grond waar overtollig water makkelijk weg kan. Is gevoelig voor kou en natte winters.",
-  "functies": [
-   "kruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "kruid",
+    "insecten"
+   ],
+   "secundair": []
+  },
   "oogstTijd": [
    "Juni",
    "Juli",
@@ -585,7 +765,21 @@
   "botanischeNaam": "Origanum majorana L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Origanum_majorana",
   "intro": "Marjolein is familie van oregano en ruikt kruidig. De kleine bloemetjes zijn een feestmaal voor insecten.",
-  "weetje": "Marjolein is het zachtere zusje van oregano. In het oude Griekenland stond de plant symbool voor geluk."
+  "weetje": "Marjolein is het zachtere zusje van oregano. In het oude Griekenland stond de plant symbool voor geluk.",
+  "foto": {
+   "bestand": "",
+   "x": 0,
+   "y": 76,
+   "zoom": 1.09,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=61214176"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/wiki/File:Origanum_vulgare_Runeberg.jpg"
+  }
  },
  {
   "slug": "munt",
@@ -596,10 +790,14 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Houd de grond licht vochtig, maar geef niets als hij nog nat aanvoelt.",
   "zon": "halfschaduw",
   "zonInfo": "Groeit in de zon en in halfschaduw. Een bak of begrensd vak helpt om de ondergrondse uitlopers binnen de perken te houden.",
-  "functies": [
-   "kruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "kruid"
+   ],
+   "secundair": [
+    "insecten"
+   ]
+  },
   "oogstTijd": [
    "Mei",
    "Juni",
@@ -646,7 +844,21 @@
   "botanischeNaam": "Mentha spicata L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Mentha_spicata",
   "intro": "Munt groeit snel en ruikt fris. De blaadjes zijn lekker in thee.",
-  "weetje": "Munt maakt ondergrondse uitlopers en kan daarmee een hele tuin veroveren — daarom staat onze munt in een eigen bak. Zelfs een klein achtergebleven wortelstukje groeit weer uit."
+  "weetje": "Munt maakt ondergrondse uitlopers en kan daarmee een hele tuin veroveren — daarom staat onze munt in een eigen bak. Zelfs een klein achtergebleven wortelstukje groeit weer uit.",
+  "foto": {
+   "bestand": "",
+   "x": 43,
+   "y": 28,
+   "zoom": 1.29,
+   "bron": "Bron niet teruggevonden."
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=43022877"
+  }
  },
  {
   "slug": "rode-bes",
@@ -657,10 +869,14 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral wanneer de bessen groeien. Is de grond nog vochtig, geef dan niets.",
   "zon": "zon",
   "zonInfo": "Groeit in de zon en in lichte halfschaduw. Zon helpt de bessen rijpen.",
-  "functies": [
-   "fruit",
-   "vogel"
-  ],
+  "functies": {
+   "primair": [
+    "fruit"
+   ],
+   "secundair": [
+    "vogel"
+   ]
+  },
   "oogstTijd": [
    "Juni",
    "Juli",
@@ -697,7 +913,21 @@
   "botanischeNaam": "Ribes rubrum L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Ribes_rubrum",
   "intro": "De rode bes geeft trosjes glanzende, zure besjes in de zomer. Vogels zijn er net zo gek op als mensen.",
-  "weetje": "Rode besjes zijn doorschijnend: houd een trosje tegen het licht en je ziet de pitjes erin zitten."
+  "weetje": "Rode besjes zijn doorschijnend: houd een trosje tegen het licht en je ziet de pitjes erin zitten.",
+  "foto": {
+   "bestand": "",
+   "x": 51,
+   "y": 59,
+   "zoom": 1.02,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=1451169"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=5970448"
+  }
  },
  {
   "slug": "rozemarijn",
@@ -708,10 +938,14 @@
   "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
   "zon": "zon",
   "zonInfo": "Staat graag in de volle zon, in grond waar overtollig water snel uit wegloopt.",
-  "functies": [
-   "kruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "kruid"
+   ],
+   "secundair": [
+    "insecten"
+   ]
+  },
   "oogstTijd": [
    "Maart",
    "April",
@@ -756,7 +990,21 @@
   "botanischeNaam": "Salvia jordanii J.B.Walker",
   "commons": "https://commons.wikimedia.org/wiki/Category:Salvia_jordanii",
   "intro": "Rozemarijn is een struikje met naaldvormige blaadjes dat sterk geurt als je erdoorheen wrijft. Het blijft ook in de winter groen.",
-  "weetje": "Rozemarijn betekent \"dauw van de zee\" — de plant groeit van nature langs de kust van de Middellandse Zee. Hij stond vroeger symbool voor een goed geheugen."
+  "weetje": "Rozemarijn betekent \"dauw van de zee\" — de plant groeit van nature langs de kust van de Middellandse Zee. Hij stond vroeger symbool voor een goed geheugen.",
+  "foto": {
+   "bestand": "",
+   "x": 50,
+   "y": 3,
+   "zoom": 1.06,
+   "bron": "https://unsplash.com/photos/a-close-up-of-a-tree-with-lots-of-leaves-1eEg3kRUnQo"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=84311282"
+  }
  },
  {
   "slug": "salie",
@@ -767,10 +1015,13 @@
   "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef pas een beetje water wanneer de grond daar droog is.",
   "zon": "zon",
   "zonInfo": "Staat graag zonnig in grond waar overtollig water makkelijk weg kan. Bescherm de plant tegen langdurig natte wintergrond.",
-  "functies": [
-   "kruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "kruid",
+    "insecten"
+   ],
+   "secundair": []
+  },
   "oogstTijd": [
    "Mei",
    "Juni",
@@ -809,7 +1060,21 @@
   "botanischeNaam": "Salvia officinalis L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Salvia_officinalis",
   "intro": "Salie heeft zachte, grijsgroene blaadjes en bloeit paarsblauw. Hommels kruipen diep in de bloemen.",
-  "weetje": "Salie komt van het Latijnse \"salvare\": redden of genezen. Er bestond zelfs een spreuk: \"Waarom zou iemand sterven die salie in de tuin heeft?\""
+  "weetje": "Salie komt van het Latijnse \"salvare\": redden of genezen. Er bestond zelfs een spreuk: \"Waarom zou iemand sterven die salie in de tuin heeft?\"",
+  "foto": {
+   "bestand": "",
+   "x": 68,
+   "y": 25,
+   "zoom": 1.32,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=81823456"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=43186860"
+  }
  },
  {
   "slug": "teunisbloem",
@@ -820,12 +1085,16 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water als de grond enkele centimeters diep droog is. Is de grond nog vochtig, geef dan niets.",
   "zon": "zon",
   "zonInfo": "Groeit het beste op een zonnige, open plek en kan goed tegen droge, zandige of stenige grond.",
-  "functies": [
-   "sier",
-   "insecten",
-   "onkruid",
-   "vogel"
-  ],
+  "functies": {
+   "primair": [
+    "sier",
+    "insecten"
+   ],
+   "secundair": [
+    "onkruid",
+    "vogel"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -862,7 +1131,21 @@
   "botanischeNaam": "Oenothera parviflora L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Oenothera_parviflora",
   "intro": "De teunisbloem opent haar gele bloemen pas in de avond, voor nachtvlinders. Overdag zie je ze vaak alweer sluiten.",
-  "weetje": "Een teunisbloem gaat 's avonds zó snel open dat je het kunt zíén gebeuren — binnen een paar minuten vouwt de bloem zich uit. Ga in de zomer rond zonsondergang eens kijken."
+  "weetje": "Een teunisbloem gaat 's avonds zó snel open dat je het kunt zíén gebeuren — binnen een paar minuten vouwt de bloem zich uit. Ga in de zomer rond zonsondergang eens kijken.",
+  "foto": {
+   "bestand": "",
+   "x": 100,
+   "y": 61,
+   "zoom": 1.02,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=16614186"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=44456277"
+  }
  },
  {
   "slug": "tijm",
@@ -873,10 +1156,13 @@
   "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
   "zon": "zon",
   "zonInfo": "Heeft veel zon nodig en grond waar water snel uit wegloopt.",
-  "functies": [
-   "kruid",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "kruid",
+    "insecten"
+   ],
+   "secundair": []
+  },
   "oogstTijd": [
    "Mei",
    "Juni",
@@ -915,7 +1201,21 @@
   "botanischeNaam": "Thymus vulgaris L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Thymus_vulgaris",
   "intro": "Tijm is een laag, geurig struikje. Als het bloeit, gonst de hele plant van de bijen.",
-  "weetje": "Tijmhoning is beroemd, vooral uit Griekenland. Voor Griekse soldaten stond tijm symbool voor moed."
+  "weetje": "Tijmhoning is beroemd, vooral uit Griekenland. Voor Griekse soldaten stond tijm symbool voor moed.",
+  "foto": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1.64,
+   "bron": "https://unsplash.com/photos/green-grass-field-during-daytime-z6VJQR6-4SU"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=43186602"
+  }
  },
  {
   "slug": "venkel",
@@ -926,10 +1226,14 @@
   "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
   "zon": "zon",
   "zonInfo": "Staat graag zonnig en heeft ruimte nodig: de stengels kunnen ruim anderhalve meter hoog worden.",
-  "functies": [
-   "insecten",
-   "kruid"
-  ],
+  "functies": {
+   "primair": [
+    "insecten"
+   ],
+   "secundair": [
+    "kruid"
+   ]
+  },
   "oogstTijd": [
    "Juli",
    "Augustus",
@@ -972,7 +1276,21 @@
   "botanischeNaam": "Foeniculum vulgare Mill.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Foeniculum_vulgare",
   "intro": "Venkel wordt ruim anderhalve meter hoog en ruikt naar anijs. De gele bloemschermen zitten vol zweefvliegen.",
-  "weetje": "De Marathonloop is genoemd naar venkel: \"marathon\" is Grieks voor venkelveld, en daar werd de beroemde veldslag uitgevochten."
+  "weetje": "De Marathonloop is genoemd naar venkel: \"marathon\" is Grieks voor venkelveld, en daar werd de beroemde veldslag uitgevochten.",
+  "foto": {
+   "bestand": "",
+   "x": 69,
+   "y": 24,
+   "zoom": 1.15,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=15855012"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=1412282"
+  }
  },
  {
   "slug": "zwarte-bes",
@@ -983,10 +1301,14 @@
   "waterInfo": "Voel eerst de grond. Geef water zodra de bovenste laag droog is, vooral wanneer de bessen groeien. Houd de grond licht vochtig, maar laat geen plas staan.",
   "zon": "zon",
   "zonInfo": "Groeit in de zon en in lichte halfschaduw. Een open plek met lucht rond de takken helpt tegen schimmel.",
-  "functies": [
-   "fruit",
-   "vogel"
-  ],
+  "functies": {
+   "primair": [
+    "fruit"
+   ],
+   "secundair": [
+    "vogel"
+   ]
+  },
   "oogstTijd": [
    "Juli",
    "Augustus"
@@ -1023,7 +1345,21 @@
   "botanischeNaam": "Ribes nigrum L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Ribes_nigrum",
   "intro": "De zwarte bes geeft donkere, sterk smakende bessen. De blaadjes geuren al als je ze aanraakt.",
-  "weetje": "Zwarte bessen zitten bomvol vitamine C — veel meer dan sinaasappels. In Engeland werden kinderen er in de oorlog mee gezond gehouden toen fruit schaars was."
+  "weetje": "Zwarte bessen zitten bomvol vitamine C — veel meer dan sinaasappels. In Engeland werden kinderen er in de oorlog mee gezond gehouden toen fruit schaars was.",
+  "foto": {
+   "bestand": "",
+   "x": 50,
+   "y": 45,
+   "zoom": 1.03,
+   "bron": "https://unsplash.com/photos/a-bunch-of-black-berries-hanging-from-a-tree-r7Y6wdEFVdE"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/wiki/File:281_Ribes_nigrum.jpg"
+  }
  },
  {
   "slug": "spaanse-aak",
@@ -1034,10 +1370,14 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
   "zon": "zon",
   "zonInfo": "Groeit in de zon, halfschaduw en lichte schaduw. Verdraagt ook wind en kalkrijke grond.",
-  "functies": [
-   "boom",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "boom"
+   ],
+   "secundair": [
+    "insecten"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -1071,7 +1411,21 @@
   "botanischeNaam": "Acer campestre L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Acer_campestre",
   "intro": "De Spaanse aak is een kleine, stevige boom die tegen wind kan. In de herfst kleurt het blad goudgeel.",
-  "weetje": "De Spaanse aak komt helemaal niet uit Spanje — het is een gewone Nederlandse boom. Het hout is zo hard dat er vroeger gereedschapsstelen van werden gemaakt."
+  "weetje": "De Spaanse aak komt helemaal niet uit Spanje — het is een gewone Nederlandse boom. Het hout is zo hard dat er vroeger gereedschapsstelen van werden gemaakt.",
+  "foto": {
+   "bestand": "",
+   "x": 0,
+   "y": 61,
+   "zoom": 1.37,
+   "bron": "eigen beeld"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=5969489"
+  }
  },
  {
   "slug": "wegedoorn",
@@ -1082,11 +1436,15 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
   "zon": "zon",
   "zonInfo": "Groeit in de zon en in halfschaduw. De struik kan breed worden en heeft stekelige takpunten.",
-  "functies": [
-   "vogel",
-   "insecten",
-   "boom"
-  ],
+  "functies": {
+   "primair": [
+    "vogel",
+    "insecten"
+   ],
+   "secundair": [
+    "boom"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -1120,7 +1478,21 @@
   "botanischeNaam": "Rhamnus cathartica L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Rhamnus_cathartica",
   "intro": "De wegedoorn is een stekelige struik met zwarte bessen voor vogels — niet voor mensen. Het is dé plant waar de citroenvlinder haar eitjes op legt.",
-  "weetje": "Van de bessen van de wegedoorn werd vroeger verf gemaakt: het \"sapgroen\" waar kunstenaars mee schilderden."
+  "weetje": "Van de bessen van de wegedoorn werd vroeger verf gemaakt: het \"sapgroen\" waar kunstenaars mee schilderden.",
+  "foto": {
+   "bestand": "",
+   "x": 98,
+   "y": 0,
+   "zoom": 1.36,
+   "bron": "eigen beeld"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=5969496"
+  }
  },
  {
   "slug": "kardinaalmuts",
@@ -1131,10 +1503,14 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
   "zon": "zon",
   "zonInfo": "Groeit in de zon en in halfschaduw. In de zon is de herfstkleur vaak sterker.",
-  "functies": [
-   "sier",
-   "vogel"
-  ],
+  "functies": {
+   "primair": [
+    "sier"
+   ],
+   "secundair": [
+    "vogel"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -1168,7 +1544,21 @@
   "botanischeNaam": "Euonymus latifolius (L.) Mill.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Euonymus_latifolius",
   "intro": "De kardinaalsmuts valt in de herfst op met knalroze vruchtjes en oranje zaden. Mooi om te zien, niet om te eten.",
-  "weetje": "De vruchtjes lijken op het roze hoedje van een kardinaal — daar komt de naam vandaan. Van het harde hout werden vroeger spinklosjes en tekenkool gemaakt."
+  "weetje": "De vruchtjes lijken op het roze hoedje van een kardinaal — daar komt de naam vandaan. Van het harde hout werden vroeger spinklosjes en tekenkool gemaakt.",
+  "foto": {
+   "bestand": "",
+   "x": 58,
+   "y": 62,
+   "zoom": 1.32,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=15827727"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=727726"
+  }
  },
  {
   "slug": "witte-moerbei",
@@ -1179,10 +1569,14 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
   "zon": "zon",
   "zonInfo": "Staat het liefst zonnig en enigszins beschut. Deze boom heeft ruimte nodig voor een brede kroon.",
-  "functies": [
-   "boom",
-   "sier"
-  ],
+  "functies": {
+   "primair": [
+    "boom"
+   ],
+   "secundair": [
+    "sier"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -1213,7 +1607,21 @@
   "botanischeNaam": "Morus alba L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Morus_alba",
   "intro": "De witte moerbei is een boom met een brede kroon die schaduw geeft. Dit exemplaar draagt geen vruchten.",
-  "weetje": "Zijderupsen eten uitsluitend blaadjes van de witte moerbei. Alle zijde ter wereld begint dus bij deze boom."
+  "weetje": "Zijderupsen eten uitsluitend blaadjes van de witte moerbei. Alle zijde ter wereld begint dus bij deze boom.",
+  "foto": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=18773443"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=6087141"
+  }
  },
  {
   "slug": "meidoorn",
@@ -1224,11 +1632,15 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
   "zon": "zon",
   "zonInfo": "Groeit in de zon en in lichte halfschaduw. Houd voldoende ruimte vrij rond paden door de scherpe doorns.",
-  "functies": [
-   "vogel",
-   "boom",
-   "insecten"
-  ],
+  "functies": {
+   "primair": [
+    "vogel"
+   ],
+   "secundair": [
+    "boom",
+    "insecten"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [],
@@ -1263,7 +1675,21 @@
   "botanischeNaam": "Crataegus rhipidophylla Gand.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Crataegus_rhipidophylla",
   "intro": "De meidoorn bloeit wit in mei en zit vol scherpe doorns. Vogels nestelen er veilig tussen en eten de rode bessen.",
-  "weetje": "Vóór er hekken bestonden, plantten boeren meidoornhagen om hun vee binnen te houden — de doorns deden het werk. Een meidoorn kan honderden jaren oud worden."
+  "weetje": "Vóór er hekken bestonden, plantten boeren meidoornhagen om hun vee binnen te houden — de doorns deden het werk. Een meidoorn kan honderden jaren oud worden.",
+  "foto": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "Bron niet teruggevonden."
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=43956034"
+  }
  },
  {
   "slug": "azarooldoorn",
@@ -1274,11 +1700,15 @@
   "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
   "zon": "zon",
   "zonInfo": "Staat het liefst zonnig. Houd rond paden rekening met de scherpe doorns.",
-  "functies": [
-   "boom",
-   "vogel",
-   "fruit"
-  ],
+  "functies": {
+   "primair": [
+    "boom",
+    "vogel"
+   ],
+   "secundair": [
+    "fruit"
+   ]
+  },
   "oogstTijd": [],
   "oogstMethode": "",
   "extraOogstTijd": [
@@ -1315,6 +1745,20 @@
   "botanischeNaam": "Crataegus azarolus L.",
   "commons": "https://commons.wikimedia.org/wiki/Category:Crataegus_azarolus",
   "intro": "De azarooldoorn is een doornige boom met appelvormige vruchtjes die je kunt eten — maar niet de pitten.",
-  "weetje": "De azarool wordt rond de Middellandse Zee al eeuwen gekweekt. Van de vruchtjes wordt daar jam en stroop gemaakt."
+  "weetje": "De azarool wordt rond de Middellandse Zee al eeuwen gekweekt. Van de vruchtjes wordt daar jam en stroop gemaakt.",
+  "foto": {
+   "bestand": "",
+   "x": 46,
+   "y": 32,
+   "zoom": 1.06,
+   "bron": "eigen beeld"
+  },
+  "illustratie": {
+   "bestand": "",
+   "x": 50,
+   "y": 50,
+   "zoom": 1,
+   "bron": "https://commons.wikimedia.org/w/index.php?curid=2252267"
+  }
  }
 ]

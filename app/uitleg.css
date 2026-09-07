@@ -1,0 +1,461 @@
+/* De uitlegpagina's: water geven, functies/standplaats/kalender en de tuinwoorden.
+   Dit is het voorwerk van het plantenboekje ("Hoe lees je dit boekje?"), voor het scherm.
+   Ze gebruiken hetzelfde witte vel en dezelfde kleuren als de plantenpagina's (scan.css);
+   hieronder staat alleen wat daar nog niet in zit. */
+
+.scan.uitleg .scan-vel { max-width: 760px; }
+.scan.uitleg-breed .scan-vel { max-width: 1040px; }
+
+.uitleg-terug {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--groen);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.uitleg-kop { margin-bottom: 22px; }
+.uitleg-kop h1 {
+  font-size: clamp(32px, 8vw, 44px);
+  line-height: 1.06;
+  letter-spacing: -.02em;
+  margin: 8px 0 10px;
+  color: var(--blauw);
+}
+.scan .uitleg-inleiding {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--groen);
+  margin: 0;
+}
+
+/* De groene kernregel uit het boekje: de zin waar het echt om draait. */
+.scan .kernregel {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border-left: 5px solid var(--fris);
+  border-radius: 0 12px 12px 0;
+  background: rgba(74, 224, 110, .10);
+  color: var(--groen);
+  font-weight: 500;
+  line-height: 1.55;
+}
+.scan .kernregel a { color: var(--groen); }
+
+.uitleg-blok { margin-top: 34px; }
+.uitleg-blok h2 { font-size: 26px; margin: 0 0 8px; letter-spacing: -.01em; }
+.scan .uitleg-blok > p { line-height: 1.55; margin: 0 0 4px; }
+.uitleg a { color: var(--groen); }
+
+/* ---------- water: de vijf niveaus ---------- */
+
+.niveaus { margin: 16px 0 0; }
+.niveau {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 4px 16px;
+  align-items: start;
+  padding: 13px 10px;
+  margin-inline: -10px;
+  border-top: 1px solid var(--lijn);
+}
+.niveau:last-child { border-bottom: 1px solid var(--lijn); }
+.niveau dt { margin: 0; }
+.niveau dd { margin: 0; }
+.niveau .druppels { margin: 0; min-height: 26px; }
+.scan .niveau p { margin: 0; line-height: 1.5; }
+.scan .niveau b { color: var(--blauw); font-weight: 600; }
+.scan .niveau-planten { margin-top: 5px; color: var(--grijs); font-size: 14px; }
+.niveau-planten a { font-weight: 600; text-decoration: none; }
+.niveau-planten a:hover { text-decoration: underline; }
+/* Niveau 5 komt in deze tuin niet voor; het staat er alleen zodat de schaal klopt. */
+.niveau.niet-gebruikt { opacity: .55; }
+
+.bereik { display: flex; gap: 18px; align-items: flex-start; margin-top: 14px; flex-wrap: wrap; }
+.bereik-visual { padding: 12px 16px; border-radius: 12px; background: var(--licht); }
+.bereik-visual .druppels { margin: 0; }
+.bereik > div { flex: 1; min-width: 240px; }
+.scan .bereik p { margin: 0 0 8px; line-height: 1.55; }
+.scan .bereik b { color: var(--blauw); font-weight: 600; }
+
+/* ---------- functies, standplaats, kalender ---------- */
+
+.legenda { margin: 16px 0 0; }
+.legenda-item {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 10px;
+  margin-inline: -10px;
+  border-top: 1px solid var(--lijn);
+}
+.legenda-item:last-child { border-bottom: 1px solid var(--lijn); }
+.legenda-item dt { margin: 0; }
+.legenda-item dt img { display: block; width: 46px; height: 46px; object-fit: contain; }
+.legenda-item dd { margin: 0; }
+.legenda-item b { color: var(--blauw); font-weight: 600; }
+.scan .legenda-item p { margin: 3px 0 0; line-height: 1.5; }
+.scan .legenda-planten { margin-top: 6px; font-size: 14px; }
+.legenda-planten a { font-weight: 600; text-decoration: none; }
+.legenda-planten a:hover { text-decoration: underline; }
+.scan .legenda-planten.leeg { color: var(--lucht); font-style: italic; }
+
+.kalenderlegenda { margin: 16px 0 0; }
+.kalenderregel {
+  display: grid;
+  grid-template-columns: 144px 1fr;
+  gap: 6px 16px;
+  align-items: center;
+  padding: 11px 10px;
+  margin-inline: -10px;
+  border-top: 1px solid var(--lijn);
+}
+.kalenderregel:last-child { border-bottom: 1px solid var(--lijn); }
+.kalenderregel dt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--blauw);
+  font-weight: 600;
+  font-size: 15px;
+}
+.kalenderregel dd { margin: 0; color: var(--grijs); line-height: 1.5; }
+/* Op een plantenpagina staat dit icoon in de smalle rijkop van de jaarkalender en is 15px
+   het enige dat past. Hier is het een legenda: dan is het het onderwerp van de regel en
+   moet je het kunnen zien. Daarom groter, maar alleen binnen `.kalenderregel`. */
+.kalenderregel .kalender-icoon { width: 28px; height: 28px; }
+.kalenderregel .kalendervak { width: 32px; height: 19px; }
+/* Dezelfde kleuren als de jaarkalender op de plantenpagina. */
+.kalendervak { width: 26px; height: 16px; border-radius: 3px; flex: none; }
+.kalendervak.grow { background: #8fdcae; }
+.kalendervak.bloom { background: #93bde4; }
+.kalendervak.harvest { background: #f7cf62; }
+.kalendervak.prune { background: #e295ba; }
+.kalendervak.rest { background: #c2c1ba; }
+
+/* ---------- tuinwoorden: tekening met aanwijsbare labels ---------- */
+
+.woordenwolk { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 8px; }
+.woordenwolk a {
+  border-radius: 99px;
+  background: var(--licht);
+  border: 1px solid var(--lijn);
+  padding: 7px 12px;
+  color: var(--blauw);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.woordenwolk a:hover { border-color: var(--fris); background: rgba(74, 224, 110, .12); }
+
+.vakterm-groep { margin-top: 40px; }
+.vakterm-groep h2 { font-size: 26px; margin: 0 0 8px; letter-spacing: -.01em; }
+
+.vakterm-lay { margin-top: 18px; }
+.vakterm-tekening { margin: 0; }
+.vakterm-vlak { position: relative; width: 100%; }
+.vakterm-vlak img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.vakterm-tekening figcaption {
+  margin-top: 8px;
+  color: var(--lucht);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Wat je nu aanwijst, direct onder de tekening. Zonder dit kijk je op een telefoon naar een
+   opgelicht plekje terwijl de uitleg ervan buiten beeld in de lijst staat. */
+.vakterm-tekening figcaption.vakterm-nu {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(74, 224, 110, .12);
+  color: var(--grijs);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.vakterm-nu b {
+  display: block;
+  font-family: Raleway, Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--groen);
+  margin-bottom: 2px;
+}
+
+/* Onzichtbaar knopje over het label dat al op de tekening gedrukt staat. */
+.vakterm-plek {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  border-radius: 99px;
+  background: transparent;
+  cursor: pointer;
+  transition: box-shadow .15s;
+}
+.vakterm-plek:hover { box-shadow: 0 0 0 3px rgba(104, 156, 212, .75); }
+.vakterm-plek:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--roze); }
+.vakterm-plek.aan { box-shadow: 0 0 0 3px var(--fris), 0 0 14px 4px rgba(74, 224, 110, .55); }
+
+.vakterm-lijst { margin: 20px 0 0; }
+.vakterm {
+  padding: 11px 12px;
+  border-top: 1px solid var(--lijn);
+  border-radius: 10px;
+  scroll-margin-top: 70px; /* de kopbalk plakt bovenaan */
+  transition: background .2s;
+}
+.vakterm:last-child { border-bottom: 1px solid var(--lijn); }
+.vakterm dt { margin: 0; }
+.vakterm dt button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--blauw);
+  font-family: Raleway, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.vakterm dt button em { color: var(--lucht); font-family: Poppins, Arial, sans-serif; font-size: 12px; font-weight: 600; font-style: normal; }
+.vakterm dd { margin: 3px 0 0; color: var(--grijs); line-height: 1.5; }
+.vakterm.aan { background: rgba(74, 224, 110, .12); border-color: transparent; }
+.vakterm.aan dt button { color: var(--groen); }
+
+/* ---------- doorklikken naar de andere uitleg ---------- */
+
+.uitleg-verder {
+  margin: 40px 0 0;
+  font-family: Poppins, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--lucht);
+}
+.uitleg-kaarten { display: grid; gap: 10px; margin-top: 14px; }
+.uitleg-kaart {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--licht);
+  border: 1px solid var(--lijn);
+  border-radius: 16px;
+  padding: 16px;
+  color: var(--blauw);
+  text-decoration: none;
+}
+.uitleg-kaart:hover { border-color: var(--fris); }
+.uitleg-kaart > img { width: 40px; height: 40px; object-fit: contain; flex: none; }
+.uitleg-kaart > span { flex: 1; min-width: 0; }
+.uitleg-kaart b { display: block; font-family: Raleway, Arial, sans-serif; font-size: 18px; font-weight: 700; }
+.uitleg-kaart small { display: block; margin-top: 3px; color: var(--grijs); line-height: 1.45; }
+.uitleg-kaart strong { color: var(--fris); font-size: 20px; }
+
+.scan .uitleg-bron { margin-top: 22px; font-size: 14px; }
+
+/* Alleen voor schermlezers: de tekst van een label dat al op de tekening staat. */
+.alleen-voorlezen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 900px) {
+  /* Tekening en woordenlijst naast elkaar; de tekening blijft staan tijdens het lezen. */
+  .uitleg-breed .vakterm-lay { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 30px; align-items: start; }
+  .uitleg-breed .vakterm-tekening { position: sticky; top: 74px; }
+  .uitleg-breed .vakterm-lijst { margin-top: 0; }
+}
+
+/* ---------- aangewezen vanaf een plantenpagina ---------- */
+
+/* Klik je op de plantenpagina op de druppels, een functie-icoon, de standplaats of een
+   kalenderrij, dan land je hier op precies die regel. Die licht dan op — met :target,
+   dus zonder javascript. De marge houdt hem onder de plakkende kopbalk vandaan. */
+.niveau, .legenda-item, .kalenderregel { scroll-margin-top: 84px; transition: background .3s; }
+.niveau:target, .legenda-item:target, .kalenderregel:target {
+  background: rgba(74, 224, 110, .14);
+  border-radius: 10px;
+  border-top-color: transparent;
+}
+.niveau:target + .niveau, .legenda-item:target + .legenda-item, .kalenderregel:target + .kalenderregel { border-top-color: transparent; }
+
+/* ---------- /uitleg: het portaal ---------- */
+
+/* De drie uitlegpagina's hierboven zijn bladzijden uit het boekje: een smalle kolom op een
+   wit vel. Het overzicht ervoor is dat niet — het is een ingang en hoort bij de homepage.
+   Het volgt daarom de vormentaal van globals.css (volle breedte, 8vw marge, dezelfde
+   kaarten en dezelfde navy band) in plaats van die van scan.css. */
+
+.uitlegportaal { color: var(--blauw); }
+
+.portaal-kop {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, .82fr);
+  gap: 6vw;
+  align-items: center;
+  padding: 62px 8vw 56px;
+  background: #fff;
+  border-bottom: 1px solid var(--lijn);
+}
+.portaal-kop h1 {
+  font-size: clamp(44px, 5.4vw, 74px);
+  line-height: .95;
+  letter-spacing: -.05em;
+  margin: 16px 0 22px;
+}
+
+/* Het voorbeeldpaneel: de tekens van een plantenpagina, op ware grootte. */
+.portaal-proef {
+  container-type: inline-size;
+  padding: 22px 26px 24px;
+  border-radius: 26px;
+  border: 1px solid var(--lijn);
+  background: var(--licht);
+  box-shadow: 0 18px 50px #1e3a6a14;
+}
+.portaal-proef-kop {
+  margin: 0;
+  color: var(--groen);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+/* Eén raster voor alle vier de rijen, met de rijen als `display: contents` erin. Een vaste
+   kolombreedte zou moeten meegroeien met het breedste teken — en dat is de kalenderstrook,
+   die anders over de tekst ernaast heen valt. `max-content` meet dat zelf op. */
+.portaal-proef dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 16px;
+  margin: 6px 0 0;
+}
+.portaal-proef dl > div { display: contents; }
+.portaal-proef dt, .portaal-proef dd {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 13px 0;
+  border-top: 1px solid rgba(30, 58, 106, .1);
+}
+.portaal-proef dd { color: var(--grijs); font-size: 14px; line-height: 1.45; }
+
+/* Naast elkaar houdt de tekst te weinig breedte over zodra het paneel smal wordt — op een
+   telefoon, maar ook op een laptop van rond de 1000px, waar het paneel nog naast de titel
+   staat. Het gaat dus om de breedte van het paneel zelf en niet om die van het venster. */
+@container (max-width: 400px) {
+  .portaal-proef dl { grid-template-columns: minmax(0, 1fr); }
+  .portaal-proef dt { padding-bottom: 3px; }
+  .portaal-proef dd { padding-top: 0; border-top: 0; }
+}
+.portaal-proef .druppels { margin-bottom: 0; min-height: 0; }
+.portaal-proef-iconen { gap: 11px; }
+.portaal-proef-iconen img { display: block; width: 34px; height: 34px; object-fit: contain; }
+.portaal-proef-kalender { gap: 4px; }
+
+/* De drie kaarten. Zelfde kaartvorm als de plantenkaartjes op de homepage. */
+.portaal-kaarten { padding: 66px 8vw 0; }
+.portaal-kaarten h2 { font-size: clamp(32px, 3.4vw, 45px); margin: 8px 0 30px; letter-spacing: -.035em; }
+.portaal-rij { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.portaal-kaart {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 4px 18px #1e3a6a20;
+  color: var(--blauw);
+  text-decoration: none;
+  transition: .2s;
+}
+.portaal-kaart:hover { transform: translateY(-4px); }
+.portaal-kaart-icoon {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border-radius: 20px;
+  background: rgba(74, 224, 110, .16);
+}
+.portaal-kaart-icoon img { display: block; width: 34px; height: 34px; object-fit: contain; }
+.portaal-kaart b {
+  display: block;
+  margin-top: 18px;
+  font-family: Raleway, Arial, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.portaal-kaart > p { margin: 10px 0 0; color: var(--grijs); line-height: 1.55; }
+.portaal-kaart ul { margin: 16px 0 0; padding: 0; list-style: none; }
+.portaal-kaart li {
+  position: relative;
+  margin-top: 7px;
+  padding-left: 18px;
+  color: var(--grijs);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.portaal-kaart li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fris);
+}
+/* `margin-top: auto` houdt de drie regels "Lees verder" op één lijn, ook als de ene kaart
+   meer tekst heeft dan de andere. */
+.portaal-kaart strong { margin-top: auto; padding-top: 20px; color: var(--groen); font-weight: 800; }
+
+.portaal-boekje {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, .82fr);
+  gap: 6vw;
+  align-items: center;
+  margin-top: 66px;
+  padding: 54px 8vw;
+  background: var(--blauw);
+  color: #fff;
+}
+.portaal-boekje .eyebrow { color: var(--fris); }
+.portaal-boekje h2 {
+  margin: 10px 0 14px;
+  color: #fff;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.12;
+  letter-spacing: -.03em;
+}
+.portaal-boekje p { margin: 0; color: #ffffffcc; line-height: 1.6; }
+.portaal-boekje .pdf-list { margin: 0; }
+
+.portaal-voet { padding: 34px 8vw 60px; text-align: center; }
+.portaal-voet a { color: var(--groen); font-weight: 700; text-decoration: none; }
+.portaal-voet a:hover { text-decoration: underline; }
+
+/* Onder 900px staat de navigatie in het zijmenu (globals.css) en past er nog één kolom. */
+@media (max-width: 900px) {
+  .portaal-kop, .portaal-boekje { grid-template-columns: 1fr; gap: 30px; }
+  .portaal-rij { grid-template-columns: 1fr; }
+  .portaal-kaart strong { margin-top: 16px; padding-top: 0; }
+}
+@media (max-width: 650px) {
+  .portaal-kop { padding: 40px 20px 36px; }
+  .portaal-proef { padding: 18px 20px 20px; }
+  .portaal-kaarten { padding: 46px 20px 0; }
+  .portaal-kaart { padding: 24px; }
+  .portaal-boekje { margin-top: 46px; padding: 44px 20px; }
+  .portaal-voet { padding: 28px 20px 70px; }
+}

@@ -1,0 +1,576 @@
+/* Pagina's achter een QR-code in de tuin: telefoon eerst, korte info boven, verdieping lager.
+   Kleuren en letters volgen het plantenboekje (maak_plantenboekje.py), zodat scherm en papier
+   dezelfde huisstijl hebben. */
+
+@font-face { font-family: Poppins; src: url('/fonts/poppins-400.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: Poppins; src: url('/fonts/poppins-400-italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: Poppins; src: url('/fonts/poppins-600.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+
+/* De scanpagina is een wit vel op lichtgrijs, net als een bladzijde uit het boekje. */
+body:has(.scan) { background: #e2e8f0; }
+
+.scan {
+  --blauw: #1e3a6a;
+  --groen: #005d55;
+  --fris: #4ae06e;
+  --roze: #ba2973;
+  --lucht: #689cd4;
+  --geel: #fdc743;
+  --grijs: #4a5568;
+  --licht: #f8fafc;
+  --lijn: #eef2f7;
+
+  color: var(--blauw);
+  font-family: Poppins, Arial, sans-serif;
+}
+.scan h1, .scan h2, .scan h3 { font-family: Raleway, Arial, sans-serif; font-weight: 700; }
+.scan p { color: var(--grijs); }
+
+/* Het witte vel zelf — vroeger stond dit allemaal op `.scan` (de `<main>`), maar dan zit
+   `.scan-kop` gevangen in diezelfde smalle kolom en kan hij nooit tot de rand van het
+   venster reiken. Nu is `.scan` zelf breedteloos (net als `<main>` op de homepage) en
+   staat de kop ernaast in plaats van erin; alleen dit vel eronder krijgt de kolombreedte. */
+.scan-vel { max-width: 620px; margin: 0 auto; padding: 0 18px 60px; background: #fff; }
+
+.scan-kop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 10px 18px;
+  background: #fff;
+  border-bottom: 1px solid var(--lijn);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.scan-kop-merk { display: flex; align-items: center; gap: 10px; color: var(--blauw); text-decoration: none; }
+.scan-kop-logo { display: block; height: 18px; }
+.scan-kop small { color: var(--lucht); font-size: 13px; }
+
+/* De navigatie en "Beheren" komen er pas bij vanaf 901px; zie de media query onderaan
+   dit blok. Onder die grens blijft het bij het merk en de menuknop hierboven. */
+.scan-kop-nav { display: none; align-items: center; gap: 3px; }
+.scan-kop-nav a {
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  border-radius: 99px;
+  color: var(--grijs);
+  font-weight: 750;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.scan-kop-nav a:hover,
+.scan-kop-nav a.actief { background: rgba(74, 224, 110, .16); color: var(--blauw); }
+.scan-kop-beheren {
+  display: none;
+  align-items: center;
+  border-radius: 99px;
+  background: var(--blauw);
+  padding: 11px 18px;
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+@media (min-width: 901px) {
+  /* Dezelfde grens als de homepage (globals.css, `.topbar nav`): ruimte genoeg voor de
+     volle navigatie, en dan is een zijmenu voor alleen deze ene pagina overbodig. */
+  .scan-kop { height: 82px; padding: 0 5vw; justify-content: space-between; }
+  /* Overbodig zodra de balk zelf vertelt waar je bent. */
+  .scan-kop-merk small { display: none; }
+  .scan-kop-nav,
+  .scan-kop-beheren { display: flex; }
+}
+
+.scan .eyebrow { color: var(--groen); font-weight: 600; letter-spacing: .16em; font-size: 11px; }
+.scan .pill {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 99px;
+  background: rgba(74, 224, 110, .16);
+  color: var(--groen);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+}
+.scan .number { font-size: 11px; font-weight: 600; letter-spacing: .15em; color: var(--groen); }
+
+/* ---------- kop van een plant ---------- */
+
+.scan-hero { margin-bottom: 24px; }
+
+/* Foto met twee ringen: letterlijk .left-visual uit maak_infokaarten.py, horizontaal
+   gespiegeld. Daar is het vlak 340 × 425,667 px en staan .photo, .ring-dark en .ring-bright
+   er absoluut in, samen geschaald met 1,2278844 vanuit (319, 0). Hieronder staan de maten
+   NA die schaal, als honderdsten van de vlakbreedte (cqw), maar gemeten vanaf rechts.
+   Het vlak zweeft rechts en loopt de bladzijde uit; titel en inleiding lopen er links langs.
+   De foto loopt rechts en onder het vlak uit; de ringen zijn verschillend groot en niet
+   concentrisch — alle drie raken de bovenrand, zodat ze links over de foto heen bogen. */
+.scan-visual {
+  float: right;
+  position: relative;
+  container-type: inline-size;
+  width: 60%;
+  max-width: 360px;
+  margin: 0 -18px 10px 16px;
+  aspect-ratio: 340 / 425.667;
+  overflow: hidden;
+  isolation: isolate;
+}
+.scan-foto-vlak {
+  position: absolute;
+  right: -53.16cqw;
+  top: 2.89cqw;
+  width: 144.46cqw;
+  height: 145.9cqw;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--licht);
+  clip-path: ellipse(49.5% 49.5% at 50% 50%);
+}
+.scan-foto-vlak .scan-foto { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.scan-foto-vlak .foto-leeg { width: 100%; height: 100%; font-size: 40px; }
+.scan-visual .ring-dark,
+.scan-visual .ring-bright { position: absolute; top: 0; border-radius: 50%; pointer-events: none; }
+.scan-visual .ring-dark { right: -63.27cqw; width: 153.49cqw; height: 153.49cqw; z-index: 2; border: 4.117cqw solid rgba(22, 198, 47, .51); }
+.scan-visual .ring-bright { right: -77.72cqw; width: 171.54cqw; height: 171.54cqw; z-index: 3; border: 8.236cqw solid var(--fris); mix-blend-mode: multiply; }
+.foto-leeg {
+  display: grid;
+  place-items: center;
+  color: var(--lucht);
+  font-weight: 600;
+  font-size: 30px;
+}
+.scan-titel { padding-top: 16px; }
+.scan-titel h1 {
+  font-size: clamp(34px, 10vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin: 6px 0 4px;
+  color: var(--blauw);
+}
+.scan-titel h1::first-letter { text-transform: uppercase; }
+.scan-titel i {
+  display: block;
+  color: var(--grijs);
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+/* Staat in `.scan-titel`, dus binnen de kop. De marge erboven doet wat de marge onder
+   `.scan-hero` eerst deed toen de alinea er nog los onder stond. */
+.scan-intro {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--grijs);
+  margin: 18px 0 0;
+}
+
+/* ---------- eigen iconen: druppels, functies, standplaats ---------- */
+
+.druppels { display: flex; align-items: center; gap: 2px; min-height: 28px; margin-bottom: 12px; }
+.druppel { display: block; width: 20px; height: 26px; object-fit: contain; }
+.druppel-tot { display: block; width: 14px; height: 2px; margin: 0 5px; border-radius: 2px; background: var(--blauw); flex: none; }
+
+.functie-iconen { display: flex; align-items: flex-start; gap: 13px; flex-wrap: wrap; }
+/* Secundaire functies staan in dezelfde rij als de primaire, maar vervaagd en met een grijs
+   bijschrift. Eerder was dit een tekstregel eronder ("Ook: Insecten"): het enige woord in
+   een rij iconen, en daardoor de drukste plek van de kop. */
+.functie-bijzaak img { opacity: .45; }
+.functie-bijzaak em { color: var(--grijs) !important; font-weight: 500; }
+.functie-bijzaak:hover img, .functie-bijzaak:focus-visible img { opacity: .75; }
+.scan-bronnen { font-size: .875rem; overflow-wrap: anywhere; }
+.functie-item { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 39px; }
+.functie-item img { width: 39px; height: 39px; display: block; object-fit: contain; }
+.functie-item em { font-style: normal; font-size: 10px; font-weight: 600; line-height: 1.1; white-space: nowrap; color: var(--fris); }
+
+.standplaats { display: inline-flex; align-items: center; gap: 7px; }
+.standplaats img { width: 26px; height: 26px; object-fit: contain; display: block; }
+.standplaats em { font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--groen); }
+
+.blok-icoon { width: 20px; height: 20px; object-fit: contain; flex: none; }
+.kalender-icoon { width: 15px; height: 15px; object-fit: contain; flex: none; }
+.taak-icoon { width: 22px; height: 22px; object-fit: contain; flex: none; }
+
+/* ---------- wat kan ik nu doen ---------- */
+
+.scan-nu {
+  clear: both; /* vangt de zwevende foto op: hieronder loopt alles weer over de volle breedte */
+  background: var(--blauw);
+  color: #fff;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 14px;
+}
+.scan-nu .eyebrow { color: var(--fris); margin: 0; }
+.scan-nu h2 { font-size: 28px; margin: 6px 0 14px; color: #fff; }
+.scan-taak {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border-top: 1px solid rgba(255, 255, 255, .18);
+  padding: 13px 0 3px;
+}
+.scan-taak > span { color: var(--fris); font-size: 20px; line-height: 1.2; }
+.scan-taak b { font-size: 16px; font-weight: 600; }
+/* Deze regels moeten specifieker zijn dan `.scan p`, anders wordt grijs op navy onleesbaar. */
+.scan .scan-taak p { margin: 5px 0 0; color: #dfe8f4; line-height: 1.5; font-size: 15px; }
+.scan .scan-nu .scan-geen-taak { margin: 0; color: #dfe8f4; line-height: 1.5; }
+.scan .scan-plantenlijst .scan-geen-taak { color: var(--grijs); }
+
+/* ---------- blokken met tekst ---------- */
+
+.scan-regels,
+.scan-secties { display: grid; gap: 12px; }
+.scan-regels { margin-bottom: 18px; }
+
+.scan-regels section,
+.scan-secties section {
+  background: var(--licht);
+  border: 1px solid var(--lijn);
+  border-radius: 16px;
+  padding: 20px;
+  min-width: 0; /* anders duwt de brede jaarkalender de hele pagina uit beeld */
+}
+.scan-regels h3,
+.scan-secties h3 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 9px;
+  font-family: Poppins, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--blauw);
+}
+.blok-kenmerken { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.blok-kenmerken .druppels { margin-bottom: 0; }
+.scan-regels p,
+.scan-secties p { line-height: 1.5; color: var(--grijs); margin: 8px 0 0; }
+.scan-regels p:empty,
+.scan-secties p:empty { display: none; }
+.scan-secties b { color: var(--groen); font-weight: 600; }
+.scan-regels .allowed { border: 0; border-left: 5px solid var(--fris); background: rgba(74, 224, 110, .10); border-radius: 0 12px 12px 0; }
+.scan-regels .allowed h3 { color: var(--groen); }
+.scan-regels .forbidden { border: 0; border-left: 5px solid var(--roze); background: rgba(186, 41, 115, .07); border-radius: 0 12px 12px 0; }
+.scan-regels .forbidden h3 { color: var(--roze); }
+.scan-secties .fact { background: #eef3fb; border-color: #dce7f6; }
+.scan-secties .fact h3 { color: var(--lucht); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+
+/* Botanische illustratie uit het boekje: net als op de gedrukte pagina naast de foto,
+   hier als eigen kaart tussen de jaarkalender en "Wist je dat?". */
+.illustratie-blok { text-align: center; }
+/* Het vlak snijdt af zodra een illustratie is ingezoomd; op zoom 1 verandert er niets. */
+.illustratie-vlak { display: block; overflow: hidden; }
+.illustratie { display: block; max-width: 100%; max-height: 220px; margin: 0 auto; object-fit: contain; }
+.illustratie-bijschrift { margin: 10px 0 0; font-style: italic; font-size: 13px; color: var(--grijs); }
+
+/* Klein in de pagina, groot als je erop tikt. De knop mag niet als knop opvallen: het is
+   de illustratie zelf waar je op drukt. */
+.illustratie-knop {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.illustratie-hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--groen);
+  font-size: 13px;
+  font-weight: 600;
+}
+.illustratie-knop:hover .illustratie-hint,
+.illustratie-knop:focus-visible .illustratie-hint { text-decoration: underline; }
+
+.illustratie-venster {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  background: rgba(30, 58, 106, .93);
+  cursor: zoom-out;
+}
+.illustratie-groot {
+  max-width: 100%;
+  /* Ruimte laten voor de sluitknop en het bijschrift. */
+  max-height: calc(100svh - 130px);
+  object-fit: contain;
+  background: #fff;
+  border-radius: 10px;
+  cursor: default;
+}
+.illustratie-venster-bijschrift {
+  margin: 0;
+  max-width: 620px;
+  text-align: center;
+  color: #fff;
+  font-style: italic;
+  font-size: 13px;
+}
+.illustratie-sluiten {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff26;
+  color: #fff;
+  font-size: 20px;
+}
+.illustratie-sluiten:hover { background: #ffffff40; }
+
+/* Tuinwoorden in de snoeitekst: het woord is zelf de link naar zijn uitleg. Onderstreept
+   met een rustige stippellijn, zodat de zin leesbaar blijft als er drie in staan. */
+.vakterm-woord {
+  color: inherit;
+  text-decoration: underline dotted var(--lucht);
+  text-underline-offset: 3px;
+}
+.vakterm-woord:hover,
+.vakterm-woord:focus-visible {
+  color: var(--groen);
+  text-decoration: underline solid var(--groen);
+}
+
+/* Kaartje met een stip op elke plek waar deze plant staat. */
+.plekjes-kaart { display: block; margin: 0 0 12px; border-radius: 14px; overflow: hidden; background: var(--licht); }
+.plekjes-kaart svg { display: block; width: 100%; height: auto; }
+.plekjes-kaart .plekje circle:first-child { fill: #fff; }
+.plekjes-kaart .plekje circle:last-child { fill: var(--blauw); }
+
+.scan-meer {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  margin-bottom: 18px;
+  border-radius: 99px;
+  border: 2px solid var(--blauw);
+  color: var(--blauw);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.scan-kalender-scroll { overflow-x: auto; min-width: 0; padding-bottom: 6px; }
+/* Basisopbouw van het rooster: zonder display:grid en display:contents op de rijen
+   valt de hele kalender plat en verdwijnt hij. Stond eerder (per ongeluk) alleen in
+   globals.css, voor het modale paspoort dat inmiddels weg is — hoort hier thuis. */
+.calendar { display: grid; gap: 4px; align-items: center; overflow: auto; }
+.calendar > b { text-align: center; font-size: 11px; }
+.calendar-row { display: contents; }
+.calendar-row strong { font-size: 12px; }
+.calendar-row i { height: 23px; }
+.scan-kalender .calendar { min-width: 520px; grid-template-columns: 62px repeat(12, 1fr); }
+.scan-kalender .calendar > b { color: var(--lucht); font-weight: 600; }
+.scan-kalender .calendar-row strong { display: flex; align-items: center; gap: 4px; color: var(--blauw); font-weight: 600; }
+.scan-kalender .calendar-row i { background: var(--licht); border-radius: 3px; }
+.scan-kalender .calendar-row i.grow { background: #8fdcae; }
+.scan-kalender .calendar-row i.bloom { background: #93bde4; }
+.scan-kalender .calendar-row i.harvest { background: #f7cf62; }
+.scan-kalender .calendar-row i.prune { background: #e295ba; }
+.scan-kalender .calendar-row i.rest { background: #c2c1ba; }
+
+/* ---------- doorklikken naar de plek ---------- */
+
+.scan-plekken { margin-top: 22px; }
+.scan-plekken h3 { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--lucht); margin: 0 0 10px; }
+.scan-plekken a {
+  display: inline-block;
+  border-radius: 99px;
+  background: rgba(74, 224, 110, .14);
+  padding: 11px 16px;
+  color: var(--groen);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.scan-voet { margin-top: 30px; text-align: center; }
+.scan-voet a { color: var(--groen); font-weight: 600; text-decoration: none; }
+
+/* ---------- plek-pagina ---------- */
+
+.scan-plek-kop { margin-bottom: 20px; }
+.scan-plek-kop h1 {
+  font-size: clamp(32px, 9vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin: 12px 0 6px;
+  color: var(--blauw);
+}
+.scan-plek-aantal { margin: 0; color: var(--groen); font-weight: 600; }
+
+.scan-plantenlijst { display: grid; gap: 10px; margin-top: 14px; }
+.scan-plantregel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--licht);
+  border: 1px solid var(--lijn);
+  border-radius: 16px;
+  padding: 14px;
+  color: var(--blauw);
+  text-decoration: none;
+}
+.scan-plantregel img,
+.scan-plantregel .foto-leeg {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  font-size: 24px;
+  border: 3px solid var(--fris);
+}
+.scan-plantregel > span { flex: 1; min-width: 0; }
+.scan-plantregel .functie-iconen { gap: 9px; }
+.scan-plantregel .functie-item { min-width: 24px; }
+.scan-plantregel .functie-item img { width: 24px; height: 24px; }
+.scan-plantregel .functie-item em { font-size: 9px; }
+.scan-plantregel b { display: block; font-family: Raleway, Arial, sans-serif; font-size: 19px; font-weight: 700; margin-top: 6px; }
+.scan-plantregel b::first-letter { text-transform: uppercase; }
+.scan-plantregel i { color: var(--grijs); font-size: 13px; }
+.scan-plantregel small {
+  display: block;
+  margin-top: 4px;
+  color: var(--grijs);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.scan-plantregel strong { color: var(--fris); font-size: 20px; }
+
+@media (min-width: 700px) {
+  .scan { padding-bottom: 80px; }
+  .scan-regels { grid-template-columns: 1fr 1fr; }
+}
+
+/* Letters op de kaart zijn geen link: dezelfde letter staat overal voor dezelfde plant. */
+.scan-plekken-tekst { margin: 0 0 10px; line-height: 1.5; }
+
+/* Doorklikken naar de uitleg (/uitleg/...) vanuit een plantenpaspoort: bij de druppels,
+   bij het snoeien en bij de jaarkalender staat waar je leest wat het betekent. */
+.uitleg-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--groen);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.uitleg-link:hover { text-decoration: underline; }
+
+/* De iconen op een plantenpagina zijn zelf de vraag: klik op de druppels, een functie,
+   de standplaats of een kalenderrij en je komt bij die regel in de uitleg. Ze houden hun
+   gedrukte vorm; alleen een zacht vlak eronder verraadt dat je erop kunt klikken. */
+a.icoon-uitleg, a.functie-item, a.standplaats, .kalender-rijkop {
+  border-radius: 12px;
+  color: inherit;
+  text-decoration: none;
+  transition: background .15s;
+}
+a.icoon-uitleg { display: inline-block; margin: 0 -6px 12px; padding: 2px 6px; }
+a.icoon-uitleg .druppels { margin-bottom: 0; }
+a.functie-item { padding: 4px 6px; margin: -4px -2px; }
+a.standplaats { padding: 4px 8px; margin: -4px -4px; }
+.kalender-rijkop { display: flex; align-items: center; gap: 4px; padding: 3px 5px; margin: 0 -5px; }
+a.icoon-uitleg:hover, a.functie-item:hover, a.standplaats:hover, .kalender-rijkop:hover { background: rgba(74, 224, 110, .16); }
+a.icoon-uitleg:focus-visible, a.functie-item:focus-visible, a.standplaats:focus-visible, .kalender-rijkop:focus-visible {
+  outline: 2px solid var(--roze);
+  outline-offset: 1px;
+}
+/* In de blokken staan de druppels naast de standplaats; daar mag de marge eronder weg. */
+.blok-kenmerken a.icoon-uitleg { margin-bottom: 0; }
+
+
+/* ---------- de plantenpagina op een pc-scherm ---------- */
+
+/* Hierboven is alles een bladzijde uit het boekje op een telefoon: één kolom van 620px.
+   Op een pc-scherm bleef dat een smalle strook van ruim drie meter lang in een leeg
+   venster. Vanaf 1000px wordt het een bladzijde op ware grootte. De kop zelf is al vanaf
+   901px breed (hierboven) — dit gaat alleen over het vel eronder.
+   Alleen `.scan-plant`: de plek-pagina deelt `.scan` maar is een lijstje en blijft smal. */
+@media (min-width: 1000px) {
+  .scan-plant .scan-vel { max-width: 1080px; padding: 0 30px 90px; }
+
+  /* De foto zweeft niet meer maar staat in zijn eigen kolom. Hij loopt nog wel de
+     bladzijde uit — dat is de vorm van de gedrukte kaart (§5) en die blijft. */
+  .scan-plant .scan-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 370px);
+    column-gap: 46px;
+    align-items: center;
+    margin-bottom: 34px;
+  }
+  .scan-plant .scan-visual {
+    float: none;
+    grid-area: 1 / 2;
+    width: auto;
+    max-width: none;
+    margin: 0 -30px 0 0;
+  }
+  .scan-plant .scan-titel { grid-area: 1 / 1; padding-top: 0; }
+  .scan-plant .scan-titel h1 { font-size: 58px; }
+  .scan-plant .scan-intro { font-size: 18px; max-width: 54ch; }
+
+  .scan-plant .scan-nu { padding: 26px 30px; margin-bottom: 18px; }
+  .scan-plant .scan-nu h2 { font-size: 32px; }
+  /* De band loopt over de volle breedte, de zin erin niet: één regel van 960px lees je
+     niet meer. */
+  .scan-plant .scan-taak > div,
+  .scan-plant .scan-nu .scan-geen-taak { max-width: 72ch; }
+  .scan-plant .scan-regels { gap: 14px; margin-bottom: 22px; }
+
+  /* "Meer over deze plant ↓" bestaat omdat de pagina op een telefoon lang is. Hier staat
+     de rest al in beeld; dan is het een knop naar waar je toch al naar kijkt. */
+  .scan-plant .scan-meer { display: none; }
+
+  /* De blokken twee naast elkaar. `dense` vult het gat dat anders naast Snoeien valt
+     wanneer de jaarkalender de volle breedte opeist. */
+  .scan-plant .scan-secties { grid-template-columns: 1fr 1fr; gap: 14px; grid-auto-flow: row dense; }
+  /* De jaarkalender wil 520px voor twaalf maanden; in een halve kolom zou hij schuiven. */
+  .scan-plant .scan-kalender { grid-column: 1 / -1; }
+  /* "Wist je dat?" sluit de rij af — over de volle breedte, zodat er geen halve regel
+     overblijft. */
+  .scan-plant .scan-secties .fact { grid-column: 1 / -1; }
+  .scan-plant .illustratie { max-height: 300px; }
+
+  /* Het kaartje naast de tekst in plaats van eronder; over de volle breedte zou het
+     kaartje groter worden dan de tuin zelf. */
+  /* Kop, zin en knop staan in rij 2 t/m 4; rij 1 en 5 zijn leeg en `1fr`. Het kaartje is
+     hoger dan die drie regels samen, en zijn extra hoogte gaat naar de flexibele rijen —
+     boven en onder evenveel, dus de tekst staat op halve hoogte naast het kaartje. Zonder
+     die twee opvangrijen wordt de hoogte over rij 2 t/m 4 verdeeld en drijven kop, zin en
+     knop uit elkaar. Daarom staat elk van de vier op een vaste plek. */
+  .scan-plant .scan-plekken {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    grid-template-rows: 1fr auto auto auto 1fr;
+    column-gap: 44px;
+    align-items: start;
+    margin-top: 36px;
+  }
+  .scan-plant .scan-plekken h3 { grid-area: 2 / 1; }
+  .scan-plant .scan-plekken .scan-plekken-tekst { grid-area: 3 / 1; }
+  /* Het kaartje is zélf ook een `a` (naar de plattegrond), dus de knop eronder moet
+     uitgezonderd worden — anders landen ze allebei op dezelfde plek. */
+  .scan-plant .scan-plekken > a:not(.plekjes-kaart) { grid-area: 4 / 1; justify-self: start; margin-top: 10px; }
+  .scan-plant .scan-plekken > .plekjes-kaart { grid-area: 1 / 2 / 6 / 3; margin: 0; }
+
+  .scan-plant .scan-bronnen { max-width: 78ch; }
+  .scan-plant .scan-voet { margin-top: 44px; }
+}

@@ -1,0 +1,127 @@
+/* Het zijmenu (Zijmenu.tsx): schuift vanaf de linkerrand naar binnen, met de knop in de
+   balk of met een veeg. Staat op elke pagina, dus de opmaak staat hier los van
+   globals.css (homepage) en scan.css (plant-, plek- en uitlegpagina's). */
+
+.menu-knop,
+.menu-sluit {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--blauw);
+  cursor: pointer;
+}
+.menu-knop:hover,
+.menu-sluit:hover { background: rgba(74, 224, 110, .16); }
+.menu-knop:focus-visible,
+.menu-sluit:focus-visible { outline: 2px solid var(--roze); outline-offset: 1px; }
+
+/* Op de homepage én op de pagina's achter een QR-code (plant, plek, uitleg) staat de
+   navigatie tot 900px in de balk zelf; daaronder neemt het zijmenu het over. */
+.scan-kop .menu-knop { margin-left: -8px; }
+@media (min-width: 901px) {
+  .topbar .menu-knop,
+  .scan-kop .menu-knop { display: none; }
+}
+/* De balk verdeelt met space-between; zonder deze automarge zou het logo naar rechts
+   schuiven zodra de tabbladen verdwijnen. Nu staan knop en logo netjes naast elkaar. */
+@media (max-width: 900px) {
+  .topbar .menu-knop { margin-right: 6px; }
+  .topbar .brand { margin-right: auto; }
+}
+
+.menu-waas {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(30, 58, 106, .45);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s, visibility .25s;
+}
+.menu-waas.aan { visibility: visible; }
+
+.zijmenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 61;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-width: 86vw;
+  padding: 0 0 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  box-shadow: 6px 0 30px rgba(30, 58, 106, .22);
+  font-family: Poppins, Arial, sans-serif;
+  transform: translateX(-300px);
+  transition: transform .25s;
+}
+
+.zijmenu-kop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 14px 14px 20px;
+  border-bottom: 1px solid var(--lijn);
+}
+.zijmenu-logo { display: block; height: 22px; }
+
+.zijmenu nav { padding: 10px 12px 0; }
+.zijmenu-groep { margin-bottom: 2px; }
+
+.zijmenu-regel {
+  display: block;
+  padding: 11px 12px;
+  border-radius: 14px;
+  color: var(--blauw);
+  text-decoration: none;
+}
+.zijmenu-regel:hover { background: rgba(74, 224, 110, .14); }
+.zijmenu-regel b {
+  display: block;
+  font-family: Raleway, Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+/* De uitlegpagina's hangen onder "Uitleg", met een lijntje ervoor zoals de bies. */
+.zijmenu-onder {
+  display: grid;
+  margin: 2px 0 6px 22px;
+  padding-left: 14px;
+  border-left: 2px solid var(--fris);
+}
+.zijmenu-onder a {
+  padding: 9px 10px;
+  border-radius: 10px;
+  color: var(--groen);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.zijmenu-onder a:hover { background: rgba(74, 224, 110, .14); }
+
+.zijmenu-scheiding {
+  margin: 16px 12px 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--lijn);
+  color: var(--lucht);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zijmenu, .menu-waas { transition: none; }
+}

@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import zones from '@/app/data/tuin.json';
+import { laadZones } from '@/app/lib/tuinData';
 import { readPlacements, replaceZonePlants } from '@/db/garden';
 import { readAllPlants } from '@/db/plants';
-
-const validZones = new Set(zones.map((zone) => zone.id));
+import { geldigeSessie } from '@/app/lib/auth';
 
 export async function GET() {
   try {
@@ -14,9 +13,11 @@ export async function GET() {
 }
 
 export async function PUT(request: Request) {
+  if (!await geldigeSessie(request)) return NextResponse.json({ error: 'Niet ingelogd.' }, { status: 401 });
   try {
     const body = await request.json() as { zoneId?: unknown; plantSlugs?: unknown };
     const validPlants = new Set((await readAllPlants()).map((plant) => plant.slug));
+    const validZones = new Set((await laadZones()).map((zone) => zone.id));
     if (typeof body.zoneId !== 'string' || !validZones.has(body.zoneId)) {
       return NextResponse.json({ error: 'Deze tuinplek bestaat niet.' }, { status: 400 });
     }

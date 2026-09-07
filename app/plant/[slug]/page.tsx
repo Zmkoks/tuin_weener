@@ -1,0 +1,115 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { hoofdletter, korteBotanischeNaam, months, takenVoorMaand } from '@/app/data/tuinTekst';
+import { icoonPad } from '@/app/data/iconen';
+import { Functies, Kalender, PlantFoto, SectieIllustratie, SectieMagWeg, SectieMoetBlijven, SectieOogsten, SectieSnoeien, SectieVerzorging, SectieWeetje, Waterdruppels } from '@/app/components/paspoortDelen';
+import { laadBeplanting, laadPlanten, laadZones, plekkenVanPlant } from '@/app/lib/tuinData';
+import { fotoVan, illustratieVan } from '@/app/data/afbeeldingen';
+import { Bronvermelding } from '@/app/components/Bronvermelding';
+import ScanKop from '@/app/components/ScanKop';
+import PlekjesKaart from '@/app/components/PlekjesKaart';
+import Beheerknop from '@/app/components/Beheerknop';
+
+export const dynamic = 'force-dynamic';
+
+type Props = { params: Promise<{ slug: string }> };
+
+async function zoekPlant(slug: string) {
+  return (await laadPlanten()).find((plant) => plant.slug === decodeURIComponent(slug));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const plant = await zoekPlant((await params).slug);
+  if (!plant) return { title: 'Plant niet gevonden · Weener XL' };
+  return { title: `${hoofdletter(plant.naam)} · tuin van Weener XL`, description: plant.intro };
+}
+
+export default async function PlantPagina({ params }: Props) {
+  const { slug } = await params;
+  const plant = await zoekPlant(slug);
+  if (!plant) notFound();
+
+  const [zones, beplanting] = await Promise.all([laadZones(), laadBeplanting()]);
+  const plekken = plekkenVanPlant(zones, beplanting, plant.slug);
+  const maand = months[new Date().getMonth()];
+  const taken = takenVoorMaand(plant, maand);
+
+  /* `scan-plant` zet de brede indeling aan (scan.css, onderaan). De plek-pagina gebruikt
+     dezelfde `.scan` maar is een lijstje en blijft smal. */
+  return <main className="scan scan-plant">
+    <ScanKop />
+    <div className="scan-vel">
+
+    <header className="scan-hero">
+      {/* Zelfde opbouw als .left-visual op de gedrukte kaart: foto + twee losse ringen.
+          Staat vóór de tekst omdat hij rechts zweeft en de tekst er links langs loopt. */}
+      <div className="scan-visual">
+        <div className="scan-foto-vlak"><PlantFoto plant={plant} className="scan-foto" inKader /></div>
+        <i className="ring-dark" aria-hidden="true" />
+        <i className="ring-bright" aria-hidden="true" />
+      </div>
+      <div className="scan-titel">
+        <span className="number">{plant.levensduur && ` ${plant.levensduur}`}</span>
+        <h1>{plant.naam}</h1>
+        <i>{korteBotanischeNaam(plant.botanischeNaam)}</i>
+        <Waterdruppels plant={plant} naarUitleg />
+        <Functies plant={plant} naarUitleg />
+        {/* De inleiding hoort bij de kop: op een breed scherm staat hij naast de foto in
+            plaats van eronder, en dan zou een losse alinea de kop half leeg laten. */}
+        <p className="scan-intro">{plant.intro}</p>
+        <Beheerknop slug={plant.slug} />
+      </div>
+    </header>
+
+    <section className="scan-nu">
+      <p className="eyebrow">WAT KAN IK NU DOEN?</p>
+      <h2>{maand}</h2>
+      {taken.length > 0
+        ? taken.map((taak) => <div className="scan-taak" key={taak.type}>
+            <img className="taak-icoon" src={icoonPad(taak.type === 'Oogsten' ? 'oogst' : 'snoei')} alt="" />
+            <div><b>{taak.type}</b>{taak.uitleg && <p>{taak.uitleg}</p>}</div>
+          </div>)
+        : <p className="scan-geen-taak">Deze maand hoef je bij deze plant niets te oogsten of te snoeien.</p>}
+    </section>
+
+    <div className="scan-regels">
+      <SectieMagWeg plant={plant} />
+      <SectieMoetBlijven plant={plant} />
+    </div>
+
+    <a className="scan-meer" href="#meer">Meer over deze plant ↓</a>
+
+    <div className="scan-secties" id="meer">
+      <SectieVerzorging plant={plant} />
+      <SectieOogsten plant={plant} />
+      <SectieSnoeien plant={plant} />
+      <section className="scan-kalender"><h3>Jaarkalender</h3><div className="scan-kalender-scroll"><Kalender plant={plant} /></div><Link className="uitleg-link" href="/uitleg/functies#kalender">Wat betekenen de kleuren? →</Link></section>
+      <SectieIllustratie plant={plant} />
+      <SectieWeetje plant={plant} />
+    </div>
+
+    {plekken.length > 0 && <nav className="scan-plekken" aria-label="Waar deze plant staat">
+      <h3>In de tuin</h3>
+      <p className="scan-plekken-tekst">Deze plant staat op {plekken.length === 1 ? 'één plek' : `${plekken.length} plekken`} in de tuin. De stippen laten zien waar.</p>
+      <PlekjesKaart plekken={plekken} naam={plant.naam} />
+      <Link href="/plattegrond">Bekijk de hele plattegrond →</Link>
+    </nav>}
+
+    {/* "Hoe lees je deze pagina?" met de drie uitlegkaarten stond hier onderaan. Weg per
+        7 september: de uitleg is inmiddels bereikbaar op het moment dat je hem nodig hebt
+        — bij de druppels, bij het snoeien, bij de kalender en op elk icoon zelf (§8).
+        Een tweede rij kaarten onderaan herhaalde dat alleen maar. */}
+
+    <section className="scan-bronnen" aria-label="Afbeeldingsbronnen">
+      <Bronvermelding label="Foto" bron={fotoVan(plant)?.bron} />
+      <Bronvermelding label="Botanische illustratie" bron={illustratieVan(plant)?.bron} />
+    </section>
+
+    <footer className="scan-voet">
+      <Link href="/">Bekijk de hele tuin</Link>
+    </footer>
+
+    </div>
+  </main>;
+}

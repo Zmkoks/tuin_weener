@@ -1,5 +1,6 @@
 import { env } from 'cloudflare:workers';
 import zones from '@/app/data/tuin.json';
+import { readCustomZones } from '@/db/zones';
 
 const createTableSql = `CREATE TABLE IF NOT EXISTS zone_plants (
   zone_id TEXT NOT NULL,
@@ -33,6 +34,7 @@ export async function readPlacements() {
   const result = await env.DB.prepare('SELECT zone_id, plant_slug FROM zone_plants ORDER BY zone_id, plant_slug').all<{ zone_id: string; plant_slug: string }>();
   const placements: Record<string, string[]> = {};
   for (const zone of zones) placements[zone.id] = [];
+  for (const zone of await readCustomZones()) placements[zone.id] = [];
   for (const row of result.results) (placements[row.zone_id] ??= []).push(row.plant_slug);
   return placements;
 }

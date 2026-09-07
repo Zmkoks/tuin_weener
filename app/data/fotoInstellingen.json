@@ -1,0 +1,140 @@
+{
+  "aardbei": {
+    "x": 27,
+    "y": 35,
+    "zoom": 1.06
+  },
+  "bosbes": {
+    "x": 91,
+    "y": 0,
+    "zoom": 0.94
+  },
+  "bieslook": {
+    "x": 52,
+    "y": 100,
+    "zoom": 1.23
+  },
+  "kiwi": {
+    "x": 63,
+    "y": 42,
+    "zoom": 1.07
+  },
+  "citroenmelisse": {
+    "x": 78,
+    "y": 22,
+    "zoom": 1.05
+  },
+  "dragon": {
+    "x": 29,
+    "y": 0,
+    "zoom": 1.24
+  },
+  "edelduizendblad": {
+    "x": 31,
+    "y": 0,
+    "zoom": 1.26
+  },
+  "framboos": {
+    "x": 19,
+    "y": 2,
+    "zoom": 1.04
+  },
+  "knopherik": {
+    "x": 8,
+    "y": 21,
+    "zoom": 1.76
+  },
+  "lavendel": {
+    "x": 39,
+    "y": 29,
+    "zoom": 1.1
+  },
+  "marjolein": {
+    "x": 0,
+    "y": 76,
+    "zoom": 1.09
+  },
+  "munt": {
+    "x": 43,
+    "y": 28,
+    "zoom": 1.29
+  },
+  "rodebes": {
+    "x": 51,
+    "y": 59,
+    "zoom": 1.02
+  },
+  "rozemarijn": {
+    "x": 50,
+    "y": 3,
+    "zoom": 1.06
+  },
+  "salie": {
+    "x": 68,
+    "y": 25,
+    "zoom": 1.32
+  },
+  "teunisbloem": {
+    "x": 100,
+    "y": 61,
+    "zoom": 1.02
+  },
+  "tijm": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1.64
+  },
+  "venkel": {
+    "x": 69,
+    "y": 24,
+    "zoom": 1.15
+  },
+  "zwartebes": {
+    "x": 50,
+    "y": 45,
+    "zoom": 1.03
+  },
+  "spaanseaak": {
+    "x": 0,
+    "y": 61,
+    "zoom": 1.37
+  },
+  "wegedoorn": {
+    "x": 98,
+    "y": 0,
+    "zoom": 1.36
+  },
+  "kardinaalmuts": {
+    "x": 58,
+    "y": 62,
+    "zoom": 1.32
+  },
+  "moerbei": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+  },
+  "meidoorn": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+  },
+  "azarooldoorn": {
+    "x": 46,
+    "y": 32,
+    "zoom": 1.06
+  },
+  "wittemoerbei": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+  },
+  "_uitsnede": {
+    "left": -96,
+    "top": 11,
+    "width": 397,
+    "height": 411,
+    "radius_x": 49,
+    "radius_y": 50
+  }
+}
