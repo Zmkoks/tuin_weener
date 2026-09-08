@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import type { Plant } from '../data/plantTypes';
 import type { Plek } from '../data/plekTypes';
 import Kopbalk from '../components/Kopbalk';

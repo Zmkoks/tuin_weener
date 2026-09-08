@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import { icoonPad } from '../data/iconen';
 
 /** Breedte van het paneel in px; ook de afstand waarover je veegt. */

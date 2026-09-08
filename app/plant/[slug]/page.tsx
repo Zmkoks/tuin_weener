@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import { notFound } from 'next/navigation';
 import { hoofdletter, korteBotanischeNaam, months, takenVoorMaand } from '@/app/data/tuinTekst';
 import { icoonPad } from '@/app/data/iconen';

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 
 export default function SiteVoet() {
   return <footer className="site-voet">

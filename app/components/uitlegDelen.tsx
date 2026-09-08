@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import { icoonPad } from '../data/iconen';
 import { vaktermgroepen } from '../data/vaktermen';
 

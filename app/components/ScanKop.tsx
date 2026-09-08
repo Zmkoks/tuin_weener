@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import Zijmenu from './Zijmenu';
 
 /** Zelfde namen als `Onderdeel` in Kopbalk.tsx, maar hier is nooit "planten" of "beheren"

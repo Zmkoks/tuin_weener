@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import type { ReactNode } from 'react';
 import { vaktermgroepen } from './vaktermen';
 

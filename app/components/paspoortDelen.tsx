@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import type { Plant } from '../data/plantTypes';
 import { fotoVan, illustratieVan } from '../data/afbeeldingen';
 import { functieIcoon, icoonPad, standplaatsIcoon } from '../data/iconen';

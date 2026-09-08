@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import Kopbalk from '@/app/components/Kopbalk';
 import { Druppels } from '@/app/components/paspoortDelen';
 import { uitlegPaginas } from '@/app/components/uitlegDelen';

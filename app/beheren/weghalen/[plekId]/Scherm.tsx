@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import { PlantFoto } from '@/app/components/paspoortDelen';
 import { korteBotanischeNaam } from '@/app/data/tuinTekst';
 import { useBeheer } from '../../BeheerContext';

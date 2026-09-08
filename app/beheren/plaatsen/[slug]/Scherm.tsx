@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import { useState } from 'react';
 import { useBeheer } from '../../BeheerContext';
 import { BovenaanBeginnen, Kaart, Melding, NietGevonden, Terug, useHandeling } from '../../onderdelen';

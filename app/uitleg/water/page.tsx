@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import ScanKop from '@/app/components/ScanKop';
 import SpringNaarAnker from '@/app/components/SpringNaarAnker';
 import { Druppels } from '@/app/components/paspoortDelen';

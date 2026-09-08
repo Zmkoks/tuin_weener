@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import { PlantFoto } from '@/app/components/paspoortDelen';
 import { korteBotanischeNaam } from '@/app/data/tuinTekst';
 import Plattegrond from '@/app/components/Plattegrond';

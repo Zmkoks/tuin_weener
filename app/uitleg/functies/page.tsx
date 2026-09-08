@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import Link from '@/app/components/NativeLink';
 import { alleFuncties } from '@/app/data/functies';
 import ScanKop from '@/app/components/ScanKop';
 import SpringNaarAnker from '@/app/components/SpringNaarAnker';
