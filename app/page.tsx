@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
+import type { AnchorHTMLAttributes, ReactNode } from 'react';
 import { alleFuncties } from './data/functies';
 import plantData from './data/planten.json';
 import zoneData from './data/tuin.json';
@@ -13,6 +13,10 @@ import { PlantFoto } from './components/paspoortDelen';
 import { photoNames } from './data/fotos';
 import { icoonPad } from './data/iconen';
 import { korteBotanischeNaam } from './data/tuinTekst';
+
+function Link({ children, ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { children: ReactNode }) {
+  return <a {...props}>{children}</a>;
+}
 
 type Tab = 'overzicht' | 'plattegrond' | 'pdfs';
 
