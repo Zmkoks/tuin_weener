@@ -42,6 +42,15 @@ export default async function PlantPagina({ params }: Props) {
     <div className="scan-vel">
 
     <header className="scan-hero">
+      {/* De naam staat vóór de foto en krijgt de volle breedte. Zou hij naast de zwevende
+          foto staan, dan blijft er op een telefoon maar ~154px over, en een woord als
+          "duizendblad" (226px) past daar niet in: de browser duwt dan lege regels omlaag tot
+          de foto voorbij is, en de naam valt in tweeën. Dat trof 12 van de 25 planten. */}
+      <div className="scan-naam">
+        <span className="number">{plant.levensduur && ` ${plant.levensduur}`}</span>
+        <h1>{plant.naam}</h1>
+        <i>{korteBotanischeNaam(plant.botanischeNaam)}</i>
+      </div>
       {/* Zelfde opbouw als .left-visual op de gedrukte kaart: foto + twee losse ringen.
           Staat vóór de tekst omdat hij rechts zweeft en de tekst er links langs loopt. */}
       <div className="scan-visual">
@@ -50,9 +59,6 @@ export default async function PlantPagina({ params }: Props) {
         <i className="ring-bright" aria-hidden="true" />
       </div>
       <div className="scan-titel">
-        <span className="number">{plant.levensduur && ` ${plant.levensduur}`}</span>
-        <h1>{plant.naam}</h1>
-        <i>{korteBotanischeNaam(plant.botanischeNaam)}</i>
         <Waterdruppels plant={plant} naarUitleg />
         <Functies plant={plant} naarUitleg />
         {/* De inleiding hoort bij de kop: op een breed scherm staat hij naast de foto in

@@ -16,9 +16,9 @@ export default function Kopbalk({ actief }: { actief: Onderdeel }) {
   const klas = (naam: Onderdeel) => (actief === naam ? 'active' : '');
   return <header className="topbar">
     <Zijmenu />
-    <a className="brand" href="/"><img src="/iconen/WeenerLogo.svg" alt="Weener XL" className="brand-logo" /></a>
+    <Link className="brand" href="/"><img src="/iconen/WeenerLogo.svg" alt="Weener XL" className="brand-logo" /></Link>
     <nav aria-label="Hoofdnavigatie">
-      <a className={klas('planten')} href="/">Planten</a>
+      <Link className={klas('planten')} href="/">Planten</Link>
       <Link className={klas('plattegrond')} href="/plattegrond">Plattegrond</Link>
       <Link className={klas('uitleg')} href="/uitleg">Uitleg</Link>
       <Link className={klas('drukwerk')} href="/drukwerk">Drukwerk</Link>

@@ -29,11 +29,10 @@ export default function ScanKop({ actief }: { actief?: Actief } = {}) {
       <small>de tuin</small>
     </Link>
 
-    {/* Gewone ankers voor de homepage-tabbladen: die zijn geen eigen adres maar een
-        `#`-stukje, en `app/page.tsx` leest dat bij het laden uit `location.hash` — dat
-        werkt voor een volle paginalading vanaf hier net zo goed als vanaf de balk zelf. */}
+    {/* De site gebruikt hier gewone browsernavigatie via NativeLink; zo worden de pagina's
+        opnieuw geladen en blijft de serverdata meteen actueel. */}
     <nav className="scan-kop-nav" aria-label="Hoofdnavigatie">
-      <a href="/">Planten</a>
+      <Link href="/">Planten</Link>
       <Link href="/plattegrond">Plattegrond</Link>
       <Link className={klas('uitleg')} href="/uitleg">Uitleg</Link>
       <Link href="/drukwerk">Drukwerk</Link>

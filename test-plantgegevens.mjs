@@ -8,7 +8,7 @@ const cache = new Map();
 function load(file) {
   file = path.resolve(file);
   if (cache.has(file)) return cache.get(file);
-  const module = { exports: {} }; cache.set(file, module.exports);
+  const mod = { exports: {} }; cache.set(file, mod.exports);
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } }).outputText;
   const localRequire = name => {
     if (name.endsWith('AfbeeldingVeld') || name.endsWith('SymboolVeld')) return {};
@@ -17,8 +17,8 @@ function load(file) {
     if (target.endsWith('.json')) return JSON.parse(fs.readFileSync(target));
     return load(fs.existsSync(target + '.ts') ? target + '.ts' : target + '.tsx');
   };
-  new Function('require', 'module', 'exports', code)(localRequire, module, module.exports);
-  cache.set(file, module.exports); return module.exports;
+  new Function('require', 'module', 'exports', code)(localRequire, mod, mod.exports);
+  cache.set(file, mod.exports); return mod.exports;
 }
 const { normaliseerPlant, alleFuncties } = load('app/data/functies.ts');
 const { leesPlant } = load('app/lib/plantInvoer.ts');

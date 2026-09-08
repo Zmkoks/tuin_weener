@@ -13,6 +13,8 @@ import { springNaar } from '../lib/springNaar';
 export default function Vaktermenkaart({ groep }: { groep: Vaktermgroep }) {
   const [gekozen, setGekozen] = useState<string | null>(null);
   const tekening = useRef<HTMLElement>(null);
+  /** Het raster met de tekening links en de lijst rechts; zie de sprong hieronder. */
+  const raster = useRef<HTMLDivElement>(null);
 
   // Een link als /uitleg/vaktermen#term-uitloper opent meteen het juiste woord.
   useEffect(() => {
@@ -33,11 +35,18 @@ export default function Vaktermenkaart({ groep }: { groep: Vaktermgroep }) {
       // rust, zodat er niet twee stukken code om dezelfde scrollpositie vechten.
       if (!hier) return;
       const regel = document.getElementById(`term-${slug}`);
-      // Op een breed scherm staat de tekening `sticky` naast de lijst en blijft hij dus
-      // vanzelf in beeld; daar is de regel in de lijst het betere doel. Op een smal scherm
-      // staat de lijst ónder de tekening, en dan moet de tekening in beeld komen.
       const plakt = tekening.current && getComputedStyle(tekening.current).position === 'sticky';
-      springNaar(hier.plek && !plakt ? tekening.current : regel);
+      // Staat het woord niet op de tekening (Stengel, Tak, Pol, Wortelblok), dan valt er niets
+      // aan te wijzen en is de regel in de lijst het juiste doel.
+      //
+      // Anders moet de tékening in beeld. Op een smal scherm staat die boven de lijst, dus
+      // daar mikken we er rechtstreeks op. Op een breed scherm staat hij `sticky` naast de
+      // lijst; dan mikken we op het raster eromheen, want dat is het enige punt waar de
+      // tekening bovenaan zijn kolom hangt en dus helemaal zichtbaar is. Eerder mikten we
+      // hier op de lijstregel, in de veronderstelling dat sticky hem vanzelf in beeld houdt
+      // - maar bij een woord onderaan de lijst is hij dan al voorbijgeschoven en zag je
+      // alleen de onderkant van de illustratie.
+      springNaar(!hier.plek ? regel : plakt ? raster.current : tekening.current);
     };
     uitAdres();
     window.addEventListener('hashchange', uitAdres);
@@ -60,7 +69,7 @@ export default function Vaktermenkaart({ groep }: { groep: Vaktermgroep }) {
     <h2>{groep.titel}</h2>
     <p className="uitleg-inleiding">{groep.inleiding}</p>
 
-    <div className="vakterm-lay">
+    <div className="vakterm-lay" ref={raster}>
       <figure className="vakterm-tekening" ref={tekening}>
         <div className="vakterm-vlak" style={{ aspectRatio: `${groep.breedte} / ${groep.hoogte}` }}>
           <img

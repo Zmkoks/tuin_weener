@@ -27,11 +27,7 @@ export default function Beginscherm() {
       <span aria-hidden="true">✓</span>
       <h2>{melding.titel}</h2>
       <p>{melding.tekst}</p>
-      {/* Bewust een gewoon anker en geen <Link>: de tabbladen van de homepage zijn een
-          `#`-stukje, en bij een <Link> navigeert de router zonder `hashchange`, waardoor
-          de homepage op het verkeerde tabblad blijft staan. Zie Kopbalk.tsx. */}
-      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-      <a className="beheer-doen" href="/plattegrond">Bekijk de plattegrond</a>
+      <Link className="beheer-doen" href="/plattegrond">Bekijk de plattegrond</Link>
     </div>}
 
     <p className="eyebrow">BEHEREN</p>

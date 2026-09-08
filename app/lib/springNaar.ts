@@ -18,8 +18,12 @@
 const RUIMTE = 10;
 const DUUR_MS = 800;
 
+/**
+ * De vaste balk bovenaan heet op de scanpagina's `.scan-kop` en op de homepage `.topbar`.
+ * Allebei staan ze `sticky`, dus in beide gevallen moet de aangewezen regel eronder komen.
+ */
 function kopHoogte() {
-  const kop = document.querySelector('.scan-kop');
+  const kop = document.querySelector('.scan-kop, .topbar');
   return kop ? kop.getBoundingClientRect().height : 0;
 }
 

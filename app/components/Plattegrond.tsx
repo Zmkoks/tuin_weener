@@ -1,5 +1,7 @@
 'use client';
 
+import type { ReactNode } from 'react';
+
 /**
  * De plattegrond zoals hij altijd bedoeld was: de vaste ondergrond als achtergrond,
  * en daarbovenop de plantvakken uit tuin.json als aanklikbare vormen.
@@ -29,6 +31,12 @@ type Props = {
   opPunt?: (x: number, y: number) => void;
   /** Het aangewezen punt, om te laten zien waar het terechtkomt. */
   punt?: { x: number; y: number } | null;
+  /**
+   * Extra tekening tussen de achtergrond en de klikvlakken — in de praktijk de nummers en
+   * de legenda (`KaartIndex`). Die komt als prop binnen en niet uit deze component, omdat
+   * `PlattegrondZone` bewust alleen de vorm kent en niet het badge-punt.
+   */
+  indexLaag?: ReactNode;
 };
 
 /** Straal van een boom of heester, in millimeters op de kaart. */
@@ -41,9 +49,10 @@ function Vorm({ zone }: { zone: PlattegrondZone }) {
   return <circle cx={vorm.x} cy={vorm.y} r={PUNT_STRAAL} />;
 }
 
-export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, punt }: Props) {
+export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, punt, indexLaag }: Props) {
   return <svg className={`plattegrond${opPunt ? ' aanwijzen' : ''}`} viewBox="0 0 210 297" role="group" aria-label="Plattegrond van de tuin">
     <image href="/plattegrond-tuin.svg" x="0" y="0" width="210" height="297" />
+    {indexLaag}
     {zones.map((zone) => {
       const hier = namen?.[zone.id] || [];
       const omschrijving = hier.length > 0 ? hier.join(', ') : 'nog leeg';

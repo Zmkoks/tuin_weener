@@ -53,7 +53,10 @@ export default function Zijmenu() {
   const sluitknop = useRef<HTMLButtonElement>(null);
   const stand = useRef<number | null>(null);
 
-  useEffect(() => setGemonteerd(true), []);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setGemonteerd(true), 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const zetVerschuiving = (waarde: number | null) => {
     stand.current = waarde;

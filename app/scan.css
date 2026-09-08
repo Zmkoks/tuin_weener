@@ -143,24 +143,54 @@ body:has(.scan) { background: #e2e8f0; }
   font-weight: 600;
   font-size: 30px;
 }
-.scan-titel { padding-top: 16px; }
-.scan-titel h1 {
+/* De naam staat boven de zwevende foto en krijgt de volle breedte. Naast de foto blijft op
+   een telefoon maar ~154px over; "citroenmelisse" is daar 266px breed. De browser duwt dan
+   lege regels omlaag tot de foto voorbij is en de naam valt in tweeën - dat trof 12 van de
+   25 planten. Boven 1000px is de kop een raster zonder zweving en speelt dit niet. */
+.scan-naam { clear: both; padding-top: 16px; }
+.scan-naam h1 {
   font-size: clamp(34px, 10vw, 46px);
   line-height: 1.05;
   letter-spacing: -.02em;
   margin: 6px 0 4px;
   color: var(--blauw);
 }
-.scan-titel h1::first-letter { text-transform: uppercase; }
-.scan-titel i {
+.scan-naam h1::first-letter { text-transform: uppercase; }
+.scan-naam i {
   display: block;
   color: var(--grijs);
   font-size: 15px;
   margin-bottom: 12px;
 }
+
+/* De druppels en de functie-iconen horen náást de foto, in de strook die de naam vrijlaat.
+   Als blok-flex doen ze dat niet: een flexcontainer maakt een eigen opmaakcontext en die
+   ontwijkt een zwevend element in plaats van eromheen te lopen, dus belandden ze eronder en
+   bleef er links van de foto een leeg vlak staan. Inline-level lopen ze wél mee als tekst.
+   Boven 1000px zweeft er niets en is dit niet nodig. */
+@media (max-width: 999px) {
+  .scan-titel > .icoon-uitleg,
+  .scan-titel > .druppels,
+  .scan-titel > .functie-iconen {
+    display: inline-flex;
+    vertical-align: top;
+    max-width: 100%;
+  }
+  /* 60% liet een strook van 154px over en de druppelrij is er 156 - twee pixels te kort,
+     waardoor hij alsnog onder de foto belandde. Met 52% past hij, en de functie-iconen
+     eronder ook. De compositie blijft kloppen: de ringen zijn in `cqw` gezet en schalen
+     dus mee met het vlak. */
+  .scan-visual { width: 52%; }
+}
 /* Staat in `.scan-titel`, dus binnen de kop. De marge erboven doet wat de marge onder
-   `.scan-hero` eerst deed toen de alinea er nog los onder stond. */
+   `.scan-hero` eerst deed toen de alinea er nog los onder stond.
+
+   `clear: right` houdt de inleiding onder de foto: in de strook ernaast zou hij op een
+   telefoon nog geen dertig tekens per regel krijgen. De druppels en de functie-iconen
+   blijven er wél naast staan, want die zijn smal genoeg. Boven 1000px zweeft er niets meer
+   en heeft het `clear` geen effect. */
 .scan-intro {
+  clear: right;
   font-size: 17px;
   line-height: 1.55;
   color: var(--grijs);
@@ -518,13 +548,17 @@ a.icoon-uitleg:focus-visible, a.functie-item:focus-visible, a.standplaats:focus-
   }
   .scan-plant .scan-visual {
     float: none;
-    grid-area: 1 / 2;
+    /* Over beide rijen van de linkerkolom heen: de naam staat in rij 1, de rest in rij 2. */
+    grid-area: 1 / 2 / 3 / 3;
     width: auto;
     max-width: none;
     margin: 0 -30px 0 0;
   }
-  .scan-plant .scan-titel { grid-area: 1 / 1; padding-top: 0; }
-  .scan-plant .scan-titel h1 { font-size: 58px; }
+  /* Hier is de naam geen los blok bovenaan maar gewoon het begin van de linkerkolom; er
+     zweeft niets, dus de kop past hoe dan ook naast de foto. */
+  .scan-plant .scan-naam { grid-area: 1 / 1; padding-top: 0; }
+  .scan-plant .scan-naam h1 { font-size: 58px; }
+  .scan-plant .scan-titel { grid-area: 2 / 1; padding-top: 0; }
   .scan-plant .scan-intro { font-size: 18px; max-width: 54ch; }
 
   .scan-plant .scan-nu { padding: 26px 30px; margin-bottom: 18px; }
