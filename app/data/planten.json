@@ -1,1764 +1,1764 @@
 [
- {
-  "slug": "aardbei",
-  "naam": "aardbei",
-  "plantnummer": "1",
-  "waterOndergrens": "2",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets. Controleer vaker wanneer er aardbeien groeien.",
-  "zon": "zon",
-  "zonInfo": "Groeit en rijpt het beste in de zon. Lichte halfschaduw kan ook, maar geeft vaak minder vruchten.",
-  "functies": {
-   "primair": [
-    "fruit"
-   ],
-   "secundair": [
-    "insecten"
-   ]
+  {
+    "slug": "aardbei",
+    "naam": "aardbei",
+    "plantnummer": "1",
+    "waterOndergrens": "2",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets. Controleer vaker wanneer er aardbeien groeien.",
+    "zon": "zon",
+    "zonInfo": "Groeit en rijpt het beste in de zon. Lichte halfschaduw kan ook, maar geeft vaak minder vruchten.",
+    "functies": {
+      "primair": [
+        "fruit"
+      ],
+      "secundair": [
+        "insecten"
+      ]
+    },
+    "oogstTijd": [
+      "Mei",
+      "Juni",
+      "Juli"
+    ],
+    "oogstMethode": "Pluk een aardbei als hij helemaal rood is. Pak hem voorzichtig bij het steeltje en knip of knijp het steeltje door.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Maart",
+      "Augustus"
+    ],
+    "snoeiTijdInfo": "Ruim in maart dode bladeren op. Knip na de laatste oogst in augustus oude bladeren en overtollige uitlopers weg.",
+    "snoeiMethode": "Knip bruine, zieke en beschadigde bladeren laag af. Verwijder uitlopers die niet nodig zijn.",
+    "snoeiInformatie": "Het groene hart in het midden maakt de nieuwe bladeren. Uitlopers kunnen nieuwe planten vormen, maar nemen ook ruimte in.",
+    "woekerToestemming": "Knip uitlopers weg die over het pad of naar andere planten groeien. Bruine en beschimmelde bladeren mogen ook weg.",
+    "woekerVerbod": "Knip het groene hart van de plant niet weg. Laat stengels met bloemen of jonge aardbeien staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "Maart",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "bloei": [
+      "April",
+      "Mei",
+      "Juni"
+    ],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Fragaria × ananassa (Duchesne ex Weston) Duchesne ex Rozier",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Fragaria_%C3%97_ananassa",
+    "intro": "De aardbei geeft zoete rode vruchten in de vroege zomer. De witte bloemen zijn geliefd bij bijen en hommels.",
+    "weetje": "De aardbei is geen echte bes. Het rode deel is de bloembodem; de gele zaadjes aan de buitenkant zijn de eigenlijke vruchtjes.",
+    "foto": {
+      "bestand": "",
+      "x": 73,
+      "y": 35,
+      "zoom": 1.06,
+      "bron": "https://plants.ces.ncsu.edu/plants/fragaria-x-ananassa/"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=45331896"
+    }
   },
-  "oogstTijd": [
-   "Mei",
-   "Juni",
-   "Juli"
-  ],
-  "oogstMethode": "Pluk een aardbei als hij helemaal rood is. Pak hem voorzichtig bij het steeltje en knip of knijp het steeltje door.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Maart",
-   "Augustus"
-  ],
-  "snoeiTijdInfo": "Ruim in maart dode bladeren op. Knip na de laatste oogst in augustus oude bladeren en overtollige uitlopers weg.",
-  "snoeiMethode": "Knip bruine, zieke en beschadigde bladeren laag af. Verwijder uitlopers die niet nodig zijn.",
-  "snoeiInformatie": "Het groene hart in het midden maakt de nieuwe bladeren. Uitlopers kunnen nieuwe planten vormen, maar nemen ook ruimte in.",
-  "woekerToestemming": "Knip uitlopers weg die over het pad of naar andere planten groeien. Bruine en beschimmelde bladeren mogen ook weg.",
-  "woekerVerbod": "Knip het groene hart van de plant niet weg. Laat stengels met bloemen of jonge aardbeien staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "Maart",
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "bloei": [
-   "April",
-   "Mei",
-   "Juni"
-  ],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Fragaria × ananassa (Duchesne ex Weston) Duchesne ex Rozier",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Fragaria_%C3%97_ananassa",
-  "intro": "De aardbei geeft zoete rode vruchten in de vroege zomer. De witte bloemen zijn geliefd bij bijen en hommels.",
-  "weetje": "De aardbei is geen echte bes. Het rode deel is de bloembodem; de gele zaadjes aan de buitenkant zijn de eigenlijke vruchtjes.",
-  "foto": {
-   "bestand": "",
-   "x": 27,
-   "y": 35,
-   "zoom": 1.06,
-   "bron": "https://plants.ces.ncsu.edu/plants/fragaria-x-ananassa/"
+  {
+    "slug": "bosbes",
+    "naam": "bosbes",
+    "plantnummer": "2",
+    "waterOndergrens": "3",
+    "waterBovengrens": "4",
+    "waterInfo": "Voel eerst de grond. Geef water zodra de bovenste laag droog is. Houd de grond licht vochtig, vooral wanneer de bessen groeien, maar laat geen plas staan.",
+    "zon": "zon",
+    "zonInfo": "Staat goed in de zon of halfschaduw. Heeft zure grond nodig en verdraagt kalkrijke grond slecht.",
+    "functies": {
+      "primair": [
+        "fruit"
+      ],
+      "secundair": [
+        "vogel",
+        "insecten"
+      ]
+    },
+    "oogstTijd": [
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "oogstMethode": "Pluk alleen donkerblauwe bessen die makkelijk loslaten. Trek niet aan de takken.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Februari",
+      "Maart"
+    ],
+    "snoeiTijdInfo": "Snoei aan het einde van de winter, voordat de nieuwe groei begint.",
+    "snoeiMethode": "Haal dode en beschadigde takken weg. Verwijder bij een oudere struik af en toe één oude tak laag bij de grond.",
+    "snoeiInformatie": "Een open struik krijgt meer licht en lucht. Jonge struiken hoeven nauwelijks te worden gesnoeid.",
+    "woekerToestemming": "Knip lage of hinderlijke dunne takken terug tot een zijtak. Dode en gebroken takken mogen helemaal weg.",
+    "woekerVerbod": "Knip niet in één keer meerdere dikke hoofdtakken weg. Laat voldoende jonge, gezonde takken staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "bloei": [
+      "April",
+      "Mei"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Vaccinium corymbosum L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Vaccinium_corymbosum",
+    "intro": "De bosbes is een struik met blauwe, zoete bessen in de nazomer. In de herfst kleurt het blad mooi rood.",
+    "weetje": "Het blauwe waas op een bosbes is een natuurlijk waslaagje dat de bes beschermt. Poets je het weg, dan is de bes eronder bijna zwart.",
+    "foto": {
+      "bestand": "",
+      "x": 9,
+      "y": 0,
+      "zoom": 0.94,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=1764936"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/wiki/File:203_Vaccinium_Murtillus_L.jpg"
+    }
   },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=45331896"
+  {
+    "slug": "bieslook",
+    "naam": "bieslook",
+    "plantnummer": "3",
+    "waterOndergrens": "2",
+    "waterBovengrens": "4",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
+    "zon": "halfschaduw",
+    "zonInfo": "Groeit in de zon en in halfschaduw. Op een zeer hete plek droogt de grond sneller uit.",
+    "functies": {
+      "primair": [
+        "kruid"
+      ],
+      "secundair": [
+        "insecten"
+      ]
+    },
+    "oogstTijd": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "oogstMethode": "Knip groene sprieten met een schone schaar enkele centimeters boven de grond af. Laat een deel van de pol staan om verder te groeien.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Juli",
+      "Oktober"
+    ],
+    "snoeiTijdInfo": "Knip na de bloei terug voor nieuwe sprieten. Ruim in de herfst slappe en gele sprieten op.",
+    "snoeiMethode": "Knip de pol na de bloei terug tot ongeveer 5 centimeter. Verwijder later alleen wat geel of dood is.",
+    "snoeiInformatie": "Bieslook groeit opnieuw uit vanaf de basis. Regelmatig oogsten houdt de sprieten jong.",
+    "woekerToestemming": "Sprieten en uitgebloeide bloemen mogen laag worden afgeknipt. Een te brede buitenrand mag worden uitgedund.",
+    "woekerVerbod": "Trek niet de hele pol uit de grond. Laat altijd een deel met groene sprieten staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "Maart",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni",
+      "Juli"
+    ],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Allium schoenoprasum L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Allium_schoenoprasum",
+    "intro": "Bieslook groeit als een pol groene sprieten die naar ui smaken. De paarse bolbloemen worden druk bezocht door bijen.",
+    "weetje": "Bieslook is familie van de ui en de knoflook. De paarse bloemen kun je gewoon eten — ze smaken zacht naar ui en staan mooi op een salade.",
+    "foto": {
+      "bestand": "",
+      "x": 48,
+      "y": 100,
+      "zoom": 1.23,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=58878873"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=4064771"
+    }
+  },
+  {
+    "slug": "kiwi",
+    "naam": "kiwi",
+    "plantnummer": "4",
+    "waterOndergrens": "2",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral tijdens warm weer en wanneer vruchten groeien. Is de grond nog vochtig, geef dan niets.",
+    "zon": "zon",
+    "zonInfo": "Staat het liefst zonnig, warm en beschut bij een stevig rek, een schutting of een muur.",
+    "functies": {
+      "primair": [
+        "sier"
+      ],
+      "secundair": [
+        "fruit"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [
+      "Oktober",
+      "November"
+    ],
+    "extraOogstMethode": "Deze plant geeft niet altijd vruchten. Vaak is daar een tweede kiwiplant voor nodig. Zijn er wel kiwi's? Knip ontwikkelde vruchten vóór strenge nachtvorst met het steeltje los. Laat harde vruchten binnen verder rijpen.",
+    "snoeiTijd": [
+      "Januari",
+      "Februari",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "snoeiTijdInfo": "Snoei in de winter vóór de nieuwe groei. Kort vanaf juni lange zomerscheuten in om de klimplant beheersbaar te houden.",
+    "snoeiMethode": "Laat de stam en de vaste zijtakken aan het rek zitten. Kort losse zijscheuten in en verwijder zwakke of beschadigde groei.",
+    "snoeiInformatie": "Kiwi groeit zeer krachtig. Vruchten ontstaan op nieuwe scheuten die uit groei van het vorige jaar komen.",
+    "woekerToestemming": "Lange, dunne scheuten die loshangen, om andere planten draaien of in de weg zitten, mogen flink worden ingekort.",
+    "woekerVerbod": "Knip de dikke stam en de vaste takken aan het rek niet weg. Maak geen grote snoeiwonden wanneer de plant in het voorjaar al groeit.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni"
+    ],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Actinidia chinensis Planch.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Actinidia_chinensis",
+    "intro": "De kiwi is een sterke klimplant met grote, zachte bladeren. Vruchten komen alleen als er een tweede kiwiplant in de buurt staat.",
+    "weetje": "De kiwi komt oorspronkelijk uit China en heette hier vroeger \"Chinese kruisbes\". Kwekers in Nieuw-Zeeland gaven hem de naam van hun nationale vogel: de kiwi.",
+    "foto": {
+      "bestand": "",
+      "x": 37,
+      "y": 42,
+      "zoom": 1.07,
+      "bron": "eigen beeld"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": ""
+    }
+  },
+  {
+    "slug": "citroenmelisse",
+    "naam": "citroenmelisse",
+    "plantnummer": "5",
+    "waterOndergrens": "2",
+    "waterBovengrens": "4",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
+    "zon": "zon",
+    "zonInfo": "Groeit in de zon en in halfschaduw. Op een beschutte plek blijven de bladeren langer mooi.",
+    "functies": {
+      "primair": [
+        "kruid",
+        "insecten"
+      ],
+      "secundair": []
+    },
+    "oogstTijd": [
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "oogstMethode": "Knip jonge toppen of hele groene stengels af. Gebruik vooral frisse, onbeschadigde bladeren.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "snoeiTijdInfo": "Knip tijdens de zomer terug wanneer de plant te groot wordt. Knip na de bloei opnieuw terug om uitzaaien te beperken.",
+    "snoeiMethode": "Knip stengels tot ongeveer 10 centimeter boven de grond terug. Verwijder droge en zieke delen.",
+    "snoeiInformatie": "Citroenmelisse groeit snel opnieuw uit en kan zich ook uitzaaien.",
+    "woekerToestemming": "Hele stengels aan de buitenkant mogen laag worden afgeknipt. Verwijder jonge planten die buiten het vak opkomen.",
+    "woekerVerbod": "Haal niet alle groene stengels en het hele wortelblok tegelijk weg. Laat een deel van de plant staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Juli",
+      "Augustus"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Melissa officinalis L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Melissa_officinalis",
+    "intro": "Citroenmelisse ruikt bij het aanraken sterk naar citroen. De blaadjes zijn lekker in thee.",
+    "weetje": "Melissa is Grieks voor honingbij. Imkers wreven vroeger hun korven in met citroenmelisse om zwermende bijen te lokken.",
+    "foto": {
+      "bestand": "",
+      "x": 22,
+      "y": 22,
+      "zoom": 1.05,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=75764022"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=767482"
+    }
+  },
+  {
+    "slug": "dragon",
+    "naam": "dragon",
+    "plantnummer": "6",
+    "waterOndergrens": "1",
+    "waterBovengrens": "2",
+    "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef pas een beetje water wanneer de grond daar droog is.",
+    "zon": "zon",
+    "zonInfo": "Staat graag zonnig en beschut in grond waar overtollig water makkelijk weg kan.",
+    "functies": {
+      "primair": [
+        "kruid"
+      ],
+      "secundair": []
+    },
+    "oogstTijd": [
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "oogstMethode": "Knip jonge toppen of groene zijtakjes af. Laat onderaan voldoende groene groei staan.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "snoeiTijdInfo": "Knip in de zomer terug zodra de plant te hoog of breed wordt. Knip in de herfst de oude stengels laag af.",
+    "snoeiMethode": "Kort lange stengels flink in. Aan het einde van het seizoen mag de plant tot 5 à 10 centimeter boven de grond worden teruggeknipt.",
+    "snoeiInformatie": "Dragon groeit opnieuw uit vanaf de basis. De plant hoeft niet hoog te blijven om gezond te zijn.",
+    "woekerToestemming": "Takken die over andere planten hangen of in de weg zitten, mogen tot 10 centimeter boven de grond worden teruggeknipt.",
+    "woekerVerbod": "Trek niet het hele wortelblok uit de grond. Laat enkele groene scheuten of de basis van de plant staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Augustus",
+      "September"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Artemisia dracunculus L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Artemisia_dracunculus",
+    "intro": "Dragon is een keukenkruid met smalle blaadjes en een zachte anijssmaak. De plant komt elk jaar terug vanaf de basis.",
+    "weetje": "Er bestaan twee soorten dragon: Franse dragon smaakt het lekkerst maar maakt bijna nooit zaad, Russische dragon is sterker maar smaakt flauwer. De naam komt van \"draakje\" — de kronkelende wortels deden mensen aan slangen denken.",
+    "foto": {
+      "bestand": "",
+      "x": 71,
+      "y": 0,
+      "zoom": 1.24,
+      "bron": "Bron niet teruggevonden."
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=43439649"
+    }
+  },
+  {
+    "slug": "edel-duizendblad",
+    "naam": "edel duizendblad",
+    "plantnummer": "7",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water als de grond enkele centimeters diep droog is. Is de grond nog vochtig, geef dan niets.",
+    "zon": "zon",
+    "zonInfo": "Bloeit het beste in de zon, in grond waar overtollig water makkelijk weg kan.",
+    "functies": {
+      "primair": [
+        "insecten",
+        "sier"
+      ],
+      "secundair": [
+        "onkruid"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Maart",
+      "September"
+    ],
+    "snoeiTijdInfo": "Knip na de bloei uitgebloeide stengels weg. Ruim in maart de laatste dode delen op.",
+    "snoeiMethode": "Knip uitgebloeide bloemstengels laag af. Verwijder in het voorjaar bruine en dode resten.",
+    "snoeiInformatie": "De plant loopt opnieuw uit vanuit lage bladrozetten en kan zich via de wortels uitbreiden.",
+    "woekerToestemming": "Uitgebloeide stengels mogen laag worden afgeknipt. Buitenste delen die te breed worden, mogen worden uitgestoken.",
+    "woekerVerbod": "Verwijder niet alle lage, groene bladrozetten. Laat een deel van de plant in het vak staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "bloei": [
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Achillea nobilis L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Achillea_nobilis",
+    "intro": "Edel duizendblad heeft fijne, geveerde blaadjes en witte bloemschermen. Zweefvliegen en bijen komen er graag op af.",
+    "weetje": "Duizendblad is genoemd naar de Griekse held Achilles, die er volgens de verhalen wonden mee verzorgde. De naam \"duizendblad\" slaat op de fijn verdeelde blaadjes.",
+    "foto": {
+      "bestand": "",
+      "x": 69,
+      "y": 0,
+      "zoom": 1.26,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=8942374"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=18901843"
+    }
+  },
+  {
+    "slug": "framboos",
+    "naam": "framboos",
+    "plantnummer": "8",
+    "waterOndergrens": "2",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral wanneer de frambozen groeien. Is de grond nog vochtig, geef dan niets.",
+    "zon": "zon",
+    "zonInfo": "Groeit goed in de zon en in lichte halfschaduw. Een open plek met lucht rond de takken helpt tegen schimmel.",
+    "functies": {
+      "primair": [
+        "fruit"
+      ],
+      "secundair": [
+        "insecten"
+      ]
+    },
+    "oogstTijd": [
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "oogstMethode": "Pak een rijpe framboos voorzichtig vast. Trek heel zacht: een rijpe vrucht laat vanzelf los.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Februari",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "snoeiTijdInfo": "Knip na de oogst stengels weg die duidelijk vruchten hebben gedragen. Ruim in februari dode of zwakke stengels op.",
+    "snoeiMethode": "Knip oude, afgedragen stengels tot aan de grond af. Laat gezonde nieuwe stengels staan en bind ze zo nodig aan.",
+    "snoeiInformatie": "De precieze snoei hangt af van het ras. Het veiligst is alleen duidelijk afgedragen, dode en hinderlijke stengels te verwijderen.",
+    "woekerToestemming": "Nieuwe scheuten die buiten de bak, buiten het vak of op het pad opkomen, mogen met wortel en al worden verwijderd.",
+    "woekerVerbod": "Knip niet alle jonge, gezonde stengels in het plantvak weg. Laat meerdere stevige stengels staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni",
+      "Juli"
+    ],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Rubus idaeus L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Rubus_idaeus",
+    "intro": "De framboos maakt lange stengels die elk jaar opnieuw uit de grond komen. Rijpe frambozen laten bijna vanzelf los.",
+    "weetje": "Eén framboos is eigenlijk een trosje van tientallen mini-vruchtjes, elk met een eigen pitje. Daarom valt een framboos zo makkelijk uit elkaar.",
+    "foto": {
+      "bestand": "",
+      "x": 81,
+      "y": 2,
+      "zoom": 1.04,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=2350347"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=5771131"
+    }
+  },
+  {
+    "slug": "knopherik",
+    "naam": "knopherik",
+    "plantnummer": "9",
+    "waterOndergrens": "1",
+    "waterBovengrens": "2",
+    "waterInfo": "Voel eerst de grond. Geef alleen water bij aanhoudende droogte en als de grond diep droog is.",
+    "zon": "zon",
+    "zonInfo": "Groeit op een zonnige, open plek en verdraagt arme of omgewerkte grond.",
+    "functies": {
+      "primair": [
+        "onkruid",
+        "insecten"
+      ],
+      "secundair": []
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "snoeiTijdInfo": "Knip stengels weg voordat veel zaadpeulen bruin en rijp worden.",
+    "snoeiMethode": "Knip uitgebloeide stengels laag af. Trek overtollige jonge planten met wortel en al uit.",
+    "snoeiInformatie": "Knopherik is eenjarig en maakt veel zaden die lang in de grond kunnen blijven.",
+    "woekerToestemming": "Planten die te dicht staan of op de verkeerde plek groeien, mogen helemaal worden verwijderd. Laat alleen het gewenste aantal staan.",
+    "woekerVerbod": "Laat niet alle zaadpeulen rijp worden. Anders kunnen er het volgende jaar veel nieuwe planten opkomen.",
+    "levensduur": "Eenjarig",
+    "groei": [
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "bloei": [
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Raphanus raphanistrum L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Raphanus_raphanistrum",
+    "intro": "Knopherik is een akkerbloem die vanzelf opkomt. Wat vroeger onkruid heette, is nu eten voor bijen en zweefvliegen.",
+    "weetje": "Zaden van knopherik kunnen tientallen jaren in de grond overleven. Wordt de grond omgewerkt, dan komen ze ineens op — daarom verschijnt deze plant \"vanzelf\".",
+    "foto": {
+      "bestand": "",
+      "x": 92,
+      "y": 21,
+      "zoom": 1.76,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=99649295"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=43560328"
+    }
+  },
+  {
+    "slug": "lavendel",
+    "naam": "lavendel",
+    "plantnummer": "10",
+    "waterOndergrens": "1",
+    "waterBovengrens": "2",
+    "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
+    "zon": "zon",
+    "zonInfo": "Heeft veel zon nodig en grond waar water snel uit wegloopt. Natte wintergrond is ongunstig.",
+    "functies": {
+      "primair": [
+        "sier",
+        "insecten"
+      ],
+      "secundair": [
+        "kruid"
+      ]
+    },
+    "oogstTijd": [
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "oogstMethode": "Knip bloemstengels wanneer de eerste bloemen open zijn. Knip alleen in het groene deel van de plant.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "April",
+      "Augustus",
+      "September"
+    ],
+    "snoeiTijdInfo": "Ruim in het voorjaar beschadigde toppen op. Knip na de bloei de bloemstengels en wat jong groen terug.",
+    "snoeiMethode": "Knip na de bloei tot een compacte vorm, maar laat overal groene blaadjes onder de knip zitten.",
+    "snoeiInformatie": "Lavendel loopt slecht opnieuw uit vanuit kaal, oud hout. Jaarlijks licht snoeien voorkomt dat de plant te houtig wordt.",
+    "woekerToestemming": "Uitgebloeide stengels en groene takjes die over het pad hangen, mogen worden ingekort.",
+    "woekerVerbod": "Knip niet diep in kaal, bruin hout zonder blaadjes. Laat onder iedere knip groene groei staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "bloei": [
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "sterf": [],
+    "botanischeNaam": "Lavandula angustifolia Mill.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Lavandula_angustifolia",
+    "intro": "Lavendel geurt sterk en bloeit paars in de zomer. Bijen en hommels zijn er dol op.",
+    "weetje": "De naam lavendel komt van het Latijnse \"lavare\": wassen. De Romeinen deden lavendel in hun badwater.",
+    "foto": {
+      "bestand": "",
+      "x": 61,
+      "y": 29,
+      "zoom": 1.1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=1830859"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=255365"
+    }
+  },
+  {
+    "slug": "marjolein",
+    "naam": "marjolein",
+    "plantnummer": "11",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef water wanneer de bovenste laag droog is. Laat de grond daarna weer iets opdrogen en laat geen water rond de wortels staan.",
+    "zon": "zon",
+    "zonInfo": "Staat graag zonnig en beschut in grond waar overtollig water makkelijk weg kan. Is gevoelig voor kou en natte winters.",
+    "functies": {
+      "primair": [
+        "kruid",
+        "insecten"
+      ],
+      "secundair": []
+    },
+    "oogstTijd": [
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "oogstMethode": "Knip groene stengels af en laat onderaan enkele blaadjes staan. Gebruik de blaadjes vers of laat de takjes drogen.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Maart",
+      "September"
+    ],
+    "snoeiTijdInfo": "Knip uitgebloeide stengels weg. Ruim in het voorjaar alleen resten op als de plant de winter heeft overleefd.",
+    "snoeiMethode": "Knip stengels terug tot net boven groene groei. Verwijder dode en bruine delen.",
+    "snoeiInformatie": "Marjolein is niet betrouwbaar winterhard en wordt in Nederland vaak als eenjarige plant gehouden.",
+    "woekerToestemming": "Lange en uitgebloeide stengels mogen flink worden ingekort. Een te breed deel mag worden weggehaald.",
+    "woekerVerbod": "Knip niet al het groen helemaal tot op kale grond weg. Laat een klein groen deel staan zolang de plant nog groeit.",
+    "levensduur": "Eenjarig of kortlevend",
+    "groei": [
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Origanum majorana L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Origanum_majorana",
+    "intro": "Marjolein is familie van oregano en ruikt kruidig. De kleine bloemetjes zijn een feestmaal voor insecten.",
+    "weetje": "Marjolein is het zachtere zusje van oregano. In het oude Griekenland stond de plant symbool voor geluk.",
+    "foto": {
+      "bestand": "",
+      "x": 100,
+      "y": 76,
+      "zoom": 1.09,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=61214176"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/wiki/File:Origanum_vulgare_Runeberg.jpg"
+    }
+  },
+  {
+    "slug": "munt",
+    "naam": "munt",
+    "plantnummer": "12",
+    "waterOndergrens": "2",
+    "waterBovengrens": "4",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Houd de grond licht vochtig, maar geef niets als hij nog nat aanvoelt.",
+    "zon": "halfschaduw",
+    "zonInfo": "Groeit in de zon en in halfschaduw. Een bak of begrensd vak helpt om de ondergrondse uitlopers binnen de perken te houden.",
+    "functies": {
+      "primair": [
+        "kruid"
+      ],
+      "secundair": [
+        "insecten"
+      ]
+    },
+    "oogstTijd": [
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "oogstMethode": "Knip groene toppen of hele stengels af, net boven een paar blaadjes. De plant groeit daarna opnieuw uit.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "November"
+    ],
+    "snoeiTijdInfo": "Knip tijdens het groeiseizoen terug zodra de munt te groot wordt. Knip dode stengels in de late herfst laag af.",
+    "snoeiMethode": "Knip lange stengels zo ver terug als nodig is. Graaf uitlopers weg die buiten de afgesproken plek groeien.",
+    "snoeiInformatie": "Aarmunt verspreidt zich snel met ondergrondse uitlopers. Een klein achtergebleven wortelstuk kan opnieuw uitlopen.",
+    "woekerToestemming": "Stengels, losse planten en uitlopers buiten de gewenste plek mogen worden weggeknipt of uitgegraven. Flink uitdunnen is geen probleem.",
+    "woekerVerbod": "Haal niet werkelijk alle planten en wortels weg. Laat enkele gezonde muntplantjes in de bak of het vak staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "Maart",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "bloei": [
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Mentha spicata L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Mentha_spicata",
+    "intro": "Munt groeit snel en ruikt fris. De blaadjes zijn lekker in thee.",
+    "weetje": "Munt maakt ondergrondse uitlopers en kan daarmee een hele tuin veroveren — daarom staat onze munt in een eigen bak. Zelfs een klein achtergebleven wortelstukje groeit weer uit.",
+    "foto": {
+      "bestand": "",
+      "x": 57,
+      "y": 28,
+      "zoom": 1.29,
+      "bron": "Bron niet teruggevonden."
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=43022877"
+    }
+  },
+  {
+    "slug": "rode-bes",
+    "naam": "rode bes",
+    "plantnummer": "13",
+    "waterOndergrens": "2",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral wanneer de bessen groeien. Is de grond nog vochtig, geef dan niets.",
+    "zon": "zon",
+    "zonInfo": "Groeit in de zon en in lichte halfschaduw. Zon helpt de bessen rijpen.",
+    "functies": {
+      "primair": [
+        "fruit"
+      ],
+      "secundair": [
+        "vogel"
+      ]
+    },
+    "oogstTijd": [
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "oogstMethode": "Pluk of knip een heel trosje als alle bessen rood en rijp zijn. Houd het trosje bij het steeltje vast.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Februari",
+      "Maart"
+    ],
+    "snoeiTijdInfo": "Snoei aan het einde van de winter, voordat de knoppen uitlopen.",
+    "snoeiMethode": "Verwijder dode en kruisende takken. Haal bij een oude struik af en toe één oude hoofdtak laag weg en laat vervangende jonge takken staan.",
+    "snoeiInformatie": "Rode bes draagt vooral aan korte zijtakjes op ouder hout. Te veel snoei geeft minder bessen.",
+    "woekerToestemming": "Lage, gebroken of hinderlijke dunne takken mogen worden teruggeknipt tot een gezonde zijtak.",
+    "woekerVerbod": "Knip niet alle jonge hoofdtakken of alle korte zijtakjes weg. Laat een open maar volle struik staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "bloei": [
+      "April",
+      "Mei"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Ribes rubrum L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Ribes_rubrum",
+    "intro": "De rode bes geeft trosjes glanzende, zure besjes in de zomer. Vogels zijn er net zo gek op als mensen.",
+    "weetje": "Rode besjes zijn doorschijnend: houd een trosje tegen het licht en je ziet de pitjes erin zitten.",
+    "foto": {
+      "bestand": "",
+      "x": 49,
+      "y": 59,
+      "zoom": 1.02,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=1451169"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=5970448"
+    }
+  },
+  {
+    "slug": "rozemarijn",
+    "naam": "rozemarijn",
+    "plantnummer": "14",
+    "waterOndergrens": "1",
+    "waterBovengrens": "2",
+    "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
+    "zon": "zon",
+    "zonInfo": "Staat graag in de volle zon, in grond waar overtollig water snel uit wegloopt.",
+    "functies": {
+      "primair": [
+        "kruid"
+      ],
+      "secundair": [
+        "insecten"
+      ]
+    },
+    "oogstTijd": [
+      "Maart",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "oogstMethode": "Knip jonge, groene takjes af. Laat onder de knip voldoende blaadjes staan.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "snoeiTijdInfo": "Knip in het voorjaar en na de bloei licht terug. Vermijd grote snoei vlak voor de winter.",
+    "snoeiMethode": "Kort jonge, groene takken in om de struik compact te houden. Verwijder dode en beschadigde takjes.",
+    "snoeiInformatie": "Rozemarijn loopt slecht opnieuw uit vanuit kaal, oud hout. Regelmatig licht knippen is veiliger dan één zware snoeibeurt.",
+    "woekerToestemming": "Groene takken die te breed groeien of over het pad hangen, mogen worden ingekort.",
+    "woekerVerbod": "Knip niet diep in dikke, kale takken zonder groene blaadjes.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "bloei": [
+      "April",
+      "Mei",
+      "Juni"
+    ],
+    "sterf": [],
+    "botanischeNaam": "Salvia jordanii J.B.Walker",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Salvia_jordanii",
+    "intro": "Rozemarijn is een struikje met naaldvormige blaadjes dat sterk geurt als je erdoorheen wrijft. Het blijft ook in de winter groen.",
+    "weetje": "Rozemarijn betekent \"dauw van de zee\" — de plant groeit van nature langs de kust van de Middellandse Zee. Hij stond vroeger symbool voor een goed geheugen.",
+    "foto": {
+      "bestand": "",
+      "x": 50,
+      "y": 3,
+      "zoom": 1.06,
+      "bron": "https://unsplash.com/photos/a-close-up-of-a-tree-with-lots-of-leaves-1eEg3kRUnQo"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=84311282"
+    }
+  },
+  {
+    "slug": "salie",
+    "naam": "salie",
+    "plantnummer": "15",
+    "waterOndergrens": "1",
+    "waterBovengrens": "2",
+    "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef pas een beetje water wanneer de grond daar droog is.",
+    "zon": "zon",
+    "zonInfo": "Staat graag zonnig in grond waar overtollig water makkelijk weg kan. Bescherm de plant tegen langdurig natte wintergrond.",
+    "functies": {
+      "primair": [
+        "kruid",
+        "insecten"
+      ],
+      "secundair": []
+    },
+    "oogstTijd": [
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "oogstMethode": "Pluk losse blaadjes of knip een jonge groene top af. Laat onder de knip enkele blaadjes staan.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "April",
+      "Juli",
+      "Augustus"
+    ],
+    "snoeiTijdInfo": "Knip in het voorjaar terug zodra nieuwe groei zichtbaar is. Knip uitgebloeide stengels in de zomer weg.",
+    "snoeiMethode": "Kort jonge takken in tot vlak boven groene blaadjes of knoppen. Verwijder dode delen.",
+    "snoeiInformatie": "Jaarlijks licht snoeien houdt salie compact. Oude kale takken lopen niet altijd opnieuw uit.",
+    "woekerToestemming": "Groene takken die over het pad of andere planten hangen, mogen worden ingekort. Uitgebloeide stengels mogen weg.",
+    "woekerVerbod": "Knip niet onder de laagste groene blaadjes of knoppen in volledig kaal hout.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Juni",
+      "Juli"
+    ],
+    "sterf": [],
+    "botanischeNaam": "Salvia officinalis L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Salvia_officinalis",
+    "intro": "Salie heeft zachte, grijsgroene blaadjes en bloeit paarsblauw. Hommels kruipen diep in de bloemen.",
+    "weetje": "Salie komt van het Latijnse \"salvare\": redden of genezen. Er bestond zelfs een spreuk: \"Waarom zou iemand sterven die salie in de tuin heeft?\"",
+    "foto": {
+      "bestand": "",
+      "x": 32,
+      "y": 25,
+      "zoom": 1.32,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=81823456"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=43186860"
+    }
+  },
+  {
+    "slug": "teunisbloem",
+    "naam": "teunisbloem",
+    "plantnummer": "16",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water als de grond enkele centimeters diep droog is. Is de grond nog vochtig, geef dan niets.",
+    "zon": "zon",
+    "zonInfo": "Groeit het beste op een zonnige, open plek en kan goed tegen droge, zandige of stenige grond.",
+    "functies": {
+      "primair": [
+        "sier",
+        "insecten"
+      ],
+      "secundair": [
+        "onkruid",
+        "vogel"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "snoeiTijdInfo": "Knip uitgebloeide stengels weg als er genoeg planten staan of als uitzaaien niet gewenst is.",
+    "snoeiMethode": "Knip hoge of uitgebloeide stengels laag af. Trek overtollige jonge rozetten uit de grond.",
+    "snoeiInformatie": "Teunisbloem is meestal tweejarig: eerst ontstaat een lage bladrozet, daarna een bloemstengel. Na bloei en zaadvorming sterft die plant af.",
+    "woekerToestemming": "Planten op de verkeerde plek en stengels die in de weg staan, mogen helemaal worden verwijderd. Laat alleen het gewenste aantal staan.",
+    "woekerVerbod": "Laat niet overal rijpe zaaddozen staan. Anders kunnen er veel nieuwe planten opkomen.",
+    "levensduur": "Tweejarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Oenothera parviflora L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Oenothera_parviflora",
+    "intro": "De teunisbloem opent haar gele bloemen pas in de avond, voor nachtvlinders. Overdag zie je ze vaak alweer sluiten.",
+    "weetje": "Een teunisbloem gaat 's avonds zó snel open dat je het kunt zíén gebeuren — binnen een paar minuten vouwt de bloem zich uit. Ga in de zomer rond zonsondergang eens kijken.",
+    "foto": {
+      "bestand": "",
+      "x": 0,
+      "y": 61,
+      "zoom": 1.02,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=16614186"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=44456277"
+    }
+  },
+  {
+    "slug": "tijm",
+    "naam": "tijm",
+    "plantnummer": "17",
+    "waterOndergrens": "1",
+    "waterBovengrens": "2",
+    "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
+    "zon": "zon",
+    "zonInfo": "Heeft veel zon nodig en grond waar water snel uit wegloopt.",
+    "functies": {
+      "primair": [
+        "kruid",
+        "insecten"
+      ],
+      "secundair": []
+    },
+    "oogstTijd": [
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "oogstMethode": "Knip jonge takjes af. Laat onder de knip groene blaadjes staan.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "April",
+      "Juli",
+      "Augustus"
+    ],
+    "snoeiTijdInfo": "Knip in het voorjaar en kort na de bloei licht terug om de plant compact te houden.",
+    "snoeiMethode": "Knip uitstekende en uitgebloeide groene takjes terug. Geef de plant een compacte vorm.",
+    "snoeiInformatie": "Oude tijm kan kaal en houtig worden. Hard snoeien tot in kaal hout is riskant.",
+    "woekerToestemming": "Groene takjes die over de rand of het pad hangen, mogen worden ingekort.",
+    "woekerVerbod": "Knip niet diep in kale, bruine takken zonder blaadjes.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni",
+      "Juli"
+    ],
+    "sterf": [],
+    "botanischeNaam": "Thymus vulgaris L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Thymus_vulgaris",
+    "intro": "Tijm is een laag, geurig struikje. Als het bloeit, gonst de hele plant van de bijen.",
+    "weetje": "Tijmhoning is beroemd, vooral uit Griekenland. Voor Griekse soldaten stond tijm symbool voor moed.",
+    "foto": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1.64,
+      "bron": "https://unsplash.com/photos/green-grass-field-during-daytime-z6VJQR6-4SU"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=43186602"
+    }
+  },
+  {
+    "slug": "venkel",
+    "naam": "venkel",
+    "plantnummer": "18",
+    "waterOndergrens": "2",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
+    "zon": "zon",
+    "zonInfo": "Staat graag zonnig en heeft ruimte nodig: de stengels kunnen ruim anderhalve meter hoog worden.",
+    "functies": {
+      "primair": [
+        "insecten"
+      ],
+      "secundair": [
+        "kruid"
+      ]
+    },
+    "oogstTijd": [
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober"
+    ],
+    "oogstMethode": "Knip jonge groene blaadjes naar behoefte. Knip alleen enkele droge zaadschermen voor zaad en voorkom dat de rest uitzaait.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "November"
+    ],
+    "snoeiTijdInfo": "Kort de plant tijdens de zomer in als hij te hoog of breed wordt. Knip na de bloei schermen weg om uitzaaien te beperken.",
+    "snoeiMethode": "Knip hinderlijke stengels laag af. In de late herfst mogen dode stengels tot vlak boven de grond worden verwijderd.",
+    "snoeiInformatie": "Venkel kan groot worden en zich ruim uitzaaien. De plant kan opnieuw uitlopen vanuit de basis.",
+    "woekerToestemming": "Hoge stengels die in de weg staan, mogen laag worden afgeknipt. Overtollige jonge planten en zaadschermen mogen weg.",
+    "woekerVerbod": "Trek niet de hele wortelkroon uit als de venkel moet blijven. Laat enkele groene scheuten of stengels staan.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Foeniculum vulgare Mill.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Foeniculum_vulgare",
+    "intro": "Venkel wordt ruim anderhalve meter hoog en ruikt naar anijs. De gele bloemschermen zitten vol zweefvliegen.",
+    "weetje": "De Marathonloop is genoemd naar venkel: \"marathon\" is Grieks voor venkelveld, en daar werd de beroemde veldslag uitgevochten.",
+    "foto": {
+      "bestand": "",
+      "x": 31,
+      "y": 24,
+      "zoom": 1.15,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=15855012"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=1412282"
+    }
+  },
+  {
+    "slug": "zwarte-bes",
+    "naam": "zwarte bes",
+    "plantnummer": "19",
+    "waterOndergrens": "3",
+    "waterBovengrens": "4",
+    "waterInfo": "Voel eerst de grond. Geef water zodra de bovenste laag droog is, vooral wanneer de bessen groeien. Houd de grond licht vochtig, maar laat geen plas staan.",
+    "zon": "zon",
+    "zonInfo": "Groeit in de zon en in lichte halfschaduw. Een open plek met lucht rond de takken helpt tegen schimmel.",
+    "functies": {
+      "primair": [
+        "fruit"
+      ],
+      "secundair": [
+        "vogel"
+      ]
+    },
+    "oogstTijd": [
+      "Juli",
+      "Augustus"
+    ],
+    "oogstMethode": "Pluk of knip een heel trosje als alle bessen zwart en rijp zijn. Houd het trosje bij het steeltje vast.",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Februari",
+      "Augustus",
+      "September"
+    ],
+    "snoeiTijdInfo": "Snoei na de oogst of aan het einde van de winter. Verwijder vooral oud hout.",
+    "snoeiMethode": "Knip bij een oudere struik één of meer van de donkerste oude takken laag bij de grond weg. Laat de jongere, lichtere takken staan.",
+    "snoeiInformatie": "Zwarte bes draagt het beste op jonge takken. Jaarlijks wat oud hout weghalen stimuleert vervangende groei.",
+    "woekerToestemming": "Lage, gebroken en hinderlijke dunne takken mogen weg. Eén oude, donkere tak mag laag worden verwijderd.",
+    "woekerVerbod": "Knip niet alle jonge takken weg die uit de grond komen. Die zijn nodig voor latere oogst.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus"
+    ],
+    "bloei": [
+      "April",
+      "Mei"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Ribes nigrum L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Ribes_nigrum",
+    "intro": "De zwarte bes geeft donkere, sterk smakende bessen. De blaadjes geuren al als je ze aanraakt.",
+    "weetje": "Zwarte bessen zitten bomvol vitamine C — veel meer dan sinaasappels. In Engeland werden kinderen er in de oorlog mee gezond gehouden toen fruit schaars was.",
+    "foto": {
+      "bestand": "",
+      "x": 50,
+      "y": 45,
+      "zoom": 1.03,
+      "bron": "https://unsplash.com/photos/a-bunch-of-black-berries-hanging-from-a-tree-r7Y6wdEFVdE"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/wiki/File:281_Ribes_nigrum.jpg"
+    }
+  },
+  {
+    "slug": "spaanse-aak",
+    "naam": "spaanse aak",
+    "plantnummer": "20",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
+    "zon": "zon",
+    "zonInfo": "Groeit in de zon, halfschaduw en lichte schaduw. Verdraagt ook wind en kalkrijke grond.",
+    "functies": {
+      "primair": [
+        "boom"
+      ],
+      "secundair": [
+        "insecten"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "November",
+      "December"
+    ],
+    "snoeiTijdInfo": "Snoei na de bladval en vóór januari om sterk sapverlies in het voorjaar te vermijden.",
+    "snoeiMethode": "Knip dunne, hinderlijke scheuten terug. Verwijder dode of kruisende takken alleen als dit veilig kan.",
+    "snoeiInformatie": "Spaanse aak verdraagt vormsnoei, maar kan in het voorjaar sap uit verse snoeiwonden verliezen.",
+    "woekerToestemming": "Dunne scheuten die over het pad groeien of duidelijk buiten de gewenste vorm steken, mogen in november of december worden ingekort.",
+    "woekerVerbod": "Zaag geen dikke takken af en snoei niet in het vroege voorjaar wanneer de knoppen gaan groeien.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "April",
+      "Mei"
+    ],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Acer campestre L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Acer_campestre",
+    "intro": "De Spaanse aak is een kleine, stevige boom die tegen wind kan. In de herfst kleurt het blad goudgeel.",
+    "weetje": "De Spaanse aak komt helemaal niet uit Spanje — het is een gewone Nederlandse boom. Het hout is zo hard dat er vroeger gereedschapsstelen van werden gemaakt.",
+    "foto": {
+      "bestand": "",
+      "x": 100,
+      "y": 61,
+      "zoom": 1.37,
+      "bron": "eigen beeld"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=5969489"
+    }
+  },
+  {
+    "slug": "wegedoorn",
+    "naam": "wegedoorn",
+    "plantnummer": "21",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
+    "zon": "zon",
+    "zonInfo": "Groeit in de zon en in halfschaduw. De struik kan breed worden en heeft stekelige takpunten.",
+    "functies": {
+      "primair": [
+        "vogel",
+        "insecten"
+      ],
+      "secundair": [
+        "boom"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Februari",
+      "Maart"
+    ],
+    "snoeiTijdInfo": "Snoei aan het einde van de winter of vroeg in het voorjaar, voordat de struik sterk uitloopt.",
+    "snoeiMethode": "Draag stevige handschoenen. Knip dode, kruisende en hinderlijke takken terug. Houd een haag op de gewenste breedte.",
+    "snoeiInformatie": "De bessen zijn niet voor mensen om te eten. De struik kan vanuit de basis nieuwe scheuten maken.",
+    "woekerToestemming": "Takken die het pad blokkeren of te breed uitgroeien, mogen worden ingekort. Jonge scheuten buiten het vak mogen weg.",
+    "woekerVerbod": "Eet de zwarte bessen niet. Zaag niet zonder duidelijke reden alle dikke hoofdtakken tegelijk weg.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Rhamnus cathartica L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Rhamnus_cathartica",
+    "intro": "De wegedoorn is een stekelige struik met zwarte bessen voor vogels — niet voor mensen. Het is dé plant waar de citroenvlinder haar eitjes op legt.",
+    "weetje": "Van de bessen van de wegedoorn werd vroeger verf gemaakt: het \"sapgroen\" waar kunstenaars mee schilderden.",
+    "foto": {
+      "bestand": "",
+      "x": 2,
+      "y": 0,
+      "zoom": 1.36,
+      "bron": "eigen beeld"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=5969496"
+    }
+  },
+  {
+    "slug": "kardinaalmuts",
+    "naam": "kardinaalmuts",
+    "plantnummer": "22",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
+    "zon": "zon",
+    "zonInfo": "Groeit in de zon en in halfschaduw. In de zon is de herfstkleur vaak sterker.",
+    "functies": {
+      "primair": [
+        "sier"
+      ],
+      "secundair": [
+        "vogel"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Februari",
+      "Maart"
+    ],
+    "snoeiTijdInfo": "Snoei alleen als de struik te groot, beschadigd of erg dicht is.",
+    "snoeiMethode": "Draag handschoenen. Knip dode, kruisende en hinderlijke takken terug tot een gezonde zijtak.",
+    "snoeiInformatie": "Alle delen, vooral de vruchten, zijn schadelijk bij eten. De struik heeft meestal weinig snoei nodig.",
+    "woekerToestemming": "Dunne takken die over het pad hangen of in de weg zitten, mogen worden ingekort.",
+    "woekerVerbod": "Eet de roze en oranje vruchten niet. Knip niet zonder noodzaak de hele struik tot op de grond terug.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Euonymus latifolius (L.) Mill.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Euonymus_latifolius",
+    "intro": "De kardinaalsmuts valt in de herfst op met knalroze vruchtjes en oranje zaden. Mooi om te zien, niet om te eten.",
+    "weetje": "De vruchtjes lijken op het roze hoedje van een kardinaal — daar komt de naam vandaan. Van het harde hout werden vroeger spinklosjes en tekenkool gemaakt.",
+    "foto": {
+      "bestand": "",
+      "x": 42,
+      "y": 62,
+      "zoom": 1.32,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=15827727"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=727726"
+    }
+  },
+  {
+    "slug": "witte-moerbei",
+    "naam": "witte moerbei",
+    "plantnummer": "23",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
+    "zon": "zon",
+    "zonInfo": "Staat het liefst zonnig en enigszins beschut. Deze boom heeft ruimte nodig voor een brede kroon.",
+    "functies": {
+      "primair": [
+        "boom"
+      ],
+      "secundair": [
+        "sier"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "November",
+      "December"
+    ],
+    "snoeiTijdInfo": "Snoei na de bladval, in de late herfst of vroege winter, om sterk sapverlies te vermijden.",
+    "snoeiMethode": "Knip alleen jonge scheuten terug als de vorm dat vraagt. Laat grote takken en de stam met rust.",
+    "snoeiInformatie": "Dit exemplaar is vruchtloos. Witte moerbei kan veel sap verliezen uit snoeiwonden die te laat in de winter of in het voorjaar zijn gemaakt.",
+    "woekerToestemming": "Dunne, jonge scheuten die duidelijk in de weg zitten, mogen in november of december worden ingekort.",
+    "woekerVerbod": "Zaag geen dikke takken af. Snoei niet in de late winter, het voorjaar of de zomer.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [],
+    "sterf": [
+      "November",
+      "December"
+    ],
+    "botanischeNaam": "Morus alba L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Morus_alba",
+    "intro": "De witte moerbei is een boom met een brede kroon die schaduw geeft. Dit exemplaar draagt geen vruchten.",
+    "weetje": "Zijderupsen eten uitsluitend blaadjes van de witte moerbei. Alle zijde ter wereld begint dus bij deze boom.",
+    "foto": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=18773443"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=6087141"
+    }
+  },
+  {
+    "slug": "meidoorn",
+    "naam": "meidoorn",
+    "plantnummer": "24",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
+    "zon": "zon",
+    "zonInfo": "Groeit in de zon en in lichte halfschaduw. Houd voldoende ruimte vrij rond paden door de scherpe doorns.",
+    "functies": {
+      "primair": [
+        "vogel"
+      ],
+      "secundair": [
+        "boom",
+        "insecten"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": [
+      "Februari",
+      "Maart",
+      "Juni"
+    ],
+    "snoeiTijdInfo": "Knip een haag na de bloei in juni. Verwijder in februari of maart alleen dode, beschadigde of zeer storende takken.",
+    "snoeiMethode": "Draag stevige handschoenen. Knip jonge uitstekende scheuten terug en verwijder dode of kruisende takken.",
+    "snoeiInformatie": "Meidoorn verdraagt snoei goed, maar grote snoei is voor deelnemers niet nodig. Let op de scherpe doorns.",
+    "woekerToestemming": "Dunne takken die het pad blokkeren of uit een haag steken, mogen worden ingekort.",
+    "woekerVerbod": "Zaag geen dikke hoofdtakken af. Werk niet zonder stevige handschoenen tussen de doorns.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Crataegus rhipidophylla Gand.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Crataegus_rhipidophylla",
+    "intro": "De meidoorn bloeit wit in mei en zit vol scherpe doorns. Vogels nestelen er veilig tussen en eten de rode bessen.",
+    "weetje": "Vóór er hekken bestonden, plantten boeren meidoornhagen om hun vee binnen te houden — de doorns deden het werk. Een meidoorn kan honderden jaren oud worden.",
+    "foto": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "Bron niet teruggevonden."
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=43956034"
+    }
+  },
+  {
+    "slug": "azarooldoorn",
+    "naam": "azarooldoorn",
+    "plantnummer": "25",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
+    "zon": "zon",
+    "zonInfo": "Staat het liefst zonnig. Houd rond paden rekening met de scherpe doorns.",
+    "functies": {
+      "primair": [
+        "boom",
+        "vogel"
+      ],
+      "secundair": [
+        "fruit"
+      ]
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [
+      "September",
+      "Oktober"
+    ],
+    "extraOogstMethode": "Pluk rijpe vruchten als ze geel tot rood en iets zacht zijn. Eet de pitten niet; verwijder ze vóór gebruik.",
+    "snoeiTijd": [
+      "Februari",
+      "Maart"
+    ],
+    "snoeiTijdInfo": "Snoei zo weinig mogelijk aan het einde van de winter, voordat de nieuwe groei begint.",
+    "snoeiMethode": "Draag stevige handschoenen. Verwijder dode, kruisende en hinderlijke dunne takken. Laat korte zijtakjes zoveel mogelijk zitten.",
+    "snoeiInformatie": "Vruchten ontstaan aan korte zijtakjes op ouder hout. De pitten zijn niet bedoeld om te eten.",
+    "woekerToestemming": "Dunne takken die laag hangen of het pad blokkeren, mogen worden teruggeknipt tot een gezonde zijtak.",
+    "woekerVerbod": "Knip niet alle korte zijtakjes weg en zaag geen dikke hoofdtakken af. Eet de pitten niet.",
+    "levensduur": "Meerjarig",
+    "groei": [
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September"
+    ],
+    "bloei": [
+      "Mei",
+      "Juni"
+    ],
+    "sterf": [
+      "Oktober",
+      "November"
+    ],
+    "botanischeNaam": "Crataegus azarolus L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Crataegus_azarolus",
+    "intro": "De azarooldoorn is een doornige boom met appelvormige vruchtjes die je kunt eten — maar niet de pitten.",
+    "weetje": "De azarool wordt rond de Middellandse Zee al eeuwen gekweekt. Van de vruchtjes wordt daar jam en stroop gemaakt.",
+    "foto": {
+      "bestand": "",
+      "x": 54,
+      "y": 32,
+      "zoom": 1.06,
+      "bron": "eigen beeld"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/w/index.php?curid=2252267"
+    }
   }
- },
- {
-  "slug": "bosbes",
-  "naam": "bosbes",
-  "plantnummer": "2",
-  "waterOndergrens": "3",
-  "waterBovengrens": "4",
-  "waterInfo": "Voel eerst de grond. Geef water zodra de bovenste laag droog is. Houd de grond licht vochtig, vooral wanneer de bessen groeien, maar laat geen plas staan.",
-  "zon": "zon",
-  "zonInfo": "Staat goed in de zon of halfschaduw. Heeft zure grond nodig en verdraagt kalkrijke grond slecht.",
-  "functies": {
-   "primair": [
-    "fruit"
-   ],
-   "secundair": [
-    "vogel",
-    "insecten"
-   ]
-  },
-  "oogstTijd": [
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "oogstMethode": "Pluk alleen donkerblauwe bessen die makkelijk loslaten. Trek niet aan de takken.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Februari",
-   "Maart"
-  ],
-  "snoeiTijdInfo": "Snoei aan het einde van de winter, voordat de nieuwe groei begint.",
-  "snoeiMethode": "Haal dode en beschadigde takken weg. Verwijder bij een oudere struik af en toe één oude tak laag bij de grond.",
-  "snoeiInformatie": "Een open struik krijgt meer licht en lucht. Jonge struiken hoeven nauwelijks te worden gesnoeid.",
-  "woekerToestemming": "Knip lage of hinderlijke dunne takken terug tot een zijtak. Dode en gebroken takken mogen helemaal weg.",
-  "woekerVerbod": "Knip niet in één keer meerdere dikke hoofdtakken weg. Laat voldoende jonge, gezonde takken staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "bloei": [
-   "April",
-   "Mei"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Vaccinium corymbosum L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Vaccinium_corymbosum",
-  "intro": "De bosbes is een struik met blauwe, zoete bessen in de nazomer. In de herfst kleurt het blad mooi rood.",
-  "weetje": "Het blauwe waas op een bosbes is een natuurlijk waslaagje dat de bes beschermt. Poets je het weg, dan is de bes eronder bijna zwart.",
-  "foto": {
-   "bestand": "",
-   "x": 91,
-   "y": 0,
-   "zoom": 0.94,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=1764936"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/wiki/File:203_Vaccinium_Murtillus_L.jpg"
-  }
- },
- {
-  "slug": "bieslook",
-  "naam": "bieslook",
-  "plantnummer": "3",
-  "waterOndergrens": "2",
-  "waterBovengrens": "4",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
-  "zon": "halfschaduw",
-  "zonInfo": "Groeit in de zon en in halfschaduw. Op een zeer hete plek droogt de grond sneller uit.",
-  "functies": {
-   "primair": [
-    "kruid"
-   ],
-   "secundair": [
-    "insecten"
-   ]
-  },
-  "oogstTijd": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "oogstMethode": "Knip groene sprieten met een schone schaar enkele centimeters boven de grond af. Laat een deel van de pol staan om verder te groeien.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Juli",
-   "Oktober"
-  ],
-  "snoeiTijdInfo": "Knip na de bloei terug voor nieuwe sprieten. Ruim in de herfst slappe en gele sprieten op.",
-  "snoeiMethode": "Knip de pol na de bloei terug tot ongeveer 5 centimeter. Verwijder later alleen wat geel of dood is.",
-  "snoeiInformatie": "Bieslook groeit opnieuw uit vanaf de basis. Regelmatig oogsten houdt de sprieten jong.",
-  "woekerToestemming": "Sprieten en uitgebloeide bloemen mogen laag worden afgeknipt. Een te brede buitenrand mag worden uitgedund.",
-  "woekerVerbod": "Trek niet de hele pol uit de grond. Laat altijd een deel met groene sprieten staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "Maart",
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni",
-   "Juli"
-  ],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Allium schoenoprasum L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Allium_schoenoprasum",
-  "intro": "Bieslook groeit als een pol groene sprieten die naar ui smaken. De paarse bolbloemen worden druk bezocht door bijen.",
-  "weetje": "Bieslook is familie van de ui en de knoflook. De paarse bloemen kun je gewoon eten — ze smaken zacht naar ui en staan mooi op een salade.",
-  "foto": {
-   "bestand": "",
-   "x": 52,
-   "y": 100,
-   "zoom": 1.23,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=58878873"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=4064771"
-  }
- },
- {
-  "slug": "kiwi",
-  "naam": "kiwi",
-  "plantnummer": "4",
-  "waterOndergrens": "2",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral tijdens warm weer en wanneer vruchten groeien. Is de grond nog vochtig, geef dan niets.",
-  "zon": "zon",
-  "zonInfo": "Staat het liefst zonnig, warm en beschut bij een stevig rek, een schutting of een muur.",
-  "functies": {
-   "primair": [
-    "sier"
-   ],
-   "secundair": [
-    "fruit"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [
-   "Oktober",
-   "November"
-  ],
-  "extraOogstMethode": "Deze plant geeft niet altijd vruchten. Vaak is daar een tweede kiwiplant voor nodig. Zijn er wel kiwi's? Knip ontwikkelde vruchten vóór strenge nachtvorst met het steeltje los. Laat harde vruchten binnen verder rijpen.",
-  "snoeiTijd": [
-   "Januari",
-   "Februari",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "snoeiTijdInfo": "Snoei in de winter vóór de nieuwe groei. Kort vanaf juni lange zomerscheuten in om de klimplant beheersbaar te houden.",
-  "snoeiMethode": "Laat de stam en de vaste zijtakken aan het rek zitten. Kort losse zijscheuten in en verwijder zwakke of beschadigde groei.",
-  "snoeiInformatie": "Kiwi groeit zeer krachtig. Vruchten ontstaan op nieuwe scheuten die uit groei van het vorige jaar komen.",
-  "woekerToestemming": "Lange, dunne scheuten die loshangen, om andere planten draaien of in de weg zitten, mogen flink worden ingekort.",
-  "woekerVerbod": "Knip de dikke stam en de vaste takken aan het rek niet weg. Maak geen grote snoeiwonden wanneer de plant in het voorjaar al groeit.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni"
-  ],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Actinidia chinensis Planch.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Actinidia_chinensis",
-  "intro": "De kiwi is een sterke klimplant met grote, zachte bladeren. Vruchten komen alleen als er een tweede kiwiplant in de buurt staat.",
-  "weetje": "De kiwi komt oorspronkelijk uit China en heette hier vroeger \"Chinese kruisbes\". Kwekers in Nieuw-Zeeland gaven hem de naam van hun nationale vogel: de kiwi.",
-  "foto": {
-   "bestand": "",
-   "x": 63,
-   "y": 42,
-   "zoom": 1.07,
-   "bron": "eigen beeld"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": ""
-  }
- },
- {
-  "slug": "citroenmelisse",
-  "naam": "citroenmelisse",
-  "plantnummer": "5",
-  "waterOndergrens": "2",
-  "waterBovengrens": "4",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
-  "zon": "zon",
-  "zonInfo": "Groeit in de zon en in halfschaduw. Op een beschutte plek blijven de bladeren langer mooi.",
-  "functies": {
-   "primair": [
-    "kruid",
-    "insecten"
-   ],
-   "secundair": []
-  },
-  "oogstTijd": [
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "oogstMethode": "Knip jonge toppen of hele groene stengels af. Gebruik vooral frisse, onbeschadigde bladeren.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "snoeiTijdInfo": "Knip tijdens de zomer terug wanneer de plant te groot wordt. Knip na de bloei opnieuw terug om uitzaaien te beperken.",
-  "snoeiMethode": "Knip stengels tot ongeveer 10 centimeter boven de grond terug. Verwijder droge en zieke delen.",
-  "snoeiInformatie": "Citroenmelisse groeit snel opnieuw uit en kan zich ook uitzaaien.",
-  "woekerToestemming": "Hele stengels aan de buitenkant mogen laag worden afgeknipt. Verwijder jonge planten die buiten het vak opkomen.",
-  "woekerVerbod": "Haal niet alle groene stengels en het hele wortelblok tegelijk weg. Laat een deel van de plant staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Juli",
-   "Augustus"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Melissa officinalis L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Melissa_officinalis",
-  "intro": "Citroenmelisse ruikt bij het aanraken sterk naar citroen. De blaadjes zijn lekker in thee.",
-  "weetje": "Melissa is Grieks voor honingbij. Imkers wreven vroeger hun korven in met citroenmelisse om zwermende bijen te lokken.",
-  "foto": {
-   "bestand": "",
-   "x": 78,
-   "y": 22,
-   "zoom": 1.05,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=75764022"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=767482"
-  }
- },
- {
-  "slug": "dragon",
-  "naam": "dragon",
-  "plantnummer": "6",
-  "waterOndergrens": "1",
-  "waterBovengrens": "2",
-  "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef pas een beetje water wanneer de grond daar droog is.",
-  "zon": "zon",
-  "zonInfo": "Staat graag zonnig en beschut in grond waar overtollig water makkelijk weg kan.",
-  "functies": {
-   "primair": [
-    "kruid"
-   ],
-   "secundair": []
-  },
-  "oogstTijd": [
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "oogstMethode": "Knip jonge toppen of groene zijtakjes af. Laat onderaan voldoende groene groei staan.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "snoeiTijdInfo": "Knip in de zomer terug zodra de plant te hoog of breed wordt. Knip in de herfst de oude stengels laag af.",
-  "snoeiMethode": "Kort lange stengels flink in. Aan het einde van het seizoen mag de plant tot 5 à 10 centimeter boven de grond worden teruggeknipt.",
-  "snoeiInformatie": "Dragon groeit opnieuw uit vanaf de basis. De plant hoeft niet hoog te blijven om gezond te zijn.",
-  "woekerToestemming": "Takken die over andere planten hangen of in de weg zitten, mogen tot 10 centimeter boven de grond worden teruggeknipt.",
-  "woekerVerbod": "Trek niet het hele wortelblok uit de grond. Laat enkele groene scheuten of de basis van de plant staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Augustus",
-   "September"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Artemisia dracunculus L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Artemisia_dracunculus",
-  "intro": "Dragon is een keukenkruid met smalle blaadjes en een zachte anijssmaak. De plant komt elk jaar terug vanaf de basis.",
-  "weetje": "Er bestaan twee soorten dragon: Franse dragon smaakt het lekkerst maar maakt bijna nooit zaad, Russische dragon is sterker maar smaakt flauwer. De naam komt van \"draakje\" — de kronkelende wortels deden mensen aan slangen denken.",
-  "foto": {
-   "bestand": "",
-   "x": 29,
-   "y": 0,
-   "zoom": 1.24,
-   "bron": "Bron niet teruggevonden."
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=43439649"
-  }
- },
- {
-  "slug": "edel-duizendblad",
-  "naam": "edel duizendblad",
-  "plantnummer": "7",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water als de grond enkele centimeters diep droog is. Is de grond nog vochtig, geef dan niets.",
-  "zon": "zon",
-  "zonInfo": "Bloeit het beste in de zon, in grond waar overtollig water makkelijk weg kan.",
-  "functies": {
-   "primair": [
-    "insecten",
-    "sier"
-   ],
-   "secundair": [
-    "onkruid"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Maart",
-   "September"
-  ],
-  "snoeiTijdInfo": "Knip na de bloei uitgebloeide stengels weg. Ruim in maart de laatste dode delen op.",
-  "snoeiMethode": "Knip uitgebloeide bloemstengels laag af. Verwijder in het voorjaar bruine en dode resten.",
-  "snoeiInformatie": "De plant loopt opnieuw uit vanuit lage bladrozetten en kan zich via de wortels uitbreiden.",
-  "woekerToestemming": "Uitgebloeide stengels mogen laag worden afgeknipt. Buitenste delen die te breed worden, mogen worden uitgestoken.",
-  "woekerVerbod": "Verwijder niet alle lage, groene bladrozetten. Laat een deel van de plant in het vak staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "bloei": [
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Achillea nobilis L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Achillea_nobilis",
-  "intro": "Edel duizendblad heeft fijne, geveerde blaadjes en witte bloemschermen. Zweefvliegen en bijen komen er graag op af.",
-  "weetje": "Duizendblad is genoemd naar de Griekse held Achilles, die er volgens de verhalen wonden mee verzorgde. De naam \"duizendblad\" slaat op de fijn verdeelde blaadjes.",
-  "foto": {
-   "bestand": "",
-   "x": 31,
-   "y": 0,
-   "zoom": 1.26,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=8942374"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=18901843"
-  }
- },
- {
-  "slug": "framboos",
-  "naam": "framboos",
-  "plantnummer": "8",
-  "waterOndergrens": "2",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral wanneer de frambozen groeien. Is de grond nog vochtig, geef dan niets.",
-  "zon": "zon",
-  "zonInfo": "Groeit goed in de zon en in lichte halfschaduw. Een open plek met lucht rond de takken helpt tegen schimmel.",
-  "functies": {
-   "primair": [
-    "fruit"
-   ],
-   "secundair": [
-    "insecten"
-   ]
-  },
-  "oogstTijd": [
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "oogstMethode": "Pak een rijpe framboos voorzichtig vast. Trek heel zacht: een rijpe vrucht laat vanzelf los.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Februari",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "snoeiTijdInfo": "Knip na de oogst stengels weg die duidelijk vruchten hebben gedragen. Ruim in februari dode of zwakke stengels op.",
-  "snoeiMethode": "Knip oude, afgedragen stengels tot aan de grond af. Laat gezonde nieuwe stengels staan en bind ze zo nodig aan.",
-  "snoeiInformatie": "De precieze snoei hangt af van het ras. Het veiligst is alleen duidelijk afgedragen, dode en hinderlijke stengels te verwijderen.",
-  "woekerToestemming": "Nieuwe scheuten die buiten de bak, buiten het vak of op het pad opkomen, mogen met wortel en al worden verwijderd.",
-  "woekerVerbod": "Knip niet alle jonge, gezonde stengels in het plantvak weg. Laat meerdere stevige stengels staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni",
-   "Juli"
-  ],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Rubus idaeus L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Rubus_idaeus",
-  "intro": "De framboos maakt lange stengels die elk jaar opnieuw uit de grond komen. Rijpe frambozen laten bijna vanzelf los.",
-  "weetje": "Eén framboos is eigenlijk een trosje van tientallen mini-vruchtjes, elk met een eigen pitje. Daarom valt een framboos zo makkelijk uit elkaar.",
-  "foto": {
-   "bestand": "",
-   "x": 19,
-   "y": 2,
-   "zoom": 1.04,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=2350347"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=5771131"
-  }
- },
- {
-  "slug": "knopherik",
-  "naam": "knopherik",
-  "plantnummer": "9",
-  "waterOndergrens": "1",
-  "waterBovengrens": "2",
-  "waterInfo": "Voel eerst de grond. Geef alleen water bij aanhoudende droogte en als de grond diep droog is.",
-  "zon": "zon",
-  "zonInfo": "Groeit op een zonnige, open plek en verdraagt arme of omgewerkte grond.",
-  "functies": {
-   "primair": [
-    "onkruid",
-    "insecten"
-   ],
-   "secundair": []
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "snoeiTijdInfo": "Knip stengels weg voordat veel zaadpeulen bruin en rijp worden.",
-  "snoeiMethode": "Knip uitgebloeide stengels laag af. Trek overtollige jonge planten met wortel en al uit.",
-  "snoeiInformatie": "Knopherik is eenjarig en maakt veel zaden die lang in de grond kunnen blijven.",
-  "woekerToestemming": "Planten die te dicht staan of op de verkeerde plek groeien, mogen helemaal worden verwijderd. Laat alleen het gewenste aantal staan.",
-  "woekerVerbod": "Laat niet alle zaadpeulen rijp worden. Anders kunnen er het volgende jaar veel nieuwe planten opkomen.",
-  "levensduur": "Eenjarig",
-  "groei": [
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "bloei": [
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Raphanus raphanistrum L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Raphanus_raphanistrum",
-  "intro": "Knopherik is een akkerbloem die vanzelf opkomt. Wat vroeger onkruid heette, is nu eten voor bijen en zweefvliegen.",
-  "weetje": "Zaden van knopherik kunnen tientallen jaren in de grond overleven. Wordt de grond omgewerkt, dan komen ze ineens op — daarom verschijnt deze plant \"vanzelf\".",
-  "foto": {
-   "bestand": "",
-   "x": 8,
-   "y": 21,
-   "zoom": 1.76,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=99649295"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=43560328"
-  }
- },
- {
-  "slug": "lavendel",
-  "naam": "lavendel",
-  "plantnummer": "10",
-  "waterOndergrens": "1",
-  "waterBovengrens": "2",
-  "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
-  "zon": "zon",
-  "zonInfo": "Heeft veel zon nodig en grond waar water snel uit wegloopt. Natte wintergrond is ongunstig.",
-  "functies": {
-   "primair": [
-    "sier",
-    "insecten"
-   ],
-   "secundair": [
-    "kruid"
-   ]
-  },
-  "oogstTijd": [
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "oogstMethode": "Knip bloemstengels wanneer de eerste bloemen open zijn. Knip alleen in het groene deel van de plant.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "April",
-   "Augustus",
-   "September"
-  ],
-  "snoeiTijdInfo": "Ruim in het voorjaar beschadigde toppen op. Knip na de bloei de bloemstengels en wat jong groen terug.",
-  "snoeiMethode": "Knip na de bloei tot een compacte vorm, maar laat overal groene blaadjes onder de knip zitten.",
-  "snoeiInformatie": "Lavendel loopt slecht opnieuw uit vanuit kaal, oud hout. Jaarlijks licht snoeien voorkomt dat de plant te houtig wordt.",
-  "woekerToestemming": "Uitgebloeide stengels en groene takjes die over het pad hangen, mogen worden ingekort.",
-  "woekerVerbod": "Knip niet diep in kaal, bruin hout zonder blaadjes. Laat onder iedere knip groene groei staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "bloei": [
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "sterf": [],
-  "botanischeNaam": "Lavandula angustifolia Mill.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Lavandula_angustifolia",
-  "intro": "Lavendel geurt sterk en bloeit paars in de zomer. Bijen en hommels zijn er dol op.",
-  "weetje": "De naam lavendel komt van het Latijnse \"lavare\": wassen. De Romeinen deden lavendel in hun badwater.",
-  "foto": {
-   "bestand": "",
-   "x": 39,
-   "y": 29,
-   "zoom": 1.1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=1830859"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=255365"
-  }
- },
- {
-  "slug": "marjolein",
-  "naam": "marjolein",
-  "plantnummer": "11",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef water wanneer de bovenste laag droog is. Laat de grond daarna weer iets opdrogen en laat geen water rond de wortels staan.",
-  "zon": "zon",
-  "zonInfo": "Staat graag zonnig en beschut in grond waar overtollig water makkelijk weg kan. Is gevoelig voor kou en natte winters.",
-  "functies": {
-   "primair": [
-    "kruid",
-    "insecten"
-   ],
-   "secundair": []
-  },
-  "oogstTijd": [
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "oogstMethode": "Knip groene stengels af en laat onderaan enkele blaadjes staan. Gebruik de blaadjes vers of laat de takjes drogen.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Maart",
-   "September"
-  ],
-  "snoeiTijdInfo": "Knip uitgebloeide stengels weg. Ruim in het voorjaar alleen resten op als de plant de winter heeft overleefd.",
-  "snoeiMethode": "Knip stengels terug tot net boven groene groei. Verwijder dode en bruine delen.",
-  "snoeiInformatie": "Marjolein is niet betrouwbaar winterhard en wordt in Nederland vaak als eenjarige plant gehouden.",
-  "woekerToestemming": "Lange en uitgebloeide stengels mogen flink worden ingekort. Een te breed deel mag worden weggehaald.",
-  "woekerVerbod": "Knip niet al het groen helemaal tot op kale grond weg. Laat een klein groen deel staan zolang de plant nog groeit.",
-  "levensduur": "Eenjarig of kortlevend",
-  "groei": [
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Origanum majorana L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Origanum_majorana",
-  "intro": "Marjolein is familie van oregano en ruikt kruidig. De kleine bloemetjes zijn een feestmaal voor insecten.",
-  "weetje": "Marjolein is het zachtere zusje van oregano. In het oude Griekenland stond de plant symbool voor geluk.",
-  "foto": {
-   "bestand": "",
-   "x": 0,
-   "y": 76,
-   "zoom": 1.09,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=61214176"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/wiki/File:Origanum_vulgare_Runeberg.jpg"
-  }
- },
- {
-  "slug": "munt",
-  "naam": "munt",
-  "plantnummer": "12",
-  "waterOndergrens": "2",
-  "waterBovengrens": "4",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Houd de grond licht vochtig, maar geef niets als hij nog nat aanvoelt.",
-  "zon": "halfschaduw",
-  "zonInfo": "Groeit in de zon en in halfschaduw. Een bak of begrensd vak helpt om de ondergrondse uitlopers binnen de perken te houden.",
-  "functies": {
-   "primair": [
-    "kruid"
-   ],
-   "secundair": [
-    "insecten"
-   ]
-  },
-  "oogstTijd": [
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "oogstMethode": "Knip groene toppen of hele stengels af, net boven een paar blaadjes. De plant groeit daarna opnieuw uit.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "November"
-  ],
-  "snoeiTijdInfo": "Knip tijdens het groeiseizoen terug zodra de munt te groot wordt. Knip dode stengels in de late herfst laag af.",
-  "snoeiMethode": "Knip lange stengels zo ver terug als nodig is. Graaf uitlopers weg die buiten de afgesproken plek groeien.",
-  "snoeiInformatie": "Aarmunt verspreidt zich snel met ondergrondse uitlopers. Een klein achtergebleven wortelstuk kan opnieuw uitlopen.",
-  "woekerToestemming": "Stengels, losse planten en uitlopers buiten de gewenste plek mogen worden weggeknipt of uitgegraven. Flink uitdunnen is geen probleem.",
-  "woekerVerbod": "Haal niet werkelijk alle planten en wortels weg. Laat enkele gezonde muntplantjes in de bak of het vak staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "Maart",
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "bloei": [
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Mentha spicata L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Mentha_spicata",
-  "intro": "Munt groeit snel en ruikt fris. De blaadjes zijn lekker in thee.",
-  "weetje": "Munt maakt ondergrondse uitlopers en kan daarmee een hele tuin veroveren — daarom staat onze munt in een eigen bak. Zelfs een klein achtergebleven wortelstukje groeit weer uit.",
-  "foto": {
-   "bestand": "",
-   "x": 43,
-   "y": 28,
-   "zoom": 1.29,
-   "bron": "Bron niet teruggevonden."
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=43022877"
-  }
- },
- {
-  "slug": "rode-bes",
-  "naam": "rode bes",
-  "plantnummer": "13",
-  "waterOndergrens": "2",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral wanneer de bessen groeien. Is de grond nog vochtig, geef dan niets.",
-  "zon": "zon",
-  "zonInfo": "Groeit in de zon en in lichte halfschaduw. Zon helpt de bessen rijpen.",
-  "functies": {
-   "primair": [
-    "fruit"
-   ],
-   "secundair": [
-    "vogel"
-   ]
-  },
-  "oogstTijd": [
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "oogstMethode": "Pluk of knip een heel trosje als alle bessen rood en rijp zijn. Houd het trosje bij het steeltje vast.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Februari",
-   "Maart"
-  ],
-  "snoeiTijdInfo": "Snoei aan het einde van de winter, voordat de knoppen uitlopen.",
-  "snoeiMethode": "Verwijder dode en kruisende takken. Haal bij een oude struik af en toe één oude hoofdtak laag weg en laat vervangende jonge takken staan.",
-  "snoeiInformatie": "Rode bes draagt vooral aan korte zijtakjes op ouder hout. Te veel snoei geeft minder bessen.",
-  "woekerToestemming": "Lage, gebroken of hinderlijke dunne takken mogen worden teruggeknipt tot een gezonde zijtak.",
-  "woekerVerbod": "Knip niet alle jonge hoofdtakken of alle korte zijtakjes weg. Laat een open maar volle struik staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "bloei": [
-   "April",
-   "Mei"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Ribes rubrum L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Ribes_rubrum",
-  "intro": "De rode bes geeft trosjes glanzende, zure besjes in de zomer. Vogels zijn er net zo gek op als mensen.",
-  "weetje": "Rode besjes zijn doorschijnend: houd een trosje tegen het licht en je ziet de pitjes erin zitten.",
-  "foto": {
-   "bestand": "",
-   "x": 51,
-   "y": 59,
-   "zoom": 1.02,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=1451169"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=5970448"
-  }
- },
- {
-  "slug": "rozemarijn",
-  "naam": "rozemarijn",
-  "plantnummer": "14",
-  "waterOndergrens": "1",
-  "waterBovengrens": "2",
-  "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
-  "zon": "zon",
-  "zonInfo": "Staat graag in de volle zon, in grond waar overtollig water snel uit wegloopt.",
-  "functies": {
-   "primair": [
-    "kruid"
-   ],
-   "secundair": [
-    "insecten"
-   ]
-  },
-  "oogstTijd": [
-   "Maart",
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "oogstMethode": "Knip jonge, groene takjes af. Laat onder de knip voldoende blaadjes staan.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "snoeiTijdInfo": "Knip in het voorjaar en na de bloei licht terug. Vermijd grote snoei vlak voor de winter.",
-  "snoeiMethode": "Kort jonge, groene takken in om de struik compact te houden. Verwijder dode en beschadigde takjes.",
-  "snoeiInformatie": "Rozemarijn loopt slecht opnieuw uit vanuit kaal, oud hout. Regelmatig licht knippen is veiliger dan één zware snoeibeurt.",
-  "woekerToestemming": "Groene takken die te breed groeien of over het pad hangen, mogen worden ingekort.",
-  "woekerVerbod": "Knip niet diep in dikke, kale takken zonder groene blaadjes.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "bloei": [
-   "April",
-   "Mei",
-   "Juni"
-  ],
-  "sterf": [],
-  "botanischeNaam": "Salvia jordanii J.B.Walker",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Salvia_jordanii",
-  "intro": "Rozemarijn is een struikje met naaldvormige blaadjes dat sterk geurt als je erdoorheen wrijft. Het blijft ook in de winter groen.",
-  "weetje": "Rozemarijn betekent \"dauw van de zee\" — de plant groeit van nature langs de kust van de Middellandse Zee. Hij stond vroeger symbool voor een goed geheugen.",
-  "foto": {
-   "bestand": "",
-   "x": 50,
-   "y": 3,
-   "zoom": 1.06,
-   "bron": "https://unsplash.com/photos/a-close-up-of-a-tree-with-lots-of-leaves-1eEg3kRUnQo"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=84311282"
-  }
- },
- {
-  "slug": "salie",
-  "naam": "salie",
-  "plantnummer": "15",
-  "waterOndergrens": "1",
-  "waterBovengrens": "2",
-  "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef pas een beetje water wanneer de grond daar droog is.",
-  "zon": "zon",
-  "zonInfo": "Staat graag zonnig in grond waar overtollig water makkelijk weg kan. Bescherm de plant tegen langdurig natte wintergrond.",
-  "functies": {
-   "primair": [
-    "kruid",
-    "insecten"
-   ],
-   "secundair": []
-  },
-  "oogstTijd": [
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "oogstMethode": "Pluk losse blaadjes of knip een jonge groene top af. Laat onder de knip enkele blaadjes staan.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "April",
-   "Juli",
-   "Augustus"
-  ],
-  "snoeiTijdInfo": "Knip in het voorjaar terug zodra nieuwe groei zichtbaar is. Knip uitgebloeide stengels in de zomer weg.",
-  "snoeiMethode": "Kort jonge takken in tot vlak boven groene blaadjes of knoppen. Verwijder dode delen.",
-  "snoeiInformatie": "Jaarlijks licht snoeien houdt salie compact. Oude kale takken lopen niet altijd opnieuw uit.",
-  "woekerToestemming": "Groene takken die over het pad of andere planten hangen, mogen worden ingekort. Uitgebloeide stengels mogen weg.",
-  "woekerVerbod": "Knip niet onder de laagste groene blaadjes of knoppen in volledig kaal hout.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Juni",
-   "Juli"
-  ],
-  "sterf": [],
-  "botanischeNaam": "Salvia officinalis L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Salvia_officinalis",
-  "intro": "Salie heeft zachte, grijsgroene blaadjes en bloeit paarsblauw. Hommels kruipen diep in de bloemen.",
-  "weetje": "Salie komt van het Latijnse \"salvare\": redden of genezen. Er bestond zelfs een spreuk: \"Waarom zou iemand sterven die salie in de tuin heeft?\"",
-  "foto": {
-   "bestand": "",
-   "x": 68,
-   "y": 25,
-   "zoom": 1.32,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=81823456"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=43186860"
-  }
- },
- {
-  "slug": "teunisbloem",
-  "naam": "teunisbloem",
-  "plantnummer": "16",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water als de grond enkele centimeters diep droog is. Is de grond nog vochtig, geef dan niets.",
-  "zon": "zon",
-  "zonInfo": "Groeit het beste op een zonnige, open plek en kan goed tegen droge, zandige of stenige grond.",
-  "functies": {
-   "primair": [
-    "sier",
-    "insecten"
-   ],
-   "secundair": [
-    "onkruid",
-    "vogel"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "snoeiTijdInfo": "Knip uitgebloeide stengels weg als er genoeg planten staan of als uitzaaien niet gewenst is.",
-  "snoeiMethode": "Knip hoge of uitgebloeide stengels laag af. Trek overtollige jonge rozetten uit de grond.",
-  "snoeiInformatie": "Teunisbloem is meestal tweejarig: eerst ontstaat een lage bladrozet, daarna een bloemstengel. Na bloei en zaadvorming sterft die plant af.",
-  "woekerToestemming": "Planten op de verkeerde plek en stengels die in de weg staan, mogen helemaal worden verwijderd. Laat alleen het gewenste aantal staan.",
-  "woekerVerbod": "Laat niet overal rijpe zaaddozen staan. Anders kunnen er veel nieuwe planten opkomen.",
-  "levensduur": "Tweejarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Oenothera parviflora L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Oenothera_parviflora",
-  "intro": "De teunisbloem opent haar gele bloemen pas in de avond, voor nachtvlinders. Overdag zie je ze vaak alweer sluiten.",
-  "weetje": "Een teunisbloem gaat 's avonds zó snel open dat je het kunt zíén gebeuren — binnen een paar minuten vouwt de bloem zich uit. Ga in de zomer rond zonsondergang eens kijken.",
-  "foto": {
-   "bestand": "",
-   "x": 100,
-   "y": 61,
-   "zoom": 1.02,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=16614186"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=44456277"
-  }
- },
- {
-  "slug": "tijm",
-  "naam": "tijm",
-  "plantnummer": "17",
-  "waterOndergrens": "1",
-  "waterBovengrens": "2",
-  "waterInfo": "Voel enkele centimeters diep. Is de grond nog vochtig, geef dan geen water. Geef alleen een beetje water wanneer de grond daar droog is.",
-  "zon": "zon",
-  "zonInfo": "Heeft veel zon nodig en grond waar water snel uit wegloopt.",
-  "functies": {
-   "primair": [
-    "kruid",
-    "insecten"
-   ],
-   "secundair": []
-  },
-  "oogstTijd": [
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "oogstMethode": "Knip jonge takjes af. Laat onder de knip groene blaadjes staan.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "April",
-   "Juli",
-   "Augustus"
-  ],
-  "snoeiTijdInfo": "Knip in het voorjaar en kort na de bloei licht terug om de plant compact te houden.",
-  "snoeiMethode": "Knip uitstekende en uitgebloeide groene takjes terug. Geef de plant een compacte vorm.",
-  "snoeiInformatie": "Oude tijm kan kaal en houtig worden. Hard snoeien tot in kaal hout is riskant.",
-  "woekerToestemming": "Groene takjes die over de rand of het pad hangen, mogen worden ingekort.",
-  "woekerVerbod": "Knip niet diep in kale, bruine takken zonder blaadjes.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni",
-   "Juli"
-  ],
-  "sterf": [],
-  "botanischeNaam": "Thymus vulgaris L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Thymus_vulgaris",
-  "intro": "Tijm is een laag, geurig struikje. Als het bloeit, gonst de hele plant van de bijen.",
-  "weetje": "Tijmhoning is beroemd, vooral uit Griekenland. Voor Griekse soldaten stond tijm symbool voor moed.",
-  "foto": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1.64,
-   "bron": "https://unsplash.com/photos/green-grass-field-during-daytime-z6VJQR6-4SU"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=43186602"
-  }
- },
- {
-  "slug": "venkel",
-  "naam": "venkel",
-  "plantnummer": "18",
-  "waterOndergrens": "2",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is. Is de grond nog vochtig, geef dan niets.",
-  "zon": "zon",
-  "zonInfo": "Staat graag zonnig en heeft ruimte nodig: de stengels kunnen ruim anderhalve meter hoog worden.",
-  "functies": {
-   "primair": [
-    "insecten"
-   ],
-   "secundair": [
-    "kruid"
-   ]
-  },
-  "oogstTijd": [
-   "Juli",
-   "Augustus",
-   "September",
-   "Oktober"
-  ],
-  "oogstMethode": "Knip jonge groene blaadjes naar behoefte. Knip alleen enkele droge zaadschermen voor zaad en voorkom dat de rest uitzaait.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September",
-   "November"
-  ],
-  "snoeiTijdInfo": "Kort de plant tijdens de zomer in als hij te hoog of breed wordt. Knip na de bloei schermen weg om uitzaaien te beperken.",
-  "snoeiMethode": "Knip hinderlijke stengels laag af. In de late herfst mogen dode stengels tot vlak boven de grond worden verwijderd.",
-  "snoeiInformatie": "Venkel kan groot worden en zich ruim uitzaaien. De plant kan opnieuw uitlopen vanuit de basis.",
-  "woekerToestemming": "Hoge stengels die in de weg staan, mogen laag worden afgeknipt. Overtollige jonge planten en zaadschermen mogen weg.",
-  "woekerVerbod": "Trek niet de hele wortelkroon uit als de venkel moet blijven. Laat enkele groene scheuten of stengels staan.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Foeniculum vulgare Mill.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Foeniculum_vulgare",
-  "intro": "Venkel wordt ruim anderhalve meter hoog en ruikt naar anijs. De gele bloemschermen zitten vol zweefvliegen.",
-  "weetje": "De Marathonloop is genoemd naar venkel: \"marathon\" is Grieks voor venkelveld, en daar werd de beroemde veldslag uitgevochten.",
-  "foto": {
-   "bestand": "",
-   "x": 69,
-   "y": 24,
-   "zoom": 1.15,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=15855012"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=1412282"
-  }
- },
- {
-  "slug": "zwarte-bes",
-  "naam": "zwarte bes",
-  "plantnummer": "19",
-  "waterOndergrens": "3",
-  "waterBovengrens": "4",
-  "waterInfo": "Voel eerst de grond. Geef water zodra de bovenste laag droog is, vooral wanneer de bessen groeien. Houd de grond licht vochtig, maar laat geen plas staan.",
-  "zon": "zon",
-  "zonInfo": "Groeit in de zon en in lichte halfschaduw. Een open plek met lucht rond de takken helpt tegen schimmel.",
-  "functies": {
-   "primair": [
-    "fruit"
-   ],
-   "secundair": [
-    "vogel"
-   ]
-  },
-  "oogstTijd": [
-   "Juli",
-   "Augustus"
-  ],
-  "oogstMethode": "Pluk of knip een heel trosje als alle bessen zwart en rijp zijn. Houd het trosje bij het steeltje vast.",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Februari",
-   "Augustus",
-   "September"
-  ],
-  "snoeiTijdInfo": "Snoei na de oogst of aan het einde van de winter. Verwijder vooral oud hout.",
-  "snoeiMethode": "Knip bij een oudere struik één of meer van de donkerste oude takken laag bij de grond weg. Laat de jongere, lichtere takken staan.",
-  "snoeiInformatie": "Zwarte bes draagt het beste op jonge takken. Jaarlijks wat oud hout weghalen stimuleert vervangende groei.",
-  "woekerToestemming": "Lage, gebroken en hinderlijke dunne takken mogen weg. Eén oude, donkere tak mag laag worden verwijderd.",
-  "woekerVerbod": "Knip niet alle jonge takken weg die uit de grond komen. Die zijn nodig voor latere oogst.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus"
-  ],
-  "bloei": [
-   "April",
-   "Mei"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Ribes nigrum L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Ribes_nigrum",
-  "intro": "De zwarte bes geeft donkere, sterk smakende bessen. De blaadjes geuren al als je ze aanraakt.",
-  "weetje": "Zwarte bessen zitten bomvol vitamine C — veel meer dan sinaasappels. In Engeland werden kinderen er in de oorlog mee gezond gehouden toen fruit schaars was.",
-  "foto": {
-   "bestand": "",
-   "x": 50,
-   "y": 45,
-   "zoom": 1.03,
-   "bron": "https://unsplash.com/photos/a-bunch-of-black-berries-hanging-from-a-tree-r7Y6wdEFVdE"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/wiki/File:281_Ribes_nigrum.jpg"
-  }
- },
- {
-  "slug": "spaanse-aak",
-  "naam": "spaanse aak",
-  "plantnummer": "20",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
-  "zon": "zon",
-  "zonInfo": "Groeit in de zon, halfschaduw en lichte schaduw. Verdraagt ook wind en kalkrijke grond.",
-  "functies": {
-   "primair": [
-    "boom"
-   ],
-   "secundair": [
-    "insecten"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "November",
-   "December"
-  ],
-  "snoeiTijdInfo": "Snoei na de bladval en vóór januari om sterk sapverlies in het voorjaar te vermijden.",
-  "snoeiMethode": "Knip dunne, hinderlijke scheuten terug. Verwijder dode of kruisende takken alleen als dit veilig kan.",
-  "snoeiInformatie": "Spaanse aak verdraagt vormsnoei, maar kan in het voorjaar sap uit verse snoeiwonden verliezen.",
-  "woekerToestemming": "Dunne scheuten die over het pad groeien of duidelijk buiten de gewenste vorm steken, mogen in november of december worden ingekort.",
-  "woekerVerbod": "Zaag geen dikke takken af en snoei niet in het vroege voorjaar wanneer de knoppen gaan groeien.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "April",
-   "Mei"
-  ],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Acer campestre L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Acer_campestre",
-  "intro": "De Spaanse aak is een kleine, stevige boom die tegen wind kan. In de herfst kleurt het blad goudgeel.",
-  "weetje": "De Spaanse aak komt helemaal niet uit Spanje — het is een gewone Nederlandse boom. Het hout is zo hard dat er vroeger gereedschapsstelen van werden gemaakt.",
-  "foto": {
-   "bestand": "",
-   "x": 0,
-   "y": 61,
-   "zoom": 1.37,
-   "bron": "eigen beeld"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=5969489"
-  }
- },
- {
-  "slug": "wegedoorn",
-  "naam": "wegedoorn",
-  "plantnummer": "21",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
-  "zon": "zon",
-  "zonInfo": "Groeit in de zon en in halfschaduw. De struik kan breed worden en heeft stekelige takpunten.",
-  "functies": {
-   "primair": [
-    "vogel",
-    "insecten"
-   ],
-   "secundair": [
-    "boom"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Februari",
-   "Maart"
-  ],
-  "snoeiTijdInfo": "Snoei aan het einde van de winter of vroeg in het voorjaar, voordat de struik sterk uitloopt.",
-  "snoeiMethode": "Draag stevige handschoenen. Knip dode, kruisende en hinderlijke takken terug. Houd een haag op de gewenste breedte.",
-  "snoeiInformatie": "De bessen zijn niet voor mensen om te eten. De struik kan vanuit de basis nieuwe scheuten maken.",
-  "woekerToestemming": "Takken die het pad blokkeren of te breed uitgroeien, mogen worden ingekort. Jonge scheuten buiten het vak mogen weg.",
-  "woekerVerbod": "Eet de zwarte bessen niet. Zaag niet zonder duidelijke reden alle dikke hoofdtakken tegelijk weg.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Rhamnus cathartica L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Rhamnus_cathartica",
-  "intro": "De wegedoorn is een stekelige struik met zwarte bessen voor vogels — niet voor mensen. Het is dé plant waar de citroenvlinder haar eitjes op legt.",
-  "weetje": "Van de bessen van de wegedoorn werd vroeger verf gemaakt: het \"sapgroen\" waar kunstenaars mee schilderden.",
-  "foto": {
-   "bestand": "",
-   "x": 98,
-   "y": 0,
-   "zoom": 1.36,
-   "bron": "eigen beeld"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=5969496"
-  }
- },
- {
-  "slug": "kardinaalmuts",
-  "naam": "kardinaalmuts",
-  "plantnummer": "22",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
-  "zon": "zon",
-  "zonInfo": "Groeit in de zon en in halfschaduw. In de zon is de herfstkleur vaak sterker.",
-  "functies": {
-   "primair": [
-    "sier"
-   ],
-   "secundair": [
-    "vogel"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Februari",
-   "Maart"
-  ],
-  "snoeiTijdInfo": "Snoei alleen als de struik te groot, beschadigd of erg dicht is.",
-  "snoeiMethode": "Draag handschoenen. Knip dode, kruisende en hinderlijke takken terug tot een gezonde zijtak.",
-  "snoeiInformatie": "Alle delen, vooral de vruchten, zijn schadelijk bij eten. De struik heeft meestal weinig snoei nodig.",
-  "woekerToestemming": "Dunne takken die over het pad hangen of in de weg zitten, mogen worden ingekort.",
-  "woekerVerbod": "Eet de roze en oranje vruchten niet. Knip niet zonder noodzaak de hele struik tot op de grond terug.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Euonymus latifolius (L.) Mill.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Euonymus_latifolius",
-  "intro": "De kardinaalsmuts valt in de herfst op met knalroze vruchtjes en oranje zaden. Mooi om te zien, niet om te eten.",
-  "weetje": "De vruchtjes lijken op het roze hoedje van een kardinaal — daar komt de naam vandaan. Van het harde hout werden vroeger spinklosjes en tekenkool gemaakt.",
-  "foto": {
-   "bestand": "",
-   "x": 58,
-   "y": 62,
-   "zoom": 1.32,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=15827727"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=727726"
-  }
- },
- {
-  "slug": "witte-moerbei",
-  "naam": "witte moerbei",
-  "plantnummer": "23",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
-  "zon": "zon",
-  "zonInfo": "Staat het liefst zonnig en enigszins beschut. Deze boom heeft ruimte nodig voor een brede kroon.",
-  "functies": {
-   "primair": [
-    "boom"
-   ],
-   "secundair": [
-    "sier"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "November",
-   "December"
-  ],
-  "snoeiTijdInfo": "Snoei na de bladval, in de late herfst of vroege winter, om sterk sapverlies te vermijden.",
-  "snoeiMethode": "Knip alleen jonge scheuten terug als de vorm dat vraagt. Laat grote takken en de stam met rust.",
-  "snoeiInformatie": "Dit exemplaar is vruchtloos. Witte moerbei kan veel sap verliezen uit snoeiwonden die te laat in de winter of in het voorjaar zijn gemaakt.",
-  "woekerToestemming": "Dunne, jonge scheuten die duidelijk in de weg zitten, mogen in november of december worden ingekort.",
-  "woekerVerbod": "Zaag geen dikke takken af. Snoei niet in de late winter, het voorjaar of de zomer.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [],
-  "sterf": [
-   "November",
-   "December"
-  ],
-  "botanischeNaam": "Morus alba L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Morus_alba",
-  "intro": "De witte moerbei is een boom met een brede kroon die schaduw geeft. Dit exemplaar draagt geen vruchten.",
-  "weetje": "Zijderupsen eten uitsluitend blaadjes van de witte moerbei. Alle zijde ter wereld begint dus bij deze boom.",
-  "foto": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=18773443"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=6087141"
-  }
- },
- {
-  "slug": "meidoorn",
-  "naam": "meidoorn",
-  "plantnummer": "24",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
-  "zon": "zon",
-  "zonInfo": "Groeit in de zon en in lichte halfschaduw. Houd voldoende ruimte vrij rond paden door de scherpe doorns.",
-  "functies": {
-   "primair": [
-    "vogel"
-   ],
-   "secundair": [
-    "boom",
-    "insecten"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [
-   "Februari",
-   "Maart",
-   "Juni"
-  ],
-  "snoeiTijdInfo": "Knip een haag na de bloei in juni. Verwijder in februari of maart alleen dode, beschadigde of zeer storende takken.",
-  "snoeiMethode": "Draag stevige handschoenen. Knip jonge uitstekende scheuten terug en verwijder dode of kruisende takken.",
-  "snoeiInformatie": "Meidoorn verdraagt snoei goed, maar grote snoei is voor deelnemers niet nodig. Let op de scherpe doorns.",
-  "woekerToestemming": "Dunne takken die het pad blokkeren of uit een haag steken, mogen worden ingekort.",
-  "woekerVerbod": "Zaag geen dikke hoofdtakken af. Werk niet zonder stevige handschoenen tussen de doorns.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Crataegus rhipidophylla Gand.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Crataegus_rhipidophylla",
-  "intro": "De meidoorn bloeit wit in mei en zit vol scherpe doorns. Vogels nestelen er veilig tussen en eten de rode bessen.",
-  "weetje": "Vóór er hekken bestonden, plantten boeren meidoornhagen om hun vee binnen te houden — de doorns deden het werk. Een meidoorn kan honderden jaren oud worden.",
-  "foto": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "Bron niet teruggevonden."
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=43956034"
-  }
- },
- {
-  "slug": "azarooldoorn",
-  "naam": "azarooldoorn",
-  "plantnummer": "25",
-  "waterOndergrens": "1",
-  "waterBovengrens": "3",
-  "waterInfo": "Voel eerst de grond. Geef alleen water bij langdurige droogte. Staat de plant er pas kort, geef dan eerder water als de grond droog is.",
-  "zon": "zon",
-  "zonInfo": "Staat het liefst zonnig. Houd rond paden rekening met de scherpe doorns.",
-  "functies": {
-   "primair": [
-    "boom",
-    "vogel"
-   ],
-   "secundair": [
-    "fruit"
-   ]
-  },
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [
-   "September",
-   "Oktober"
-  ],
-  "extraOogstMethode": "Pluk rijpe vruchten als ze geel tot rood en iets zacht zijn. Eet de pitten niet; verwijder ze vóór gebruik.",
-  "snoeiTijd": [
-   "Februari",
-   "Maart"
-  ],
-  "snoeiTijdInfo": "Snoei zo weinig mogelijk aan het einde van de winter, voordat de nieuwe groei begint.",
-  "snoeiMethode": "Draag stevige handschoenen. Verwijder dode, kruisende en hinderlijke dunne takken. Laat korte zijtakjes zoveel mogelijk zitten.",
-  "snoeiInformatie": "Vruchten ontstaan aan korte zijtakjes op ouder hout. De pitten zijn niet bedoeld om te eten.",
-  "woekerToestemming": "Dunne takken die laag hangen of het pad blokkeren, mogen worden teruggeknipt tot een gezonde zijtak.",
-  "woekerVerbod": "Knip niet alle korte zijtakjes weg en zaag geen dikke hoofdtakken af. Eet de pitten niet.",
-  "levensduur": "Meerjarig",
-  "groei": [
-   "April",
-   "Mei",
-   "Juni",
-   "Juli",
-   "Augustus",
-   "September"
-  ],
-  "bloei": [
-   "Mei",
-   "Juni"
-  ],
-  "sterf": [
-   "Oktober",
-   "November"
-  ],
-  "botanischeNaam": "Crataegus azarolus L.",
-  "commons": "https://commons.wikimedia.org/wiki/Category:Crataegus_azarolus",
-  "intro": "De azarooldoorn is een doornige boom met appelvormige vruchtjes die je kunt eten — maar niet de pitten.",
-  "weetje": "De azarool wordt rond de Middellandse Zee al eeuwen gekweekt. Van de vruchtjes wordt daar jam en stroop gemaakt.",
-  "foto": {
-   "bestand": "",
-   "x": 46,
-   "y": 32,
-   "zoom": 1.06,
-   "bron": "eigen beeld"
-  },
-  "illustratie": {
-   "bestand": "",
-   "x": 50,
-   "y": 50,
-   "zoom": 1,
-   "bron": "https://commons.wikimedia.org/w/index.php?curid=2252267"
-  }
- }
 ]

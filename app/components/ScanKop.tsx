@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from '@/app/components/NativeLink';
 import Zijmenu from './Zijmenu';
 
@@ -21,6 +24,9 @@ type Actief = 'uitleg';
  * pagina's hier hebben geen homepage-tabblad om als "actief" te markeren — behalve Uitleg.
  */
 export default function ScanKop({ actief }: { actief?: Actief } = {}) {
+  const [status, setStatus] = useState<boolean | null>(null);
+  useEffect(() => { fetch('/api/auth/status').then(r => r.json() as Promise<{ ingelogd: boolean }>).then(data => setStatus(data.ingelogd)).catch(() => setStatus(false)); }, []);
+  async function uitloggen() { await fetch('/api/auth/logout', { method: 'POST' }); setStatus(false); }
   const klas = (naam: Actief) => (actief === naam ? 'actief' : undefined);
   return <header className="scan-kop">
     <Zijmenu />
@@ -37,6 +43,11 @@ export default function ScanKop({ actief }: { actief?: Actief } = {}) {
       <Link className={klas('uitleg')} href="/uitleg">Uitleg</Link>
       <Link href="/drukwerk">Drukwerk</Link>
     </nav>
-    <Link className="scan-kop-beheren" href="/beheren">Beheren</Link>
+    <div className="scan-kop-acties" aria-live="polite">
+      {status === true && <>
+        <Link className="scan-kop-beheren" href="/beheren">Beheren</Link>
+        <button type="button" className="scan-kop-uitloggen" onClick={() => void uitloggen()}>Uitloggen</button>
+      </>}
+    </div>
   </header>;
 }

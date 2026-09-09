@@ -48,7 +48,7 @@ body:has(.scan) { background: #e2e8f0; }
 .scan-kop-logo { display: block; height: 18px; }
 .scan-kop small { color: var(--lucht); font-size: 13px; }
 
-/* De navigatie en "Beheren" komen er pas bij vanaf 901px; zie de media query onderaan
+/* De navigatie en beheeracties komen er pas bij vanaf 901px; zie de media query onderaan
    dit blok. Onder die grens blijft het bij het merk en de menuknop hierboven. */
 .scan-kop-nav { display: none; align-items: center; gap: 3px; }
 .scan-kop-nav a {
@@ -64,7 +64,6 @@ body:has(.scan) { background: #e2e8f0; }
 .scan-kop-nav a:hover,
 .scan-kop-nav a.actief { background: rgba(75, 225, 110, .16); color: var(--blauw); }
 .scan-kop-beheren {
-  display: none;
   align-items: center;
   border-radius: 99px;
   background: var(--blauw);
@@ -73,15 +72,21 @@ body:has(.scan) { background: #e2e8f0; }
   font-weight: 800;
   text-decoration: none;
 }
+.scan-kop-acties { display: none; align-items: center; justify-content: flex-end; gap: 8px; }
+.scan-kop-uitloggen { border: 0; border-radius: 99px; background: transparent; padding: 11px 14px; color: var(--groen); font: inherit; font-weight: 750; }
+.scan-kop-uitloggen:hover { background: rgba(75, 225, 110, .16); color: var(--blauw); }
 
 @media (min-width: 901px) {
   /* Dezelfde grens als de homepage (globals.css, `.topbar nav`): ruimte genoeg voor de
      volle navigatie, en dan is een zijmenu voor alleen deze ene pagina overbodig. */
-  .scan-kop { height: 82px; padding: 0 5vw; justify-content: space-between; }
+  .scan-kop { height: 82px; padding: 0 5vw; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .scan-kop-merk { grid-column: 1; }
+  .scan-kop-nav { grid-column: 2; justify-self: center; }
+  .scan-kop-acties { grid-column: 3; justify-self: end; }
   /* Overbodig zodra de balk zelf vertelt waar je bent. */
   .scan-kop-merk small { display: none; }
   .scan-kop-nav,
-  .scan-kop-beheren { display: flex; }
+  .scan-kop-acties { display: flex; }
 }
 
 .scan .eyebrow { color: var(--groen); font-weight: 600; letter-spacing: .16em; font-size: 11px; }
@@ -165,16 +170,30 @@ body:has(.scan) { background: #e2e8f0; }
 
 /* De druppels en de functie-iconen horen náást de foto, in de strook die de naam vrijlaat.
    Als blok-flex doen ze dat niet: een flexcontainer maakt een eigen opmaakcontext en die
-   ontwijkt een zwevend element in plaats van eromheen te lopen, dus belandden ze eronder en
-   bleef er links van de foto een leeg vlak staan. Inline-level lopen ze wél mee als tekst.
-   Boven 1000px zweeft er niets en is dit niet nodig. */
+   ontwijkt een zwevend element in plaats van eromheen te lopen, dus belandde de rij eronder
+   en bleef er links van de foto een leeg vlak staan. Inline-level loopt de wikkel wél mee
+   als tekst. Boven 1000px zweeft er niets en is dit niet nodig.
+
+   Het is één wikkel en niet twee losse buren. Als buren waren ze allebei inline-level, en
+   dan gaan ze naast elkaar staan zodra er ruimte is: op 375px is de strook naast de foto
+   163px en passen twee blokken van 112px daar niet samen in, maar op 768px is die strook
+   280px en stonden de functies dus ineens rechts van de druppels in plaats van eronder. Een
+   kolom houdt de volgorde op elke breedte hetzelfde. */
 @media (max-width: 999px) {
-  .scan-titel > .icoon-uitleg,
-  .scan-titel > .druppels,
-  .scan-titel > .functie-iconen {
+  .scan-titel > .scan-kenmerken {
     display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
     vertical-align: top;
-    max-width: 100%;
+    /* De strook naast de foto: die is `0.52` breed plus 16px linkermarge, dus hier blijft
+       48% min 16px over. Zonder deze grens rekent de browser de breedte van een inline-flex
+       blok uit tegen de héle kolom en niet tegen wat er naast de zwevende foto over is: de
+       teunisbloem heeft vier functie-iconen (232px), dat past niet in de 163px naast de foto
+       op een telefoon, en dan zakte het hele blok - druppels erbij - onder de foto. Met deze
+       grens breekt de rij iconen netjes af en blijft het blok staan waar het hoort.
+       De foto heeft ook `max-width: 360px`, maar onder 1000px is het vel hoogstens 584 breed
+       en blijft 52% daarvan (304) onder die grens; 48% klopt hier dus altijd. */
+    max-width: calc(48% - 16px);
   }
   /* 60% liet een strook van 154px over en de druppelrij is er 156 - twee pixels te kort,
      waardoor hij alsnog onder de foto belandde. Met 52% past hij, en de functie-iconen

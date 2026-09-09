@@ -108,6 +108,47 @@ export const MIGRATIES: Migratie[] = [
       )`,
     ],
   },
+  {
+    // De webfoto's zijn horizontaal gespiegeld ten opzichte van het oude drukwerk. De
+    // bijbehorende x-waarden zijn daarom vaste waarden en geen berekening: deze migratie
+    // mag nooit bij een volgende run opnieuw spiegelen. Eigen uploads blijven ongemoeid.
+    naam: '0002_spiegel_foto_x',
+    stappen: [
+      `UPDATE planten SET foto_x = CASE slug
+        WHEN 'aardbei' THEN 73
+        WHEN 'azarooldoorn' THEN 54
+        WHEN 'bieslook' THEN 48
+        WHEN 'bosbes' THEN 9
+        WHEN 'citroenmelisse' THEN 22
+        WHEN 'dragon' THEN 71
+        WHEN 'edel-duizendblad' THEN 69
+        WHEN 'framboos' THEN 81
+        WHEN 'kardinaalmuts' THEN 42
+        WHEN 'kiwi' THEN 37
+        WHEN 'knopherik' THEN 92
+        WHEN 'lavendel' THEN 61
+        WHEN 'marjolein' THEN 100
+        WHEN 'meidoorn' THEN 50
+        WHEN 'munt' THEN 57
+        WHEN 'rode-bes' THEN 49
+        WHEN 'rozemarijn' THEN 50
+        WHEN 'salie' THEN 32
+        WHEN 'spaanse-aak' THEN 100
+        WHEN 'teunisbloem' THEN 0
+        WHEN 'tijm' THEN 50
+        WHEN 'venkel' THEN 31
+        WHEN 'wegedoorn' THEN 2
+        WHEN 'witte-moerbei' THEN 50
+        WHEN 'zwarte-bes' THEN 50
+      END
+      WHERE foto_bestand = '' AND slug IN (
+        'aardbei', 'azarooldoorn', 'bieslook', 'bosbes', 'citroenmelisse', 'dragon',
+        'edel-duizendblad', 'framboos', 'kardinaalmuts', 'kiwi', 'knopherik', 'lavendel',
+        'marjolein', 'meidoorn', 'munt', 'rode-bes', 'rozemarijn', 'salie', 'spaanse-aak',
+        'teunisbloem', 'tijm', 'venkel', 'wegedoorn', 'witte-moerbei', 'zwarte-bes'
+      )`,
+    ],
+  },
 ];
 
 let gedaan: Promise<void> | null = null;

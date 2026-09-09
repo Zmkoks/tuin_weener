@@ -15,14 +15,19 @@ export default function Kopbalk({ actief }: { actief: Onderdeel }) {
   async function uitloggen() { await fetch('/api/auth/logout', { method: 'POST' }); setStatus(false); }
   const klas = (naam: Onderdeel) => (actief === naam ? 'active' : '');
   return <header className="topbar">
-    <Zijmenu />
-    <Link className="brand" href="/"><img src="/iconen/WeenerLogo.svg" alt="Weener XL" className="brand-logo" /></Link>
+    <div className="topbar-start">
+      <Zijmenu />
+      <Link className="brand" href="/"><img src="/iconen/WeenerLogo.svg" alt="Weener XL" className="brand-logo" /></Link>
+    </div>
     <nav aria-label="Hoofdnavigatie">
       <Link className={klas('planten')} href="/">Planten</Link>
       <Link className={klas('plattegrond')} href="/plattegrond">Plattegrond</Link>
       <Link className={klas('uitleg')} href="/uitleg">Uitleg</Link>
       <Link className={klas('drukwerk')} href="/drukwerk">Drukwerk</Link>
     </nav>
-    {status === true ? <button type="button" className="manage" onClick={() => void uitloggen()}>Uitloggen</button> : <Link className="manage" href="/beheren">Beheren</Link>}
+    {status === true && <div className="manage-actions">
+      <Link className="manage" href="/beheren">Beheren</Link>
+      <button type="button" className="manage manage-uitloggen" onClick={() => void uitloggen()}>Uitloggen</button>
+    </div>}
   </header>;
 }

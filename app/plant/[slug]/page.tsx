@@ -59,8 +59,14 @@ export default async function PlantPagina({ params }: Props) {
         <i className="ring-bright" aria-hidden="true" />
       </div>
       <div className="scan-titel">
-        <Waterdruppels plant={plant} naarUitleg />
-        <Functies plant={plant} naarUitleg />
+        {/* Druppels en functies staan in één wikkel, zodat ze onder elkaar blijven staan.
+            Als losse buren naast de zwevende foto vielen ze op een halfbreed scherm naast
+            elkaar: allebei ongeveer 112px breed, en in de strook van 280px pasten ze samen
+            net. Zie `.scan-kenmerken` in scan.css. */}
+        <div className="scan-kenmerken">
+          <Waterdruppels plant={plant} naarUitleg />
+          <Functies plant={plant} naarUitleg />
+        </div>
         {/* De inleiding hoort bij de kop: op een breed scherm staat hij naast de foto in
             plaats van eronder, en dan zou een losse alinea de kop half leeg laten. */}
         <p className="scan-intro">{plant.intro}</p>

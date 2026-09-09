@@ -29,5 +29,10 @@ export const photoNames: Record<string, string> = {
 /** Pad naar de foto van een plant, of null wanneer er (nog) geen foto is. */
 export function plantFoto(slug: string) {
   const naam = photoNames[slug];
-  return naam ? `/fotos/${encodeURIComponent(naam)}` : null;
+  if (!naam) return null;
+
+  // Gebruik voor de website de aangeleverde, gecomprimeerde WebP-versie.
+  // De oorspronkelijke bestandsnaam blijft hierboven behouden voor de bron-/fotokoppeling.
+  const webNaam = naam.replace(/\.[^.]+$/, '.webp');
+  return `/fotos-web/${encodeURIComponent(webNaam)}`;
 }
