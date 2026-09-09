@@ -50,16 +50,18 @@ export function useHandeling() {
   return { bezig, fout, doe };
 }
 
-export function Kaart({ plekken, gekozen, onKies, namen, opPunt, punt }: {
+export function Kaart({ plekken, gekozen, onKies, namen, planten, beplanting, opPunt, punt }: {
   plekken: Plek[];
   gekozen: string;
   onKies: (id: string) => void;
   namen: Record<string, string[]>;
+  planten?: Plant[];
+  beplanting?: Record<string, string[]>;
   opPunt?: (x: number, y: number) => void;
   punt?: { x: number; y: number } | null;
 }) {
   return <div className="beheer-kaart">
-    <Plattegrond zones={plekken} gekozen={gekozen} onKies={onKies} namen={namen} opPunt={opPunt} punt={punt} />
+    <Plattegrond zones={plekken} gekozen={gekozen} onKies={onKies} namen={namen} plants={planten} placements={beplanting} opPunt={opPunt} punt={punt} />
   </div>;
 }
 

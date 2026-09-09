@@ -31,11 +31,22 @@ export async function GET() {
 
       // Alleen wat tussen de buitenste <svg> staat; de rest is verpakking.
       const binnenkant = tekening.replace(/^[\s\S]*?<svg[^>]*>/i, '').replace(/<\/svg\s*>[\s\S]*$/i, '');
-      const [, , breedte, hoogte] = viewBox.trim().split(/[\s,]+/).map(Number);
-      const verhouding = breedte && hoogte ? (breedte / hoogte).toFixed(4) : '1';
+      const [minX, minY, breedte, hoogte] = viewBox.trim().split(/[\s,]+/).map(Number);
+      if (![minX, minY, breedte, hoogte].every(Number.isFinite) || breedte <= 0 || hoogte <= 0) continue;
+      const verhouding = (breedte / hoogte).toFixed(4);
       const naam = `plant-${plant.slug}-eigen${nummer + 1}`;
 
-      tekeningen.push(`<symbol id="${naam}" viewBox="${viewBox}" data-verhouding="${verhouding}" overflow="visible">${binnenkant}</symbol>`);
+      // Een geüploade tekening wordt hier op dezelfde maat gebracht als de bibliotheek:
+      // het wortelpunt (onderkant, midden) op (0,0) en de hoogte precies 1. Plaatsen is
+      // daarna `translate(x,y) scale(hoogte)`, net als bij `<g id="plant-tijm">`.
+      //
+      // Dit stond eerst als `<symbol viewBox="…">`, en dat ging mis: een `<use>` naar een
+      // `<symbol>` zonder breedte en hoogte vult de héle tekening, dus 210 bij 297 mm, en
+      // dat werd dan nog eens maal de planthoogte. Een eigen symbool kwam zo ongeveer
+      // 150 keer te groot op de kaart en je zag alleen een uitvergroot stukje wit.
+      const schaal = 1 / hoogte;
+      const naarWortelpunt = `translate(${-(minX + breedte / 2)},${-(minY + hoogte)})`;
+      tekeningen.push(`<g id="${naam}" data-verhouding="${verhouding}" transform="scale(${schaal}) ${naarWortelpunt}">${binnenkant}</g>`);
       namen.push(naam);
     }
 

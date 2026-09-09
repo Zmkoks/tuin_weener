@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 .menu-knop:hover,
-.menu-sluit:hover { background: rgba(74, 224, 110, .16); }
+.menu-sluit:hover { background: rgba(75, 225, 110, .16); }
 .menu-knop:focus-visible,
 .menu-sluit:focus-visible { outline: 2px solid var(--roze); outline-offset: 1px; }
 
@@ -86,7 +86,7 @@
   color: var(--blauw);
   text-decoration: none;
 }
-.zijmenu-regel:hover { background: rgba(74, 224, 110, .14); }
+.zijmenu-regel:hover { background: rgba(75, 225, 110, .14); }
 .zijmenu-regel b {
   display: block;
   font-family: Raleway, Arial, sans-serif;
@@ -109,7 +109,7 @@
   font-weight: 600;
   text-decoration: none;
 }
-.zijmenu-onder a:hover { background: rgba(74, 224, 110, .14); }
+.zijmenu-onder a:hover { background: rgba(75, 225, 110, .14); }
 
 .zijmenu-scheiding {
   margin: 16px 12px 4px;

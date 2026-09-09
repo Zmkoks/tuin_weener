@@ -7,6 +7,7 @@ import type { Plek } from '../data/plekTypes';
 import Kopbalk from '../components/Kopbalk';
 import Plattegrond from '../components/Plattegrond';
 import KaartIndex from '../components/kaartIndex';
+import PlekBeheer from '../components/PlekBeheer';
 import { PlantFoto } from '../components/paspoortDelen';
 
 /**
@@ -61,6 +62,8 @@ export default function PlattegrondPagina() {
             gekozen={zoneId}
             onKies={setZoneId}
             namen={names}
+            plants={plants}
+            placements={placements}
             indexLaag={allesInBeeld ? <KaartIndex plekken={plekken} namen={names} /> : undefined}
           />
         </div>
@@ -70,6 +73,9 @@ export default function PlattegrondPagina() {
               <h2>Wat groeit hier?</h2>
               <p>{zonePlants.length} {zonePlants.length === 1 ? 'plant' : 'planten'} op deze plek</p>
               {zonePlants.map(p => <Link className="zone-plant" href={`/plant/${p.slug}`} key={p.slug}><PlantFoto plant={p} /><span><b>{p.naam}</b></span><strong aria-hidden="true">→</strong></Link>)}
+              {/* `key` op de plek: kies je een andere bak, dan hoort het menu weer dicht te
+                  staan in plaats van open te blijven met de links van de vorige plek. */}
+              <PlekBeheer key={zone.id} plekId={zone.id} aantalPlanten={zonePlants.length} />
             </> : <>
               <h2>Kies een plek</h2>
               <p>Klik op de kaart op een vak, boom of heester om te zien wat daar groeit.</p>

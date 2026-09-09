@@ -52,7 +52,7 @@
   padding: 18px 20px;
   color: var(--blauw);
 }
-.beheer-uitweg:hover { border-color: var(--fris); background: rgba(74, 224, 110, .07); }
+.beheer-uitweg:hover { border-color: var(--fris); background: rgba(75, 225, 110, .07); }
 .beheer-uitweg b { display: block; font-weight: 750; }
 .beheer-uitweg small { display: block; margin-top: 3px; color: var(--grijs); line-height: 1.45; }
 

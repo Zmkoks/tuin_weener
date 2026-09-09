@@ -38,6 +38,7 @@ type Beheer = {
   zetOpPlek: (plant: Plant, plekId: string) => Promise<void>;
   maakPlekEnZet: (plant: Plant, punt: { x: number; y: number }) => Promise<void>;
   haalWeg: (plant: Plant, plekId: string) => Promise<void>;
+  verplaats: (plant: Plant, van: string, naar: string) => Promise<void>;
   bewaarPlant: (plant: Plant, waarden: PlantForm) => Promise<void>;
   nieuwePlantOpgeslagen: (plant: Plant) => void;
 };
@@ -131,25 +132,28 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     );
   }, [bewaarBeplanting, klaar]);
 
+  /**
+   * Een plek die hier is bijgemaakt en nu leeg is, is een stip op de kaart waar niets meer
+   * staat. Die ruimen we op. De vaste plekken uit tuin.json blijven altijd staan, want het
+   * drukwerk tekent ermee. Geeft terug of er inderdaad iets is opgeruimd, want dat verandert
+   * wat we de gebruiker vertellen.
+   */
+  const ruimLegePlekOp = useCallback(async (plekId: string, rest: string[]) => {
+    if (!plekId.startsWith('eigen-') || rest.length > 0) return false;
+    const antwoord = await fetch('/api/plekken', {
+      method: 'DELETE',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ id: plekId }),
+    });
+    if (!antwoord.ok) return false;
+    setPlekken((vorige) => vorige.filter((plek) => plek.id !== plekId));
+    return true;
+  }, []);
+
   const haalWeg = useCallback(async (plant: Plant, plekId: string) => {
     const rest = (beplant[plekId] || []).filter((slug) => slug !== plant.slug);
     await bewaarBeplanting(plekId, rest);
-
-    // Een plek die hier is bijgemaakt en nu leeg is, is een stip op de kaart waar niets
-    // meer staat. Die ruimen we meteen op. De vaste plekken uit tuin.json blijven.
-    const bijgemaakt = plekId.startsWith('eigen-');
-    let opgeruimd = false;
-    if (bijgemaakt && rest.length === 0) {
-      const antwoord = await fetch('/api/plekken', {
-        method: 'DELETE',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ id: plekId }),
-      });
-      if (antwoord.ok) {
-        setPlekken((vorige) => vorige.filter((plek) => plek.id !== plekId));
-        opgeruimd = true;
-      }
-    }
+    const opgeruimd = await ruimLegePlekOp(plekId, rest);
 
     klaar(
       `${plant.naam} is van deze plek gehaald`,
@@ -157,7 +161,36 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
         ? 'De plant staat nog gewoon in de bibliotheek. Deze plek was hier eerder bijgemaakt en stond nu leeg, dus die is van de kaart gehaald.'
         : 'De plant staat nog gewoon in de bibliotheek; alleen op deze plek staat hij niet meer.',
     );
-  }, [beplant, bewaarBeplanting, klaar]);
+  }, [beplant, bewaarBeplanting, klaar, ruimLegePlekOp]);
+
+  /**
+   * Verhuizen is één handeling en niet "weghalen, dan opnieuw plaatsen".
+   *
+   * **De volgorde is met opzet zo.** Eerst neerzetten op de nieuwe plek, dan weghalen van de
+   * oude. Gaat de tweede stap mis, dan staat de plant even op twee plekken - zichtbaar en met
+   * één klik te herstellen. Andersom zou hij bij dezelfde fout nergens meer staan, en dan moet
+   * iemand uit zijn hoofd weten waar hij vandaan kwam.
+   *
+   * **En daarom kan dit niet met de twee bestaande schermen achter elkaar.** Was de oude plek
+   * hier ooit bijgemaakt (een `eigen-`-stip), dan ruimt `haalWeg` hem op zodra hij leeg is.
+   * Verhuis je in twee stappen, dan is die plek dus verdwenen voordat je de plant ergens anders
+   * hebt neergezet. Hier gebeurt het opruimen pas nadat de plant veilig staat.
+   */
+  const verplaats = useCallback(async (plant: Plant, van: string, naar: string) => {
+    if (van === naar) throw new Error('De plant staat al op deze plek.');
+    const doel = [...new Set([...(beplant[naar] || []), plant.slug])];
+    const rest = (beplant[van] || []).filter((slug) => slug !== plant.slug);
+    await bewaarBeplanting(naar, doel);
+    await bewaarBeplanting(van, rest);
+    const opgeruimd = await ruimLegePlekOp(van, rest);
+
+    klaar(
+      `${plant.naam} staat nu op een andere plek`,
+      opgeruimd
+        ? 'De oude plek was hier eerder bijgemaakt en stond nu leeg, dus die is van de kaart gehaald.'
+        : 'Op de plattegrond en op de plantenpagina zie je de nieuwe plek meteen staan.',
+    );
+  }, [beplant, bewaarBeplanting, klaar, ruimLegePlekOp]);
 
   const bewaarPlant = useCallback(async (plant: Plant, waarden: PlantForm) => {
     const antwoord = await fetch(`/api/planten/${encodeURIComponent(plant.slug)}`, {
@@ -195,6 +228,7 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     zetOpPlek,
     maakPlekEnZet,
     haalWeg,
+    verplaats,
     bewaarPlant,
     nieuwePlantOpgeslagen,
   };

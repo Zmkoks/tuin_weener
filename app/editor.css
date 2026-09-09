@@ -11,7 +11,7 @@
 .creator-mode-switch button.active{border-color:var(--fris);color:var(--blauw)}
 .creator-error,.creator-notice{padding:14px 17px;border-radius:13px;font-weight:750;margin:14px 0}
 .creator-error{background:rgba(186,41,115,.07);color:var(--roze)}
-.creator-notice{background:rgba(74,224,110,.1);color:var(--groen)}
+.creator-notice{background:rgba(75,225,110,.1);color:var(--groen)}
 .automatic-creator{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:20px}
 .recognition-help{margin:0 0 20px;border:1px solid var(--lijn);border-radius:14px;background:var(--licht)}
 .recognition-help summary,.media-help-grid>details>summary,.symbool-routes>details>summary{cursor:pointer;list-style:none;padding:16px 48px 16px 17px;color:var(--blauw);font-weight:850;position:relative}
@@ -28,7 +28,7 @@
 .prompt-card-head button{border:0;border-radius:99px;padding:10px 14px;background:var(--blauw);color:#fff;font-weight:850;white-space:nowrap}
 .prompt-card pre{margin:0;background:#fff;border:1px solid var(--lijn);border-radius:12px;padding:15px;max-height:450px;overflow:auto;white-space:pre-wrap;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--blauw)}
 .prompt-card>small{display:block;margin-top:12px;color:var(--grijs);line-height:1.5}
-.prompt-input-card{background:rgba(74,224,110,.1)}
+.prompt-input-card{background:rgba(75,225,110,.1)}
 .prompt-input-card p{color:var(--grijs);line-height:1.5}
 .prompt-input-card textarea{width:100%;resize:vertical;border:1px solid #cbd5e1;border-radius:12px;padding:14px;background:#fff;color:var(--blauw);line-height:1.5}
 .prompt-input-card .primary-action{width:100%;min-height:50px;margin-top:12px}
@@ -89,7 +89,7 @@
 .beeldkeuze{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;border:1px solid var(--lijn);border-radius:18px;background:#fff;cursor:pointer;transition:border-color .15s,opacity .15s}
 .beeldkeuze:not(.gekozen):not(.enkel){opacity:.45}
 .beeldkeuze:hover{opacity:1;border-color:var(--fris)}
-.beeldkeuze.gekozen{border-color:var(--fris);box-shadow:0 0 0 2px rgba(74,224,110,.25);opacity:1}
+.beeldkeuze.gekozen{border-color:var(--fris);box-shadow:0 0 0 2px rgba(75,225,110,.25);opacity:1}
 .beeldkeuze:focus-visible{outline:2px solid var(--roze);outline-offset:2px}
 .beeldkeuze.enkel{cursor:default;padding:0;border:0;background:none}
 .beeldkeuze-label{font-size:11px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--lucht)}

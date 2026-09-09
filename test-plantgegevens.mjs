@@ -20,7 +20,8 @@ function load(file) {
   new Function('require', 'module', 'exports', code)(localRequire, mod, mod.exports);
   cache.set(file, mod.exports); return mod.exports;
 }
-const { normaliseerPlant, alleFuncties } = load('app/data/functies.ts');
+const { alleFuncties } = load('app/data/functies.ts');
+const { plantUitRegel, regelVanPlant } = load('db/velden.ts');
 const { leesPlant } = load('app/lib/plantInvoer.ts');
 const { formVanPlant, toPayload } = load('app/components/plantFormulier.tsx');
 const { fotoVan, illustratieVan } = load('app/data/afbeeldingen.ts');
@@ -39,16 +40,31 @@ for (const plant of planten) {
   assert.ok(fotoVan(plant)?.src);
   assert.ok(illustratieVan(plant)?.src);
 }
+// De rondgang door de database: plant -> regel -> plant. Dit is de laag waar een veld
+// stilzwijgend kan verdwijnen, dus alle 25 planten gaan er heen en terug doorheen.
+for (const plant of planten) {
+  const terug = plantUitRegel(regelVanPlant(plant), []);
+  for (const veld of Object.keys(plant)) {
+    assert.deepEqual(terug[veld], plant[veld], `${plant.slug}: veld ${veld} overleeft de database niet`);
+  }
+}
+
+// Een lege komma-lijst is een lege lijst, en niet een lijst met een leeg woord.
+assert.deepEqual(plantUitRegel({ slug: 'x', naam: 'X', oogst_tijd: '' }, []).oogstTijd, []);
+
+// Geen keuze in de symbolen betekent "alle tekeningen uit de bibliotheek", en dat is iets
+// anders dan "geen enkele". Zonder dat onderscheid kon niemand ooit alles uitzetten.
+assert.equal(plantUitRegel({ slug: 'x', naam: 'X', symbolen_bibliotheek: null }, []).symbolen, undefined);
+assert.deepEqual(plantUitRegel({ slug: 'x', naam: 'X', symbolen_bibliotheek: '' }, []).symbolen,
+  { bibliotheek: [], eigen: [] });
+
+// Een plant zonder foto houdt geen leeg fotoveld over: fotoVan() zou dan de afstelling uit
+// foto_instellingen.json overschrijven met 50/50/1 en alle foto's anders in beeld zetten.
+const zonderFoto = plantUitRegel({ slug: 'x', naam: 'X', foto_ingesteld: 0 }, []);
+assert.equal(zonderFoto.foto, undefined);
+
 const vast = planten[0];
-const oud = { ...vast, naam: 'Eigen naam', intro: 'Eigen tekst', functies: ['fruit', 'sier'], foto: undefined, illustratie: undefined };
-const gelezen = normaliseerPlant(oud, vast);
-assert.equal(gelezen.naam, oud.naam); assert.equal(gelezen.intro, oud.intro);
-assert.deepEqual(alleFuncties(gelezen), ['fruit', 'sier']);
-assert.equal(gelezen.foto.bron, vast.foto.bron);
-const upload = { bestand: 'eigen.jpg', bron: '', x: 12, y: 34, zoom: 1.8 };
-assert.deepEqual(normaliseerPlant({ ...oud, foto: upload }, vast).foto, upload);
-assert.deepEqual(normaliseerPlant({ ...vast, functies: { primair: ['sier'], secundair: [] } }, vast).functies, { primair: ['sier'], secundair: [] });
 for (const functies of [{ primair: [], secundair: [] }, { primair: ['fruit'], secundair: ['fruit'] }, { primair: ['onkruid'], secundair: [] }, { primair: ['fout'], secundair: [] }]) {
   assert.ok('fout' in leesPlant({ ...vast, functies }, vast.slug, vast.plantnummer));
 }
-console.log('Geslaagd: 25 planten, formulier/opslag-rondgang, bronnen, oude beheerwijzigingen, uploads en ongeldige functies.');
+console.log('Geslaagd: 25 planten, formulier/opslag-rondgang, bronnen, de rondgang door de database en ongeldige functies.');

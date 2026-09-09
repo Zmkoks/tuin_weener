@@ -50,7 +50,7 @@ export default function IllustratieGroot({ src, stijl, alt, bijschrift }: {
       onClick={() => setOpen(true)}
       aria-label={`${alt} — groter bekijken`}
     >
-      <span className="illustratie-vlak"><img className="illustratie" src={src} style={stijl} alt="" /></span>
+      <span className="illustratie-vlak"><img className="illustratie-beeld" src={src} style={stijl} alt="" /></span>
       <span className="illustratie-hint" aria-hidden="true">Tik om groter te zien</span>
     </button>
 

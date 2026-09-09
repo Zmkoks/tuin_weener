@@ -6,7 +6,7 @@ import { useBeheer } from '../../BeheerContext';
 import { BovenaanBeginnen, Kaart, Melding, NietGevonden, Terug, useHandeling } from '../../onderdelen';
 
 export default function PlekAanwijzen({ slug }: { slug: string }) {
-  const { plantVan, plekken, beplanting, namen, plantenOp, zetOpPlek } = useBeheer();
+  const { planten, plantVan, plekken, beplanting, namen, plantenOp, zetOpPlek } = useBeheer();
   const [gekozenPlek, setGekozenPlek] = useState('');
   const { bezig, fout, doe } = useHandeling();
 
@@ -27,7 +27,7 @@ export default function PlekAanwijzen({ slug }: { slug: string }) {
     <h1>Waar staat de {plant.naam}?</h1>
     <p className="lead">Klik op de kaart de plek aan waar je de plant hebt gevonden.</p>
     <div className="beheer-werkblad">
-      <Kaart plekken={plekken} gekozen={gekozenPlek} onKies={setGekozenPlek} namen={namen} />
+      <Kaart plekken={plekken} gekozen={gekozenPlek} onKies={setGekozenPlek} namen={namen} planten={planten} beplanting={beplanting} />
       <aside>
         {!gekozenPlek && <div className="beheer-paneel">
           <h2>Nog geen plek gekozen</h2>

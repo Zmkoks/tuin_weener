@@ -1,36 +1,42 @@
 import vastePlekken from '@/app/data/tuin.json';
-import staticPlants from '@/app/data/planten.json';
+import startPlanten from '@/app/data/planten.json';
 import type { Plant } from '@/app/data/plantTypes';
 import type { Plek } from '@/app/data/plekTypes';
-import { readAllPlants } from '@/db/plants';
-import { readPlacements } from '@/db/garden';
-import { readCustomZones } from '@/db/zones';
+import { leesBeplanting } from '@/db/beplanting';
+import { leesPlanten } from '@/db/planten';
+import { leesPlekken } from '@/db/plekken';
 
-/** De plekken uit tuin.json: de vaste tuin, ook de bron voor het drukwerk. */
+/**
+ * De tuin ophalen, met een terugval als de database niet bereikbaar is.
+ *
+ * De JSON-bestanden zijn sinds de database-omzetting **startvulling** en geen bron meer:
+ * `db/vulling.ts` zet ze één keer in de tabellen. Ze staan hier nog als noodgreep, zodat de
+ * site iets laat zien in plaats van een foutmelding wanneer D1 wegvalt. Wat je dan ziet is
+ * de tuin van de laatste export, niet de actuele.
+ */
+
+/** De plekken uit tuin.json. Alleen nog terugval en startvulling. */
 export const vasteZones = vastePlekken as Plek[];
 
-/** Alle plekken, inclusief de plekken die op de site zijn bijgemaakt. */
 export async function laadZones(): Promise<Plek[]> {
   try {
-    return [...vasteZones, ...await readCustomZones()];
+    return await leesPlekken();
   } catch {
     return vasteZones;
   }
 }
 
-/** Alle planten, inclusief zelf toegevoegde. Valt terug op het JSON-bestand als de database wegvalt. */
 export async function laadPlanten(): Promise<Plant[]> {
   try {
-    return await readAllPlants();
+    return await leesPlanten();
   } catch {
-    return staticPlants as Plant[];
+    return startPlanten as Plant[];
   }
 }
 
-/** Welke planten op welke plek staan. Valt terug op de uitgangssituatie als de database wegvalt. */
 export async function laadBeplanting(): Promise<Record<string, string[]>> {
   try {
-    return await readPlacements();
+    return await leesBeplanting();
   } catch {
     return Object.fromEntries(vasteZones.map((zone) => [zone.id, [...zone.planten]]));
   }

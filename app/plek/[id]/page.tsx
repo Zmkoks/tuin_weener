@@ -51,15 +51,6 @@ export default async function PlekPagina({ params }: Props) {
       <p className="scan-plek-aantal">{hier.length} {hier.length === 1 ? 'plant' : 'planten'} op deze plek</p>
     </header>
 
-    {taken.length > 0 && <section className="scan-nu">
-      <p className="eyebrow">WAT KAN IK HIER NU DOEN?</p>
-      <h2>{maand}</h2>
-      {taken.map(({ plant, taak }) => <div className="scan-taak" key={`${plant.slug}-${taak.type}`}>
-        <img className="taak-icoon" src={icoonPad(taak.type === 'Oogsten' ? 'oogst' : 'snoei')} alt="" />
-        <div><b>{taak.type}: {plant.naam}</b>{taak.uitleg && <p>{taak.uitleg}</p>}</div>
-      </div>)}
-    </section>}
-
     <div className="scan-plantenlijst">
       {hier.length === 0 && <p className="scan-geen-taak">Er staan nog geen planten op deze plek.</p>}
       {hier.map((plant) => <Link className="scan-plantregel" href={`/plant/${plant.slug}`} key={plant.slug}>
@@ -73,6 +64,15 @@ export default async function PlekPagina({ params }: Props) {
         <strong aria-hidden="true">→</strong>
       </Link>)}
     </div>
+
+    {taken.length > 0 && <section className="scan-nu">
+      <p className="eyebrow">WAT KAN IK HIER NU DOEN?</p>
+      <h2>{maand}</h2>
+      {taken.map(({ plant, taak }) => <div className="scan-taak" key={`${plant.slug}-${taak.type}`}>
+        <img className="taak-icoon" src={icoonPad(taak.type === 'Oogsten' ? 'oogst' : 'snoei')} alt="" />
+        <div><b>{taak.type}: {plant.naam}</b>{taak.uitleg && <p>{taak.uitleg}</p>}</div>
+      </div>)}
+    </section>}
 
     <footer className="scan-voet">
       <Link href="/">Bekijk de hele tuin</Link>

@@ -100,7 +100,7 @@ function kaderInhoud(kopregels: string[], regels: Regel[], bx: number, by: numbe
       if (i === 0) {
         onderdelen.push(
           <circle key={`b-${label}`} cx={bx + 8.0 * f} cy={ry - 1.3} r={3.6 * f}
-            fill={groen ? '#4ae06e' : '#fff'} stroke="#1e3a6a" strokeWidth={0.45} />,
+            fill={groen ? '#4be16e' : '#fff'} stroke="#1e3a6a" strokeWidth={0.45} />,
           <text key={`l-${label}`} x={bx + 8.0 * f} y={ry - 1.3} fontSize={3.4 * f}
             fill="#1e3a6a" textAnchor="middle" dominantBaseline="central"
             fontFamily="Poppins, Arial, sans-serif" fontWeight={600}>{label}</text>,
@@ -128,7 +128,7 @@ export function Badge({ plek }: { plek: Plek }) {
   const heester = plek.soort === 'heester';
   return <g>
     <circle cx={plek.badge.x} cy={plek.badge.y} r={heester ? 2.6 : 3.1}
-      fill={heester ? '#4ae06e' : '#fff'} stroke="#1e3a6a" strokeWidth={0.55} />
+      fill={heester ? '#4be16e' : '#fff'} stroke="#1e3a6a" strokeWidth={0.55} />
     <text x={plek.badge.x} y={plek.badge.y} fontSize={heester ? 2.6 : 3}
       fill="#1e3a6a" textAnchor="middle" dominantBaseline="central"
       fontFamily="Poppins, Arial, sans-serif" fontWeight={600}>{plek.label}</text>

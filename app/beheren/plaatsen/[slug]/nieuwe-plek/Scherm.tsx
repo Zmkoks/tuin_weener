@@ -5,7 +5,7 @@ import { useBeheer } from '../../../BeheerContext';
 import { BovenaanBeginnen, Kaart, Melding, NietGevonden, Terug, useHandeling } from '../../../onderdelen';
 
 export default function PuntAanwijzen({ slug }: { slug: string }) {
-  const { plantVan, plekken, namen, maakPlekEnZet } = useBeheer();
+  const { planten, plantVan, plekken, beplanting, namen, maakPlekEnZet } = useBeheer();
   const [punt, setPunt] = useState<{ x: number; y: number } | null>(null);
   const { bezig, fout, doe } = useHandeling();
 
@@ -23,7 +23,7 @@ export default function PuntAanwijzen({ slug }: { slug: string }) {
     <h1>Waar precies staat de {plant.naam}?</h1>
     <p className="lead">Klik op de kaart de plek aan waar de plant staat. Daar komt een nieuwe plek.</p>
     <div className="beheer-werkblad">
-      <Kaart plekken={plekken} gekozen="" onKies={() => {}} namen={namen} opPunt={(x, y) => setPunt({ x, y })} punt={punt} />
+      <Kaart plekken={plekken} gekozen="" onKies={() => {}} namen={namen} planten={planten} beplanting={beplanting} opPunt={(x, y) => setPunt({ x, y })} punt={punt} />
       <aside>
         <div className="beheer-paneel">
           <h2>Nieuwe plek</h2>

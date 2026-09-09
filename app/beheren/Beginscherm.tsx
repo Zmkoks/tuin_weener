@@ -6,10 +6,15 @@ import { BovenaanBeginnen } from './onderdelen';
 
 /**
  * Beheren begint bij wat iemand in de tuin tegenkwam, niet bij hoe wij de gegevens hebben
- * opgeslagen. Vandaar vier vragen als ingang; elke vraag is een eigen adres.
+ * opgeslagen. Vandaar vijf vragen als ingang; elke vraag is een eigen adres.
+ *
+ * Verhuizen staat er sinds 9 september bij. Vanaf de plattegrond is dat een knop bij de plek
+ * (`PlekBeheer.tsx`), maar het moet ook hier staan: wie via de kaart binnenkomt weet al
+ * wélke plek het is, wie hier binnenkomt niet, en dan hoort de vraag gesteld te worden.
  */
 const VRAGEN = [
   { naar: '/beheren/plaatsen', vraag: 'Ik heb een plant gevonden die niet op de plattegrond staat' },
+  { naar: '/beheren/verplaatsen', vraag: 'Een plant staat ergens anders dan op de plattegrond' },
   { naar: '/beheren/weghalen', vraag: 'Er staat een plant niet meer op zijn plek' },
   { naar: '/beheren/aanpassen', vraag: 'Er klopt iets niet in de informatie over een plant' },
   { naar: '/beheren/nieuw', vraag: 'Ik wil een plant toevoegen die nog niet in de tuin staat' },

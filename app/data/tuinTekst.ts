@@ -21,6 +21,17 @@ export function soortLabel(soort: string) {
 }
 
 /**
+ * Hoe je een plek in een zin noemt: "plantvak 2", "boom of heester D".
+ *
+ * Een plek die op de site is bijgemaakt heeft geen label - die staat niet op de gedrukte
+ * kaart en heeft dus geen nummer of letter. Daar wordt het "deze plek", want een zin als
+ * "zet je de munt op plantvak ?" is erger dan geen naam.
+ */
+export function plekNaam(plek: { label: string; soort: string }) {
+  return plek.label ? `${soortNaam(plek.soort).toLowerCase()} ${plek.label}` : 'deze plek';
+}
+
+/**
  * De twee waterniveaus van een plant, altijd tussen 0 en 5. Het laagste getal zegt hoe
  * droog de plant kan staan, het hoogste hoe vroeg je veilig water mag geven; zie
  * /uitleg/water. 0 betekent: niet ingevuld.

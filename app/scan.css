@@ -12,7 +12,7 @@ body:has(.scan) { background: #e2e8f0; }
 .scan {
   --blauw: #1e3a6a;
   --groen: #005d55;
-  --fris: #4ae06e;
+  --fris: #4be16e;
   --roze: #ba2973;
   --lucht: #689cd4;
   --geel: #fdc743;
@@ -62,7 +62,7 @@ body:has(.scan) { background: #e2e8f0; }
   white-space: nowrap;
 }
 .scan-kop-nav a:hover,
-.scan-kop-nav a.actief { background: rgba(74, 224, 110, .16); color: var(--blauw); }
+.scan-kop-nav a.actief { background: rgba(75, 225, 110, .16); color: var(--blauw); }
 .scan-kop-beheren {
   display: none;
   align-items: center;
@@ -89,7 +89,7 @@ body:has(.scan) { background: #e2e8f0; }
   display: inline-block;
   padding: 6px 10px;
   border-radius: 99px;
-  background: rgba(74, 224, 110, .16);
+  background: rgba(75, 225, 110, .16);
   color: var(--groen);
   font-size: 10px;
   font-weight: 600;
@@ -233,6 +233,7 @@ body:has(.scan) { background: #e2e8f0; }
   padding: 22px;
   margin-bottom: 14px;
 }
+.scan-plantenlijst + .scan-nu { margin-top: 24px; }
 .scan-nu .eyebrow { color: var(--fris); margin: 0; }
 .scan-nu h2 { font-size: 28px; margin: 6px 0 14px; color: #fff; }
 .scan-taak {
@@ -283,7 +284,7 @@ body:has(.scan) { background: #e2e8f0; }
 .scan-regels p:empty,
 .scan-secties p:empty { display: none; }
 .scan-secties b { color: var(--groen); font-weight: 600; }
-.scan-regels .allowed { border: 0; border-left: 5px solid var(--fris); background: rgba(74, 224, 110, .10); border-radius: 0 12px 12px 0; }
+.scan-regels .allowed { border: 0; border-left: 5px solid var(--fris); background: rgba(75, 225, 110, .10); border-radius: 0 12px 12px 0; }
 .scan-regels .allowed h3 { color: var(--groen); }
 .scan-regels .forbidden { border: 0; border-left: 5px solid var(--roze); background: rgba(186, 41, 115, .07); border-radius: 0 12px 12px 0; }
 .scan-regels .forbidden h3 { color: var(--roze); }
@@ -295,7 +296,12 @@ body:has(.scan) { background: #e2e8f0; }
 .illustratie-blok { text-align: center; }
 /* Het vlak snijdt af zodra een illustratie is ingezoomd; op zoom 1 verandert er niets. */
 .illustratie-vlak { display: block; overflow: hidden; }
-.illustratie { display: block; max-width: 100%; max-height: 220px; margin: 0 auto; object-fit: contain; }
+/* `illustratie-beeld` en niet `illustratie`: die kale naam wordt elders als aanduiding
+   gebruikt (`beeldkeuzes illustratie`, `beeldvlak illustratie` in AfbeeldingVeld). Deze regel
+   won daar van `.beeldkeuzes` — even zwaar, maar later in de stapel — en maakte van de rij
+   met keuzetegels een blok van hoogstens 220px hoog; de tweede tegel viel er onderuit, over
+   de knoppen en de schuifjes heen. Een naam die alleen bij dit ene beeld hoort kan dat niet. */
+.illustratie-beeld { display: block; max-width: 100%; max-height: 220px; margin: 0 auto; object-fit: contain; }
 .illustratie-bijschrift { margin: 10px 0 0; font-style: italic; font-size: 13px; color: var(--grijs); }
 
 /* Klein in de pagina, groot als je erop tikt. De knop mag niet als knop opvallen: het is
@@ -421,7 +427,7 @@ body:has(.scan) { background: #e2e8f0; }
 .scan-plekken a {
   display: inline-block;
   border-radius: 99px;
-  background: rgba(74, 224, 110, .14);
+  background: rgba(75, 225, 110, .14);
   padding: 11px 16px;
   color: var(--groen);
   font-weight: 600;
@@ -457,8 +463,8 @@ body:has(.scan) { background: #e2e8f0; }
 }
 .scan-plantregel img,
 .scan-plantregel .foto-leeg {
-  width: 74px;
-  height: 74px;
+  width: clamp(88px, 20vw, 120px);
+  height: clamp(88px, 20vw, 120px);
   border-radius: 50%;
   object-fit: cover;
   flex: none;
@@ -518,7 +524,7 @@ a.icoon-uitleg .druppels { margin-bottom: 0; }
 a.functie-item { padding: 4px 6px; margin: -4px -2px; }
 a.standplaats { padding: 4px 8px; margin: -4px -4px; }
 .kalender-rijkop { display: flex; align-items: center; gap: 4px; padding: 3px 5px; margin: 0 -5px; }
-a.icoon-uitleg:hover, a.functie-item:hover, a.standplaats:hover, .kalender-rijkop:hover { background: rgba(74, 224, 110, .16); }
+a.icoon-uitleg:hover, a.functie-item:hover, a.standplaats:hover, .kalender-rijkop:hover { background: rgba(75, 225, 110, .16); }
 a.icoon-uitleg:focus-visible, a.functie-item:focus-visible, a.standplaats:focus-visible, .kalender-rijkop:focus-visible {
   outline: 2px solid var(--roze);
   outline-offset: 1px;
@@ -581,7 +587,7 @@ a.icoon-uitleg:focus-visible, a.functie-item:focus-visible, a.standplaats:focus-
   /* "Wist je dat?" sluit de rij af — over de volle breedte, zodat er geen halve regel
      overblijft. */
   .scan-plant .scan-secties .fact { grid-column: 1 / -1; }
-  .scan-plant .illustratie { max-height: 300px; }
+  .scan-plant .illustratie-beeld { max-height: 300px; }
 
   /* Het kaartje naast de tekst in plaats van eronder; over de volle breedte zou het
      kaartje groter worden dan de tuin zelf. */

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { Plek } from '@/app/data/plekTypes';
 import { laadZones, vasteZones } from '@/app/lib/tuinData';
-import { readPlacements } from '@/db/garden';
-import { createCustomZone, deleteCustomZone, readCustomZones } from '@/db/zones';
+import { leesBeplanting } from '@/db/beplanting';
+import { aantalBijgemaakt, isBijgemaakt, maakPlek, verwijderPlek } from '@/db/plekken';
 import { geldigeSessie } from '@/app/lib/auth';
 
 /** De kaart is A4 staand in millimeters; buiten dat vel kan geen plek liggen. */
@@ -32,8 +32,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Deze plek ligt buiten de plattegrond.' }, { status: 400 });
     }
 
-    const bestaande = await readCustomZones();
-    const nummer = bestaande.length + 1;
+    const nummer = await aantalBijgemaakt() + 1;
+
     const plek: Plek = {
       id: `eigen-${String(nummer).padStart(2, '0')}`,
       label: '',
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       vorm: { type: 'punt', x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100 },
       svg_label: '',
     };
-    await createCustomZone(plek);
+    await maakPlek(plek);
     return NextResponse.json({ plek }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Opslaan mislukt.' }, { status: 500 });
@@ -60,15 +60,15 @@ export async function DELETE(request: Request) {
   try {
     const body = await request.json() as { id?: unknown };
     const id = typeof body.id === 'string' ? body.id : '';
-    const eigen = await readCustomZones();
-    if (!eigen.some((plek) => plek.id === id)) {
+
+    if (!await isBijgemaakt(id)) {
       return NextResponse.json({ error: 'Deze plek is niet op de site bijgemaakt en blijft staan.' }, { status: 400 });
     }
-    const beplanting = await readPlacements();
+    const beplanting = await leesBeplanting();
     if ((beplanting[id] || []).length > 0) {
       return NextResponse.json({ error: 'Op deze plek staat nog een plant.' }, { status: 409 });
     }
-    await deleteCustomZone(id);
+    await verwijderPlek(id);
     return NextResponse.json({ id });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : 'Verwijderen mislukt.' }, { status: 500 });
