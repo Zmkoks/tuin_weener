@@ -14,7 +14,8 @@ import { zorgVoorVulling } from '@/db/vulling';
  * te herschrijven — precies wat er nodig is om op de site een echte plantenbak bij te maken.
  *
  * `vast` bewaart het onderscheid dat er altijd al was: plekken uit `tuin.json` tekent het
- * drukwerk mee en die blijven staan; bijgemaakte plekken mogen weer weg.
+ * drukwerk mee. Een vaste plantenbak mag in het beheer alsnog worden opgeruimd; andere
+ * vaste punten blijven beschermd.
  */
 
 async function klaar() {
@@ -28,7 +29,7 @@ export async function leesPlekken(): Promise<Plek[]> {
   return regels.results.map(plekUitRegel);
 }
 
-/** Of een plek op de site is bijgemaakt. Alleen die mag weer weg. */
+/** Of een plek op de site is bijgemaakt. Dit blijft nodig voor het automatisch opruimen van lege punten. */
 export async function isBijgemaakt(id: string): Promise<boolean> {
   await klaar();
   const regel = await env.DB.prepare('SELECT vast FROM plekken WHERE id = ?').bind(id).first<{ vast: number }>();
@@ -53,6 +54,24 @@ export async function volgendBijgemaaktNummer(): Promise<number> {
   return hoogste + 1;
 }
 
+/** Het volgende kaartnummer; bakken en vrije plantvakken delen één nummerreeks. */
+export async function volgendPlekNummer(): Promise<string> {
+  await klaar();
+  const regels = await env.DB.prepare("SELECT label FROM plekken WHERE label <> ''").all<{ label: string }>();
+  const hoogste = regels.results.reduce((max, regel) => {
+    const nummer = Number.parseInt(regel.label, 10);
+    return Number.isFinite(nummer) ? Math.max(max, nummer) : max;
+  }, 0);
+  return String(hoogste + 1);
+}
+
+/** Metadata voor de verwijderactie; vaste bakken mogen bewust ook worden opgeruimd. */
+export async function plekMetadata(id: string): Promise<{ vast: boolean; soort: string } | null> {
+  await klaar();
+  const regel = await env.DB.prepare('SELECT vast, soort FROM plekken WHERE id = ?').bind(id).first<{ vast: number; soort: string }>();
+  return regel ? { vast: Boolean(regel.vast), soort: regel.soort } : null;
+}
+
 export async function maakPlek(plek: Plek): Promise<Plek> {
   await klaar();
   const laatste = await env.DB.prepare('SELECT MAX(volgorde) AS hoogste FROM plekken').first<{ hoogste: number | null }>();
@@ -60,11 +79,14 @@ export async function maakPlek(plek: Plek): Promise<Plek> {
   return plek;
 }
 
-/** Alleen bijgemaakte plekken verdwijnen; de beplanting die eraan hing gaat mee. */
-export async function verwijderPlek(id: string) {
+/** Verwijder een lege plek en de bijbehorende koppelingen. Vaste bakken mogen expliciet mee. */
+export async function verwijderPlek(id: string, ookVasteBak = false) {
   await klaar();
+  const plekOpdracht = ookVasteBak
+    ? env.DB.prepare('DELETE FROM plekken WHERE id = ? AND vast = 1 AND soort = ?').bind(id, 'bak')
+    : env.DB.prepare('DELETE FROM plekken WHERE id = ? AND vast = 0').bind(id);
   await env.DB.batch([
     env.DB.prepare('DELETE FROM beplanting WHERE plek_id = ?').bind(id),
-    env.DB.prepare('DELETE FROM plekken WHERE id = ? AND vast = 0').bind(id),
+    plekOpdracht,
   ]);
 }

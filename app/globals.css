@@ -142,6 +142,15 @@
 .plek-beheer[open]>summary::after{content:' ▴'}
 .plek-beheer a{display:block;padding:5px 0 0;font-size:12px;color:var(--blauw);text-decoration:none}
 .plek-beheer a:hover{text-decoration:underline}
+.plek-verwijderen{margin-top:7px;padding-top:7px;border-top:1px solid var(--lucht)}
+.plek-verwijder-link,.plek-verwijder-bevestig,.plek-verwijder-annuleer{border:0;background:none;padding:4px 0;color:var(--blauw);font:inherit;font-size:12px;cursor:pointer}
+.plek-verwijder-link{color:#a62b32}
+.plek-verwijder-link:hover,.plek-verwijder-annuleer:hover{text-decoration:underline}
+.plek-verwijder-bevestiging p{margin:0 0 5px;color:var(--grijs);font-size:12px;line-height:1.4}
+.plek-verwijder-fout{color:#a62b32 !important}
+.plek-verwijder-knoppen{display:flex;gap:12px;align-items:center}
+.plek-verwijder-bevestig{color:#a62b32;font-weight:750}
+.plek-verwijder-bevestig:disabled{opacity:.5;cursor:wait}
 
 /* Wisselen tussen de schone kaart en het beeld met nummers en legenda. Zelfde vorm als de
    filterknoppen op de homepage, zodat het als dezelfde soort keuze leest. */
