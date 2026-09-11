@@ -135,6 +135,27 @@
 .beheer-paneel ul { margin: 0 0 14px; padding-left: 20px; color: var(--blauw); line-height: 1.6; }
 .beheer-paneel ul li::first-letter { text-transform: uppercase; }
 
+.vorm-keuze { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin: 16px 0; }
+.vorm-keuze button {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  min-height: 92px;
+  border: 1.5px solid var(--lijn);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--blauw);
+  padding: 12px 8px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.vorm-keuze button:hover { border-color: var(--fris); }
+.vorm-keuze button.gekozen { border-color: var(--blauw); background: #eef8ee; box-shadow: inset 0 0 0 1px var(--blauw); }
+.vorm-icoon { display: block; width: 42px; height: 32px; border: 2px solid var(--groen); }
+.vorm-icoon.rechthoek { border-radius: 4px; }
+.vorm-icoon.cirkel { width: 34px; height: 34px; border-radius: 50%; }
+.teken-maat { color: var(--groen) !important; font-size: 14px; font-weight: 700; }
+
 .beheer-doen {
   display: grid;
   place-items: center;

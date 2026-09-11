@@ -87,6 +87,10 @@
 .plattegrond.aanwijzen .plattegrond-vak{pointer-events:none}
 .plattegrond-vlak{fill:transparent}
 .plattegrond-nieuw{fill:var(--roze);stroke:#fff;stroke-width:.5;pointer-events:none}
+.plattegrond.tekenen{cursor:crosshair;touch-action:none}
+.plattegrond.tekenen .plattegrond-vak{pointer-events:none}
+.plattegrond-vorm-preview>:is(rect,ellipse){fill:#4be16e66;stroke:var(--blauw);stroke-width:.7;stroke-dasharray:2 1}
+.plattegrond-tekenvlak{fill:transparent;cursor:crosshair;touch-action:none}
 /* De kaart is A4 staand; laat de container meegroeien in plaats van afkappen. */
 .large-map:has(.plattegrond){height:auto;background:transparent;border-radius:20px}
 

@@ -35,11 +35,22 @@ export async function isBijgemaakt(id: string): Promise<boolean> {
   return Boolean(regel) && !regel!.vast;
 }
 
-/** Hoeveel plekken er op de site zijn bijgemaakt; bepaalt het nummer van de volgende. */
+/** Hoeveel plekken er op de site zijn bijgemaakt. */
 export async function aantalBijgemaakt(): Promise<number> {
   await klaar();
   const regel = await env.DB.prepare('SELECT COUNT(*) AS aantal FROM plekken WHERE vast = 0').first<{ aantal: number }>();
   return regel?.aantal ?? 0;
+}
+
+/** Het hoogste eigen nummer plus één; verwijderen mag geen bestaand id opnieuw gebruiken. */
+export async function volgendBijgemaaktNummer(): Promise<number> {
+  await klaar();
+  const regels = await env.DB.prepare("SELECT id FROM plekken WHERE vast = 0 AND id LIKE 'eigen-%'").all<{ id: string }>();
+  const hoogste = regels.results.reduce((max, regel) => {
+    const nummer = Number.parseInt(regel.id.slice('eigen-'.length), 10);
+    return Number.isFinite(nummer) ? Math.max(max, nummer) : max;
+  }, 0);
+  return hoogste + 1;
 }
 
 export async function maakPlek(plek: Plek): Promise<Plek> {

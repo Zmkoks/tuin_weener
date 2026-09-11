@@ -6,7 +6,7 @@ import { PlantFoto } from '@/app/components/paspoortDelen';
 import { korteBotanischeNaam } from '@/app/data/tuinTekst';
 import Plattegrond from '@/app/components/Plattegrond';
 import type { Plant } from '@/app/data/plantTypes';
-import type { Plek } from '@/app/data/plekTypes';
+import type { Plek, Vorm } from '@/app/data/plekTypes';
 
 /** De weg terug is nu een echt adres, dus een link en geen knop. */
 export function Terug({ naar, tekst }: { naar: string; tekst: string }) {
@@ -50,7 +50,7 @@ export function useHandeling() {
   return { bezig, fout, doe };
 }
 
-export function Kaart({ plekken, gekozen, onKies, namen, planten, beplanting, opPunt, punt }: {
+export function Kaart({ plekken, gekozen, onKies, namen, planten, beplanting, opPunt, punt, tekenVorm, onVorm, vormPreview }: {
   plekken: Plek[];
   gekozen: string;
   onKies: (id: string) => void;
@@ -59,9 +59,12 @@ export function Kaart({ plekken, gekozen, onKies, namen, planten, beplanting, op
   beplanting?: Record<string, string[]>;
   opPunt?: (x: number, y: number) => void;
   punt?: { x: number; y: number } | null;
+  tekenVorm?: 'rect' | 'ellipse';
+  onVorm?: (vorm: Vorm | null) => void;
+  vormPreview?: Vorm | null;
 }) {
   return <div className="beheer-kaart">
-    <Plattegrond zones={plekken} gekozen={gekozen} onKies={onKies} namen={namen} plants={planten} placements={beplanting} opPunt={opPunt} punt={punt} />
+    <Plattegrond zones={plekken} gekozen={gekozen} onKies={onKies} namen={namen} plants={planten} placements={beplanting} opPunt={opPunt} punt={punt} tekenVorm={tekenVorm} onVorm={onVorm} vormPreview={vormPreview} />
   </div>;
 }
 

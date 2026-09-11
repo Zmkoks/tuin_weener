@@ -18,14 +18,15 @@ import { BovenaanBeginnen } from './onderdelen';
  * welke informatie). Zonder die groepen zouden "een plant toevoegen op een plek" en "een plant
  * toevoegen" bijna hetzelfde lezen, terwijl het twee heel verschillende handelingen zijn.
  *
- * Een plek toevoegen hoort in de eerste groep thuis, maar kan nog niet en staat er daarom
- * niet bij: een knop die niets doet is vervelender dan een knop die er nog niet is.
+ * Een plek toevoegen hoort in de eerste groep thuis, naast de handelingen voor planten die
+ * al op de kaart staan.
  */
 const GROEPEN = [
   {
     kop: 'Plattegrond aanpassen',
     uitleg: 'Verandert er iets aan wat er wáár in de tuin staat.',
     keuzes: [
+      { naar: '/beheren/plekken/nieuw', titel: 'Een plantvak toevoegen', uitleg: 'Teken een rechthoek of cirkel op de plattegrond.' },
       { naar: '/beheren/plaatsen', titel: 'Een plant toevoegen op een plek', uitleg: 'Zet een plant die al in de bibliotheek staat op een plek in de tuin.' },
       { naar: '/beheren/verplaatsen', titel: 'Een plant verplaatsen', uitleg: 'De plant staat ergens anders dan op de plattegrond.' },
       { naar: '/beheren/weghalen', titel: 'Een plant verwijderen van een plek', uitleg: 'De plant staat er niet meer. Hij blijft wel in de bibliotheek staan.' },

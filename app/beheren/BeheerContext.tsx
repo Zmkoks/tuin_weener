@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import type { Plant } from '@/app/data/plantTypes';
-import type { Plek } from '@/app/data/plekTypes';
+import type { Plek, Vorm } from '@/app/data/plekTypes';
 import { toPayload, type PlantForm } from '@/app/components/plantFormulier';
 
 /**
@@ -37,6 +37,7 @@ type Beheer = {
   /** Alle handelingen gooien bij mislukken; het scherm dat ze aanroept toont de fout. */
   zetOpPlek: (plant: Plant, plekId: string) => Promise<void>;
   maakPlekEnZet: (plant: Plant, punt: { x: number; y: number }) => Promise<void>;
+  maakPlek: (vorm: Vorm) => Promise<void>;
   haalWeg: (plant: Plant, plekId: string) => Promise<void>;
   verplaats: (plant: Plant, van: string, naar: string) => Promise<void>;
   bewaarPlant: (plant: Plant, waarden: PlantForm) => Promise<void>;
@@ -132,6 +133,21 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
       `${plant.naam} staat nu op een nieuwe plek op de kaart. Op de gedrukte plattegrond komt die plek pas als de kaart opnieuw wordt gemaakt.`,
     );
   }, [bewaarBeplanting, klaar]);
+
+  const maakPlek = useCallback(async (vorm: Vorm) => {
+    const antwoord = await fetch('/api/plekken', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ vorm }),
+    });
+    const gegevens = await antwoord.json() as { plek?: Plek; error?: string };
+    if (!antwoord.ok || !gegevens.plek) throw new Error(gegevens.error || 'Het nieuwe plantvak kon niet worden aangemaakt.');
+    setPlekken((vorige) => [...vorige, gegevens.plek as Plek]);
+    klaar(
+      'Nieuw plantvak aangemaakt',
+      'Het vak staat nu op de plattegrond. Je kunt er via “Een plant toevoegen op een plek” planten aan toevoegen.',
+    );
+  }, [klaar]);
 
   /**
    * Een plek die hier is bijgemaakt en nu leeg is, is een stip op de kaart waar niets meer
@@ -239,6 +255,7 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     wisMelding: () => setMelding(null),
     zetOpPlek,
     maakPlekEnZet,
+    maakPlek,
     haalWeg,
     verplaats,
     bewaarPlant,

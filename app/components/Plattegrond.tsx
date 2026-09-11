@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type PointerEvent, type ReactNode } from 'react';
 import type { Plant } from '@/app/data/plantTypes';
 import type { Vorm } from '@/app/data/plekTypes';
 import { berekenPlantPlaatsingen, type KaartSymbool } from '@/app/lib/plattegrondPlaatsing';
@@ -29,6 +29,12 @@ type Props = {
   opPunt?: (x: number, y: number) => void;
   /** Het aangewezen punt, om te laten zien waar het terechtkomt. */
   punt?: { x: number; y: number } | null;
+  /** Tekenmodus voor een nieuw rechthoekig of rond plantvak. */
+  tekenVorm?: 'rect' | 'ellipse';
+  /** Geeft tijdens het slepen de vorm door; `null` wist een vorige voorvertoning. */
+  onVorm?: (vorm: Vorm | null) => void;
+  /** De vorm die tijdens het tekenen of na een nieuwe poging als voorvertoning staat. */
+  vormPreview?: Vorm | null;
   /** De actuele planten en beplanting; zonder deze props blijft het bij het kale terrein. */
   plants?: Plant[];
   placements?: Record<string, string[]>;
@@ -44,6 +50,53 @@ function Vorm({ zone }: { zone: PlattegrondZone }) {
   if (vorm.type === 'rect') return <rect x={vorm.x} y={vorm.y} width={vorm.b} height={vorm.h} rx={0.8} />;
   if (vorm.type === 'ellipse') return <ellipse cx={vorm.cx} cy={vorm.cy} rx={vorm.rx} ry={vorm.ry} />;
   return <circle cx={vorm.x} cy={vorm.y} r={PUNT_STRAAL} />;
+}
+
+const KAART_BREEDTE = 210;
+const KAART_HOOGTE = 297;
+const MIN_VORM_GROOTTE = 5;
+
+function kaartPunt(gebeurtenis: PointerEvent<SVGRectElement>) {
+  const kaart = gebeurtenis.currentTarget.ownerSVGElement;
+  const stelsel = kaart?.getScreenCTM();
+  if (!kaart || !stelsel) return null;
+  const punt = kaart.createSVGPoint();
+  punt.x = gebeurtenis.clientX;
+  punt.y = gebeurtenis.clientY;
+  const mm = punt.matrixTransform(stelsel.inverse());
+  return {
+    x: Math.max(0, Math.min(KAART_BREEDTE, mm.x)),
+    y: Math.max(0, Math.min(KAART_HOOGTE, mm.y)),
+  };
+}
+
+function afgerond(waarde: number) {
+  return Math.round(waarde * 100) / 100;
+}
+
+function vormTussen(start: { x: number; y: number }, einde: { x: number; y: number }, type: 'rect' | 'ellipse'): Vorm | null {
+  if (type === 'rect') {
+    const breedte = Math.abs(einde.x - start.x);
+    const hoogte = Math.abs(einde.y - start.y);
+    if (breedte < MIN_VORM_GROOTTE || hoogte < MIN_VORM_GROOTTE) return null;
+    return {
+      type,
+      x: afgerond(Math.min(start.x, einde.x)),
+      y: afgerond(Math.min(start.y, einde.y)),
+      b: afgerond(breedte),
+      h: afgerond(hoogte),
+    };
+  }
+
+  const straal = Math.min(Math.abs(einde.x - start.x), Math.abs(einde.y - start.y)) / 2;
+  if (straal < MIN_VORM_GROOTTE / 2) return null;
+  return {
+    type,
+    cx: afgerond((start.x + einde.x) / 2),
+    cy: afgerond((start.y + einde.y) / 2),
+    rx: afgerond(straal),
+    ry: afgerond(straal),
+  };
 }
 
 type SymboolDocument = Document | null;
@@ -170,10 +223,39 @@ function Plantenlaag({ zones, plants, placements }: { zones: PlattegrondZone[]; 
   </g>;
 }
 
-export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, punt, plants, placements, indexLaag }: Props) {
+export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, punt, tekenVorm, onVorm, vormPreview, plants, placements, indexLaag }: Props) {
   const actueleBeplanting = placements ?? Object.fromEntries(zones.map((zone) => [zone.id, zone.planten ?? []]));
+  const [tekenStart, setTekenStart] = useState<{ x: number; y: number } | null>(null);
+  const tekenActief = Boolean(tekenVorm && onVorm);
 
-  return <svg className={`plattegrond${opPunt ? ' aanwijzen' : ''}`} viewBox="0 0 210 297" role="group" aria-label="Plattegrond van de tuin">
+  const beginTekenen = (gebeurtenis: PointerEvent<SVGRectElement>) => {
+    if (!tekenVorm || !onVorm) return;
+    const start = kaartPunt(gebeurtenis);
+    if (!start) return;
+    gebeurtenis.preventDefault();
+    gebeurtenis.currentTarget.setPointerCapture(gebeurtenis.pointerId);
+    setTekenStart(start);
+    onVorm(null);
+  };
+
+  const beweegTekenen = (gebeurtenis: PointerEvent<SVGRectElement>) => {
+    if (!tekenStart || !tekenVorm || !onVorm) return;
+    const vorm = kaartPunt(gebeurtenis);
+    if (vorm) onVorm(vormTussen(tekenStart, vorm, tekenVorm));
+  };
+
+  const eindigTekenen = (gebeurtenis: PointerEvent<SVGRectElement>) => {
+    if (!tekenStart || !tekenVorm || !onVorm) return;
+    const einde = kaartPunt(gebeurtenis);
+    const vorm = einde ? vormTussen(tekenStart, einde, tekenVorm) : null;
+    setTekenStart(null);
+    onVorm(vorm);
+    if (gebeurtenis.currentTarget.hasPointerCapture(gebeurtenis.pointerId)) {
+      gebeurtenis.currentTarget.releasePointerCapture(gebeurtenis.pointerId);
+    }
+  };
+
+  return <svg className={`plattegrond${opPunt ? ' aanwijzen' : ''}${tekenActief ? ' tekenen' : ''}`} viewBox="0 0 210 297" role="group" aria-label="Plattegrond van de tuin">
     {/* Alleen het kale terrein: paden, gazon, banken, deur. De planten worden hierboven
         getekend uit de gegevens. Hier stond eerder een terugval naar `plattegrond-tuin.svg`,
         een volledige kaart die op 7 september is gegenereerd — die liep dus achter zodra
@@ -206,6 +288,9 @@ export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, pun
         <Vorm zone={zone} />
       </g>;
     })}
+    {vormPreview && <g className="plattegrond-vorm-preview" aria-hidden="true">
+      <Vorm zone={{ id: 'voorvertoning', label: '', soort: 'bak', planten: [], vorm: vormPreview }} />
+    </g>}
     {/* In de aanwijsmodus vangt dit vlak elke klik; getScreenCTM rekent de klik terug naar millimeters. */}
     {opPunt && <rect
       className="plattegrond-vlak"
@@ -222,5 +307,13 @@ export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, pun
       }}
     />}
     {punt && <circle className="plattegrond-nieuw" cx={punt.x} cy={punt.y} r={PUNT_STRAAL} />}
+    {tekenActief && <rect
+      className="plattegrond-tekenvlak"
+      x="0" y="0" width={KAART_BREEDTE} height={KAART_HOOGTE}
+      onPointerDown={beginTekenen}
+      onPointerMove={beweegTekenen}
+      onPointerUp={eindigTekenen}
+      onPointerCancel={eindigTekenen}
+    />}
   </svg>;
 }
