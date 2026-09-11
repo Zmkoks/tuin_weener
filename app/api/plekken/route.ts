@@ -18,7 +18,9 @@ function nieuwePlek(vorm: Vorm, nummer: number, soort: 'bak' | 'vrij', label: st
   const badgeY = vorm.type === 'rect'
     ? (vorm.y ?? 0) + (vorm.h ?? 0) - Math.min(3.2, Math.max(1, (vorm.h ?? 0) / 4))
     : vorm.type === 'ellipse'
-      ? (vorm.cy ?? 0) + (vorm.ry ?? 0) - Math.min(3.2, Math.max(1, (vorm.ry ?? 0) / 4))
+      ? soort === 'bak'
+        ? (vorm.cy ?? 0) + (vorm.ry ?? 0)
+        : (vorm.cy ?? 0) + (vorm.ry ?? 0) - Math.min(3.2, Math.max(1, (vorm.ry ?? 0) / 4))
       : y;
   return {
     id: `eigen-${String(nummer).padStart(2, '0')}`,

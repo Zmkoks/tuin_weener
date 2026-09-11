@@ -341,6 +341,16 @@ export const MIGRATIES: Migratie[] = [
        WHERE vast = 0`,
     ],
   },
+  {
+    // Bij ronde bakken valt het nummerbolletje half over de onderste rand; dat leest rustiger
+    // dan een nummer midden in de bak en sluit aan op de kaartnotatie.
+    naam: '0009_cirkelnummer_onderrand',
+    stappen: [
+      `UPDATE plekken
+       SET badge_x = COALESCE(cx, 0), badge_y = COALESCE(cy, 0) + COALESCE(ry, 0)
+       WHERE soort = 'bak' AND vorm_type = 'ellipse'`,
+    ],
+  },
 ];
 
 let gedaan: Promise<void> | null = null;
