@@ -314,7 +314,31 @@ export const MIGRATIES: Migratie[] = [
          'Reuzenberenklauw is een zeer grote plant met witte bloemschermen. Het sap kan de huid ernstig beschadigen in zonlicht.',
          'De plant kan meer dan drie meter hoog worden en maakt zeer veel zaden.',
          CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
-       )`,
+      )`,
+    ],
+  },
+  {
+    // Oude bijgemaakte plekken kregen nog geen kaartnummer en plaatsten hun badge in het
+    // midden. Geef ze bij de eerstvolgende aanvraag dezelfde notatie als nieuwe plekken.
+    naam: '0008_nummer_bijgemaakte_plekken',
+    stappen: [
+      `UPDATE plekken
+       SET label = CAST(
+         COALESCE((SELECT MAX(CAST(label AS INTEGER)) FROM plekken WHERE label GLOB '[0-9]*'), 0)
+         + (SELECT COUNT(*) FROM plekken eerder
+            WHERE eerder.vast = 0 AND eerder.label = '' AND eerder.id <= plekken.id)
+         AS TEXT)
+       WHERE vast = 0 AND label = ''`,
+      `UPDATE plekken
+       SET badge_x = CASE vorm_type
+         WHEN 'rect' THEN COALESCE(x, 0) + COALESCE(b, 0) / 2
+         WHEN 'ellipse' THEN COALESCE(cx, 0)
+         ELSE COALESCE(x, 0) END,
+           badge_y = CASE vorm_type
+         WHEN 'rect' THEN COALESCE(y, 0) + COALESCE(h, 0) - MIN(3.2, MAX(1, COALESCE(h, 0) / 4))
+         WHEN 'ellipse' THEN COALESCE(cy, 0) + COALESCE(ry, 0) - MIN(3.2, MAX(1, COALESCE(ry, 0) / 4))
+         ELSE COALESCE(y, 0) END
+       WHERE vast = 0`,
     ],
   },
 ];
