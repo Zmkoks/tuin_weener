@@ -126,10 +126,22 @@ function kaderHoogte(kopregels: string[], regels: Regel[], bw: number, f: number
 /** Het nummerbolletje bij een plek — `badge_svg` uit het origineel. */
 export function Badge({ plek }: { plek: Plek }) {
   const heester = plek.soort === 'heester';
+  let { x, y } = plek.badge;
+  // Het midden van het nummerrondje ligt op de onderrand: half in de bak, half eronder.
+  if (plek.soort === 'bak') {
+    const vorm = plek.vorm;
+    if (vorm.type === 'rect') {
+      x = (vorm.x ?? 0) + (vorm.b ?? 0) / 2;
+      y = (vorm.y ?? 0) + (vorm.h ?? 0);
+    } else if (vorm.type === 'ellipse') {
+      x = vorm.cx ?? x;
+      y = (vorm.cy ?? 0) + (vorm.ry ?? 0);
+    }
+  }
   return <g>
-    <circle cx={plek.badge.x} cy={plek.badge.y} r={heester ? 2.6 : 3.1}
+    <circle cx={x} cy={y} r={heester ? 2.6 : 3.1}
       fill={heester ? '#4be16e' : '#fff'} stroke="#1e3a6a" strokeWidth={0.55} />
-    <text x={plek.badge.x} y={plek.badge.y} fontSize={heester ? 2.6 : 3}
+    <text x={x} y={y} fontSize={heester ? 2.6 : 3}
       fill="#1e3a6a" textAnchor="middle" dominantBaseline="central"
       fontFamily="Poppins, Arial, sans-serif" fontWeight={600}>{plek.label}</text>
   </g>;

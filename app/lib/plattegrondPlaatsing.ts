@@ -103,6 +103,21 @@ function binnen(vorm: Vorm, x: number, y: number, krimp = 0) {
   return false;
 }
 
+/**
+ * Houd een plant die in een vrij ovaal staat ook horizontaal binnen beeld. De plaatsing
+ * gebruikt een kleinere maat dan de uiteindelijke SVG-schaal; zonder deze extra marge kan
+ * een brede tekening met zijn midden nog wel in het ovaal vallen, maar visueel ver buiten de
+ * zijkant komen te staan.
+ */
+function binnenMetZijmarge(vorm: Vorm, x: number, y: number, halveBreedte: number) {
+  if (vorm.type !== 'ellipse') return binnen(vorm, x, y);
+  const middenX = vorm.cx ?? 0;
+  const middenY = vorm.cy ?? 0;
+  const rx = Math.max((vorm.rx ?? 0) - Math.min(halveBreedte, Math.max((vorm.rx ?? 0) - 0.75, 0)), 0.75);
+  const ry = Math.max(vorm.ry ?? 0, 0.1);
+  return ((x - middenX) / rx) ** 2 + ((y - middenY) / ry) ** 2 <= 1;
+}
+
 function maakToeval(seed: string) {
   let waarde = 2166136261;
   for (const teken of seed) {
@@ -176,7 +191,8 @@ function zonderOverlap(
     for (let poging = 0; poging < 400; poging += 1) {
       const x = x0 + toeval() * (x1 - x0);
       const y = y0 + toeval() * (y1 - y0);
-      if (!binnen(vorm, x, y)) continue;
+      const halveBreedte = (afmeting.breedte / KAART_SCHAAL) * 0.2;
+      if (!binnenMetZijmarge(vorm, x, y, halveBreedte)) continue;
       const vak = voetafdruk(x, y, afmeting.hoogte, afmeting.breedte);
       if (vakken.some((ander) => overlapt(vak, ander))) continue;
       const ruimte = punten.length
@@ -192,7 +208,21 @@ function zonderOverlap(
       vakken.push(voetafdruk(beste[0], beste[1], afmeting.hoogte, afmeting.breedte));
     }
   }
-  return punten;
+  if (vorm.type !== 'ellipse') return punten;
+
+  // Een brede tekening mag niet met zijn anker aan de rand staan: dan valt de plant
+  // visueel buiten het vak, ook al valt het ankerpunt zelf nog binnen de ovaal.
+  return punten.map(([x, y], index) => {
+    const afmeting = afmetingen.get(volgorde[index]);
+    if (!afmeting) return [x, y] as [number, number];
+    const halveVisueleBreedte = (afmeting.breedte / KAART_SCHAAL) / 2;
+    const halveRuimte = Math.max(1.5, (vorm.rx ?? 0) - halveVisueleBreedte);
+    const midden = vorm.cx ?? 0;
+    return [
+      Math.max(midden - halveRuimte, Math.min(midden + halveRuimte, x)),
+      y,
+    ] as [number, number];
+  });
 }
 
 /**

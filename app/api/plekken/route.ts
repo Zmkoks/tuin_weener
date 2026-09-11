@@ -16,7 +16,7 @@ function nieuwePlek(vorm: Vorm, nummer: number, soort: 'bak' | 'vrij', label: st
   const x = vorm.type === 'rect' ? (vorm.x ?? 0) + (vorm.b ?? 0) / 2 : vorm.cx ?? vorm.x ?? 0;
   const y = vorm.type === 'rect' ? (vorm.y ?? 0) + (vorm.h ?? 0) / 2 : vorm.cy ?? vorm.y ?? 0;
   const badgeY = vorm.type === 'rect'
-    ? (vorm.y ?? 0) + (vorm.h ?? 0) - Math.min(3.2, Math.max(1, (vorm.h ?? 0) / 4))
+    ? (vorm.y ?? 0) + (vorm.h ?? 0)
     : vorm.type === 'ellipse'
       ? soort === 'bak'
         ? (vorm.cy ?? 0) + (vorm.ry ?? 0)

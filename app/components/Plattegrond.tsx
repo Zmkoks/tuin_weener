@@ -267,7 +267,6 @@ export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, pun
       {zones.filter((zone) => zone.soort !== 'vrij' && zone.vorm.type !== 'punt').map((zone) => <Vorm key={zone.id} zone={zone} />)}
     </g>
     {plants && <Plantenlaag zones={zones} plants={plants} placements={actueleBeplanting} />}
-    {indexLaag}
     {zones.map((zone) => {
       const hier = namen?.[zone.id] || [];
       const omschrijving = hier.length > 0 ? hier.join(', ') : 'nog leeg';
@@ -290,6 +289,7 @@ export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, pun
         <Vorm zone={zone} />
       </g>;
     })}
+    {indexLaag}
     {vormPreview && <g className="plattegrond-vorm-preview" aria-hidden="true">
       <Vorm zone={{ id: 'voorvertoning', label: '', soort: 'bak', planten: [], vorm: vormPreview }} />
     </g>}
