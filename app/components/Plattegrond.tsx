@@ -29,8 +29,8 @@ type Props = {
   opPunt?: (x: number, y: number) => void;
   /** Het aangewezen punt, om te laten zien waar het terechtkomt. */
   punt?: { x: number; y: number } | null;
-  /** Tekenmodus voor een nieuw rechthoekig of rond plantvak. */
-  tekenVorm?: 'rect' | 'ellipse';
+  /** Tekenmodus voor een nieuwe bak of vrije plek. */
+  tekenVorm?: 'rect' | 'circle' | 'oval';
   /** Geeft tijdens het slepen de vorm door; `null` wist een vorige voorvertoning. */
   onVorm?: (vorm: Vorm | null) => void;
   /** De vorm die tijdens het tekenen of na een nieuwe poging als voorvertoning staat. */
@@ -74,7 +74,7 @@ function afgerond(waarde: number) {
   return Math.round(waarde * 100) / 100;
 }
 
-function vormTussen(start: { x: number; y: number }, einde: { x: number; y: number }, type: 'rect' | 'ellipse'): Vorm | null {
+function vormTussen(start: { x: number; y: number }, einde: { x: number; y: number }, type: 'rect' | 'circle' | 'oval'): Vorm | null {
   if (type === 'rect') {
     const breedte = Math.abs(einde.x - start.x);
     const hoogte = Math.abs(einde.y - start.y);
@@ -88,14 +88,16 @@ function vormTussen(start: { x: number; y: number }, einde: { x: number; y: numb
     };
   }
 
-  const straal = Math.min(Math.abs(einde.x - start.x), Math.abs(einde.y - start.y)) / 2;
-  if (straal < MIN_VORM_GROOTTE / 2) return null;
+  const rx = Math.abs(einde.x - start.x) / 2;
+  const ry = Math.abs(einde.y - start.y) / 2;
+  if (rx < MIN_VORM_GROOTTE / 2 || ry < MIN_VORM_GROOTTE / 2) return null;
+  const straal = type === 'circle' ? Math.min(rx, ry) : undefined;
   return {
-    type,
+    type: 'ellipse',
     cx: afgerond((start.x + einde.x) / 2),
     cy: afgerond((start.y + einde.y) / 2),
-    rx: afgerond(straal),
-    ry: afgerond(straal),
+    rx: afgerond(straal ?? rx),
+    ry: afgerond(straal ?? ry),
   };
 }
 

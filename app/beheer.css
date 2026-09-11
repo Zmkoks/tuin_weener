@@ -135,6 +135,23 @@
 .beheer-paneel ul { margin: 0 0 14px; padding-left: 20px; color: var(--blauw); line-height: 1.6; }
 .beheer-paneel ul li::first-letter { text-transform: uppercase; }
 
+.soort-keuze { display: grid; gap: 9px; margin: 16px 0 22px; }
+.soort-keuze button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 1.5px solid var(--lijn);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--blauw);
+  padding: 14px 16px;
+  cursor: pointer;
+}
+.soort-keuze button:hover { border-color: var(--fris); }
+.soort-keuze button.gekozen { border-color: var(--blauw); background: #eef8ee; box-shadow: inset 0 0 0 1px var(--blauw); }
+.soort-keuze b { display: block; font-size: 17px; }
+.soort-keuze small { display: block; margin-top: 3px; color: var(--grijs); line-height: 1.4; }
+.vorm-kop { margin-top: 0 !important; }
 .vorm-keuze { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin: 16px 0; }
 .vorm-keuze button {
   display: grid;
@@ -154,6 +171,10 @@
 .vorm-icoon { display: block; width: 42px; height: 32px; border: 2px solid var(--groen); }
 .vorm-icoon.rechthoek { border-radius: 4px; }
 .vorm-icoon.cirkel { width: 34px; height: 34px; border-radius: 50%; }
+.vorm-icoon.ovaal { width: 48px; height: 30px; border-radius: 50%; flex: none; }
+.vorm-vrije-plek { display: flex; align-items: center; gap: 13px; margin: 14px 0; }
+.vorm-vrije-plek p { margin: 0; font-size: 14px; }
+.teken-uitleg { font-size: 14px; }
 .teken-maat { color: var(--groen) !important; font-size: 14px; font-weight: 700; }
 
 .beheer-doen {

@@ -59,7 +59,7 @@ export function Kaart({ plekken, gekozen, onKies, namen, planten, beplanting, op
   beplanting?: Record<string, string[]>;
   opPunt?: (x: number, y: number) => void;
   punt?: { x: number; y: number } | null;
-  tekenVorm?: 'rect' | 'ellipse';
+  tekenVorm?: 'rect' | 'circle' | 'oval';
   onVorm?: (vorm: Vorm | null) => void;
   vormPreview?: Vorm | null;
 }) {

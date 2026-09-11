@@ -12,13 +12,13 @@ const MIN_BAKMAAT = 5;
 
 const rond = (waarde: number) => Math.round(waarde * 100) / 100;
 
-function nieuwePlek(vorm: Vorm, nummer: number): Plek {
+function nieuwePlek(vorm: Vorm, nummer: number, soort: 'bak' | 'vrij'): Plek {
   const x = vorm.type === 'rect' ? (vorm.x ?? 0) + (vorm.b ?? 0) / 2 : vorm.cx ?? vorm.x ?? 0;
   const y = vorm.type === 'rect' ? (vorm.y ?? 0) + (vorm.h ?? 0) / 2 : vorm.cy ?? vorm.y ?? 0;
   return {
     id: `eigen-${String(nummer).padStart(2, '0')}`,
     label: '',
-    soort: vorm.type === 'punt' ? 'vrij' : 'bak',
+    soort,
     badge: { x: rond(x), y: rond(y) },
     planten: [],
     vorm,
@@ -41,7 +41,7 @@ export async function GET() {
 export async function POST(request: Request) {
   if (!await geldigeSessie(request)) return NextResponse.json({ error: 'Niet ingelogd.' }, { status: 401 });
   try {
-    const body = await request.json() as { x?: unknown; y?: unknown; vorm?: unknown };
+    const body = await request.json() as { x?: unknown; y?: unknown; vorm?: unknown; soort?: unknown };
     const nummer = await volgendBijgemaaktNummer();
     let plek: Plek;
 
@@ -50,16 +50,18 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'De vorm van het plantvak ontbreekt.' }, { status: 400 });
       }
       const invoer = body.vorm as Record<string, unknown>;
+      const soort = body.soort === undefined ? 'bak' : body.soort === 'vrij' ? 'vrij' : body.soort === 'bak' ? 'bak' : null;
+      if (!soort) return NextResponse.json({ error: 'Kies eerst of dit een bak is.' }, { status: 400 });
       if (invoer.type === 'rect') {
         const x = Number(invoer.x);
         const y = Number(invoer.y);
         const b = Number(invoer.b);
         const h = Number(invoer.h);
-        if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(b) || !Number.isFinite(h)
+        if (soort !== 'bak' || !Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(b) || !Number.isFinite(h)
           || b < MIN_BAKMAAT || h < MIN_BAKMAAT || x < 0 || y < 0 || x + b > BREEDTE || y + h > HOOGTE) {
-          return NextResponse.json({ error: 'Het rechthoekige plantvak moet binnen de plattegrond vallen en minstens 5 mm groot zijn.' }, { status: 400 });
+          return NextResponse.json({ error: soort === 'vrij' ? 'Een vrije plek teken je als ovaal.' : 'De rechthoekige plantenbak moet binnen de plattegrond vallen en minstens 5 mm groot zijn.' }, { status: 400 });
         }
-        plek = nieuwePlek({ type: 'rect', x: rond(x), y: rond(y), b: rond(b), h: rond(h) }, nummer);
+        plek = nieuwePlek({ type: 'rect', x: rond(x), y: rond(y), b: rond(b), h: rond(h) }, nummer, soort);
       } else if (invoer.type === 'ellipse') {
         const cx = Number(invoer.cx);
         const cy = Number(invoer.cy);
@@ -67,11 +69,12 @@ export async function POST(request: Request) {
         const ry = Number(invoer.ry);
         const straal = (rx + ry) / 2;
         if (!Number.isFinite(cx) || !Number.isFinite(cy) || !Number.isFinite(rx) || !Number.isFinite(ry)
-          || Math.abs(rx - ry) > 0.02 || straal < MIN_BAKMAAT / 2
-          || cx - straal < 0 || cy - straal < 0 || cx + straal > BREEDTE || cy + straal > HOOGTE) {
-          return NextResponse.json({ error: 'De cirkel moet binnen de plattegrond vallen en minstens 5 mm doorsnee zijn.' }, { status: 400 });
+          || rx <= 0 || ry <= 0 || (soort === 'bak' && Math.abs(rx - ry) > 0.02)
+          || rx * 2 < MIN_BAKMAAT || ry * 2 < MIN_BAKMAAT
+          || cx - rx < 0 || cy - ry < 0 || cx + rx > BREEDTE || cy + ry > HOOGTE) {
+          return NextResponse.json({ error: soort === 'vrij' ? 'De ovale plek moet binnen de plattegrond vallen en minstens 5 mm breed en hoog zijn.' : 'De cirkel moet binnen de plattegrond vallen en minstens 5 mm doorsnee zijn.' }, { status: 400 });
         }
-        plek = nieuwePlek({ type: 'ellipse', cx: rond(cx), cy: rond(cy), rx: rond(straal), ry: rond(straal) }, nummer);
+        plek = nieuwePlek({ type: 'ellipse', cx: rond(cx), cy: rond(cy), rx: rond(soort === 'bak' ? straal : rx), ry: rond(soort === 'bak' ? straal : ry) }, nummer, soort);
       } else {
         return NextResponse.json({ error: 'Kies een rechthoek of cirkel.' }, { status: 400 });
       }
@@ -81,7 +84,7 @@ export async function POST(request: Request) {
       if (!Number.isFinite(x) || !Number.isFinite(y) || x < 0 || x > BREEDTE || y < 0 || y > HOOGTE) {
         return NextResponse.json({ error: 'Deze plek ligt buiten de plattegrond.' }, { status: 400 });
       }
-      plek = nieuwePlek({ type: 'punt', x: rond(x), y: rond(y) }, nummer);
+      plek = nieuwePlek({ type: 'punt', x: rond(x), y: rond(y) }, nummer, 'vrij');
     }
 
     await maakPlek(plek);
