@@ -35,7 +35,7 @@ export default function Bevestigen({ plekId, slug }: { plekId: string; slug: str
         ? <p>Op deze plek staat volgens de gegevens nog niets.</p>
         : <p>Hier staat nu: {hier.map((ander) => ander.naam).join(', ')}.</p>}
       {staatEr
-        ? <p className="beheer-let-op">De {plant.naam} staat hier al. Er valt niets toe te voegen.</p>
+        ? <p className="beheer-let-op">Hier staat al {plant.naam}. Er valt niets toe te voegen.</p>
         : <div className="beheer-knoppen">
           <Link href={terug}>Nee, toch niet</Link>
           <button type="button" className="beheer-doen" disabled={bezig} onClick={() => void doe(() => zetOpPlek(plant, plekId))}>

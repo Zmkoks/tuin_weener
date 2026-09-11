@@ -20,6 +20,11 @@ const getal = (regel: Regel, kolom: string, terugval: number) => {
   const waarde = regel[kolom];
   return typeof waarde === 'number' ? waarde : terugval;
 };
+const booleanKeuze = (regel: Regel, kolom: string): boolean | null => {
+  const waarde = regel[kolom];
+  if (waarde === null || waarde === undefined || waarde === '') return null;
+  return Number(waarde) === 1;
+};
 
 /** Komma-lijst naar array. Lege tekst is een lege lijst, niet een lijst met één leeg woord. */
 export function uitLijst(waarde: string | null | undefined): string[] {
@@ -75,6 +80,14 @@ export function plantUitRegel(regel: Regel, eigenSymbolen: { bestand: string; br
       primair: uitLijst(tekst(regel, 'functies_primair')),
       secundair: uitLijst(tekst(regel, 'functies_secundair')),
     },
+    eetbaar: booleanKeuze(regel, 'eetbaar'),
+    eetbaarInfo: tekst(regel, 'eetbaar_info'),
+    oogstbaarInTuin: booleanKeuze(regel, 'oogstbaar_in_tuin'),
+    tuinOpmerking: tekst(regel, 'tuin_opmerking'),
+    boomHeester: booleanKeuze(regel, 'boom_heester') ?? false,
+    gevaarlijk: booleanKeuze(regel, 'gevaarlijk'),
+    gevaarlijkInfo: tekst(regel, 'gevaarlijk_info'),
+    waaromLatenStaan: tekst(regel, 'waarom_laten_staan'),
     oogstTijd: uitLijst(tekst(regel, 'oogst_tijd')),
     oogstMethode: tekst(regel, 'oogst_methode'),
     extraOogstTijd: uitLijst(tekst(regel, 'extra_oogst_tijd')),
@@ -105,6 +118,9 @@ export const PLANTKOLOMMEN = [
   'slug', 'naam', 'plantnummer', 'botanische_naam', 'zon', 'zon_info',
   'water_ondergrens', 'water_bovengrens', 'water_info',
   'functies_primair', 'functies_secundair',
+  'eetbaar', 'eetbaar_info', 'oogstbaar_in_tuin', 'tuin_opmerking',
+  'boom_heester',
+  'gevaarlijk', 'gevaarlijk_info', 'waarom_laten_staan',
   'oogst_tijd', 'oogst_methode', 'extra_oogst_tijd', 'extra_oogst_methode',
   'snoei_tijd', 'snoei_tijd_info', 'snoei_methode', 'snoei_informatie',
   'woeker_toestemming', 'woeker_verbod', 'levensduur',
@@ -127,6 +143,11 @@ export function waardenVanPlant(plant: Plant, aangemaaktOp: string, gewijzigdOp:
     plant.zon ?? '', plant.zonInfo ?? '',
     plant.waterOndergrens ?? '', plant.waterBovengrens ?? '', plant.waterInfo ?? '',
     naarLijst(plant.functies?.primair), naarLijst(plant.functies?.secundair),
+    plant.eetbaar == null ? null : Number(plant.eetbaar), plant.eetbaarInfo ?? '',
+    plant.oogstbaarInTuin == null ? null : Number(plant.oogstbaarInTuin), plant.tuinOpmerking ?? '',
+    Number(plant.boomHeester ?? false),
+    plant.gevaarlijk == null ? null : Number(plant.gevaarlijk), plant.gevaarlijkInfo ?? '',
+    plant.waaromLatenStaan ?? '',
     naarLijst(plant.oogstTijd), plant.oogstMethode ?? '',
     naarLijst(plant.extraOogstTijd), plant.extraOogstMethode ?? '',
     naarLijst(plant.snoeiTijd), plant.snoeiTijdInfo ?? '',

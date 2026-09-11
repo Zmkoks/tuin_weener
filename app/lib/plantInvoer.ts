@@ -22,6 +22,15 @@ export function lijst(body: Record<string, unknown>, sleutel: string) {
   return [];
 }
 
+/** Leest een bewuste ja/nee-keuze. Ontbreken betekent: nog niet beoordeeld. */
+function keuze(body: Record<string, unknown>, sleutel: string, terugval: boolean | null = null) {
+  if (!(sleutel in body)) return terugval;
+  const waarde = body[sleutel];
+  if (waarde === true || waarde === 1 || waarde === '1' || waarde === 'ja') return true;
+  if (waarde === false || waarde === 0 || waarde === '0' || waarde === 'nee') return false;
+  return null;
+}
+
 export function slugVan(waarde: string) {
   return waarde.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
 }
@@ -80,7 +89,7 @@ function leesSymbolen(waarde: unknown) {
 }
 
 /** Leest de velden uit een verzoek. Geeft óf een plant, óf een leesbare foutmelding. */
-export function leesPlant(raw: unknown, slug: string, standaardNummer: string): { plant: Plant } | { fout: string; status: number } {
+export function leesPlant(raw: unknown, slug: string, standaardNummer: string, huidige?: Plant): { plant: Plant } | { fout: string; status: number } {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { fout: 'De plantgegevens zijn niet geldig.', status: 400 };
   const body = raw as Record<string, unknown>;
 
@@ -93,7 +102,6 @@ export function leesPlant(raw: unknown, slug: string, standaardNummer: string): 
   if (!groepen || typeof groepen !== 'object' || Array.isArray(groepen)) return { fout: 'Geef primaire en secundaire functies afzonderlijk op.', status: 400 };
   const functies = { primair: lijst(groepen as Record<string, unknown>, 'primair'), secundair: lijst(groepen as Record<string, unknown>, 'secundair') };
   if (functies.primair.length < 1 || functies.primair.length > 2) return { fout: 'Kies één of maximaal twee primaire functies.', status: 400 };
-  if (functies.primair.includes('onkruid') && functies.primair.length === 1) return { fout: 'Onkruid mag niet de enige primaire functie zijn.', status: 400 };
   if (functies.secundair.some(f => functies.primair.includes(f))) return { fout: 'Een functie mag niet tegelijk primair en secundair zijn.', status: 400 };
   const onbekendeFunctie = [...functies.primair, ...functies.secundair].find((waarde) => !FUNCTIES.includes(waarde));
   if (onbekendeFunctie) return { fout: `Onbekend plantlabel: ${onbekendeFunctie}. Gebruik een van de voorgestelde labels.`, status: 400 };
@@ -110,6 +118,16 @@ export function leesPlant(raw: unknown, slug: string, standaardNummer: string): 
       botanischeNaam,
       plantnummer: tekst(body, 'plantnummer') || standaardNummer,
       functies,
+      // Het formulier krijgt deze velden in een volgende stap. Tot die tijd bewaart een
+      // wijziging van een bestaande plant de databasewaarden in plaats van ze te wissen.
+      eetbaar: keuze(body, 'eetbaar', huidige?.eetbaar ?? null),
+      eetbaarInfo: 'eetbaarInfo' in body ? tekst(body, 'eetbaarInfo') : huidige?.eetbaarInfo ?? '',
+      oogstbaarInTuin: keuze(body, 'oogstbaarInTuin', huidige?.oogstbaarInTuin ?? null),
+      tuinOpmerking: 'tuinOpmerking' in body ? tekst(body, 'tuinOpmerking') : huidige?.tuinOpmerking ?? '',
+      boomHeester: keuze(body, 'boomHeester', huidige?.boomHeester ?? false) ?? false,
+      gevaarlijk: keuze(body, 'gevaarlijk', huidige?.gevaarlijk ?? null),
+      gevaarlijkInfo: 'gevaarlijkInfo' in body ? tekst(body, 'gevaarlijkInfo') : huidige?.gevaarlijkInfo ?? '',
+      waaromLatenStaan: 'waaromLatenStaan' in body ? tekst(body, 'waaromLatenStaan') : huidige?.waaromLatenStaan ?? '',
       intro,
       weetje: tekst(body, 'weetje'),
       waterOndergrens: tekst(body, 'waterOndergrens') || '1',

@@ -1,14 +1,18 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
 
 /**
- * Een foto of illustratie kiezen, in beeld zetten en vertellen waar hij vandaan komt.
+ * Eén blok voor één afbeelding: de foto of de botanische illustratie.
  *
- * Het bijstellen werkt met dezelfde drie waarden als het afstelgereedschap in de hoofdmap
- * (`foto_afstellen_browser_v1.py`): horizontaal, verticaal en zoom. De voorbeeldweergave
- * hiernaast gebruikt exact de opmaak van de plantenpagina, dus wat je hier ziet is wat er
- * straks staat.
+ * De opbouw is per afbeelding en niet per handeling. Eerst de kop met de hulp die er bij
+ * hoort, dan wat er nu staat, dan wat je ermee kunt, dan de bron. Daarvoor stond alle hulp
+ * bovenaan de sectie bij elkaar, los van het veld waar hij over ging, en waren de drie
+ * blokken onderling niet gescheiden.
+ *
+ * Bijstellen kan alleen bij de foto. Die staat in een ronde uitsnede en kan daarin wegvallen,
+ * dus daar moet je hem kunnen verschuiven. Een illustratie staat in een recht kader en hoort
+ * gewoon volledig leesbaar te zijn; wie hem strakker wil, snijdt hem vooraf zelf bij.
  */
 export type Afstelling = { bestand: string; bron: string; x: number; y: number; zoom: number };
 
@@ -21,15 +25,15 @@ type Props = {
   onChange: (waarde: Afstelling) => void;
   /** Het bestand dat nu geldt zolang er niets nieuws is gekozen. */
   huidigeBron?: string;
+  /** "Waar vind ik die?" — staat hier en niet los bovenaan de sectie. */
+  hulp?: ReactNode;
+  /** Verschuiven en zoomen. Alleen zinvol bij een uitsnede die kan afsnijden. */
+  bijstellen?: boolean;
 };
 
-const SCHUIVEN = [
-  { veld: 'x' as const, label: 'Horizontaal', min: 0, max: 100, stap: 1, eenheid: '%' },
-  { veld: 'y' as const, label: 'Verticaal', min: 0, max: 100, stap: 1, eenheid: '%' },
-  { veld: 'zoom' as const, label: 'Zoom', min: 0.25, max: 2.5, stap: 0.01, eenheid: '×' },
-];
+const MIDDEN = { x: 50, y: 50, zoom: 1 };
 
-export default function AfbeeldingVeld({ soort, titel, slug, waarde, onChange, huidigeBron }: Props) {
+export default function AfbeeldingVeld({ soort, titel, slug, waarde, onChange, huidigeBron, hulp, bijstellen }: Props) {
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState('');
   // Kies je de bestaande tekening terug, dan raakt `waarde.bestand` leeg. De sleutel
@@ -51,96 +55,139 @@ export default function AfbeeldingVeld({ soort, titel, slug, waarde, onChange, h
       const gegevens = await antwoord.json() as { bestand?: string; error?: string };
       if (!antwoord.ok || !gegevens.bestand) throw new Error(gegevens.error || 'Uploaden is niet gelukt.');
       setEigenBestand(gegevens.bestand);
-      onChange({ ...waarde, bestand: gegevens.bestand });
+      // Een nieuwe afbeelding begint in het midden: de bijstelling van de vórige foto zegt
+      // niets over deze, en scheef beginnen is verwarrender dan opnieuw instellen.
+      onChange({ ...waarde, ...MIDDEN, bestand: gegevens.bestand });
     } catch (probleem) {
       setFout(probleem instanceof Error ? probleem.message : 'Uploaden is niet gelukt.');
     } finally { setBezig(false); }
   };
 
-  const eigenGekozen = Boolean(waarde.bestand);
-  const kies = (eigen: boolean) => onChange({ ...waarde, bestand: eigen ? eigenBestand : '' });
-
-  /* Is er een eigen bestand, dan zijn er twee mogelijkheden en klik je aan welke geldt.
-     De gekozen tekening krijgt een groene rand; de andere vervaagt. Zo hoeft er geen
-     knop bij te staan die uitlegt waar je heen gaat. */
-  const keuze = (eigen: boolean, label: string, inhoud: React.ReactNode) => <button
-    type="button"
-    className={`beeldkeuze${(eigen === eigenGekozen) ? ' gekozen' : ''}`}
-    aria-pressed={eigen === eigenGekozen}
-    onClick={() => kies(eigen)}
-    key={label}
-  >
-    {inhoud}
-    <span className="beeldkeuze-label">{label}</span>
-  </button>;
+  const verschuif = (dx: number, dy: number) => onChange({
+    ...waarde,
+    x: Math.min(100, Math.max(0, waarde.x + dx)),
+    y: Math.min(100, Math.max(0, waarde.y + dy)),
+  });
 
   /**
-   * Het kader staat vast, de foto beweegt eronder. Dat moet, want `transform: scale()`
-   * vergroot het element waar het op staat: zet je dat op de foto zelf, dan groeit de
-   * cirkel mee in plaats van dat er meer van de foto wordt afgesneden. Zelfde opbouw als
-   * op de plantenpagina, waar `.scan-foto-vlak` het kader is en de foto het vult.
+   * Slepen in het kader, zoals bij het instellen van een profielfoto.
+   *
+   * De verplaatsing wordt als deel van de kaderbreedte gerekend: sleep je het kader helemaal
+   * door, dan schuift de uitsnede 100% op. Dat is niet exact de afstand in de foto — daarvoor
+   * zou je de ware afmetingen en de zoom moeten meerekenen — maar het voelt wel juist en is
+   * voorspelbaar. Het teken is omgekeerd omdat je de fóto verschuift en niet het kader: naar
+   * rechts slepen brengt de linkerkant in beeld.
    */
-  const inKader = (inhoud: React.ReactNode) => <span className={`beeldvlak ${soort}`}>{inhoud}</span>;
+  const startSlepen = (gebeurtenis: React.PointerEvent<HTMLSpanElement>) => {
+    if (!bijstellen || !src) return;
+    const kader = gebeurtenis.currentTarget;
+    const maat = kader.getBoundingClientRect();
+    let vorigeX = gebeurtenis.clientX;
+    let vorigeY = gebeurtenis.clientY;
+    kader.setPointerCapture(gebeurtenis.pointerId);
 
-  const bestaandeAfbeelding = inKader(huidigeBron
-    ? <img src={huidigeBron} style={stijl} alt="" />
-    : <span className="afbeelding-leeg">Nog geen {soort}</span>);
+    const beweeg = (volgende: PointerEvent) => {
+      const dx = ((volgende.clientX - vorigeX) / maat.width) * 100;
+      const dy = ((volgende.clientY - vorigeY) / maat.height) * 100;
+      vorigeX = volgende.clientX;
+      vorigeY = volgende.clientY;
+      verschuif(-dx, -dy);
+    };
+    const stop = () => {
+      kader.removeEventListener('pointermove', beweeg);
+      kader.removeEventListener('pointerup', stop);
+      kader.removeEventListener('pointercancel', stop);
+    };
+    kader.addEventListener('pointermove', beweeg);
+    kader.addEventListener('pointerup', stop);
+    kader.addEventListener('pointercancel', stop);
+  };
 
-  const eigenAfbeelding = inKader(<img src={`/api/media/${eigenBestand}`} style={stijl} alt="" />);
+  /** Slepen werkt niet met een toetsenbord; de pijltjes doen hetzelfde in stapjes van 2%. */
+  const opToets = (gebeurtenis: React.KeyboardEvent) => {
+    if (!bijstellen) return;
+    const stappen: Record<string, [number, number]> = {
+      ArrowLeft: [-2, 0], ArrowRight: [2, 0], ArrowUp: [0, -2], ArrowDown: [0, 2],
+    };
+    const stap = stappen[gebeurtenis.key];
+    if (!stap) return;
+    gebeurtenis.preventDefault();
+    verschuif(stap[0], stap[1]);
+  };
 
-  return <div className="afbeelding-veld">
-    <div className={`beeldkeuzes ${soort}`}>
-      {eigenBestand
-        ? <>
-            {keuze(false, 'origineel', bestaandeAfbeelding)}
-            {keuze(true, 'eigen', eigenAfbeelding)}
-          </>
-        : <div className="beeldkeuze enkel">{bestaandeAfbeelding}</div>}
-    </div>
+  const inhoud = src
+    ? <img src={src} style={stijl} alt="" draggable={false} />
+    : <span className="afbeelding-leeg">Nog geen {soort}</span>;
 
-    <div className="afbeelding-knoppen">
+  const bijgesteld = waarde.x !== MIDDEN.x || waarde.y !== MIDDEN.y || waarde.zoom !== MIDDEN.zoom;
+
+  return <section className="media-blok">
+    <div className="media-kop">
       <h4>{titel}</h4>
-      <input
-        type="file"
-        accept="image/jpeg,image/png,image/webp"
-        ref={kiezer}
-        hidden
-        onChange={(gebeurtenis) => {
-          const gekozen = gebeurtenis.target.files?.[0];
-          if (gekozen) void upload(gekozen);
-          gebeurtenis.target.value = '';
-        }}
-      />
-      <button type="button" onClick={() => kiezer.current?.click()} disabled={bezig}>
-        {bezig ? 'Bezig met uploaden…'
-          : eigenBestand ? 'Ander bestand uploaden' : 'Eigen bestand uploaden'}
-      </button>
-      {fout && <p className="creator-error" role="alert">{fout}</p>}
-
-      {SCHUIVEN.map(({ veld, label, min, max, stap, eenheid }) => <label className="afbeelding-schuif" key={veld}>
-        <span>{label} <b>{waarde[veld]}{eenheid}</b></span>
-        <input
-          type="range"
-          min={min}
-          max={max}
-          step={stap}
-          value={waarde[veld]}
-          onChange={(gebeurtenis) => onChange({ ...waarde, [veld]: Number(gebeurtenis.target.value) })}
-        />
-      </label>)}
-      <button type="button" className="afbeelding-terug" onClick={() => onChange({ ...waarde, x: 50, y: 50, zoom: 1 })}>
-        Bijstelling terugzetten
-      </button>
-
-      <label className="plant-field">
-        <span>Bron van deze {soort}</span>
-        <input
-          type="text"
-          value={waarde.bron}
-          placeholder="Een link, of de naam van de maker"
-          onChange={(gebeurtenis) => onChange({ ...waarde, bron: gebeurtenis.target.value })}
-        />
-      </label>
+      {hulp && <details className="media-hulp">
+        <summary>Waar vind ik die?</summary>
+        <div>{hulp}</div>
+      </details>}
     </div>
-  </div>;
+
+    <div className="media-lijf">
+      <div className="media-voorbeeld">
+        <span
+          className={`beeldvlak ${soort}${bijstellen && src ? ' sleepbaar' : ''}`}
+          onPointerDown={startSlepen}
+          onKeyDown={opToets}
+          role={bijstellen && src ? 'application' : undefined}
+          tabIndex={bijstellen && src ? 0 : undefined}
+          aria-label={bijstellen && src ? `${titel} verschuiven met de pijltjestoetsen` : undefined}
+        >{inhoud}</span>
+        {bijstellen && src && <p className="media-tip">Sleep de foto om hem goed in de cirkel te zetten.</p>}
+      </div>
+
+      <div className="media-acties">
+        <input
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          ref={kiezer}
+          hidden
+          onChange={(gebeurtenis) => {
+            const gekozen = gebeurtenis.target.files?.[0];
+            if (gekozen) void upload(gekozen);
+            gebeurtenis.target.value = '';
+          }}
+        />
+        <button type="button" className="media-doen" onClick={() => kiezer.current?.click()} disabled={bezig}>
+          {bezig ? 'Bezig met uploaden…'
+            : eigenBestand ? 'Ander bestand uploaden' : 'Eigen bestand uploaden'}
+        </button>
+        {/* Is er een eigen bestand, dan kun je terug naar het oorspronkelijke beeld zonder
+            de sleutel kwijt te raken; heen en weer klikken kan dus zonder opnieuw uploaden. */}
+        {eigenBestand && <div className="media-welke" role="group" aria-label={`Welke ${soort} geldt`}>
+          <button type="button" className={waarde.bestand ? '' : 'gekozen'} aria-pressed={!waarde.bestand}
+            onClick={() => onChange({ ...waarde, bestand: '' })}>Oorspronkelijk</button>
+          <button type="button" className={waarde.bestand ? 'gekozen' : ''} aria-pressed={Boolean(waarde.bestand)}
+            onClick={() => onChange({ ...waarde, bestand: eigenBestand })}>Eigen bestand</button>
+        </div>}
+
+        {fout && <p className="creator-error" role="alert">{fout}</p>}
+
+        {bijstellen && <label className="afbeelding-schuif">
+          <span>Zoom <b>{waarde.zoom}×</b></span>
+          <input type="range" min={0.25} max={2.5} step={0.01} value={waarde.zoom}
+            onChange={(gebeurtenis) => onChange({ ...waarde, zoom: Number(gebeurtenis.target.value) })} />
+        </label>}
+        {bijstellen && bijgesteld && <button type="button" className="media-terug"
+          onClick={() => onChange({ ...waarde, ...MIDDEN })}>Bijstelling terugzetten</button>}
+
+        <label className="plant-field">
+          <span>Bron van deze {soort}</span>
+          <input
+            type="text"
+            value={waarde.bron}
+            placeholder="Een link, of de naam van de maker"
+            onChange={(gebeurtenis) => onChange({ ...waarde, bron: gebeurtenis.target.value })}
+          />
+        </label>
+      </div>
+    </div>
+  </section>;
 }

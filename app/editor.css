@@ -51,8 +51,44 @@
 @media(max-width:900px){.automatic-creator{grid-template-columns:1fr}.plant-creator{padding:23px}}
 @media(max-width:650px){.creator-mode-switch{overflow:auto}.creator-mode-switch button{white-space:nowrap}.plant-field-grid{grid-template-columns:1fr}.plant-field.wide{grid-column:auto}.plant-form-actions{align-items:stretch;flex-direction:column}.plant-form-actions .primary-action{width:100%}.prompt-card{padding:17px}.prompt-card-head{display:block}.prompt-card-head button{margin-bottom:10px}.plant-creator-intro h2{font-size:32px}}
 
-/* Foto en illustratie kiezen en bijstellen (AfbeeldingVeld.tsx). Links het voorbeeld in
-   dezelfde vorm als op de plantenpagina, rechts de knoppen en de schuiven. */
+/* Foto, illustratie en symbool: elk een eigen blok met de hulp die erbij hoort
+   (AfbeeldingVeld.tsx, SymboolVeld.tsx). Daarvoor stond alle hulp bovenaan de sectie bij
+   elkaar en liepen de drie blokken in elkaar over. */
+.media-blok{padding:22px 0;border-top:1px solid var(--lijn)}
+.media-blok:first-of-type{border-top:0;padding-top:4px}
+.media-kop{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;margin-bottom:14px}
+.media-kop h4{margin:0;font-family:Raleway,Arial,sans-serif;font-size:22px;color:var(--blauw)}
+/* De uitklap staat naast de kop en niet eronder: hij hoort bij de kop en mag geen eigen
+   blok worden dat de rest naar beneden duwt. */
+.media-hulp{flex:none}
+.media-hulp>summary{cursor:pointer;list-style:none;color:var(--groen);font-weight:750;font-size:14px}
+.media-hulp>summary::-webkit-details-marker{display:none}
+.media-hulp>summary::after{content:' ▾'}
+.media-hulp[open]>summary::after{content:' ▴'}
+.media-hulp>div{flex-basis:100%;margin-top:10px;padding:14px 16px;border:1px solid var(--lijn);border-radius:14px;background:#fff;max-width:640px}
+.media-hulp p{margin:0 0 8px;color:var(--grijs);line-height:1.55}
+.media-hulp p:last-child{margin-bottom:0}
+.media-hulp a{color:var(--groen);font-weight:750}
+.media-lijf{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:22px;align-items:start}
+.media-tip{margin:8px 0 0;max-width:200px;color:var(--grijs);font-size:13px;line-height:1.45}
+.media-kop .media-tip{max-width:640px;flex-basis:100%;margin:0}
+.media-acties{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.media-doen{min-height:46px;border:0;border-radius:12px;background:var(--blauw);color:#fff;padding:0 18px;font-weight:800}
+.media-doen:disabled{opacity:.45;cursor:not-allowed}
+/* Welke van de twee geldt: het oorspronkelijke beeld of het geüploade. Twee knoppen naast
+   elkaar in plaats van twee grote tegels — het voorbeeld ernaast laat toch al zien wat je
+   krijgt, dus de tegels waren dubbelop en namen de halve breedte in. */
+.media-welke{display:flex;gap:0;border:1px solid var(--lijn);border-radius:99px;overflow:hidden;background:#fff}
+.media-welke button{border:0;background:none;padding:9px 15px;font-weight:750;color:var(--grijs)}
+.media-welke button.gekozen{background:var(--blauw);color:#fff}
+.media-welke button:focus-visible{outline:2px solid var(--roze);outline-offset:-2px}
+/* Terugzetten is nu een echte knop en geen kale tekst meer: hij zag er niet uit als iets
+   waar je op kon klikken en verdween tussen de schuif en het bronveld. */
+.media-terug{border:1.5px solid var(--roze);border-radius:99px;background:none;color:var(--roze);padding:8px 14px;font-weight:750}
+.media-terug:hover{background:rgba(186,41,115,.08)}
+.media-acties .afbeelding-schuif,.media-acties .plant-field{width:100%;margin:0}
+@media(max-width:650px){.media-lijf{grid-template-columns:1fr}}
+
 .afbeelding-veld{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:22px;align-items:start;padding:20px 0;border-top:1px solid var(--lijn)}
 .afbeelding-veld:first-of-type{border-top:0;padding-top:0}
 .afbeelding-leeg{color:var(--lucht);font-weight:750;font-size:13px;text-align:center;padding:0 12px}
@@ -98,7 +134,13 @@
 /* Het kader heeft een vaste maat en knipt af; de afbeelding vult het en beweegt eronder.
    Zou de zoom op de afbeelding zelf staan, dan groeide het kader mee en werd er niets
    afgesneden - dat is precies wat de zoom hoort te doen. */
-.beeldvlak{display:block;width:150px;height:150px;overflow:hidden;background:var(--licht)}
+.beeldvlak{display:block;width:190px;height:190px;overflow:hidden;background:var(--licht)}
+/* Slepen zoals bij het instellen van een profielfoto. `touch-action:none` is nodig, anders
+   scrollt een telefoon de pagina in plaats van de foto te verschuiven. */
+.beeldvlak.sleepbaar{cursor:grab;touch-action:none}
+.beeldvlak.sleepbaar:active{cursor:grabbing}
+.beeldvlak.sleepbaar:focus-visible{outline:2px solid var(--roze);outline-offset:3px}
+.beeldvlak.sleepbaar>img{user-select:none}
 .beeldvlak.foto{border-radius:50%;border:4px solid var(--fris)}
 .beeldvlak.illustratie{border-radius:14px}
 .beeldvlak>img{display:block;width:100%;height:100%}
@@ -107,7 +149,17 @@
 .beeldvlak .afbeelding-leeg{display:grid;place-items:center;width:100%;height:100%;text-align:center;padding:0 12px}
 /* De symbolen zijn los aan te vinken: meerdere mogen tegelijk aanstaan, want de
    plattegrond kiest er per plant zelf uit. */
-.symbool-keuzes{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px}
+.symbool-keuzes{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;margin-bottom:4px}
+/* Het kruisje hangt in de hoek van de tegel, zodat weggooien een eigen handeling is en niet
+   iets wat gebeurt als je op de tekening klikt. */
+.symbool-eigen{position:relative}
+.symbool-weg{position:absolute;top:-8px;right:-8px;width:26px;height:26px;border:1px solid var(--lijn);border-radius:50%;background:#fff;color:var(--roze);font-size:17px;line-height:1;font-weight:800;display:grid;place-items:center;padding:0}
+.symbool-weg:hover{background:var(--roze);color:#fff;border-color:var(--roze)}
+.symbool-weg:focus-visible{outline:2px solid var(--roze);outline-offset:2px}
+.symbool-plakveld{display:block;margin-top:14px}
+.symbool-plakveld span{display:block;margin-bottom:5px;color:var(--blauw);font-weight:750;font-size:14px}
+.symbool-plakveld textarea{width:100%;border:1px solid var(--lijn);border-radius:12px;padding:10px 12px;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;resize:vertical}
+.symbool-routes>details>div>button{margin-top:12px}
 .symbool-tegel{display:flex;align-items:flex-end;justify-content:center;height:104px;width:88px}
 .symbool-tegel svg,.symbool-tegel img{height:100%;max-width:100%;object-fit:contain;display:block}
 .symbool-leeg{color:var(--lucht);font-size:13px;font-weight:750;padding:30px 10px;text-align:center}

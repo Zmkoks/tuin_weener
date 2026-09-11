@@ -50,7 +50,7 @@ Laat waterInfo aansluiten op het gekozen bereik. Begin met voelen aan de grond, 
 FUNCTIES: VERDEEL IN PRIMAIR EN SECUNDAIR
 functies is een object met de arrays primair en secundair. Gebruik in beide arrays alleen passende waarden uit de onderstaande lijst en zet iedere functie maar één keer.
 
-primair bevat de belangrijkste reden waarom deze plant bewust in deze tuin staat. Kies normaal precies één primaire functie. Kies alleen twee primaire functies als beide afzonderlijk zeer belangrijk en vrijwel gelijkwaardig zijn voor de aanwezigheid van deze plant in de tuin. Kies nooit meer dan twee. Als "onkruid" primair is, moet er altijd nog een tweede, inhoudelijke primaire functie naast staan: onkruid mag nooit alleen primair zijn.
+primair bevat de belangrijkste reden waarom deze plant in deze tuin staat. Kies normaal precies één primaire functie. Kies alleen twee primaire functies als beide afzonderlijk zeer belangrijk en vrijwel gelijkwaardig zijn. Kies nooit meer dan twee. "onkruid" mag de enige primaire functie zijn wanneer de plant alleen aanwezig is omdat hij spontaan opkomt of verwijderd moet worden. Verzin dan geen tweede functie.
 
 secundair bevat alles wat de plant óók aantoonbaar is of doet, maar wat niet de hoofdreden voor zijn plek in de tuin is. Secundaire functies zijn dus echte eigenschappen of bijdragen, geen zwakke mogelijkheden. Een functie die al primair staat mag niet nogmaals secundair staan. Ken niet automatisch elke bloeiende plant "insecten" of elke aantrekkelijke plant "sier" toe.
 - fruit: geeft voor mensen eetbare vruchten of bessen die daadwerkelijk geoogst kunnen worden.
@@ -59,7 +59,7 @@ secundair bevat alles wat de plant óók aantoonbaar is of doet, maar wat niet d
 - vogel: biedt duidelijk voedsel, nestgelegenheid of beschutting aan vogels.
 - sier: staat er in belangrijke mate om opvallende bloemen, blad, vorm, geur of winterbeeld; niet als algemeen restlabel voor iedere mooie plant.
 - boom: heeft een boomvorm of groeit uit tot een grote houtige structuur die schaduw of beschutting geeft. Een gewone kleine struik krijgt dit label niet.
-- onkruid: komt in deze tuin spontaan op of zaait/verspreidt zich daar als ongewenste opslag. Dit is geen botanische eigenschap. Gebruik onkruid nooit als enige functie en alleen wanneer de beschrijving of tuinsituatie daar aanleiding voor geeft.
+- onkruid: komt in deze tuin spontaan op of zaait/verspreidt zich daar als ongewenste opslag. Dit is geen botanische eigenschap. Gebruik het alleen wanneer de beschrijving of tuinsituatie daar aanleiding voor geeft. Het mag de enige functie zijn.
 
 VELDREGELS
 - intro: maximaal twee korte zinnen over wat deelnemers aan de plant herkennen en waarom hij interessant is.
@@ -146,7 +146,6 @@ function functionLists(record: Record<string, unknown>) {
     const unknown = [...primary, ...secondary].find((item) => !FUNCTION_OPTIONS.includes(item));
     if (unknown) throw new Error(`Onbekende functie: ${unknown}.`);
     if (primary.length < 1 || primary.length > 2) throw new Error('Kies één of maximaal twee primaire functies.');
-    if (primary.includes('onkruid') && primary.length < 2) throw new Error('Onkruid mag niet de enige primaire functie zijn.');
     const duplicate = secondary.find((item) => primary.includes(item));
     if (duplicate) throw new Error(`De functie ${duplicate} staat zowel primair als secundair.`);
     return { functiesPrimair: [...new Set(primary)].join(', '), functiesSecundair: [...new Set(secondary)].join(', ') };

@@ -22,7 +22,16 @@
 
 /* ---------- de drie ingangen ---------- */
 
+/* Twee groepen met elk hun eigen handelingen. De kop draagt het verschil tussen "waar staat
+   wat" en "welke plant is dit"; zonder die kop lezen "een plant toevoegen op een plek" en
+   "een plant toevoegen" bijna hetzelfde. */
+.beheer-groep { margin-top: 34px; }
+.beheer-groep h2 { margin: 0; font-size: 27px; color: var(--blauw); }
+.beheer-groep-uitleg { margin: 5px 0 14px; color: var(--grijs); }
 .beheer-vragen { display: grid; gap: 14px; }
+/* De titel en de toelichting staan onder elkaar in de linkerkolom; de pijl blijft rechts. */
+.beheer-vraag > span { display: block; }
+.beheer-vraag small { display: block; margin-top: 5px; color: var(--grijs); font-size: 14px; line-height: 1.45; }
 .beheer-vraag {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -36,7 +45,7 @@
   box-shadow: 0 4px 18px #1e3a6a14;
 }
 .beheer-vraag:hover { border-color: var(--fris); }
-.beheer-vraag b { font-family: Raleway, Arial, sans-serif; font-size: 23px; font-weight: 700; color: var(--blauw); line-height: 1.2; }
+.beheer-vraag b { display: block; font-family: Raleway, Arial, sans-serif; font-size: 22px; font-weight: 700; color: var(--blauw); line-height: 1.2; }
 .beheer-vraag strong { align-self: center; color: var(--fris); font-size: 26px; }
 
 /* Een tweede uitweg onder een lijst: "deze plant staat er niet bij", "ik kan de plek niet

@@ -7,7 +7,7 @@ import { laadPlanten } from '@/app/lib/tuinData';
  * gegenereerde kaart gaat daarna zowel naar het scherm als naar het boekje:
  *
  *     curl http://localhost:3000/api/symbolen -o planten_symbolen_eigen.svg
- *     py test_plattegrond.py --geen-index --geen-badges --svg website/public/plattegrond-tuin.svg
+ *     py test_plattegrond.py --geen-index --geen-badges --svg plattegrond_eigen.svg
  *
  * Alleen planten waar iemand de symbolen heeft aangeraakt staan erin. De rest ontbreekt,
  * en houdt dus gewoon alle varianten uit de bibliotheek.

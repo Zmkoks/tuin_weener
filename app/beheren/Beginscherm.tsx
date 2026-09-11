@@ -5,19 +5,40 @@ import { useBeheer } from './BeheerContext';
 import { BovenaanBeginnen } from './onderdelen';
 
 /**
- * Beheren begint bij wat iemand in de tuin tegenkwam, niet bij hoe wij de gegevens hebben
- * opgeslagen. Vandaar vijf vragen als ingang; elke vraag is een eigen adres.
+ * Het beginscherm van Beheren: twee groepen, en per groep de handelingen die je kunt doen.
  *
- * Verhuizen staat er sinds 9 september bij. Vanaf de plattegrond is dat een knop bij de plek
- * (`PlekBeheer.tsx`), maar het moet ook hier staan: wie via de kaart binnenkomt weet al
- * wélke plek het is, wie hier binnenkomt niet, en dan hoort de vraag gesteld te worden.
+ * Hiervoor stonden hier vijf vragen in de vorm "wat kom je tegen": *ik heb een plant gevonden
+ * die niet op de plattegrond staat*, *er staat een plant niet meer op zijn plek*. Het idee was
+ * om aan te sluiten bij wat iemand in de tuin ziet, maar het werkte averechts. De eerste twee
+ * beschreven dezelfde situatie, de derde liet in het midden of het nú zo is of zo wórdt, en
+ * geen van de vijf zei wat er zou gebeuren als je erop klikte.
+ *
+ * Nu staat er wat je gaat doen, in twee groepen die het verschil dragen dat er echt toe doet:
+ * verandert er iets aan de **kaart** (waar staat wat), of aan de **plant** zelf (welke soort,
+ * welke informatie). Zonder die groepen zouden "een plant toevoegen op een plek" en "een plant
+ * toevoegen" bijna hetzelfde lezen, terwijl het twee heel verschillende handelingen zijn.
+ *
+ * Een plek toevoegen hoort in de eerste groep thuis, maar kan nog niet en staat er daarom
+ * niet bij: een knop die niets doet is vervelender dan een knop die er nog niet is.
  */
-const VRAGEN = [
-  { naar: '/beheren/plaatsen', vraag: 'Ik heb een plant gevonden die niet op de plattegrond staat' },
-  { naar: '/beheren/verplaatsen', vraag: 'Een plant staat ergens anders dan op de plattegrond' },
-  { naar: '/beheren/weghalen', vraag: 'Er staat een plant niet meer op zijn plek' },
-  { naar: '/beheren/aanpassen', vraag: 'Er klopt iets niet in de informatie over een plant' },
-  { naar: '/beheren/nieuw', vraag: 'Ik wil een plant toevoegen die nog niet in de tuin staat' },
+const GROEPEN = [
+  {
+    kop: 'Plattegrond aanpassen',
+    uitleg: 'Verandert er iets aan wat er wáár in de tuin staat.',
+    keuzes: [
+      { naar: '/beheren/plaatsen', titel: 'Een plant toevoegen op een plek', uitleg: 'Zet een plant die al in de bibliotheek staat op een plek in de tuin.' },
+      { naar: '/beheren/verplaatsen', titel: 'Een plant verplaatsen', uitleg: 'De plant staat ergens anders dan op de plattegrond.' },
+      { naar: '/beheren/weghalen', titel: 'Een plant verwijderen van een plek', uitleg: 'De plant staat er niet meer. Hij blijft wel in de bibliotheek staan.' },
+    ],
+  },
+  {
+    kop: 'Planten aanpassen',
+    uitleg: 'Verandert er iets aan de plant zelf, en niet aan de kaart.',
+    keuzes: [
+      { naar: '/beheren/nieuw', titel: 'Een plant toevoegen', uitleg: 'Een soort die nog niet in de bibliotheek staat.' },
+      { naar: '/beheren/aanpassen', titel: 'Een plant aanpassen', uitleg: 'Er klopt iets niet in de tekst, de foto of het symbool.' },
+    ],
+  },
 ];
 
 export default function Beginscherm() {
@@ -36,12 +57,20 @@ export default function Beginscherm() {
     </div>}
 
     <p className="eyebrow">BEHEREN</p>
-    <h1>Wat kom je tegen?</h1>
-    <div className="beheer-vragen">
-      {VRAGEN.map((vraag) => <Link className="beheer-vraag" key={vraag.naar} href={vraag.naar}>
-        <b>{vraag.vraag}</b>
-        <strong aria-hidden="true">→</strong>
-      </Link>)}
-    </div>
+    <h1>Wat wil je doen?</h1>
+
+    {GROEPEN.map((groep) => <section className="beheer-groep" key={groep.kop}>
+      <h2>{groep.kop}</h2>
+      <p className="beheer-groep-uitleg">{groep.uitleg}</p>
+      <div className="beheer-vragen">
+        {groep.keuzes.map((keuze) => <Link className="beheer-vraag" key={keuze.naar} href={keuze.naar}>
+          <span>
+            <b>{keuze.titel}</b>
+            <small>{keuze.uitleg}</small>
+          </span>
+          <strong aria-hidden="true">→</strong>
+        </Link>)}
+      </div>
+    </section>)}
   </div>;
 }

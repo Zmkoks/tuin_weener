@@ -155,10 +155,10 @@ export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (
     <div className="plant-form-section media-section">
       <h3>Foto, illustratie en symbool handmatig toevoegen</h3>
       <p className="media-intro">Deze drie afbeeldingen komen niet uit de gegevensprompt. Voeg ze hier zelf toe. Kies bestanden die je mag gebruiken en noteer altijd de bron.</p>
-      <div className="media-help-grid">
-        <details><summary>Foto <span>Waar vind ik die?</span></summary><div><p>Een foto laat zien hoe de plant er in het echt uitziet. Gebruik een eigen foto of zoek op Wikimedia Commons. Controleer bij een gevonden foto altijd de maker en gebruiksvoorwaarden.</p>{/^https:\/\/commons\.wikimedia\.org\//.test(form.commons) ? <a href={form.commons} target="_blank" rel="noreferrer">Open de voorgestelde Commons-pagina →</a> : <a href="https://commons.wikimedia.org/" target="_blank" rel="noreferrer">Zoeken op Wikimedia Commons →</a>}</div></details>
-        <details><summary>Botanische illustratie <span>Waar vind ik die?</span></summary><div><p>Dit is een duidelijke tekening van de plant en zijn onderdelen. Wikimedia Commons heeft voor veel soorten een aparte categorie met botanische illustraties. Controleer bij de gekozen afbeelding de maker en gebruiksvoorwaarden. Vul daarna de pagina van de gekozen afbeelding zelf als bron in.</p>{/^https:\/\/commons\.wikimedia\.org\//.test(form.commonsIllustraties) ? <a href={form.commonsIllustraties} target="_blank" rel="noreferrer">Open de voorgestelde illustratiepagina →</a> : <p>Er is geen aparte Commons-categorie gevonden. Zoek dan op de botanische naam met de woorden <i>botanical illustration</i>.</p>}</div></details>
-      </div>
+      {/* Elk blok staat op zichzelf: kop met de hulp die erbij hoort, wat er nu staat, wat je
+          ermee kunt, en de bron. De hulpteksten stonden hiervoor met z'n tweeën bovenaan de
+          sectie, los van het veld waar ze over gingen, en het symbool — het lastigste van de
+          drie — had er helemaal geen. */}
       <AfbeeldingVeld
         soort="foto"
         titel="Foto"
@@ -166,14 +166,27 @@ export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (
         waarde={form.foto}
         onChange={(waarde) => setForm({ ...form, foto: waarde })}
         huidigeBron={plantFoto(slug) || undefined}
+        bijstellen
+        hulp={<>
+          <p>Een foto laat zien hoe de plant er in het echt uitziet. Gebruik een eigen foto of zoek op Wikimedia Commons. Controleer bij een gevonden foto altijd de maker en de gebruiksvoorwaarden.</p>
+          {/^https:\/\/commons\.wikimedia\.org\//.test(form.commons)
+            ? <a href={form.commons} target="_blank" rel="noreferrer">Open de voorgestelde Commons-pagina →</a>
+            : <a href="https://commons.wikimedia.org/" target="_blank" rel="noreferrer">Zoeken op Wikimedia Commons →</a>}
+        </>}
       />
       <AfbeeldingVeld
         soort="illustratie"
-        titel="Illustratie"
+        titel="Botanische illustratie"
         slug={slug}
         waarde={form.illustratie}
         onChange={(waarde) => setForm({ ...form, illustratie: waarde })}
         huidigeBron={plantIllustratie(slug) || undefined}
+        hulp={<>
+          <p>Dit is een duidelijke tekening van de plant en zijn onderdelen. Wikimedia Commons heeft voor veel soorten een aparte categorie met botanische illustraties. Controleer de maker en de gebruiksvoorwaarden, en vul daarna de pagina van de gekozen afbeelding als bron in.</p>
+          {/^https:\/\/commons\.wikimedia\.org\//.test(form.commonsIllustraties)
+            ? <a href={form.commonsIllustraties} target="_blank" rel="noreferrer">Open de voorgestelde illustratiepagina →</a>
+            : <p>Er is geen aparte Commons-categorie gevonden. Zoek dan op de botanische naam met de woorden <i>botanical illustration</i>.</p>}
+        </>}
       />
       <SymboolVeld naam={form.naam} botanischeNaam={form.botanischeNaam} slug={slug} waarde={form.symbolen} onChange={(waarde) => setForm({ ...form, symbolen: waarde })} />
     </div>

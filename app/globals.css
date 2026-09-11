@@ -30,6 +30,12 @@
 .map-card{height:auto;aspect-ratio:auto}
 .map-card img,.large-map img{height:auto;object-fit:contain;display:block}
 .map-card span{line-height:1.2}
+/* Het tuin-blok toont sinds 10 september de echte kaart in plaats van `plattegrond.png` van
+   31 augustus. Een getekende kaart is een `<svg>` en geen `<img>`, dus de regels hierboven
+   raken hem niet; hij heeft ook geen `mix-blend-mode` nodig, want er zit geen wit vel omheen.
+   `pointer-events:none` houdt de knop eromheen één klikvlak: de vakken in de kaart zijn hier
+   niet los aanklikbaar, je gaat altijd naar /plattegrond. */
+.map-card .plattegrond{display:block;width:100%;height:auto;pointer-events:none}
 .large-map{height:auto;min-height:0;display:flex;justify-content:center;align-items:flex-start}
 
 /* Plantnamen staan in kleine letters in de data; alleen de eerste letter mag een hoofdletter worden
@@ -40,8 +46,12 @@
 /* Voor de losse plattegrond: op scherm een rustige A4-voorvertoning, bij afdrukken alleen
    het vel zelf. De knop gebruikt de afdrukdialoog van de browser, waar ook "Opslaan als PDF"
    beschikbaar is. */
-.print-bediening{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:32px}.print-bediening>a{color:var(--groen);font-weight:700;text-decoration:none}.print-knop{border:0;border-radius:99px;background:var(--blauw);color:#fff;padding:13px 20px;font-weight:800}.print-knop:hover{background:var(--groen)}.print-vel{width:min(100%,794px);margin:40px auto 0;background:#fff;box-shadow:0 8px 30px #1e3a6a1c}.print-vel .plattegrond{display:block;width:100%;height:auto}.drukwerk-plattegrond{background:var(--achtergrond)}
-@media print{ @page{size:A4 portrait;margin:0} body:has(.drukwerk-plattegrond){background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact} body:has(.drukwerk-plattegrond) .topbar,body:has(.drukwerk-plattegrond) .site-voet,.drukwerk-plattegrond .print-bediening,.drukwerk-plattegrond .print-workspace>.eyebrow,.drukwerk-plattegrond .print-workspace>h1,.drukwerk-plattegrond .print-workspace>.lead{display:none}.drukwerk-plattegrond .print-workspace{padding:0}.drukwerk-plattegrond .print-vel{width:210mm;height:297mm;margin:0;box-shadow:none}.drukwerk-plattegrond .print-vel .plattegrond{width:210mm;height:297mm} }
+.print-bediening{display:flex;align-items:center;gap:18px;margin-bottom:32px}
+/* Vanaf 900px staat de kaart midden op de bladzijde; dan hoort de knop daar ook. Daaronder
+   loopt alles onder elkaar en is uitlijnen links rustiger. */
+.print-actie{margin-top:24px}
+@media(min-width:900px){.print-actie{display:flex;justify-content:center}}.print-bediening>a{color:var(--groen);font-weight:700;text-decoration:none}.print-knop{border:0;border-radius:99px;background:var(--blauw);color:#fff;padding:13px 20px;font-weight:800}.print-knop:hover{background:var(--groen)}.print-vel{width:min(100%,794px);margin:40px auto 0;background:#fff;box-shadow:0 8px 30px #1e3a6a1c}.print-vel .plattegrond{display:block;width:100%;height:auto}.drukwerk-plattegrond{background:var(--achtergrond)}
+@media print{ @page{size:A4 portrait;margin:0} body:has(.drukwerk-plattegrond){background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact} body:has(.drukwerk-plattegrond) .topbar,body:has(.drukwerk-plattegrond) .site-voet,.drukwerk-plattegrond .print-bediening,.drukwerk-plattegrond .print-actie,.drukwerk-plattegrond .print-workspace>.eyebrow,.drukwerk-plattegrond .print-workspace>h1,.drukwerk-plattegrond .print-workspace>.lead{display:none}.drukwerk-plattegrond .print-workspace{padding:0}.drukwerk-plattegrond .print-vel{width:210mm;height:297mm;margin:0;box-shadow:none}.drukwerk-plattegrond .print-vel .plattegrond{width:210mm;height:297mm} }
 
 /* Fotoblok in de hero: de planten zijn het eerste wat je ziet. */
 .hero-planten{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}

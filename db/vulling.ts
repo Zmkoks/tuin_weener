@@ -2,6 +2,7 @@ import { env } from 'cloudflare:workers';
 import startPlanten from '@/app/data/planten.json';
 import startPlekken from '@/app/data/tuin.json';
 import type { Plant } from '@/app/data/plantTypes';
+import { metPlantBeoordeling } from '@/app/data/plantBeoordelingen';
 import type { Plek } from '@/app/data/plekTypes';
 import { zorgVoorDatabase } from '@/db/opzet';
 import { bewaarPlantOpdracht, bewaarPlekOpdracht, symboolOpdrachten } from '@/db/regels';
@@ -44,7 +45,7 @@ async function vul() {
 
   const planten = await env.DB.prepare('SELECT COUNT(*) AS aantal FROM planten').first<{ aantal: number }>();
   if (!planten?.aantal) {
-    const opdrachten = (startPlanten as Plant[]).flatMap((plant) => [
+    const opdrachten = (startPlanten as Plant[]).map(metPlantBeoordeling).flatMap((plant) => [
       bewaarPlantOpdracht(plant, nu, nu),
       ...symboolOpdrachten(plant),
     ]);

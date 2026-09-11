@@ -16,7 +16,7 @@ export async function PUT(request: Request, { params }: Props) {
     const huidige = await haalPlant(slug);
     if (!huidige) return NextResponse.json({ error: 'Deze plant staat niet in de bibliotheek.' }, { status: 404 });
 
-    const gelezen = leesPlant(await request.json() as unknown, slug, huidige.plantnummer);
+    const gelezen = leesPlant(await request.json() as unknown, slug, huidige.plantnummer, huidige);
     if ('fout' in gelezen) return NextResponse.json({ error: gelezen.fout }, { status: gelezen.status });
 
     await bewaarPlant(gelezen.plant);

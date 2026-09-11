@@ -13,8 +13,8 @@ export default function PlekKiezen() {
   return <div className="beheer">
     <BovenaanBeginnen />
     <Terug naar="/beheren" tekst="Terug naar het begin" />
-    <h1>Op welke plek stond de plant?</h1>
-    <p className="lead">Klik de plek aan op de kaart. Daarna kies je welke plant er weg moet.</p>
+    <h1>Van welke plek wil je een plant verwijderen?</h1>
+    <p className="lead">Klik de plek aan op de kaart. Daarna kies je welke plant weg moet.</p>
     <div className="beheer-werkblad">
       <Kaart plekken={plekken} gekozen={gekozenPlek} onKies={setGekozenPlek} namen={namen} planten={planten} beplanting={beplanting} />
       <aside>

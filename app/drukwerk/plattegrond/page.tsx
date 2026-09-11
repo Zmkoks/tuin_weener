@@ -28,11 +28,15 @@ export default async function PlattegrondPrintPagina() {
     <section className="workspace print-workspace">
       <div className="print-bediening">
         <Link href="/drukwerk">← Terug naar drukwerk</Link>
-        <PrintKnop />
       </div>
       <p className="eyebrow">LOSSE PLATTEGROND</p>
       <h1>Print de actuele plattegrond.</h1>
       <p className="lead">A4 staand. De planten en de legenda hieronder komen uit de actuele tuinadministratie.</p>
+      {/* De knop stond rechtsboven, los van de kaart. Op een breed scherm lag daar de halve
+          bladzijde tussen, en dan is met de rechtermuisknop de tekening opslaan de kortste
+          weg — die levert alleen de lege ondergrond op. Nu staat hij tussen de uitleg en de
+          kaart waar hij over gaat. */}
+      <div className="print-actie"><PrintKnop /></div>
       <div className="print-vel">
         <Plattegrond
           zones={plekken}

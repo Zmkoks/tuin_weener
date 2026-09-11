@@ -48,7 +48,9 @@ export default function TakenKaart({ plekken, maand, actief }: Props) {
 
   return <Link className="nu-kaart" href="/plattegrond" aria-label={`Bekijk de plattegrond; er is deze maand iets te doen op ${gemerkt.length === 1 ? 'één plek' : `${gemerkt.length} plekken`}`}>
     <svg viewBox="0 0 210 297" role="img" aria-label={`Plattegrond met de plekken waar in ${maand.toLowerCase()} iets te doen is`}>
-      <image href="/plattegrond-tuin.svg" x="0" y="0" width="210" height="297" />
+      {/* De kale ondergrond en niet de volledige kaart: die laatste heeft de planten er al in
+          getekend, en dan kijk je naar een bevroren tekening met verse markeringen erover. */}
+      <image href="/plattegrond_ondergrond.svg" x="0" y="0" width="210" height="297" />
       {gemerkt.map((plek) => {
         // Het tekstballonnetje noemt de planten één keer, ook als er twee taken bij horen.
         const namen = [...new Set(plek.taken.map((taak) => taak.plant.naam))].join(', ');

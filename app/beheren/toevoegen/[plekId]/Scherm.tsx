@@ -25,14 +25,20 @@ export default function PlantZoekenVoorPlek({ plekId }: { plekId: string }) {
   />;
 
   const hier = new Set(beplanting[plekId] || []);
+  // Op een boom- of heesterpunt hoort alleen een soort die zelf een boom of heester is; de
+  // rest van de bibliotheek zou hier toch geweigerd worden, dus die tonen we niet eens.
+  const opPunt = plek.soort === 'heester';
+  const teKiezen = opPunt ? planten.filter((kandidaat) => kandidaat.boomHeester) : planten;
 
   return <div className="beheer">
     <BovenaanBeginnen />
     <Terug naar="/plattegrond" tekst="Terug naar de plattegrond" />
     <h1>Wat staat er op {plekNaam(plek)}?</h1>
-    <p className="lead">Zoek de plant op die je hier hebt gevonden.</p>
+    <p className="lead">{opPunt
+      ? 'Dit is een boom- of heesterplek: één punt op de kaart. Je ziet daarom alleen soorten die als boom of heester in de tuin staan.'
+      : 'Zoek de plant op die je hier hebt gevonden.'}</p>
     <PlantZoeker
-      planten={planten}
+      planten={teKiezen}
       adres={(plant) => `/beheren/toevoegen/${encodeURIComponent(plekId)}/${encodeURIComponent(plant.slug)}`}
       bijschrift={(plant) => {
         if (hier.has(plant.slug)) return 'Staat hier al';

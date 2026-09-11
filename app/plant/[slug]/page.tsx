@@ -85,6 +85,7 @@ export default async function PlantPagina({ params }: Props) {
         : <p className="scan-geen-taak">Deze maand hoef je bij deze plant niets te oogsten of te snoeien.</p>}
     </section>
 
+    {[...plant.functies.primair, ...plant.functies.secundair].includes('onkruid') && <p className="scan-onkruid">Dit is onkruid.</p>}
     <div className="scan-regels">
       <SectieMagWeg plant={plant} />
       <SectieMoetBlijven plant={plant} />
@@ -103,8 +104,15 @@ export default async function PlantPagina({ params }: Props) {
 
     {plekken.length > 0 && <nav className="scan-plekken" aria-label="Waar deze plant staat">
       <h3>In de tuin</h3>
-      <p className="scan-plekken-tekst">Deze plant staat op {plekken.length === 1 ? 'één plek' : `${plekken.length} plekken`} in de tuin. De stippen laten zien waar.</p>
-      <PlekjesKaart plekken={plekken} naam={plant.naam} />
+      {/* Met de naam erin en niet "deze plant": op een scanpagina kom je met een QR-code
+          binnen en dan is de naam het eerste dat je wilt herkennen. Zonder lidwoord, want
+          "de" klopt niet bij elke naam ("het edel duizendblad") en een lidwoord per plant
+          bijhouden is meer moeite dan het waard is. De hoofdletter komt uit `::first-letter`,
+          net als bij de kop en de taakregels; in de gegevens blijft de naam klein. */}
+      <p className="scan-plekken-tekst">{plant.naam} staat op {plekken.length === 1
+        ? 'één plek in de tuin. De stip laat zien waar.'
+        : `${plekken.length} plekken in de tuin. De stippen laten zien waar.`}</p>
+      <PlekjesKaart plekken={plekken} alle={zones} naam={plant.naam} />
       <Link href="/plattegrond">Bekijk de hele plattegrond →</Link>
     </nav>}
 

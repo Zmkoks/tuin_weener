@@ -135,11 +135,13 @@ function slugVanNaam(naam: string) {
   return naam.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
 }
 
+
 export default function SymboolVeld({ naam, botanischeNaam, slug, waarde, onChange }: Props) {
   const [varianten, setVarianten] = useState<Element[] | null>(null);
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState('');
   const [promptGekopieerd, setPromptGekopieerd] = useState(false);
+  const [geplakt, setGeplakt] = useState('');
   const kiezer = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -178,14 +180,37 @@ export default function SymboolVeld({ naam, botanischeNaam, slug, waarde, onChan
         bibliotheek: waarde.bibliotheek ?? (varianten ?? []).map((groep) => groep.id),
         eigen: [...waarde.eigen, { bestand: gegevens.bestand, bron: waarde.bron }],
       });
+      return true;
     } catch (probleem) {
       setFout(probleem instanceof Error ? probleem.message : 'Uploaden is niet gelukt.');
+      return false;
     } finally { setBezig(false); }
+  };
+
+  /**
+   * Geplakte SVG-code opsturen alsof het een bestand is.
+   *
+   * Dit bestaat omdat een taalmodel lang niet altijd een bestand teruggeeft: bij de
+   * acceptatieproef van 10 september 2026 kwam er eerst een PNG, en gratis of uitgelogde
+   * chatdiensten bieden vaak helemaal geen download aan. De tekening staat dan wél gewoon
+   * als code in het antwoord. Door er hier een bestand van te maken loopt het verder langs
+   * precies dezelfde weg als een upload — inclusief de keuring in `keurSymbool`.
+   */
+  const plak = async () => {
+    const tekst = geplakt.trim();
+    if (!tekst) return;
+    const bestand = new File([tekst], `${slugVanNaam(naam) || 'plant'}-symbool.svg`, { type: 'image/svg+xml' });
+    if (await upload(bestand)) setGeplakt('');
   };
 
   const aantalAan = (varianten ?? []).filter((groep) => aangevinkt(groep.id)).length + waarde.eigen.length;
 
-  return <div className="afbeelding-veld symbool-veld">
+  return <section className="media-blok symbool-veld">
+    <div className="media-kop">
+      <h4>Symbool voor de plattegrond</h4>
+      <p className="media-tip">Een SVG blijft scherp als hij groter of kleiner wordt. Op de plattegrond wordt dit symbool heel klein, dus gebruik één eenvoudige plant of hoogstens twee.</p>
+    </div>
+
     <div className="symbool-keuzes">
       {varianten?.map((groep) => <button
         type="button"
@@ -198,37 +223,58 @@ export default function SymboolVeld({ naam, botanischeNaam, slug, waarde, onChan
         <span className="beeldkeuze-label">bibliotheek</span>
       </button>)}
 
-      {waarde.eigen.map((eigen) => <button
-        type="button"
-        key={eigen.bestand}
-        className="beeldkeuze gekozen"
-        aria-pressed
-        onClick={() => onChange({ ...waarde, eigen: waarde.eigen.filter((ander) => ander.bestand !== eigen.bestand) })}
-      >
+      {/* Een eigen tekening staat altijd aan; hem uitzetten is hem weggooien. Dat gebeurde
+          eerder door op de tegel zelf te klikken, en dat zag niemand aankomen — vandaar een
+          eigen kruisje met een eigen omschrijving. */}
+      {waarde.eigen.map((eigen) => <span key={eigen.bestand} className="beeldkeuze gekozen symbool-eigen">
         <span className="symbool-tegel"><img src={`/api/media/${eigen.bestand}`} alt="" /></span>
         <span className="beeldkeuze-label">eigen</span>
-      </button>)}
+        <button
+          type="button"
+          className="symbool-weg"
+          aria-label="Deze tekening verwijderen"
+          title="Deze tekening verwijderen"
+          onClick={() => onChange({ ...waarde, eigen: waarde.eigen.filter((ander) => ander.bestand !== eigen.bestand) })}
+        >×</button>
+      </span>)}
 
       {varianten?.length === 0 && waarde.eigen.length === 0 && <p className="symbool-leeg">Nog geen symbool</p>}
     </div>
 
-    <div className="symbool-uitleg">
-      <h4>Symbool voor de plattegrond</h4>
-      <p>Een SVG is een tekening die scherp blijft als hij groter of kleiner wordt. Op de plattegrond wordt dit symbool heel klein. Gebruik daarom één eenvoudige plant, of hoogstens twee.</p>
-      <div className="symbool-routes">
-        <details>
-          <summary>Zelf maken <span>met een tekenprogramma</span></summary><div>
-          <p>Maak of bewerk een SVG in een tekenprogramma. Dat kan bijvoorbeeld met het gratis programma <a href="https://inkscape.org/" target="_blank" rel="noreferrer">Inkscape</a>. Sla de tekening op als een SVG-bestand en voeg dat hieronder toe.</p>
-          </div>
-        </details>
-        <details>
-          <summary>Automatisch maken <span>met een LLM</span></summary><div>
-          <p>Een LLM is een digitaal hulpmiddel waaraan je in gewone taal een opdracht geeft, zoals ChatGPT, Claude of Gemini. Volg de vier stappen hieronder. Je hoeft geen SVG-code te begrijpen.</p>
+    <p className="symbool-teller">{aantalAan === 0
+      ? 'Niets aangevinkt'
+      : `${aantalAan} ${aantalAan === 1 ? 'tekening' : 'tekeningen'} in gebruik`}</p>
+
+    <input
+      type="file"
+      accept="image/svg+xml"
+      ref={kiezer}
+      hidden
+      onChange={(gebeurtenis) => {
+        const gekozen = gebeurtenis.target.files?.[0];
+        if (gekozen) void upload(gekozen);
+        gebeurtenis.target.value = '';
+      }}
+    />
+
+    {/* Twee wegen naar een eigen tekening, met de knop in de uitklap waar hij bij hoort. */}
+    <div className="symbool-routes">
+      <details>
+        <summary>Zelf maken <span>met een tekenprogramma</span></summary><div>
+          <p>Maak of bewerk een SVG in een tekenprogramma. Dat kan bijvoorbeeld met het gratis programma <a href="https://inkscape.org/" target="_blank" rel="noreferrer">Inkscape</a>. Sla de tekening op als SVG-bestand en voeg dat hier toe.</p>
+          <button type="button" onClick={() => kiezer.current?.click()} disabled={bezig}>
+            {bezig ? 'Bezig met uploaden…' : 'SVG-bestand uploaden'}
+          </button>
+        </div>
+      </details>
+      <details>
+        <summary>Automatisch maken <span>met een LLM</span></summary><div>
+          <p>Een LLM is een digitaal hulpmiddel waaraan je in gewone taal een opdracht geeft, zoals ChatGPT, Claude of Gemini. Je hoeft geen SVG-code te begrijpen.</p>
           <ol>
             <li><a href="/symbolen/planten_symbolen_overzicht.html" download>Download het voorbeeld met bestaande symbolen.</a></li>
             <li>Open een LLM dat bestanden kan lezen en voeg het gedownloade voorbeeld toe.</li>
             <li>Kopieer de opdracht hieronder en stuur die naar het LLM.</li>
-            <li>Download het gemaakte SVG-bestand en voeg het hieronder toe.</li>
+            <li>Krijg je een bestand, upload dat dan bij &ldquo;Zelf maken&rdquo;. Krijg je code, plak die dan hieronder.</li>
           </ol>
           <button type="button" onClick={async () => {
             try {
@@ -238,41 +284,33 @@ export default function SymboolVeld({ naam, botanischeNaam, slug, waarde, onChan
             } catch { setFout('Kopiëren lukt niet automatisch. Selecteer de opdracht hieronder en kopieer hem handmatig.'); }
           }}>{promptGekopieerd ? 'Opdracht gekopieerd ✓' : 'Kopieer de opdracht voor het LLM'}</button>
           <details><summary>Bekijk de volledige opdracht</summary><pre>{symboolPrompt(naam, botanischeNaam)}</pre></details>
-          </div>
-        </details>
-      </div>
+
+          <label className="symbool-plakveld">
+            <span>Of plak de SVG-code die je terugkreeg</span>
+            <textarea
+              rows={4}
+              value={geplakt}
+              placeholder="<svg …> … </svg>"
+              onChange={(gebeurtenis) => setGeplakt(gebeurtenis.target.value)}
+            />
+          </label>
+          <button type="button" onClick={() => void plak()} disabled={bezig || !geplakt.trim()}>
+            {bezig ? 'Bezig met toevoegen…' : 'Geplakte code toevoegen'}
+          </button>
+        </div>
+      </details>
     </div>
 
-    <div className="afbeelding-knoppen">
-      <h4>Symbolen op de plattegrond</h4>
-      <p className="symbool-teller">{aantalAan === 0
-        ? 'Niets aangevinkt'
-        : `${aantalAan} ${aantalAan === 1 ? 'tekening' : 'tekeningen'} in gebruik`}</p>
+    {fout && <p className="creator-error" role="alert">{fout}</p>}
+
+    <label className="plant-field">
+      <span>Bron van je eigen tekeningen</span>
       <input
-        type="file"
-        accept="image/svg+xml"
-        ref={kiezer}
-        hidden
-        onChange={(gebeurtenis) => {
-          const gekozen = gebeurtenis.target.files?.[0];
-          if (gekozen) void upload(gekozen);
-          gebeurtenis.target.value = '';
-        }}
+        type="text"
+        value={waarde.bron}
+        placeholder="Een link, of de naam van de maker"
+        onChange={(gebeurtenis) => onChange({ ...waarde, bron: gebeurtenis.target.value })}
       />
-      <button type="button" onClick={() => kiezer.current?.click()} disabled={bezig}>
-        {bezig ? 'Bezig met uploaden…' : 'Tekening toevoegen'}
-      </button>
-      {fout && <p className="creator-error" role="alert">{fout}</p>}
-
-      <label className="plant-field">
-        <span>Bron van je eigen tekeningen</span>
-        <input
-          type="text"
-          value={waarde.bron}
-          placeholder="Een link, of de naam van de maker"
-          onChange={(gebeurtenis) => onChange({ ...waarde, bron: gebeurtenis.target.value })}
-        />
-      </label>
-    </div>
-  </div>;
+    </label>
+  </section>;
 }

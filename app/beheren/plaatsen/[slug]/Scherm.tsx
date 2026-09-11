@@ -6,7 +6,7 @@ import { useBeheer } from '../../BeheerContext';
 import { BovenaanBeginnen, Kaart, Melding, NietGevonden, Terug, useHandeling } from '../../onderdelen';
 
 export default function PlekAanwijzen({ slug }: { slug: string }) {
-  const { planten, plantVan, plekken, beplanting, namen, plantenOp, zetOpPlek } = useBeheer();
+  const { planten, plantVan, plekVan, plekken, beplanting, namen, plantenOp, zetOpPlek } = useBeheer();
   const [gekozenPlek, setGekozenPlek] = useState('');
   const { bezig, fout, doe } = useHandeling();
 
@@ -20,12 +20,17 @@ export default function PlekAanwijzen({ slug }: { slug: string }) {
 
   const hier = gekozenPlek ? plantenOp(gekozenPlek) : [];
   const staatEr = gekozenPlek ? (beplanting[gekozenPlek] || []).includes(plant.slug) : false;
+  // Een boom- of heesterplek is geen bak maar één punt op de kaart, en dat punt ís de boom.
+  // Daar kan dus geen andere plant bij. Andersom mag wel: een boom of heester kan ook in een
+  // bak staan, bijvoorbeeld zolang hij nog klein is.
+  const opPunt = plekVan(gekozenPlek)?.soort === 'heester';
+  const magHier = !opPunt || Boolean(plant.boomHeester);
 
   return <div className="beheer">
     <BovenaanBeginnen />
     <Terug naar="/beheren/plaatsen" tekst="Een andere plant kiezen" />
     <h1>Waar staat de {plant.naam}?</h1>
-    <p className="lead">Klik op de kaart de plek aan waar je de plant hebt gevonden.</p>
+    <p className="lead">Klik op de kaart de plek aan waar je de plant hebt gevonden.{plant.boomHeester ? '' : ' Kies een plantvak; bomen en heesters staan als los punt op de kaart.'}</p>
     <div className="beheer-werkblad">
       <Kaart plekken={plekken} gekozen={gekozenPlek} onKies={setGekozenPlek} namen={namen} planten={planten} beplanting={beplanting} />
       <aside>
@@ -40,11 +45,13 @@ export default function PlekAanwijzen({ slug }: { slug: string }) {
             <ul>{hier.map((ander) => <li key={ander.slug}>{ander.naam}</li>)}</ul>
           </>}
           <Melding fout={fout} />
-          {staatEr
-            ? <p className="beheer-let-op">De {plant.naam} staat hier al.</p>
-            : <button type="button" className="beheer-doen" disabled={bezig} onClick={() => void doe(() => zetOpPlek(plant, gekozenPlek))}>
-                {bezig ? 'Bezig met opslaan…' : `${plant.naam} op deze plek zetten`}
-              </button>}
+          {!magHier
+            ? <p className="beheer-let-op">Dit is een boom of heester. Zo&apos;n plek is één punt op de kaart en dat punt is de boom zelf, dus er kan geen andere plant bij. Kies een plantvak.</p>
+            : staatEr
+              ? <p className="beheer-let-op">Hier staat al {plant.naam}.</p>
+              : <button type="button" className="beheer-doen" disabled={bezig} onClick={() => void doe(() => zetOpPlek(plant, gekozenPlek))}>
+                  {bezig ? 'Bezig met opslaan…' : `${plant.naam} op deze plek zetten`}
+                </button>}
         </div>}
         <Link className="beheer-uitweg" href={`/beheren/plaatsen/${encodeURIComponent(plant.slug)}/nieuwe-plek`}>
           <b>Ik kan de juiste plek niet aanwijzen</b>

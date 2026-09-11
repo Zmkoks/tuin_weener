@@ -21,8 +21,8 @@ export default function PlantKiezen({ plekId }: { plekId: string }) {
   return <div className="beheer">
     <BovenaanBeginnen />
     <Terug naar="/beheren/weghalen" tekst="Een andere plek kiezen" />
-    <h1>Welke plant staat hier niet meer?</h1>
-    <p className="lead">Kies de plant die je niet meer op deze plek hebt gezien.</p>
+    <h1>Welke plant wil je verwijderen?</h1>
+    <p className="lead">Kies de plant die hier niet meer staat. Hij blijft wel in de bibliotheek staan.</p>
     <div className="beheer-lijst">
       {hier.map((plant) => <Link key={plant.slug} href={`/beheren/weghalen/${encodeURIComponent(plekId)}/${encodeURIComponent(plant.slug)}`}>
         <PlantFoto plant={plant} />

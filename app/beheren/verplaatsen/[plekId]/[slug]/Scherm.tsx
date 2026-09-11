@@ -27,6 +27,9 @@ export default function NieuwePlekKiezen({ plekId, slug }: { plekId: string; slu
 
   const hier = nieuwePlek ? plantenOp(nieuwePlek) : [];
   const zelfdePlek = nieuwePlek === plekId;
+  // Zelfde regel als bij het plaatsen: een boom- of heesterpunt is de boom zelf.
+  const opPunt = plekVan(nieuwePlek)?.soort === 'heester';
+  const magHier = !opPunt || Boolean(plant.boomHeester);
   const staatEr = Boolean(nieuwePlek) && (beplanting[nieuwePlek] || []).includes(slug);
 
   return <div className="beheer">
@@ -50,11 +53,13 @@ export default function NieuwePlekKiezen({ plekId, slug }: { plekId: string; slu
           <Melding fout={fout} />
           {zelfdePlek
             ? <p className="beheer-let-op">Dit is de plek waar hij nu al staat. Kies een andere plek.</p>
+            : !magHier
+            ? <p className="beheer-let-op">Dit is een boom of heester. Zo&apos;n plek is één punt op de kaart en dat punt is de boom zelf, dus er kan geen andere plant bij. Kies een plantvak.</p>
             : <>
               {/* Staat de plant op allebei de plekken, dan komt verhuizen neer op alleen
                   weghalen bij de oude. Dat mag gewoon: `verplaats` schrijft de nieuwe plek
                   zonder dubbele regel. Het bijschrift vertelt wel wat er dan echt gebeurt. */}
-              {staatEr && <p className="beheer-let-op">De {plant.naam} staat hier al. Hij wordt dan alleen van de oude plek gehaald.</p>}
+              {staatEr && <p className="beheer-let-op">Hier staat al {plant.naam}. Die wordt dan alleen van de oude plek gehaald.</p>}
               <button type="button" className="beheer-doen" disabled={bezig} onClick={() => void doe(() => verplaats(plant, plekId, nieuwePlek))}>
                 {bezig ? 'Bezig met opslaan…' : `${plant.naam} hierheen verplaatsen`}
               </button>

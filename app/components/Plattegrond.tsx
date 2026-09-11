@@ -20,7 +20,8 @@ export type PlattegrondZone = {
 
 type Props = {
   zones: PlattegrondZone[];
-  gekozen: string;
+  /** Welke plek oplicht. Een kaart die alleen laat zien wat er staat kiest niets. */
+  gekozen?: string;
   onKies?: (id: string) => void;
   /** Voor de tekst die verschijnt als je met de muis boven een vak hangt. */
   namen?: Record<string, string[]>;
@@ -28,7 +29,7 @@ type Props = {
   opPunt?: (x: number, y: number) => void;
   /** Het aangewezen punt, om te laten zien waar het terechtkomt. */
   punt?: { x: number; y: number } | null;
-  /** De actuele planten en beplanting; zonder deze props blijft de oude kaart werken. */
+  /** De actuele planten en beplanting; zonder deze props blijft het bij het kale terrein. */
   plants?: Plant[];
   placements?: Record<string, string[]>;
   /** Nummers en legenda (`KaartIndex`), boven de plantlaag en onder de klikvlakken. */
@@ -53,9 +54,20 @@ function parseerSymboolbron(tekst: string) {
   return new DOMParser().parseFromString(tekst, 'image/svg+xml');
 }
 
-function laadSymboolbronnen() {
+/**
+ * De symbolen ophalen, één keer per pagina. De belofte wordt bewaard en niet het resultaat,
+ * zodat de kaart en de printknop op dezelfde ophaalactie wachten.
+ *
+ * Mislukt de bibliotheek, dan geven we `null` terug in plaats van te struikelen: de kaart
+ * tekent dan eenvoudige vormen in plaats van niets, en de printknop komt vrij. Wel wordt de
+ * bewaarde belofte losgelaten, zodat een volgende poging het opnieuw probeert.
+ */
+export function laadSymboolbronnen() {
   symbolenBronnen ??= Promise.all([
-    fetch('/symbolen/bibliotheek.svg').then((antwoord) => antwoord.text()).then(parseerSymboolbron),
+    fetch('/symbolen/bibliotheek.svg')
+      .then((antwoord) => antwoord.ok ? antwoord.text() : '')
+      .then((tekst) => tekst ? parseerSymboolbron(tekst) : null)
+      .catch(() => { symbolenBronnen = null; return null; }),
     fetch('/api/symbolen')
       .then((antwoord) => antwoord.ok ? antwoord.text() : '')
       .then((tekst) => tekst ? parseerSymboolbron(tekst) : null)
@@ -140,6 +152,17 @@ function Plantenlaag({ zones, plants, placements }: { zones: PlattegrondZone[]; 
     [catalogus, placements, plants, zones],
   );
 
+  // Niets tekenen zolang de symbolen niet binnen zijn. Zonder deze regel werd de kaart in
+  // twee stappen opgebouwd: eerst elke plant als een ruwe ovaal (`PlantVorm`, de terugval
+  // wanneer er geen symbool is), daarna de echte tekeningen. Dat was niet alleen een andere
+  // vorm maar ook een andere plaats: zonder symbool valt `verhouding` terug op 0.8, en die
+  // waarde bepaalt via `berekenPlantPlaatsingen` de maat én de posities. De hele bak sprong
+  // dus om zodra de symbolen binnenkwamen. Nu gaat de kaart in één stap van kale tuin naar
+  // afgeronde tekening. `PlantVorm` blijft bestaan voor een plant die écht geen symbool
+  // heeft, en voor het geval de bibliotheek niet opgehaald kon worden. Dat is dan een
+  // blijvende toestand en geen tussenstap.
+  if (!bronnen) return null;
+
   return <g className="plattegrond-planten" aria-hidden="true">
     {tekeningen.map((tekening) => tekening.symbool
       ? <use key={tekening.id} href={`#${tekening.symbool}`} transform={`translate(${tekening.x},${tekening.y}) rotate(${tekening.scheef}) scale(${tekening.spiegel ? -tekening.hoogte : tekening.hoogte},${tekening.hoogte})`} />
@@ -148,15 +171,18 @@ function Plantenlaag({ zones, plants, placements }: { zones: PlattegrondZone[]; 
 }
 
 export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, punt, plants, placements, indexLaag }: Props) {
-  const dynamisch = Array.isArray(plants);
   const actueleBeplanting = placements ?? Object.fromEntries(zones.map((zone) => [zone.id, zone.planten ?? []]));
 
   return <svg className={`plattegrond${opPunt ? ' aanwijzen' : ''}`} viewBox="0 0 210 297" role="group" aria-label="Plattegrond van de tuin">
-    <image href={dynamisch ? '/plattegrond_ondergrond.svg' : '/plattegrond-tuin.svg'} x="0" y="0" width="210" height="297" />
-    {dynamisch && <g className="plattegrond-gebieden" aria-hidden="true">
+    {/* Alleen het kale terrein: paden, gazon, banken, deur. De planten worden hierboven
+        getekend uit de gegevens. Hier stond eerder een terugval naar `plattegrond-tuin.svg`,
+        een volledige kaart die op 7 september is gegenereerd — die liep dus achter zodra
+        iemand via Beheren iets veranderde. Geen enkele aanroep gebruikte die terugval nog. */}
+    <image href="/plattegrond_ondergrond.svg" x="0" y="0" width="210" height="297" />
+    <g className="plattegrond-gebieden" aria-hidden="true">
       {zones.filter((zone) => zone.soort !== 'vrij' && zone.vorm.type !== 'punt').map((zone) => <Vorm key={zone.id} zone={zone} />)}
-    </g>}
-    {dynamisch && plants && <Plantenlaag zones={zones} plants={plants} placements={actueleBeplanting} />}
+    </g>
+    {plants && <Plantenlaag zones={zones} plants={plants} placements={actueleBeplanting} />}
     {indexLaag}
     {zones.map((zone) => {
       const hier = namen?.[zone.id] || [];

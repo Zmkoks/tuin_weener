@@ -30,6 +30,20 @@ export type Plant = {
   zon: string;
   zonInfo: string;
   functies: { primair: string[]; secundair: string[] };
+  /** null = nog niet inhoudelijk beoordeeld. */
+  eetbaar?: boolean | null;
+  eetbaarInfo?: string;
+  /** Of het aanwezige exemplaar daadwerkelijk iets oplevert. null = nog navragen. */
+  oogstbaarInTuin?: boolean | null;
+  /** Plaatselijke bijzonderheid of uitleg bij een redactionele keuze. */
+  tuinOpmerking?: string;
+  /** Staat als boom of heester in de tuinindeling. */
+  boomHeester?: boolean;
+  /** null = nog niet inhoudelijk beoordeeld. */
+  gevaarlijk?: boolean | null;
+  gevaarlijkInfo?: string;
+  /** Alleen relevant voor onkruid dat veilig kan blijven staan. */
+  waaromLatenStaan?: string;
   oogstTijd: string[];
   oogstMethode: string;
   extraOogstTijd: string[];

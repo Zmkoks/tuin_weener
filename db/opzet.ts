@@ -149,6 +149,174 @@ export const MIGRATIES: Migratie[] = [
       )`,
     ],
   },
+  {
+    // Eetbaarheid en gevaar zijn inhoudelijke beoordelingen, los van de functielabels.
+    // NULL betekent dat een bestaande plant nog moet worden gecontroleerd; 0 en 1 zijn
+    // bewuste antwoorden. De oude extra-oogstkolommen blijven tijdens de overgang bestaan.
+    naam: '0003_eetbaarheid_gevaar_en_onkruid',
+    stappen: [
+      `ALTER TABLE planten ADD COLUMN eetbaar INTEGER`,
+      `ALTER TABLE planten ADD COLUMN eetbaar_info TEXT NOT NULL DEFAULT ''`,
+      `ALTER TABLE planten ADD COLUMN gevaarlijk INTEGER`,
+      `ALTER TABLE planten ADD COLUMN gevaarlijk_info TEXT NOT NULL DEFAULT ''`,
+      `ALTER TABLE planten ADD COLUMN waarom_laten_staan TEXT NOT NULL DEFAULT ''`,
+      `UPDATE planten
+       SET eetbaar = 1
+       WHERE oogst_tijd <> '' OR extra_oogst_tijd <> ''`,
+      // In de huidige gegevens hebben kiwi en azarooldoorn alleen een extra oogst. Kopieer
+      // die alvast naar de blijvende oogstvelden, maar wis de oude velden nog niet.
+      `UPDATE planten
+       SET oogst_tijd = extra_oogst_tijd,
+           oogst_methode = extra_oogst_methode
+       WHERE oogst_tijd = '' AND extra_oogst_tijd <> ''`,
+    ],
+  },
+  {
+    // Eerste inhoudelijke beoordeling van de 25 bestaande planten. Migratie 0005 splitst
+    // botanische eetbaarheid daarna van de werkelijke oogstbaarheid van het tuinexemplaar.
+    naam: '0004_beoordeel_bestaande_planten',
+    stappen: [
+      `UPDATE planten SET
+        eetbaar = CASE slug
+          WHEN 'aardbei' THEN 1 WHEN 'bosbes' THEN 1 WHEN 'bieslook' THEN 1
+          WHEN 'kiwi' THEN 0 WHEN 'citroenmelisse' THEN 1 WHEN 'dragon' THEN 1
+          WHEN 'edel-duizendblad' THEN 0 WHEN 'framboos' THEN 1 WHEN 'knopherik' THEN 0
+          WHEN 'lavendel' THEN 1 WHEN 'marjolein' THEN 1 WHEN 'munt' THEN 1
+          WHEN 'rode-bes' THEN 1 WHEN 'rozemarijn' THEN 1 WHEN 'salie' THEN 1
+          WHEN 'teunisbloem' THEN 0 WHEN 'tijm' THEN 1 WHEN 'venkel' THEN 1
+          WHEN 'zwarte-bes' THEN 1 WHEN 'spaanse-aak' THEN 0 WHEN 'wegedoorn' THEN 0
+          WHEN 'kardinaalmuts' THEN 0 WHEN 'witte-moerbei' THEN 0 WHEN 'meidoorn' THEN 0
+          WHEN 'azarooldoorn' THEN 1 ELSE eetbaar END,
+        gevaarlijk = CASE slug
+          WHEN 'wegedoorn' THEN 1 WHEN 'kardinaalmuts' THEN 1 ELSE 0 END,
+        eetbaar_info = CASE slug
+          WHEN 'aardbei' THEN 'De rijpe rode vruchten zijn eetbaar.'
+          WHEN 'bosbes' THEN 'De rijpe donkerblauwe bessen zijn eetbaar.'
+          WHEN 'bieslook' THEN 'De groene sprieten en bloemen zijn eetbaar.'
+          WHEN 'citroenmelisse' THEN 'De jonge bladeren zijn bruikbaar in eten en thee.'
+          WHEN 'dragon' THEN 'De jonge bladeren en zachte toppen zijn bruikbaar als keukenkruid.'
+          WHEN 'framboos' THEN 'De rijpe frambozen zijn eetbaar.'
+          WHEN 'lavendel' THEN 'De bloemen zijn in kleine hoeveelheden bruikbaar als smaakmaker.'
+          WHEN 'marjolein' THEN 'De bladeren en jonge toppen zijn bruikbaar als keukenkruid.'
+          WHEN 'munt' THEN 'De bladeren zijn bruikbaar in eten en thee.'
+          WHEN 'rode-bes' THEN 'De rijpe rode bessen zijn eetbaar.'
+          WHEN 'rozemarijn' THEN 'De jonge takjes en bladeren zijn bruikbaar als keukenkruid.'
+          WHEN 'salie' THEN 'De bladeren zijn in kleine hoeveelheden bruikbaar als keukenkruid.'
+          WHEN 'tijm' THEN 'De bladeren en jonge toppen zijn bruikbaar als keukenkruid.'
+          WHEN 'venkel' THEN 'De bladeren, bloemen en rijpe zaden zijn eetbaar.'
+          WHEN 'zwarte-bes' THEN 'De rijpe zwarte bessen zijn eetbaar.'
+          WHEN 'azarooldoorn' THEN 'De rijpe vruchten zijn eetbaar. Verwijder de pitten voor gebruik.'
+          ELSE '' END,
+        gevaarlijk_info = CASE slug
+          WHEN 'wegedoorn' THEN 'Eet geen delen van deze plant. Vooral de zwarte vruchten kunnen klachten veroorzaken.'
+          WHEN 'kardinaalmuts' THEN 'Eet geen delen van deze plant. Ook de opvallende vruchten zijn niet eetbaar.'
+          ELSE '' END,
+        waarom_laten_staan = CASE slug
+          WHEN 'edel-duizendblad' THEN 'De bloemen geven voedsel aan insecten en zorgen voor kleur in de tuin.'
+          WHEN 'knopherik' THEN 'De bloemen geven voedsel aan bijen en zweefvliegen.'
+          WHEN 'teunisbloem' THEN 'De bloemen geven kleur en voedsel aan insecten en de zaden zijn voedsel voor vogels.'
+          ELSE '' END
+       WHERE slug IN (
+         'aardbei','bosbes','bieslook','kiwi','citroenmelisse','dragon','edel-duizendblad',
+         'framboos','knopherik','lavendel','marjolein','munt','rode-bes','rozemarijn','salie',
+         'teunisbloem','tijm','venkel','zwarte-bes','spaanse-aak','wegedoorn','kardinaalmuts',
+         'witte-moerbei','meidoorn','azarooldoorn'
+       )`,
+      `UPDATE planten
+       SET functies_primair = 'kruid,insecten', functies_secundair = ''
+       WHERE slug = 'venkel'`,
+      `UPDATE planten
+       SET oogst_tijd = extra_oogst_tijd, oogst_methode = extra_oogst_methode,
+           extra_oogst_tijd = '', extra_oogst_methode = ''
+       WHERE slug = 'azarooldoorn' AND extra_oogst_tijd <> ''`,
+    ],
+  },
+  {
+    // Botanische eetbaarheid en daadwerkelijke oogst in deze tuin zijn verschillende
+    // gegevens. Een vrije tuinopmerking legt plaatselijke afwijkingen en onzekerheid uit.
+    naam: '0005_oogstbaar_in_tuin',
+    stappen: [
+      `ALTER TABLE planten ADD COLUMN oogstbaar_in_tuin INTEGER`,
+      `ALTER TABLE planten ADD COLUMN tuin_opmerking TEXT NOT NULL DEFAULT ''`,
+      `UPDATE planten SET oogstbaar_in_tuin = CASE WHEN eetbaar = 1 THEN 1 ELSE 0 END`,
+      `UPDATE planten SET
+         eetbaar = 1,
+         eetbaar_info = 'De vruchten van deze soort zijn eetbaar.',
+         oogstbaar_in_tuin = 0,
+         tuin_opmerking = 'Deze kiwi draagt in onze tuin geen vruchten.'
+       WHERE slug = 'kiwi'`,
+      `UPDATE planten SET
+         eetbaar = 1,
+         eetbaar_info = 'De rijpe vruchten van deze soort zijn eetbaar.',
+         oogstbaar_in_tuin = 0,
+         tuin_opmerking = 'Deze witte moerbei draagt in onze tuin geen vruchten.'
+       WHERE slug = 'witte-moerbei'`,
+      `UPDATE planten SET
+         eetbaar = 1,
+         eetbaar_info = 'Jonge delen van de soort worden soms gegeten.',
+         oogstbaar_in_tuin = 1
+       WHERE slug = 'knopherik'`,
+      `UPDATE planten SET
+         eetbaar = 1,
+         eetbaar_info = 'Rijpe meidoornvruchten zijn eetbaar na verwijdering van de pitten.',
+         oogstbaar_in_tuin = 1
+       WHERE slug = 'meidoorn'`,
+      `UPDATE planten SET
+         tuin_opmerking = 'De precieze soort is onzeker. Dit kan gewone rozemarijn, Salvia rosmarinus, zijn.'
+       WHERE slug = 'rozemarijn'`,
+    ],
+  },
+  {
+    // Eén simpele ja/nee-waarde die aansluit op de bestaande boom- en heesterplekken van
+    // de plattegrond. Dit staat los van het functielabel `boom`.
+    naam: '0006_boom_heester',
+    stappen: [
+      `ALTER TABLE planten ADD COLUMN boom_heester INTEGER NOT NULL DEFAULT 0`,
+      `UPDATE planten SET boom_heester = CASE WHEN slug IN (
+         'spaanse-aak','wegedoorn','kardinaalmuts','witte-moerbei','meidoorn','azarooldoorn'
+      ) THEN 1 ELSE 0 END`,
+    ],
+  },
+  {
+    // Voorbeeld van de nieuwe redactionele logica: gevaarlijk onkruid dat uit de tuin weg
+    // moet. INSERT OR IGNORE houdt een eventueel al handmatig toegevoegd exemplaar intact.
+    naam: '0007_reuzenberenklauw',
+    stappen: [
+      `INSERT OR IGNORE INTO planten (
+         slug, naam, plantnummer, botanische_naam, zon, zon_info,
+         water_ondergrens, water_bovengrens, water_info,
+         functies_primair, functies_secundair,
+         eetbaar, eetbaar_info, oogstbaar_in_tuin, tuin_opmerking, boom_heester,
+         gevaarlijk, gevaarlijk_info, waarom_laten_staan,
+         oogst_tijd, oogst_methode, extra_oogst_tijd, extra_oogst_methode,
+         snoei_tijd, snoei_tijd_info, snoei_methode, snoei_informatie,
+         woeker_toestemming, woeker_verbod, levensduur, groei, bloei, sterf,
+         commons, commons_illustraties, intro, weetje, aangemaakt_op, gewijzigd_op
+       ) VALUES (
+         'reuzenberenklauw', 'reuzenberenklauw', '26',
+         'Heracleum mantegazzianum Sommier & Levier', 'halfschaduw',
+         'Reuzenberenklauw groeit op zonnige en halfbeschaduwde plekken. Hij groeit vaak op vochtige, voedselrijke grond.',
+         '1', '3', 'Deze plant hoeft geen water. Geef geen water en kom niet onnodig dichtbij.',
+         'onkruid', '',
+         0, '', 0, 'Haal deze plant weg. Voorkom in ieder geval dat hij rijpe zaden maakt.', 0,
+         1, 'Het sap kan samen met zonlicht ernstige huidbeschadiging veroorzaken. Bescherm huid en ogen.', '',
+         '', '', '', '',
+         'Maart,April,Mei,Juni,Juli,Augustus',
+         'Begin in het vroege voorjaar. Controleer de plek in de zomer opnieuw. Voorkom altijd dat de plant rijpe zaden maakt.',
+         'Draag volledig bedekkende kleding, stevige handschoenen en oogbescherming. Steek de wortel in het voorjaar minstens 15 centimeter onder de grond af. Herhaal dit als de plant terugkomt.',
+         'Het sap kan samen met zonlicht ernstige huidbeschadiging veroorzaken. Bescherm huid en ogen. Voer verwijderde delen af met het groenafval en laat ze niet in de tuin liggen.',
+         'Haal de plant weg voordat hij zaad maakt. Werk alleen met volledig bedekte huid, stevige handschoenen en oogbescherming.',
+         'Raak de plant niet met blote huid aan. Maai of knip hem niet zonder beschermende kleding. Laat geen bloemen met rijpe zaden staan.',
+         'Meerjarig', 'Maart,April,Mei,Juni,Juli,Augustus,September,Oktober',
+         'Juni,Juli,Augustus', 'November,December,Januari,Februari',
+         'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum',
+         'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)',
+         'Reuzenberenklauw is een zeer grote plant met witte bloemschermen. Het sap kan de huid ernstig beschadigen in zonlicht.',
+         'De plant kan meer dan drie meter hoog worden en maakt zeer veel zaden.',
+         CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+       )`,
+    ],
+  },
 ];
 
 let gedaan: Promise<void> | null = null;

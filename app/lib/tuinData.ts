@@ -1,6 +1,7 @@
 import vastePlekken from '@/app/data/tuin.json';
 import startPlanten from '@/app/data/planten.json';
 import type { Plant } from '@/app/data/plantTypes';
+import { metPlantBeoordeling } from '@/app/data/plantBeoordelingen';
 import type { Plek } from '@/app/data/plekTypes';
 import { leesBeplanting } from '@/db/beplanting';
 import { leesPlanten } from '@/db/planten';
@@ -17,6 +18,7 @@ import { leesPlekken } from '@/db/plekken';
 
 /** De plekken uit tuin.json. Alleen nog terugval en startvulling. */
 export const vasteZones = vastePlekken as Plek[];
+const beoordeeldeStartPlanten = (startPlanten as Plant[]).map(metPlantBeoordeling);
 
 export async function laadZones(): Promise<Plek[]> {
   try {
@@ -30,7 +32,7 @@ export async function laadPlanten(): Promise<Plant[]> {
   try {
     return await leesPlanten();
   } catch {
-    return startPlanten as Plant[];
+    return beoordeeldeStartPlanten;
   }
 }
 

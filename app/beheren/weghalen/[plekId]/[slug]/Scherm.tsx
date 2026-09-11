@@ -26,7 +26,7 @@ export default function Bevestigen({ plekId, slug }: { plekId: string; slug: str
   return <div className="beheer">
     <BovenaanBeginnen />
     <Terug naar={terug} tekst="Een andere plant kiezen" />
-    <h1>Welke plant staat hier niet meer?</h1>
+    <h1>Welke plant wil je verwijderen?</h1>
     <Melding fout={fout} />
     <div className="beheer-paneel beheer-bevestig">
       <h2>{plant.naam} van deze plek halen?</h2>

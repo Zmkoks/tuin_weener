@@ -142,10 +142,16 @@ export function SectieSnoeien({ plant }: { plant: Plant }) {
 }
 
 export function SectieMagWeg({ plant }: { plant: Plant }) {
+  const onkruid = [...plant.functies.primair, ...plant.functies.secundair].includes('onkruid');
+  if (onkruid && plant.gevaarlijk) return null;
+  if (onkruid) return <section className="allowed"><h3>Waarom laten staan?</h3><p>{plant.waaromLatenStaan || 'Deze plant mag blijven staan zolang hij andere planten niet hindert.'}</p></section>;
   return <section className="allowed"><h3>Toegestaan</h3><p>{plant.woekerToestemming}</p></section>;
 }
 
 export function SectieMoetBlijven({ plant }: { plant: Plant }) {
+  const onkruid = [...plant.functies.primair, ...plant.functies.secundair].includes('onkruid');
+  if (onkruid) return <section className="forbidden"><h3>{plant.gevaarlijk ? 'Haal weg' : 'Wanneer weghalen?'}</h3>{plant.gevaarlijkInfo && <p><strong>Let op:</strong> {plant.gevaarlijkInfo}</p>}<p>{plant.woekerToestemming}</p></section>;
+  if (plant.gevaarlijk) return <section className="forbidden"><h3>Let op!</h3><p>{plant.gevaarlijkInfo}</p></section>;
   return <section className="forbidden"><h3>Niet doen</h3><p>{plant.woekerVerbod}</p></section>;
 }
 
@@ -155,9 +161,14 @@ export function SectieIllustratie({ plant }: { plant: Plant }) {
   if (!beeld) return null;
   const bijschrift = `Botanische illustratie van de ${plant.naam}.`;
   return <section className="illustratie-blok">
+    {/* `stijl` en niet `stijlMetZoom`: de illustratie wordt sinds 10 september 2026 niet meer
+        bijgesteld. Ze staat in een recht kader en hoort gewoon volledig leesbaar te zijn; wie
+        hem strakker wil, snijdt hem vooraf zelf bij. De opgeslagen `zoom` bij een enkele plant
+        (de beemdooievaarsbek stond op 1,12) doet daarmee niets meer, in plaats van te blijven
+        hangen op een waarde die niemand nog kan veranderen. */}
     <IllustratieGroot
       src={beeld.src}
-      stijl={beeld.stijlMetZoom}
+      stijl={beeld.stijl}
       alt={`Botanische illustratie van de ${plant.naam}`}
       bijschrift={bijschrift}
     />

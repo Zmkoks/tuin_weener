@@ -1760,5 +1760,52 @@
       "zoom": 1,
       "bron": "https://commons.wikimedia.org/w/index.php?curid=2252267"
     }
+  },
+  {
+    "slug": "reuzenberenklauw",
+    "naam": "reuzenberenklauw",
+    "plantnummer": "26",
+    "waterOndergrens": "1",
+    "waterBovengrens": "3",
+    "waterInfo": "Deze plant hoeft geen water. Geef geen water en kom niet onnodig dichtbij.",
+    "zon": "halfschaduw",
+    "zonInfo": "Reuzenberenklauw groeit op zonnige en halfbeschaduwde plekken. Hij groeit vaak op vochtige, voedselrijke grond.",
+    "functies": {
+      "primair": ["onkruid"],
+      "secundair": []
+    },
+    "oogstTijd": [],
+    "oogstMethode": "",
+    "extraOogstTijd": [],
+    "extraOogstMethode": "",
+    "snoeiTijd": ["Maart", "April", "Mei", "Juni", "Juli", "Augustus"],
+    "snoeiTijdInfo": "Begin in het vroege voorjaar. Controleer de plek in de zomer opnieuw. Voorkom altijd dat de plant rijpe zaden maakt.",
+    "snoeiMethode": "Draag volledig bedekkende kleding, stevige handschoenen en oogbescherming. Steek de wortel in het voorjaar minstens 15 centimeter onder de grond af. Herhaal dit als de plant terugkomt.",
+    "snoeiInformatie": "Het sap kan samen met zonlicht ernstige huidbeschadiging veroorzaken. Bescherm huid en ogen. Voer verwijderde delen af met het groenafval en laat ze niet in de tuin liggen.",
+    "woekerToestemming": "Haal de plant weg voordat hij zaad maakt. Werk alleen met volledig bedekte huid, stevige handschoenen en oogbescherming.",
+    "woekerVerbod": "Raak de plant niet met blote huid aan. Maai of knip hem niet zonder beschermende kleding. Laat geen bloemen met rijpe zaden staan.",
+    "levensduur": "Meerjarig",
+    "groei": ["Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober"],
+    "bloei": ["Juni", "Juli", "Augustus"],
+    "sterf": ["November", "December", "Januari", "Februari"],
+    "botanischeNaam": "Heracleum mantegazzianum Sommier & Levier",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum",
+    "commonsIllustraties": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)",
+    "intro": "Reuzenberenklauw is een zeer grote plant met witte bloemschermen. Het sap kan de huid ernstig beschadigen in zonlicht.",
+    "weetje": "De plant kan meer dan drie meter hoog worden en maakt zeer veel zaden.",
+    "foto": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum"
+    },
+    "illustratie": {
+      "bestand": "",
+      "x": 50,
+      "y": 50,
+      "zoom": 1,
+      "bron": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)"
+    }
   }
 ]
