@@ -7,7 +7,9 @@ import { BovenaanBeginnen, Melding, NietGevonden, Terug, useHandeling } from '..
 import type { Plant } from '@/app/data/plantTypes';
 
 function Formulier({ plant }: { plant: Plant }) {
-  const { bewaarPlant } = useBeheer();
+  const { bewaarPlant, verwijderPlant, plekkenVan } = useBeheer();
+  const [bevestigen, setBevestigen] = useState(false);
+  const aantalPlekken = plekkenVan(plant.slug).length;
   const [waarden, setWaarden] = useState<PlantForm>(() => formVanPlant(plant));
   const { bezig, fout, doe } = useHandeling();
 
@@ -26,6 +28,18 @@ function Formulier({ plant }: { plant: Plant }) {
         </div>
       </div>
     </form>
+    <section className="plant-verwijderen" aria-labelledby="verwijderen-kop">
+      <h2 id="verwijderen-kop">Plant volledig verwijderen</h2>
+      <p>{aantalPlekken ? `Deze plant staat op ${aantalPlekken} ${aantalPlekken === 1 ? 'plek' : 'plekken'} in de tuin. Hij wordt ook van die plekken gehaald.` : 'Deze plant staat niet in de tuin en verschijnt daarom niet op de homepage. Je kunt hem bewaren in de bibliotheek of volledig verwijderen.'}</p>
+      {bevestigen ? <>
+        <p role="alert">Wil je {plant.naam} definitief verwijderen? Alle plantinformatie en symboolkeuzes verdwijnen. Het plantenadres en de QR-code werken daarna niet meer. Dit kun je niet ongedaan maken.</p>
+        <div className="plant-form-actions">
+          <button type="button" disabled={bezig} onClick={() => setBevestigen(false)}>Annuleren</button>
+          <button type="button" className="verwijder-knop" disabled={bezig} onClick={() => void doe(() => verwijderPlant(plant))}>{bezig ? 'Bezig…' : 'Ja, definitief verwijderen'}</button>
+        </div>
+        <Melding fout={fout} />
+      </> : <button type="button" disabled={bezig} onClick={() => setBevestigen(true)}>Plant verwijderen…</button>}
+    </section>
   </div>;
 }
 

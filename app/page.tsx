@@ -17,5 +17,6 @@ export const metadata: Metadata = {
 
 export default async function Pagina() {
   const [planten, plekken, beplanting] = await Promise.all([laadPlanten(), laadZones(), laadBeplanting()]);
-  return <Home planten={planten} plekkenVanaf={plekken} beplanting={beplanting} />;
+  const inTuin = new Set(plekken.flatMap((plek) => beplanting[plek.id] ?? []));
+  return <Home planten={planten.filter((plant) => inTuin.has(plant.slug))} plekkenVanaf={plekken} beplanting={beplanting} />;
 }

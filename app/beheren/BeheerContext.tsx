@@ -40,6 +40,7 @@ type Beheer = {
   haalWeg: (plant: Plant, plekId: string) => Promise<void>;
   verplaats: (plant: Plant, van: string, naar: string) => Promise<void>;
   bewaarPlant: (plant: Plant, waarden: PlantForm) => Promise<void>;
+  verwijderPlant: (plant: Plant) => Promise<void>;
   nieuwePlantOpgeslagen: (plant: Plant) => void;
 };
 
@@ -208,6 +209,17 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     );
   }, [klaar]);
 
+  const verwijderPlant = useCallback(async (plant: Plant) => {
+    const antwoord = await fetch(`/api/planten/${encodeURIComponent(plant.slug)}`, { method: 'DELETE' });
+    if (!antwoord.ok) {
+      const gegevens = await antwoord.json().catch(() => ({})) as { error?: string };
+      throw new Error(gegevens.error || 'Verwijderen is niet gelukt.');
+    }
+    setPlanten((vorige) => vorige.filter((ander) => ander.slug !== plant.slug));
+    setBeplant((vorige) => Object.fromEntries(Object.entries(vorige).map(([id, slugs]) => [id, slugs.filter((slug) => slug !== plant.slug)])));
+    klaar(`${plant.naam} is verwijderd`, 'De plant is uit de bibliotheek en van alle tuinplekken verwijderd. Het oude plantenadres en de QR-code werken niet meer.');
+  }, [klaar]);
+
   const nieuwePlantOpgeslagen = useCallback((plant: Plant) => {
     setPlanten((vorige) => (vorige.some((ander) => ander.slug === plant.slug)
       ? vorige.map((ander) => (ander.slug === plant.slug ? plant : ander))
@@ -230,6 +242,7 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     haalWeg,
     verplaats,
     bewaarPlant,
+    verwijderPlant,
     nieuwePlantOpgeslagen,
   };
 

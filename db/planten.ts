@@ -57,6 +57,19 @@ export async function maakPlant(plant: Plant) {
   return plant;
 }
 
+/** Plant en alle koppelingen verdwijnen samen; de tuinplekken zelf blijven bestaan. */
+export async function verwijderPlant(slug: string) {
+  await klaar();
+  await env.DB.batch([
+    // Voorkom opnieuw vullen als ook de laatste plant wordt verwijderd.
+    env.DB.prepare('INSERT OR IGNORE INTO migraties (naam, gedraaid_op) VALUES (?, ?)')
+      .bind('planten_startvulling_voltooid', new Date().toISOString()),
+    env.DB.prepare('DELETE FROM beplanting WHERE plant_slug = ?').bind(slug),
+    env.DB.prepare('DELETE FROM plant_symbolen WHERE plant_slug = ?').bind(slug),
+    env.DB.prepare('DELETE FROM planten WHERE slug = ?').bind(slug),
+  ]);
+}
+
 /** Bijwerken laat `aangemaakt_op` staan, zodat de volgorde van de bibliotheek niet verspringt. */
 export async function bewaarPlant(plant: Plant) {
   await klaar();

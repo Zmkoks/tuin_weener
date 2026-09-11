@@ -44,7 +44,9 @@ async function vul() {
   const nu = new Date().toISOString();
 
   const planten = await env.DB.prepare('SELECT COUNT(*) AS aantal FROM planten').first<{ aantal: number }>();
-  if (!planten?.aantal) {
+  const eerderGevuld = await env.DB.prepare('SELECT naam FROM migraties WHERE naam = ?')
+    .bind('planten_startvulling_voltooid').first();
+  if (!planten?.aantal && !eerderGevuld) {
     const opdrachten = (startPlanten as Plant[]).map(metPlantBeoordeling).flatMap((plant) => [
       bewaarPlantOpdracht(plant, nu, nu),
       ...symboolOpdrachten(plant),
