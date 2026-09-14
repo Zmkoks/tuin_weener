@@ -1,0 +1,59 @@
+Worked for 40s
+
+1. Beoordelen van ambiguïteit
+2. Invullen van algemene gegevens
+3. Assessed ambiguity and filled in general information
+4. Samenstellen van het record
+5. Stelde het record samen
+6. Bepalen van soortgegevens
+7. Bepaalde gegevenstypen
+8. Balanceren van betrouwbaarheid
+9. Gebalanceerde betrouwbaarheid
+10. Weighing practical accuracy
+11. Weighed practical accuracy
+12. Afronden van plantinformatie
+13. Voltooide de plantinformatie
+14. Afronden van plantrecord
+15. Voltooide het plantrecord
+16. Searched 1 website
+
+{\
+&#x20;"naam": "Grote brandnetel",\
+&#x20;"botanischeNaam": "Urtica dioica",\
+&#x20;"functies": {\
+&#x20;"primair": ["onkruid"],\
+&#x20;"secundair": ["insecten"]\
+&#x20;},\
+&#x20;"intro": "De grote brandnetel herken je aan gezaagde bladeren en brandharen. De brandharen prikken bij aanraken en geven een brandend gevoel.",\
+&#x20;"weetje": "Mannelijke en vrouwelijke bloemen groeien meestal op verschillende planten.",\
+&#x20;"plantnummer": "",\
+&#x20;"waterOndergrens": "2",\
+&#x20;"waterBovengrens": "3",\
+&#x20;"waterInfo": "Voel 2 tot 3 centimeter diep in de grond. Geef water als de grond daar droog aanvoelt. Is de grond nog licht vochtig, wacht dan. Geef bij lange hitte extra water als de grond diep uitdroogt. Voorkom een blijvende plas water.",\
+&#x20;"zon": "halfschaduw",\
+&#x20;"zonInfo": "De grote brandnetel groeit in zon, halfschaduw en schaduw. Halfzonnige tot halfbeschaduwde plekken met voedselrijke, vochtige maar goed doorlatende grond passen goed.",\
+&#x20;"levensduur": "Meerjarig",\
+&#x20;"oogstTijd": ["Maart", "April", "Mei"],\
+&#x20;"oogstMethode": "Draag dikke handschoenen en bedek je armen. Knip vóór de bloei de jonge bladeren en jonge toppen af. Gebruik alleen jonge delen en kook of droog ze goed voor gebruik.",\
+&#x20;"extraOogstTijd": [],\
+&#x20;"extraOogstMethode": "",\
+&#x20;"snoeiTijd": [],\
+&#x20;"snoeiTijdInfo": "Snoei is niet nodig. Verwijder een ongewenste plant als onkruid en pak daarbij ook de wortelstokken aan.",\
+&#x20;"snoeiMethode": "",\
+&#x20;"snoeiInformatie": "Alleen boven de grond knippen stopt de plant niet. De plant kan opnieuw groeien vanuit ondergrondse wortelstokken.",\
+&#x20;"woekerToestemming": "Haal een ongewenste plant bij voorkeur uit de grond vóór de bloei. Draag dikke handschoenen, lange mouwen, een lange broek en dichte schoenen. Gebruik bij jonge planten een handvork. Gebruik bij grote planten een spitvork en steek die onder de wortels. Trek de plant rustig omhoog en haal zoveel mogelijk wortelstokken uit de grond. Verzamel wortelstukken en zaaddragende delen apart en doe ze niet in de eigen composthoop. Controleer de plek later opnieuw op nieuwe planten.",\
+&#x20;"woekerVerbod": "Raak bladeren en stengels niet met blote huid aan. Hak wortelstokken niet klein, want losse stukken kunnen opnieuw groeien. Gebruik geen spade om een grote brandnetelplek in kleine stukken te hakken.",\
+&#x20;"groei": ["Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober"],\
+&#x20;"bloei": ["Juni", "Juli", "Augustus", "September", "Oktober"],\
+&#x20;"sterf": ["November", "December", "Januari", "Februari"],\
+&#x20;"boomHeester": false,\
+&#x20;"eetbaar": true,\
+&#x20;"eetbaarInfo": "Jonge bladeren en jonge toppen zijn eetbaar. Kook of droog ze goed om de brandharen onschadelijk te maken. Eet verse bladeren niet rauw en gebruik geen oude bladeren.",\
+&#x20;"oogstbaarInTuin": null,\
+&#x20;"tuinOpmerking": "",\
+&#x20;"gevaarlijk": false,\
+&#x20;"gevaarlijkInfo": "",\
+&#x20;"waaromLatenStaan": "De grote brandnetel is een belangrijke voedselplant voor rupsen van vlinders. Laat een kleine plek alleen staan als daar ruimte voor is en de plant andere planten niet verdringt.",\
+&#x20;"commons": "[https://commons.wikimedia.org/wiki/Category:Urtica\_dioica](https://commons.wikimedia.org/wiki/Category:Urtica_dioica)",\
+&#x20;"commonsIllustraties": "[https://commons.wikimedia.org/wiki/Category:Urtica\_dioica\_-\_botanical\_illustrations](https://commons.wikimedia.org/wiki/Category:Urtica_dioica_-_botanical_illustrations)"\
+&#x20;}

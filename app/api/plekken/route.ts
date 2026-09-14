@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { Plek, Vorm } from '@/app/data/plekTypes';
-import { laadZones, vasteZones } from '@/app/lib/tuinData';
+import { laadPlanten, laadZones, vasteZones } from '@/app/lib/tuinData';
 import { leesBeplanting } from '@/db/beplanting';
 import { volgendBijgemaaktNummer, volgendPlekNummer, plekMetadata, maakPlek, verwijderPlek, leesPlek, wijzigPlekVorm } from '@/db/plekken';
 import { geldigeSessie } from '@/app/lib/auth';
@@ -12,7 +12,26 @@ const HOOGTE = 297;
 
 const rond = (waarde: number) => Math.round(waarde * 100) / 100;
 
-function nieuwePlek(vorm: Vorm, nummer: number, soort: 'bak' | 'vrij', label: string): Plek {
+/**
+ * De letter voor een nieuw boom- of heesterpunt. Dezelfde letter staat op de kaart voor
+ * dezelfde soort, dus staat deze plant al ergens als boom, dan krijgt hij die letter weer.
+ * Anders zijn beginletter, en is die al van een andere soort, de eerste vrije letter.
+ */
+async function boomLetter(slug: string, naam: string): Promise<string> {
+  const [zones, beplanting] = await Promise.all([laadZones(), leesBeplanting()]);
+  const bomen = zones.filter((zone) => zone.soort === 'heester');
+  const hier = (zone: Plek) => beplanting[zone.id] ?? zone.planten;
+  const eigen = bomen.find((zone) => hier(zone).includes(slug));
+  if (eigen) return eigen.label;
+  const bezet = new Set(bomen.filter((zone) => hier(zone).length > 0).map((zone) => zone.label));
+  const voorkeur = naam.trim().charAt(0).toUpperCase();
+  if (/^[A-Z]$/.test(voorkeur) && !bezet.has(voorkeur)) return voorkeur;
+  const vrij = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').find((letter) => !bezet.has(letter));
+  if (!vrij) throw new Error('Er zijn geen letters meer vrij voor een nieuwe boom of heester.');
+  return vrij;
+}
+
+function nieuwePlek(vorm: Vorm, nummer: number, soort: 'bak' | 'vrij' | 'heester', label: string): Plek {
   return {
     id: `eigen-${String(nummer).padStart(2, '0')}`,
     label,
@@ -39,7 +58,7 @@ export async function GET() {
 export async function POST(request: Request) {
   if (!await geldigeSessie(request)) return NextResponse.json({ error: 'Niet ingelogd.' }, { status: 401 });
   try {
-    const body = await request.json() as { x?: unknown; y?: unknown; vorm?: unknown; soort?: unknown };
+    const body = await request.json() as { x?: unknown; y?: unknown; vorm?: unknown; soort?: unknown; slug?: unknown };
     const [nummer, label] = await Promise.all([volgendBijgemaaktNummer(), volgendPlekNummer()]);
     let plek: Plek;
 
@@ -58,7 +77,15 @@ export async function POST(request: Request) {
       if (!Number.isFinite(x) || !Number.isFinite(y) || x < 0 || x > BREEDTE || y < 0 || y > HOOGTE) {
         return NextResponse.json({ error: 'Deze plek ligt buiten de plattegrond.' }, { status: 400 });
       }
-      plek = nieuwePlek({ type: 'punt', x: rond(x), y: rond(y) }, nummer, 'vrij', label);
+      if (body.soort === 'heester') {
+        // Een boom of heester is één punt en dat punt ís de plant; hij krijgt een letter, geen nummer.
+        const plant = typeof body.slug === 'string' ? (await laadPlanten()).find((p) => p.slug === body.slug) : undefined;
+        if (!plant) return NextResponse.json({ error: 'Kies eerst de boom of heester die hier staat.' }, { status: 400 });
+        if (!plant.boomHeester) return NextResponse.json({ error: 'Alleen een boom of heester kan als los punt op de kaart.' }, { status: 400 });
+        plek = nieuwePlek({ type: 'punt', x: rond(x), y: rond(y) }, nummer, 'heester', await boomLetter(plant.slug, plant.naam));
+      } else {
+        plek = nieuwePlek({ type: 'punt', x: rond(x), y: rond(y) }, nummer, 'vrij', label);
+      }
     }
 
     await maakPlek(plek);

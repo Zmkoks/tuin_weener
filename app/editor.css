@@ -30,7 +30,10 @@
 .prompt-card>small{display:block;margin-top:12px;color:var(--grijs);line-height:1.5}
 .prompt-input-card{background:rgba(75,225,110,.1)}
 .prompt-input-card p{color:var(--grijs);line-height:1.5}
+.prompt-input-card .creator-error{color:var(--roze);border:1px solid currentColor}
+.prompt-input-card .creator-error:focus{outline:3px solid rgba(253,199,67,.6);outline-offset:3px}
 .prompt-input-card textarea{width:100%;resize:vertical;border:1px solid #cbd5e1;border-radius:12px;padding:14px;background:#fff;color:var(--blauw);line-height:1.5}
+.prompt-input-card textarea[aria-invalid="true"]{border-color:var(--roze)}
 .prompt-input-card .primary-action{width:100%;min-height:50px;margin-top:12px}
 .plant-form{display:grid;gap:18px}
 .plant-form-section{border-top:1px solid var(--lijn);padding-top:22px}

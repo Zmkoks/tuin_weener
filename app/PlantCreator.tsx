@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type { Plant } from './data/plantTypes';
 import {
   FUNCTION_OPTIONS,
@@ -8,12 +8,20 @@ import {
   blankForm,
   nextPlantNumber,
   toPayload,
+  type Keuze,
   type PlantForm,
 } from './components/plantFormulier';
 
 type Props = { plants: Plant[]; onSaved: (plant: Plant) => void };
 
-const AUTOMATION_PROMPT = String.raw`Je bent een zorgvuldige plantenredacteur voor de gezamenlijke tuin van Weener XL in Nederland. Maak volledige, praktische en veilige gegevens voor de pagina van één nieuwe plant op basis van mijn beschrijving. De lezers zijn deelnemers zonder vakkennis.
+const AUTOMATION_PROMPT = String.raw`Je bent een zorgvuldige plantenredacteur voor de gezamenlijke tuin van Weener XL in Nederland. Maak volledige, praktische en veilige gegevens voor de pagina van één nieuwe plant op basis van mijn beschrijving. De lezers zijn volwassen medewerkers, begeleiders en deelnemers. Ook begeleiders gebruiken deze site zelf als praktische handleiding. Ga bij alle lezers uit van weinig tuinervaring.
+
+DOELGROEP EN ZELFSTANDIG GEBRUIK
+- Spreek de lezer rechtstreeks aan. De instructie moet ook bruikbaar zijn als de lezer zelf de begeleider is.
+- Schrijf niet standaard "vraag de begeleider", "laat een begeleider dit doen" of "verwijder dit niet zelf". Dat vervangt geen uitleg over wat er moet gebeuren.
+- Beschrijf wat iemand kan doen, op welk moment, met welk gereedschap en welke bescherming. Zet de handelingen in uitvoervolgorde. Leg noodzakelijke grenzen uit aan de hand van de plant en het werk.
+- Een gevaarlijke plant vraagt om een concrete, onderbouwde veilige aanpak. Geef alleen een werkwijze die je betrouwbaar kunt onderbouwen, inclusief voorwaarden en beperkingen. Een waarschuwing alleen is geen werkwijze; verzin ook geen methode om toch volledig te lijken.
+- Adviseer gespecialiseerde hulp alleen als het werk specifieke deskundigheid, middelen of omstandigheden vereist. Benoem dan welke deskundigheid nodig is, waarom, wanneer je niet zelf moet beginnen en wat je intussen wel kunt doen. Alleen begeleider zijn betekent niet dat iemand die deskundigheid heeft.
 
 TAALNIVEAU EN TOON
 - Schrijf op eenvoudig taalniveau A2/B1. De informatie moet ook duidelijk zijn voor iemand die weinig leest of Nederlands niet als eerste taal heeft.
@@ -27,11 +35,16 @@ TAALNIVEAU EN TOON
 - Schrijf rustig en respectvol voor volwassenen. Gebruik geen kinderlijke toon, uitroeptekens of grapjes in verzorgingsinstructies.
 - Maak waarschuwingen concreet. Schrijf wat niet mag én welk herkenbaar deel wel moet blijven.
 - De botanische naam mag vaktaal bevatten, maar de overige tekst moet zonder plantenkennis begrijpelijk zijn.
+- Houd tekstvelden beknopt. Geef meestal één tot drie korte zinnen per onderwerp. Geef extra zinnen alleen als iemand die nodig heeft om veilig te handelen.
+- Vermijd onduidelijke verwijzingen zoals "dit" of "die" als er meerdere plantdelen zijn genoemd. Noem dan het plantdeel opnieuw.
 
 WERKWIJZE
 - Bepaal eerst om welke soort het gaat. Gebruik de meest gangbare Nederlandse naam en een correcte wetenschappelijke naam. Neem geen specifiek ras of cultivar aan als dat niet is genoemd.
-- Baseer verzorging, kalender en gebruik op betrouwbare botanische en tuinbouwkundige kennis voor het Nederlandse klimaat. Vul ontbrekende gegevens zelf aan. Neem bij echte onzekerheid de veiligste algemene instructie en benoem de beperking kort in het relevante tekstveld; verzin geen precisie.
-- Ga uit van een gevestigde plant in de volle grond. Noem in waterInfo apart dat een pas geplante plant tijdelijk vaker controle of water nodig heeft als dat voor deze soort relevant is.
+- Werk met de opgegeven plantnaam. Vraag niet naar een beschrijving van blad, bloem, vrucht of groeivorm, de standplaats in onze tuin, bekende opbrengst, tuinbijzonderheden of afspraken over verwijderen. Zoek soortgegevens zelf op; gebruik tuinfeiten alleen als ik die uit mezelf geef. De enige toegestane vervolgvraag gaat bij echte twijfel over gewenst laten staan of onkruid, zoals beschreven bij FUNCTIES.
+- Baseer verzorging, kalender en gebruik op betrouwbare botanische en tuinbouwkundige bronnen voor het Nederlandse klimaat. Controleer soortnaam, eetbaarheid en gevaar bij voorkeur bij een botanische tuin, tuinbouworganisatie of andere deskundige bron. Kun je bronnen niet raadplegen, beweer dan niet dat je ze hebt gecontroleerd. Verzin geen bron, eigenschap of precieze instructie bij twijfel.
+- Is de naam niet eenduidig, neem dan geen soort aan. Laat botanischeNaam leeg, benoem de twijfel kort in intro en geef geen soortgebonden oogst- of snoeiadvies totdat de soort vaststaat.
+- Vul bekende soortgegevens aan. Verzin geen feiten over het exemplaar in onze tuin, zoals leeftijd, standplaats, vruchtzetting of toestemming om het weg te halen.
+- Ga bij ontbrekende standplaatsinformatie uit van een gevestigde plant in de volle grond. Beschrijf relevante verschillen voor een bak of pas geplante plant kort in waterInfo. Gebruik een genoemde standplaats of tuinbijzonderheid uit mijn beschrijving.
 - Maak alle tekst specifiek voor deze plant. Vermijd nietszeggende tekst zoals "geef regelmatig water", "snoei indien nodig" of "houd de plant in de gaten".
 - Beschrijf alleen eetbaarheid of oogst als normaal menselijk gebruik veilig en bekend is. Waarschuw duidelijk bij giftige of irriterende delen als verwarring mogelijk is.
 
@@ -50,7 +63,21 @@ Laat waterInfo aansluiten op het gekozen bereik. Begin met voelen aan de grond, 
 FUNCTIES: VERDEEL IN PRIMAIR EN SECUNDAIR
 functies is een object met de arrays primair en secundair. Gebruik in beide arrays alleen passende waarden uit de onderstaande lijst en zet iedere functie maar één keer.
 
-primair bevat de belangrijkste reden waarom deze plant in deze tuin staat. Kies normaal precies één primaire functie. Kies alleen twee primaire functies als beide afzonderlijk zeer belangrijk en vrijwel gelijkwaardig zijn. Kies nooit meer dan twee. "onkruid" mag de enige primaire functie zijn wanneer de plant alleen aanwezig is omdat hij spontaan opkomt of verwijderd moet worden. Verzin dan geen tweede functie.
+primair bevat de belangrijkste rol waaronder deze plant op de site wordt opgenomen. Dit hoeft geen reden te zijn om hem te planten of te behouden: herkennen en verwijderen is ook een hoofdrol. primair bevat ALTIJD één of twee verschillende functies en mag NOOIT [] zijn. Kies normaal precies één. Kies alleen twee als beide afzonderlijk zeer belangrijk en vrijwel gelijkwaardig zijn.
+
+Beoordeel eerst of de plant voor deze site onder onkruid valt, en pas daarna welke andere functies passen. "Onkruid" is hier een beheerrol, geen uitspraak dat de plant geen ecologisch nut heeft. Ontbrekende afspraken over verwijderen zijn geen reden om het label weg te laten: het label geeft geen toestemming om te verwijderen.
+
+Kies in deze volgorde:
+1. Noem ik uitdrukkelijk een gewenste toepassing in onze tuin, gebruik dan die bedoeling als hoofdrol. Alleen een soortnaam, soortbeschrijving of de vermelding dat insecten de bloemen bezoeken is geen uitdrukkelijke keuze om de plant als insectenplant te behouden.
+2. Wordt deze soort algemeen als onkruid beschouwd of doorgaans als ongewenste spontane plant beheerd, kies dan standaard primair: ["onkruid"], tenzij mijn beschrijving duidelijk een andere gewenste hoofdrol noemt. Ook bij een expliciete bedoeling om de plant te herkennen en te verwijderen kies je "onkruid". Je hoeft bij algemeen onkruid niet eerst te vragen of dat label mag. Het is een geldige, volledige hoofdrol; verzin geen tweede primaire functie om de plant toch nuttig te laten lijken.
+3. Is het geen algemeen onkruid en ontbreekt een tuindoel, kies dan de duidelijk meest gebruikelijke hoofdtoepassing van de soort als redactioneel voorstel. Dat voorstel zegt niet dat hier al toestemming voor planten of verwijderen is gegeven.
+4. Blijft er echte twijfel tussen gewenste tuinplant en onkruid, stel dan eerst één korte vraag en wacht op mijn antwoord. Bijvoorbeeld: "Deze plant wordt vaak als onkruid gezien. Wil je hem hier bewust laten staan, en zo ja waarvoor?" Vraag alleen als het antwoord de hoofdrol wezenlijk verandert en de stappen hierboven geen duidelijke keuze geven. Geef na mijn antwoord het volledige JSON-object met een ingevulde primaire functie.
+
+Een voordeel voor insecten of vogels sluit onkruid niet uit. Bij een plant die hoofdzakelijk onkruid is, blijven zulke aantoonbare voordelen secundair. Maak "insecten" niet primair alleen omdat de plant bloemen heeft, insecten trekt of geen andere nuttige toepassing lijkt te hebben. Alleen secundair: ["insecten"] met primair: [] is ongeldig.
+
+Vaste redactionele keuze voor deze tuin: bij Gevlekte scheerling (Conium maculatum) zonder uitdrukkelijk genoemde gewenste toepassing is primair altijd ["onkruid"]. Vraag voor deze standaardkeuze niets terug. Gebruik bijvoorbeeld functies: {"primair": ["onkruid"], "secundair": []}. Alleen als je een duidelijke insectenfunctie kunt onderbouwen, wordt secundair ["insecten"]. Primair ["insecten"] zonder "onkruid" is in dit geval fout. Alleen mijn uitdrukkelijke keuze om deze plant voor een ander doel te behouden kan de hoofdrol veranderen; leid die keuze niet zelf af uit insectenbezoek.
+
+Giftigheid alleen maakt een plant niet tot onkruid; een bewust gewenste giftige sierplant kan primair "sier" hebben. Eetbaarheid alleen maakt fruit of kruid niet automatisch primair. De website gebruikt primaire fruit- en kruidfuncties voor oogsttaken; andere eetbaarheid kan onder Extra informatie staan.
 
 secundair bevat alles wat de plant óók aantoonbaar is of doet, maar wat niet de hoofdreden voor zijn plek in de tuin is. Secundaire functies zijn dus echte eigenschappen of bijdragen, geen zwakke mogelijkheden. Een functie die al primair staat mag niet nogmaals secundair staan. Ken niet automatisch elke bloeiende plant "insecten" of elke aantrekkelijke plant "sier" toe.
 - fruit: geeft voor mensen eetbare vruchten of bessen die daadwerkelijk geoogst kunnen worden.
@@ -59,19 +86,36 @@ secundair bevat alles wat de plant óók aantoonbaar is of doet, maar wat niet d
 - vogel: biedt duidelijk voedsel, nestgelegenheid of beschutting aan vogels.
 - sier: staat er in belangrijke mate om opvallende bloemen, blad, vorm, geur of winterbeeld; niet als algemeen restlabel voor iedere mooie plant.
 - boom: heeft een boomvorm of groeit uit tot een grote houtige structuur die schaduw of beschutting geeft. Een gewone kleine struik krijgt dit label niet.
-- onkruid: komt in deze tuin spontaan op of zaait/verspreidt zich daar als ongewenste opslag. Dit is geen botanische eigenschap. Gebruik het alleen wanneer de beschrijving of tuinsituatie daar aanleiding voor geeft. Het mag de enige functie zijn.
+- onkruid: een plant die algemeen als onkruid bekendstaat of die we hier als ongewenste spontane plant herkennen of beheren. Gebruik bij algemeen onkruid standaard deze hoofdrol volgens stap 2; een expliciet genoemde gewenste toepassing kan de keuze veranderen. Het mag de enige functie zijn; secundair mag dan leeg zijn. Het label geeft op zichzelf geen toestemming om een plant te verwijderen.
+
+BOOM OF HEESTER: TRUE OF FALSE
+- boomHeester is een echte JSON-boolean: true of false, in kleine letters en zonder aanhalingstekens. Gebruik hier nooit "ja", "nee", "true", "false", TRUE of FALSE.
+- true: een boom of grotere houtige struik die bij de boom- en heesterplekken van deze tuin hoort. Houtige takken blijven meerdere jaren aanwezig.
+- false: een kruid, kruidachtige vaste plant, klimplant of kleine dwergstruik voor een plantvak.
+- Beoordeel de gebruikelijke volwassen groeivorm. Een jonge boom is ook true. Hoogte alleen is onvoldoende: een hoge kruidachtige plant is nog geen boom of heester.
+- Beoordeel dit veld los van functies. Een fruitboom kan bijvoorbeeld primair fruit hebben én boomHeester: true. Een heester hoeft niet de functie boom te krijgen.
+
+EETBAARHEID, GEVAAR EN ONZE TUIN
+- eetbaar: true als een herkenbaar deel van deze soort normaal en veilig door mensen gegeten wordt; false als er geen gangbaar veilig eetbaar deel is; null als je het niet betrouwbaar weet. Geneeskundig gebruik is geen bewijs van eetbaarheid.
+- eetbaarInfo: benoem bij true precies welk deel eetbaar is en welke bereiding nodig is. Noem ook welke delen niet gegeten mogen worden als verwarring mogelijk is. Geef bij twijfel kort de beperking en geen uitnodiging om te proeven.
+- gevaarlijk: true bij een bekend relevant risico op ernstige klachten door aanraken of eten, zoals giftige delen of brandwonden door sap. Gewone stekels of een mogelijke lichte individuele irritatie zijn op zichzelf geen reden voor true. Gebruik false als zo'n gevaar niet bekend is en null bij onvoldoende betrouwbare informatie; onzeker betekent niet veilig.
+- gevaarlijkInfo: benoem bij true het gevaarlijke deel, het risico en concrete voorzorgsmaatregelen. Maak duidelijk welke bescherming of deskundigheid het werk vereist. De werkwijze voor verwijderen hoort in woekerToestemming. Verwijs niet automatisch naar een begeleider en geef geen medische behandeling. Benoem bij null de onzekerheid als die veilig handelen beïnvloedt; anders leeg.
+- eetbaar en gevaarlijk zijn onafhankelijke beoordelingen. Een soort kan een eetbaar deel én gevaarlijke andere delen hebben. Zorg dan dat beide uitlegvelden precies dezelfde grens aangeven.
+- oogstbaarInTuin: altijd null. De beheerder beoordeelt of dit exemplaar hier werkelijk oogst geeft. Zet een uitdrukkelijk genoemde bijzonderheid over de opbrengst wel in tuinOpmerking.
+- tuinOpmerking: alleen informatie uit mijn beschrijving over deze tuin, in één of twee korte zinnen. Bijvoorbeeld dat dit exemplaar geen vruchten draagt. Zonder zulke informatie: een lege tekenreeks.
+- waaromLatenStaan: alleen bij onkruid én gevaarlijk: false. Noem een aantoonbaar nut en eventueel een voorwaarde waaronder de plant kan blijven. Verzin geen toestemming; bij ontbrekende tuinafspraken kan de beheerder beslissen. Bij gevaarlijk: true of null blijft dit veld leeg.
 
 VELDREGELS
-- intro: maximaal twee korte zinnen over wat deelnemers aan de plant herkennen en waarom hij interessant is.
+- intro: maximaal twee korte zinnen over waaraan je de plant herkent en waarom hij interessant is.
 - weetje: één juist, begrijpelijk en verrassend feit; herhaal de intro niet.
 - plantnummer: altijd een lege tekenreeks; de website kent het nummer toe.
 - zon: exact één waarde: "zon", "halfschaduw" of "schaduw". Kies de beste hoofdstandplaats; zet nuances in zonInfo.
 - levensduur: exact één waarde: "Eenjarig", "Tweejarig" of "Meerjarig".
-- oogstTijd en oogstMethode: de gewone oogstperiode en veilige, herkenbare oogstwijze. Laat beide leeg als er niets voor mensen te oogsten is.
+- oogstTijd en oogstMethode: de gewone oogstperiode en veilige, herkenbare oogstwijze voor de soort. Vul alleen in bij eetbaar: true, ook als oogst hier nog onbekend is of fruit/kruid secundair staat. Laat beide leeg bij eetbaar: false of null. Benoem het plantdeel, het herkenbare oogstmoment en hoe iemand oogst. Geef geen medicinaal gebruik of doseringen.
 - extraOogstTijd en extraOogstMethode: alleen voor een duidelijk tweede plantdeel of afwijkende tweede oogstperiode; anders leeg.
 - snoeiTijd: alleen maanden waarin snoeien of terugknippen echt passend is. snoeiTijdInfo legt het moment uit; snoeiMethode zegt precies wat en waar te knippen; snoeiInformatie geeft noodzakelijke achtergrond, risico's of uitzonderingen. Is snoei niet nodig, gebruik lege maanden en leg in de tekstvelden kort uit wat hoogstens mag worden opgeruimd.
-- woekerToestemming: schrijf concreet welke uitlopers, zaailingen, stengels, worteldelen of uitgebloeide delen een deelnemer zelfstandig mag verwijderen en waar.
-- woekerVerbod: schrijf concreet welke kroon, stam, hoofdtakken, groeipunten, gezonde scheuten of gewenste planten moeten blijven. Ook een niet-woekerende plant krijgt bruikbare grenzen.
+- woekerToestemming: beschrijf concreet welke delen kunnen worden opgeruimd of verwijderd, wanneer en hoe. Noem waar nodig gereedschap, bescherming, omgaan met het verwijderde materiaal en vervolgcontrole. Geef een onderbouwde werkwijze binnen de genoemde tuinafspraken, ook voor een begeleider die dit zelf wil uitvoeren. Geef geen algemene toestemming om hele gewenste planten of grote takken te verwijderen. Is gespecialiseerde hulp nodig, pas dan de voorwaarden onder DOELGROEP EN ZELFSTANDIG GEBRUIK toe.
+- woekerVerbod: benoem bij gewone planten precies wat moet blijven. Bij onkruid verschijnt dit onder "Wanneer weghalen?": beschrijf dan de aanleiding om weg te halen en wat daarbij moet blijven. Bij gevaarlijk onkruid staan de noodzakelijke grenzen ook in gevaarlijkInfo en woekerToestemming, omdat woekerVerbod daar niet apart wordt getoond.
 - groei: maanden met zichtbare nieuwe bladeren of stengels.
 - bloei: maanden waarin de plant doorgaans bloeit.
 - sterf: maanden waarin een kruidachtige plant bovengronds afsterft of duidelijk in rust gaat. Voor een bladverliezende houtige plant zijn dit de maanden van bladval/rust. Gebruik [] als er geen duidelijke zichtbare rust- of afsterfperiode is.
@@ -79,9 +123,23 @@ VELDREGELS
 - commonsIllustraties: zoek op Wikimedia Commons naar een bestaande categorie met botanische illustraties van precies deze soort. De naam is vaak "Category:Wetenschappelijke_naam_-_botanical_illustrations", bijvoorbeeld https://commons.wikimedia.org/wiki/Category:Rubus_caesius_-_botanical_illustrations. Controleer dat de categorie echt bestaat; maak de URL niet alleen op basis van dit patroon. Geef uitsluitend de kale URL zonder Markdown. Gebruik een lege tekenreeks als er geen passende categorie bestaat of als je het bestaan niet betrouwbaar kunt controleren.
 
 UITVOERREGELS
-Controleer vóór het antwoorden stil ieder tekstveld: begrijpt iemand zonder tuinervaring direct wat er bedoeld wordt, zijn moeilijke woorden uitgelegd en kan iedere instructie maar op één manier worden uitgevoerd? Vereenvoudig de tekst als dat niet zo is.
+Controleer vóór het antwoorden stil ieder tekstveld: begrijpt iemand zonder tuinervaring direct wat er bedoeld wordt, zijn moeilijke woorden uitgelegd en kan iedere instructie maar op één manier worden uitgevoerd? Kan ook een begeleider die zelf deze pagina leest ermee verder, zonder naar zichzelf te worden verwezen? Vereenvoudig of concretiseer de tekst als dat niet zo is.
 
-Geef uitsluitend één geldig JSON-object terug, zonder markdown, uitleg of codeblok. Gebruik exact de sleutels en volgorde uit het schema hieronder en voeg niets toe. Alle waarden zijn strings of arrays van strings zoals getoond. Gebruik in alle maandarrays uitsluitend deze volledige maandnamen, in kalender-volgorde: Januari, Februari, Maart, April, Mei, Juni, Juli, Augustus, September, Oktober, November, December. Gebruik lege arrays en lege tekenreeksen als iets werkelijk niet van toepassing is; laat geen sleutel weg.
+Controleer ook of eetbaarheid, waarschuwingen, oogst en verwijderregels elkaar niet tegenspreken. Bij twijfel over eetbaarheid blijven ook de extra oogstvelden leeg. Kopieer geen voorbeeldwaarde zonder de plant te beoordelen.
+Controleer vóór het antwoorden eerst de hoofdrol, daarna het aantal functies: is onkruid ten onrechte vervangen door insecten of een ander bijkomend nut? Voor Gevlekte scheerling zonder uitdrukkelijke gewenste toepassing moet primair ["onkruid"] zijn. Herstel een verkeerde keuze vóór je antwoordt. Primair heeft één of twee verschillende waarden, secundair mag leeg zijn, en niets staat in beide lijsten. Is primair leeg, herstel dit met de keuzestappen hierboven voordat je het JSON-object geeft.
+
+Als de vraag uit stap 4 nodig is, geef dan eerst alleen die ene vraag, nog geen JSON. Wacht op mijn antwoord. Deze verduidelijkingsvraag is de enige uitzondering op de regel om uitsluitend JSON te geven.
+Zodra de hoofdrol duidelijk is, geef uitsluitend één geldig JSON-object terug, zonder markdown, uitleg of codeblok. Gebruik exact de sleutels en volgorde uit het schema hieronder en voeg niets toe. Ook na een vervolgvraag geef je het volledige object, niet alleen de gewijzigde velden.
+- Schrijf gewone tekst in de tekstvelden, zonder bronverwijzingen, voetnoten of Markdown-links. Gebruik bronnen wel bij het controleren, maar voeg ze niet als citaties aan het JSON-antwoord toe. Alleen commons en commonsIllustraties bevatten de gevraagde kale bron-URL's.
+- Zet geen backslash voor underscores, haakjes of regeleinden om de tekst op te maken. Geef het object rechtstreeks, niet als één grote aangehaalde of ge-escape-te tekenreeks.
+- boomHeester: uitsluitend true of false.
+- eetbaar en gevaarlijk: true, false of null.
+- oogstbaarInTuin: uitsluitend null.
+- Deze booleans en null staan zonder aanhalingstekens. Null betekent onbekend, false betekent nee.
+- functies: een object met primair en secundair als arrays van strings. primair bevat verplicht één of twee functies; [] is alleen toegestaan voor secundair.
+- De maandvelden zijn arrays van strings. Gebruik uitsluitend volledige maandnamen, in kalender-volgorde: Januari, Februari, Maart, April, Mei, Juni, Juli, Augustus, September, Oktober, November, December.
+- Alle overige velden zijn strings, inclusief waterOndergrens en waterBovengrens ("1" tot en met "5").
+- Gebruik [] voor maanden die niet van toepassing zijn en "" voor lege tekstvelden. Laat geen sleutel weg.
 
 {
   "naam": "Nederlandse naam",
@@ -107,16 +165,26 @@ Geef uitsluitend één geldig JSON-object terug, zonder markdown, uitleg of code
   "snoeiTijdInfo": "",
   "snoeiMethode": "",
   "snoeiInformatie": "",
-  "woekerToestemming": "Wat mag een deelnemer zelf verwijderen?",
+  "woekerToestemming": "Wat kun je verwijderen, wanneer en hoe doe je dat veilig?",
   "woekerVerbod": "Wat moet blijven of mag niet?",
   "groei": [],
   "bloei": [],
   "sterf": [],
+  "boomHeester": false,
+  "eetbaar": null,
+  "eetbaarInfo": "",
+  "oogstbaarInTuin": null,
+  "tuinOpmerking": "",
+  "gevaarlijk": null,
+  "gevaarlijkInfo": "",
+  "waaromLatenStaan": "",
   "commons": "https://commons.wikimedia.org/",
   "commonsIllustraties": ""
 }
 
-Mijn plantbeschrijving:
+Mijn plantbeschrijving (een Nederlandse of botanische naam is voldoende):
+Nederlandse naam:
+Botanische naam:
 `;
 
 /** Hulpjes voor het antwoord van een taalmodel: dat levert lijsten en losse waarden door elkaar. */
@@ -132,9 +200,19 @@ function valueText(record: Record<string, unknown>, ...keys: string[]) {
 
 /** Haal een kale URL uit bijvoorbeeld `[tekst](https://…)`, ook als een model Markdown gebruikte. */
 function cleanUrl(value: string) {
-  const markdownUrl = /\]\((https?:\/\/[^)]+)\)/.exec(value)?.[1];
-  const plainUrl = /https?:\/\/[^\s\])]+/.exec(value)?.[0];
-  return (markdownUrl || plainUrl || '').replace(/\\_/g, '_');
+  const source = value.trim().replace(/\\([_()[\]])/g, '$1');
+  const markdown = /\]\(\s*(https?:\/\/)/.exec(source);
+  if (markdown) {
+    const start = markdown.index + markdown[0].length - markdown[1].length;
+    let depth = 1;
+    for (let i = start; i < source.length; i++) {
+      if (source[i] === '(') depth++;
+      if (source[i] === ')' && --depth === 0) return source.slice(start, i);
+      if (/\s/.test(source[i])) return source.slice(start, i);
+    }
+  }
+  // Een haakje kan bij de URL zelf horen, bijvoorbeeld Category:Soort_(illustrations).
+  return /https?:\/\/[^\s<>"\]]+/.exec(source)?.[0] || '';
 }
 
 function functionLists(record: Record<string, unknown>) {
@@ -145,13 +223,24 @@ function functionLists(record: Record<string, unknown>) {
     const secondary = (Array.isArray(groups.secundair) ? groups.secundair : Array.isArray(groups.secondary) ? groups.secondary : []).filter((item): item is string => typeof item === 'string');
     const unknown = [...primary, ...secondary].find((item) => !FUNCTION_OPTIONS.includes(item));
     if (unknown) throw new Error(`Onbekende functie: ${unknown}.`);
-    if (primary.length < 1 || primary.length > 2) throw new Error('Kies één of maximaal twee primaire functies.');
+    if (primary.length < 1) throw new Error('Het antwoord mist een primaire functie. Laat het taalmodel bij functies.primair één hoofdrol invullen: fruit, kruid, insecten, vogel, sier, boom of onkruid. Plak daarna het volledige antwoord opnieuw.');
+    if (primary.length > 2) throw new Error('Kies één of maximaal twee primaire functies.');
     const duplicate = secondary.find((item) => primary.includes(item));
     if (duplicate) throw new Error(`De functie ${duplicate} staat zowel primair als secundair.`);
     return { functiesPrimair: [...new Set(primary)].join(', '), functiesSecundair: [...new Set(secondary)].join(', ') };
   }
   const lijst = valueList(value).split(',').map(v => v.trim()).filter(Boolean);
   return { functiesPrimair: lijst.slice(0, 1).join(', '), functiesSecundair: lijst.slice(1).join(', ') };
+}
+
+/** JSON-booleans naar formulierkeuzes. Oudere antwoorden met ja/nee of Engelse tekst blijven leesbaar. */
+function valueChoice(record: Record<string, unknown>, ...keys: string[]): Keuze {
+  for (const key of keys) {
+    const waarde = record[key];
+    if (waarde === true || (typeof waarde === 'string' && /^(ja|yes|true)$/i.test(waarde.trim()))) return 'ja';
+    if (waarde === false || (typeof waarde === 'string' && /^(nee|no|false)$/i.test(waarde.trim()))) return 'nee';
+  }
+  return '';
 }
 
 function normalizeParsed(value: unknown, plants: Plant[]): PlantForm {
@@ -186,6 +275,15 @@ function normalizeParsed(value: unknown, plants: Plant[]): PlantForm {
     sterf: valueList(record.sterf ?? record.dormantMonths),
     commons,
     commonsIllustraties,
+    boomHeester: valueChoice(record, 'boomHeester', 'treeOrShrub') || 'nee',
+    eetbaar: valueChoice(record, 'eetbaar', 'edible'),
+    eetbaarInfo: valueText(record, 'eetbaarInfo', 'edibleInfo'),
+    // Hangt af van het exemplaar hier; dat kan een model niet weten, dus altijd zelf invullen.
+    oogstbaarInTuin: '',
+    tuinOpmerking: valueText(record, 'tuinOpmerking', 'gardenNote'),
+    gevaarlijk: valueChoice(record, 'gevaarlijk', 'dangerous'),
+    gevaarlijkInfo: valueText(record, 'gevaarlijkInfo', 'dangerInfo'),
+    waaromLatenStaan: valueText(record, 'waaromLatenStaan', 'whyKeep'),
     // Commons helpt bij het zoeken van de foto. De botanische illustratie krijgt een eigen bron.
     foto: { bestand: '', bron: commons, x: 50, y: 50, zoom: 1 },
     illustratie: { bestand: '', bron: '', x: 50, y: 50, zoom: 1 },
@@ -193,14 +291,61 @@ function normalizeParsed(value: unknown, plants: Plant[]): PlantForm {
   };
 }
 
-function parseJsonAnswer(input: string) {
-  const trimmed = input.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
-  try { return JSON.parse(trimmed) as unknown; } catch {
-    const start = trimmed.indexOf('{');
-    const end = trimmed.lastIndexOf('}');
-    if (start < 0 || end <= start) throw new Error('Ik zie geen JSON-object in dit antwoord.');
-    try { return JSON.parse(trimmed.slice(start, end + 1)) as unknown; } catch { throw new Error('Het JSON-object is niet geldig.'); }
+/** Herstel alleen bekende kopieeropmaak; geldige JSON-escapes en veldinhoud blijven intact. */
+function herstelKopieerOpmaak(input: string) {
+  let inString = false;
+  let output = '';
+  for (let i = 0; i < input.length; i++) {
+    const char = input[i];
+    if (!inString) {
+      const citation = char === '' ? /^cite[^]*/.exec(input.slice(i))?.[0] : undefined;
+      if (citation) { i += citation.length - 1; continue; }
+      // Rijke kopieertekst kan inspringing als HTML-spaties of vaste spaties bewaren.
+      // Binnen tekstvelden blijven deze tekens letterlijk behouden.
+      const space = char === '&' ? /^(?:&#(?:x0*(?:20|a0)|0*(?:32|160));|&nbsp;)/i.exec(input.slice(i))?.[0] : undefined;
+      if (space) { output += ' '; i += space.length - 1; continue; }
+      if (char === '\u00a0' || char === '\u202f') { output += ' '; continue; }
+      if (char === '\\' && /[\r\n]/.test(input[i + 1] || '')) continue;
+    } else if (char === '\\') {
+      const next = input[i + 1];
+      if (next) {
+        // Bijvoorbeeld \_ of \( is Markdown-opmaak, geen geldige JSON-escape.
+        output += '_[]()*#>!+-.'.includes(next) ? next : char + next;
+        i++;
+        continue;
+      }
+    }
+    if (char === '"') inString = !inString;
+    output += char;
   }
+  return output;
+}
+
+function parseJsonAnswer(input: string): Record<string, unknown> {
+  const trimmed = input.trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+  const start = trimmed.indexOf('{');
+  const end = trimmed.lastIndexOf('}');
+  const candidates = [trimmed];
+  if (start >= 0 && end > start) candidates.push(trimmed.slice(start, end + 1));
+
+  const readObject = (candidate: string): Record<string, unknown> => {
+    let value: unknown = JSON.parse(candidate);
+    // Sommige kopieerknoppen leveren het hele object als één JSON-string.
+    if (typeof value === 'string') value = JSON.parse(value);
+    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('Geen object.');
+    return value as Record<string, unknown>;
+  };
+  // Gewone JSON gaat altijd vóór herstel, zodat ook letterlijke backslashes blijven staan.
+  for (const candidate of candidates) {
+    try { return readObject(candidate); } catch { /* Probeer het volgende formaat. */ }
+  }
+  for (const candidate of candidates) {
+    const repaired = herstelKopieerOpmaak(candidate);
+    if (repaired === candidate) continue;
+    try { return readObject(repaired); } catch { /* Echte syntaxisfouten blijven fouten. */ }
+  }
+  if (start < 0 || end <= start) throw new Error('Ik zie geen JSON-object in dit antwoord. Beantwoord een eventuele vraag eerst bij het taalmodel en plak daarna het volledige JSON-antwoord.');
+  throw new Error('Het JSON-object is niet geldig. Kopieer het volledige object met de kopieerknop van het taalmodel, of vraag om geldige JSON zonder bronopmaak.');
 }
 
 export default function PlantCreator({ plants, onSaved }: Props) {
@@ -209,16 +354,25 @@ export default function PlantCreator({ plants, onSaved }: Props) {
   const [automaticText, setAutomaticText] = useState('');
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
+  const [importError, setImportError] = useState<{ message: string } | null>(null);
+  const importErrorRef = useRef<HTMLParagraphElement>(null);
+  const importErrorId = useId();
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => {
+    if (!importError) return;
+    importErrorRef.current?.focus({ preventScroll: true });
+    importErrorRef.current?.scrollIntoView({ block: 'center' });
+  }, [importError]);
+
   const parseAutomaticAnswer = () => {
-    setError(''); setNotice('');
+    setError(''); setNotice(''); setImportError(null);
     try {
       const parsed = normalizeParsed(parseJsonAnswer(automaticText), plants);
       if (!parsed.naam) throw new Error('Vul eerst een plantbeschrijving in of controleer het LLM-antwoord.');
       setForm(parsed); setMode('manual'); setNotice('De gegevens zijn ingelezen. Controleer ze hieronder en sla daarna de plant op.');
-    } catch (parseError) { setError(parseError instanceof Error ? parseError.message : 'Dit antwoord kon niet worden gelezen.'); }
+    } catch (parseError) { setImportError({ message: parseError instanceof Error ? parseError.message : 'Dit antwoord kon niet worden gelezen.' }); }
   };
 
   const save = async () => {
@@ -239,7 +393,7 @@ export default function PlantCreator({ plants, onSaved }: Props) {
 
   return <section className="plant-creator" aria-labelledby="plant-creator-title">
     <div className="plant-creator-intro"><span className="pill">NIEUWE PLANT</span><h2 id="plant-creator-title">Voeg een plant toe</h2><p>Kies zelf alle gegevens in te vullen, of laat een taalmodel een eerste versie maken die je daarna altijd kunt controleren en aanpassen.</p></div>
-    <div className="creator-mode-switch" role="tablist" aria-label="Manier van toevoegen"><button type="button" role="tab" aria-selected={mode === 'manual'} className={mode === 'manual' ? 'active' : ''} onClick={() => { setMode('manual'); setError(''); }}>Handmatig invullen</button><button type="button" role="tab" aria-selected={mode === 'automatic'} className={mode === 'automatic' ? 'active' : ''} onClick={() => { setMode('automatic'); setError(''); }}>Met LLM-prompt</button></div>
+    <div className="creator-mode-switch" role="tablist" aria-label="Manier van toevoegen"><button type="button" role="tab" aria-selected={mode === 'manual'} className={mode === 'manual' ? 'active' : ''} onClick={() => { setMode('manual'); setError(''); setImportError(null); }}>Handmatig invullen</button><button type="button" role="tab" aria-selected={mode === 'automatic'} className={mode === 'automatic' ? 'active' : ''} onClick={() => { setMode('automatic'); setError(''); setImportError(null); }}>Met LLM-prompt</button></div>
     {error && <p className="creator-error" role="alert">{error}</p>}
     {notice && <p className="creator-notice" role="status">{notice}</p>}
     {mode === 'automatic' ? <>
@@ -248,8 +402,8 @@ export default function PlantCreator({ plants, onSaved }: Props) {
         <div><p>Maak duidelijke foto’s van de hele plant, het blad en de bloem of vrucht. Laat een herkenningsdienst zoeken en vergelijk altijd meer dan één resultaat. Een app kan zich vergissen.</p><p><a href="https://lens.google/" target="_blank" rel="noreferrer">Google Lens</a> zoekt met een foto. <a href="https://identify.plantnet.org/" target="_blank" rel="noreferrer">Pl@ntNet</a> is speciaal gemaakt voor planten. Noteer bij voorkeur zowel de Nederlandse als de botanische naam. Bij twijfel kun je de foto en meerdere mogelijke namen ook aan het LLM geven.</p></div>
       </details>
       <div className="automatic-creator">
-      <div className="prompt-card"><div className="prompt-card-head"><div><span className="number">STAP 1</span><h3>Kopieer deze prompt en zet de naam van de plant erbij</h3></div><button type="button" className="prompt-kopieer" onClick={copyPrompt}>{copied ? 'Gekopieerd ✓' : 'Prompt kopiëren'}</button></div><pre>{AUTOMATION_PROMPT}</pre><small>Werkt in ChatGPT, Claude, Gemini of een andere LLM. Zet onderaan de prompt de naam van de plant, het liefst de Nederlandse én de botanische, en beschrijf hem zo concreet mogelijk.</small></div>
-      <div className="prompt-card prompt-input-card"><span className="number">STAP 2</span><h3>Plak het antwoord hier</h3><p>De website haalt het JSON-object uit het antwoord, ook als het model er per ongeluk tekst of een codeblok omheen zet.</p><textarea aria-label="Antwoord van taalmodel" value={automaticText} onChange={(event) => setAutomaticText(event.target.value)} placeholder="Plak hier het antwoord van het taalmodel…" rows={12} /><button type="button" className="primary-action" onClick={parseAutomaticAnswer} disabled={!automaticText.trim()}>Antwoord controleren en invullen →</button></div>
+      <div className="prompt-card"><div className="prompt-card-head"><div><span className="number">STAP 1</span><h3>Kopieer deze prompt en zet de naam van de plant erbij</h3></div><button type="button" className="prompt-kopieer" onClick={copyPrompt}>{copied ? 'Gekopieerd ✓' : 'Prompt kopiëren'}</button></div><pre>{AUTOMATION_PROMPT}</pre><small>Werkt in ChatGPT, Claude, Gemini of een andere LLM. Zet onderaan de prompt de Nederlandse of botanische naam van de plant. Beide namen invullen mag ook.</small></div>
+      <div className="prompt-card prompt-input-card"><span className="number">STAP 2</span><h3>Plak het antwoord hier</h3><p>Vraagt het taalmodel bij twijfel of de plant gewenst is of onkruid? Beantwoord die vraag daar. Plak hier daarna het volledige JSON-antwoord. Gekopieerde tijdmeldingen, stappenlijsten en codeblokken eromheen mogen blijven staan.</p><textarea aria-label="Antwoord van taalmodel" aria-invalid={!!importError} aria-describedby={importError ? importErrorId : undefined} value={automaticText} onChange={(event) => { setAutomaticText(event.target.value); setImportError(null); }} placeholder="Plak hier het antwoord van het taalmodel…" rows={12} />{importError && <p id={importErrorId} className="creator-error" role="alert" tabIndex={-1} ref={importErrorRef}>{importError.message}</p>}<button type="button" className="primary-action" onClick={parseAutomaticAnswer} disabled={!automaticText.trim()}>Antwoord controleren en invullen →</button></div>
     </div></> : <form className="plant-form" onSubmit={(event) => { event.preventDefault(); void save(); }}><PlantFormFields form={form} setForm={setForm} /><div className="plant-form-actions"><p>Na opslaan verschijnt de plant direct in de bibliotheek. Een foto kun je later toevoegen.</p><button type="submit" className="primary-action" disabled={saveStatus === 'saving'}>{saveStatus === 'saving' ? 'Plant opslaan…' : 'Plant opslaan'}</button></div></form>}
   </section>;
 }

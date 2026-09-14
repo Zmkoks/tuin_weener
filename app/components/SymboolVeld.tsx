@@ -173,7 +173,12 @@ export default function SymboolVeld({ naam, botanischeNaam, slug, waarde, onChan
       formulier.append('slug', slug || 'plant');
       formulier.append('bestand', bestand);
       const antwoord = await fetch('/api/media', { method: 'POST', body: formulier });
-      const gegevens = await antwoord.json() as { bestand?: string; error?: string };
+      // Zie AfbeeldingVeld: een HTML-foutpagina gaf anders "JSON.parse: unexpected character".
+      const ruw = await antwoord.text();
+      let gegevens: { bestand?: string; error?: string } = {};
+      try { gegevens = JSON.parse(ruw); } catch {
+        throw new Error(`Uploaden is niet gelukt (server gaf status ${antwoord.status}). Probeer het opnieuw.`);
+      }
       if (!antwoord.ok || !gegevens.bestand) throw new Error(gegevens.error || 'Uploaden is niet gelukt.');
       onChange({
         ...waarde,

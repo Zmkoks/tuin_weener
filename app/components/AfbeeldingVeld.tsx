@@ -33,6 +33,31 @@ type Props = {
 
 const MIDDEN = { x: 50, y: 50, zoom: 1 };
 
+/**
+ * Verklein een afbeelding in de browser vóór het uploaden: hoogstens `maxZijde` pixels aan de
+ * langste zijde, als WebP rond kwaliteit 80 (JPEG als de browser geen WebP kan maken). Zo
+ * past het binnen elke servergrens — lokaal gaf een foto van 2000 × 1500 al "te groot" — en
+ * laadt de site snel. Een op scherm is de foto hoogstens ongeveer 370 pixels breed.
+ * Een klein bestand dat al klein genoeg is, laten we zoals het is.
+ */
+async function verklein(bestand: File, maxZijde: number): Promise<File> {
+  let beeld: ImageBitmap;
+  try { beeld = await createImageBitmap(bestand); } catch { return bestand; }
+  const schaal = Math.min(1, maxZijde / Math.max(beeld.width, beeld.height));
+  if (schaal === 1 && bestand.size < 400 * 1024) { beeld.close(); return bestand; }
+  const doek = document.createElement('canvas');
+  doek.width = Math.round(beeld.width * schaal);
+  doek.height = Math.round(beeld.height * schaal);
+  doek.getContext('2d')?.drawImage(beeld, 0, 0, doek.width, doek.height);
+  beeld.close();
+  const naarBlob = (type: string, kwaliteit: number) => new Promise<Blob | null>((klaar) => doek.toBlob(klaar, type, kwaliteit));
+  const webp = await naarBlob('image/webp', 0.8);
+  const blob = webp?.type === 'image/webp' ? webp : await naarBlob('image/jpeg', 0.85);
+  if (!blob) return bestand;
+  const extensie = blob.type === 'image/webp' ? 'webp' : 'jpg';
+  return new File([blob], bestand.name.replace(/\.[^.]+$/, '') + '.' + extensie, { type: blob.type });
+}
+
 export default function AfbeeldingVeld({ soort, titel, slug, waarde, onChange, huidigeBron, hulp, bijstellen }: Props) {
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState('');
@@ -44,15 +69,25 @@ export default function AfbeeldingVeld({ soort, titel, slug, waarde, onChange, h
   const src = waarde.bestand ? `/api/media/${waarde.bestand}` : huidigeBron;
   const stijl = { objectPosition: `${waarde.x}% ${waarde.y}%`, transform: `scale(${waarde.zoom})`, transformOrigin: `${waarde.x}% ${waarde.y}%` };
 
-  const upload = async (bestand: File) => {
+  const upload = async (origineel: File) => {
     setBezig(true); setFout('');
     try {
+      const bestand = await verklein(origineel, soort === 'foto' ? 1200 : 1600);
       const formulier = new FormData();
       formulier.append('soort', soort);
       formulier.append('slug', slug || 'plant');
       formulier.append('bestand', bestand);
       const antwoord = await fetch('/api/media', { method: 'POST', body: formulier });
-      const gegevens = await antwoord.json() as { bestand?: string; error?: string };
+      // Geen `antwoord.json()` rechtstreeks: gaat er vóór de route iets mis (bestand te groot
+      // voor de server, sessie verlopen, serverfout), dan komt er een HTML-pagina terug en werd
+      // de melding "JSON.parse: unexpected character" — die zegt niemand iets.
+      const ruw = await antwoord.text();
+      let gegevens: { bestand?: string; error?: string } = {};
+      try { gegevens = JSON.parse(ruw); } catch {
+        throw new Error(antwoord.status === 413
+          ? 'Dit bestand is ook na verkleinen nog te groot voor de server. Probeer een ander JPEG-, PNG- of WebP-bestand.'
+          : `Uploaden is niet gelukt (server gaf status ${antwoord.status}). Probeer het opnieuw of kies een kleiner JPEG-, PNG- of WebP-bestand.`);
+      }
       if (!antwoord.ok || !gegevens.bestand) throw new Error(gegevens.error || 'Uploaden is niet gelukt.');
       setEigenBestand(gegevens.bestand);
       // Een nieuwe afbeelding begint in het midden: de bijstelling van de vórige foto zegt
@@ -80,18 +115,43 @@ export default function AfbeeldingVeld({ soort, titel, slug, waarde, onChange, h
    */
   const startSlepen = (gebeurtenis: React.PointerEvent<HTMLSpanElement>) => {
     if (!bijstellen || !src) return;
+    gebeurtenis.preventDefault();
     const kader = gebeurtenis.currentTarget;
     const maat = kader.getBoundingClientRect();
-    let vorigeX = gebeurtenis.clientX;
-    let vorigeY = gebeurtenis.clientY;
+    const beginX = gebeurtenis.clientX;
+    const beginY = gebeurtenis.clientY;
+    // Vanaf de stand bij het begin rekenen, met de totale verplaatsing. Eerder werd per
+    // beweging een klein stapje opgeteld bij `waarde` — maar die `waarde` was de stand van
+    // het moment dat het slepen begon (de functie onthoudt hem), dus elke beweging zette de
+    // foto terug op het begin plus één stapje: hij bewoog vrijwel niet.
+    const begin = { ...waarde };
     kader.setPointerCapture(gebeurtenis.pointerId);
 
+    // Hoeveel schermpixels één procent `object-position` is, zodat het vastgepakte punt onder
+    // de muis blijft — ook ingezoomd. De foto vult het kader als `cover` (getekende maat I) en
+    // wordt daarna `scale(z)` vergroot rond het punt x% van het kader (breedte W). Een punt
+    // in de foto verschuift dan per procent (W − z·I) / 100 pixels: dat is dus kleiner naarmate
+    // er minder over de rand valt, en groter naarmate je verder inzoomt. Een vaste stap per
+    // kaderbreedte (zoals eerst) liet de foto bij sterke zoom verder schieten dan de muis.
+    const foto = kader.querySelector('img');
+    const perProcent = (kaderMaat: number, natuur: number, ander: number, anderKader: number) => {
+      const cover = Math.max(kaderMaat / natuur, anderKader / ander);
+      const getekend = natuur * cover * begin.zoom;
+      return (getekend - kaderMaat) / 100;
+    };
+    const pxX = foto?.naturalWidth ? perProcent(maat.width, foto.naturalWidth, foto.naturalHeight, maat.height) : maat.width / 100;
+    const pxY = foto?.naturalHeight ? perProcent(maat.height, foto.naturalHeight, foto.naturalWidth, maat.width) : maat.height / 100;
+
     const beweeg = (volgende: PointerEvent) => {
-      const dx = ((volgende.clientX - vorigeX) / maat.width) * 100;
-      const dy = ((volgende.clientY - vorigeY) / maat.height) * 100;
-      vorigeX = volgende.clientX;
-      vorigeY = volgende.clientY;
-      verschuif(-dx, -dy);
+      // Valt er langs een as (bijna) niets buiten het kader, dan valt er daar ook niets te
+      // verschuiven. Uitgezoomd (zoom < 1) is de stap negatief; de formule klopt dan nog steeds.
+      const dx = Math.abs(pxX) > 0.5 ? (volgende.clientX - beginX) / pxX : 0;
+      const dy = Math.abs(pxY) > 0.5 ? (volgende.clientY - beginY) / pxY : 0;
+      onChange({
+        ...begin,
+        x: Math.round(Math.min(100, Math.max(0, begin.x - dx)) * 10) / 10,
+        y: Math.round(Math.min(100, Math.max(0, begin.y - dy)) * 10) / 10,
+      });
     };
     const stop = () => {
       kader.removeEventListener('pointermove', beweeg);

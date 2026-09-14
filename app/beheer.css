@@ -289,6 +289,62 @@
 }
 .beheer-login{max-width:560px}.beheer-login form{display:grid;gap:9px;max-width:420px;margin-top:28px}.beheer-login input{padding:13px 15px;border:1px solid #cbd5e1;border-radius:12px;background:#fff}.beheer-direct{display:inline-block;margin-top:18px;padding:10px 16px;border-radius:99px;background:var(--blauw);color:#fff;text-decoration:none;font-weight:750}
 .beheer-code-veld{display:flex;align-items:center;gap:8px}.beheer-code-veld input{flex:1;min-width:0}.beheer-zichtbaar{border:0;background:transparent;color:var(--groen);font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer}.beheer-zichtbaar:hover{text-decoration:underline}
-.plant-verwijderen { margin-top: 3rem; padding: 1.5rem; border: 1px solid #a62b32; border-radius: 12px; }
-.plant-verwijderen h2 { margin-top: 0; }
-.plant-verwijderen .verwijder-knop { background: #a62b32; color: white; }
+/* ---------- plant volledig verwijderen (aanpassen/[slug]) ----------
+   Rust: een wit paneel zoals de andere, met een omlijnde rode knop rechts. Na de eerste
+   klik: een lichtroze waarschuwingsvak met een uitroepteken, de gevolgen als lijstje, en
+   dezelfde knoppenrij als elders in Beheren (rode hoofdknop + omlijnde "Nee"). */
+.plant-verwijderen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 28px;
+  margin-top: 3rem;
+  padding: 22px 26px;
+  background: #fff;
+  border: 1px solid var(--lijn);
+  border-radius: 20px;
+}
+.plant-verwijderen h2 { margin: 0 0 4px; font-size: 20px; }
+.plant-verwijderen p { margin: 0; color: var(--grijs); line-height: 1.5; }
+.verwijder-start {
+  flex: none;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 2px solid var(--roze);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--roze);
+  font-weight: 800;
+  cursor: pointer;
+}
+.verwijder-start:hover { background: #fbeef4; }
+
+.plant-verwijderen.bevestigen {
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  background: #fbeef4;
+  border: 2px solid var(--roze);
+}
+.verwijder-teken {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--roze);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+}
+.plant-verwijderen.bevestigen h2 { font-size: 22px; margin: 4px 0 10px; }
+.plant-verwijderen.bevestigen ul { margin: 0 0 10px; padding-left: 20px; color: var(--blauw); line-height: 1.6; }
+.plant-verwijderen .verwijder-onomkeerbaar { color: var(--roze); font-weight: 750; }
+.plant-verwijderen .beheer-knoppen .beheer-doen { width: auto; flex: 0 1 auto; }
+
+@media (max-width: 650px) {
+  .plant-verwijderen { flex-direction: column; align-items: stretch; }
+  .plant-verwijderen.bevestigen { flex-direction: row; }
+  .plant-verwijderen .beheer-knoppen .beheer-doen { width: 100%; }
+}

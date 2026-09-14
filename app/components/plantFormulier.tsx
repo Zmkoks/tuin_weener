@@ -48,10 +48,26 @@ export type PlantForm = {
   sterf: string;
   commons: string;
   commonsIllustraties: string;
+  /** Ja/nee-keuzes als tekst: 'ja', 'nee' of '' (nog niet beoordeeld). */
+  boomHeester: Keuze;
+  eetbaar: Keuze;
+  eetbaarInfo: string;
+  oogstbaarInTuin: Keuze;
+  tuinOpmerking: string;
+  gevaarlijk: Keuze;
+  gevaarlijkInfo: string;
+  waaromLatenStaan: string;
   foto: Afstelling;
   illustratie: Afstelling;
   symbolen: Symboolkeuze;
 };
+
+export type Keuze = 'ja' | 'nee' | '';
+
+/** `true`/`false`/`null` uit de gegevens naar de keuze in het formulier, en terug gaat via de server. */
+export function keuzeVan(waarde: boolean | null | undefined): Keuze {
+  return waarde === true ? 'ja' : waarde === false ? 'nee' : '';
+}
 
 /** Dezelfde slug als de server maakt, zodat een upload meteen de goede naam krijgt. */
 export function slugVanNaam(naam: string) {
@@ -73,6 +89,7 @@ export function blankForm(plants: Plant[]): PlantForm {
     waterOndergrens: '1', waterBovengrens: '3', waterInfo: '', zon: 'zon', zonInfo: '', levensduur: 'Meerjarig',
     oogstTijd: '', oogstMethode: '', extraOogstTijd: '', extraOogstMethode: '', snoeiTijd: '', snoeiTijdInfo: '',
     snoeiMethode: '', snoeiInformatie: '', woekerToestemming: '', woekerVerbod: '', groei: '', bloei: '', sterf: '', commons: '', commonsIllustraties: '',
+    boomHeester: 'nee', eetbaar: '', eetbaarInfo: '', oogstbaarInTuin: '', tuinOpmerking: '', gevaarlijk: '', gevaarlijkInfo: '', waaromLatenStaan: '',
     foto: { ...LEEG_BEELD }, illustratie: { ...LEEG_BEELD }, symbolen: { ...LEGE_SYMBOLEN },
   };
 }
@@ -94,6 +111,9 @@ export function formVanPlant(plant: Plant): PlantForm {
     extraOogstMethode: plant.extraOogstMethode, snoeiTijd: rij(plant.snoeiTijd), snoeiTijdInfo: plant.snoeiTijdInfo,
     snoeiMethode: plant.snoeiMethode, snoeiInformatie: plant.snoeiInformatie, woekerToestemming: plant.woekerToestemming,
     woekerVerbod: plant.woekerVerbod, groei: rij(plant.groei), bloei: rij(plant.bloei), sterf: rij(plant.sterf), commons: plant.commons, commonsIllustraties: plant.commonsIllustraties || '',
+    boomHeester: keuzeVan(plant.boomHeester ?? false), eetbaar: keuzeVan(plant.eetbaar), eetbaarInfo: plant.eetbaarInfo || '',
+    oogstbaarInTuin: keuzeVan(plant.oogstbaarInTuin), tuinOpmerking: plant.tuinOpmerking || '',
+    gevaarlijk: keuzeVan(plant.gevaarlijk), gevaarlijkInfo: plant.gevaarlijkInfo || '', waaromLatenStaan: plant.waaromLatenStaan || '',
     // Staat er nog niets eigens, dan begint het schuifje waar de gedrukte kaart staat.
     foto: beeldVanPlant(plant.foto, { ...LEEG_BEELD, ...afstellingVanSlug(plant.slug) }),
     illustratie: beeldVanPlant(plant.illustratie, { ...LEEG_BEELD }),
@@ -109,6 +129,16 @@ export function splitList(value: string) {
 
 export function TextField({ id, label, value, onChange, multiline = false, type = 'text', placeholder, help }: { id: keyof PlantForm; label: string; value: string; onChange: (value: string) => void; multiline?: boolean; type?: string; placeholder?: string; help?: string }) {
   return <label className={`plant-field ${multiline ? 'wide' : ''}`} htmlFor={`plant-${id}`}><span>{label}</span>{multiline ? <textarea id={`plant-${id}`} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} rows={3} /> : <input id={`plant-${id}`} type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} />}{help && <small>{help}</small>}</label>;
+}
+
+/** Een ja/nee-vraag met een uitdrukkelijke "weet ik niet"; die bewaart de server als niet beoordeeld. */
+function KeuzeField({ id, label, value, onChange, help, zonderOnbekend = false }: { id: keyof PlantForm; label: string; value: Keuze; onChange: (value: Keuze) => void; help?: string; zonderOnbekend?: boolean }) {
+  return <label className="plant-field" htmlFor={`plant-${id}`}><span>{label}</span>
+    <select id={`plant-${id}`} value={value} onChange={(event) => onChange(event.target.value as Keuze)}>
+      <option value="ja">Ja</option>
+      <option value="nee">Nee</option>
+      {!zonderOnbekend && <option value="">Weet ik niet</option>}
+    </select>{help && <small>{help}</small>}</label>;
 }
 
 export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (form: PlantForm) => void }) {
@@ -142,6 +172,22 @@ export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (
       <TextField id="snoeiTijdInfo" label="Wanneer snoeien?" value={form.snoeiTijdInfo} onChange={(value) => update('snoeiTijdInfo', value)} multiline />
       <TextField id="snoeiMethode" label="Hoe snoeien?" value={form.snoeiMethode} onChange={(value) => update('snoeiMethode', value)} multiline />
       <TextField id="snoeiInformatie" label="Extra snoei-informatie" value={form.snoeiInformatie} onChange={(value) => update('snoeiInformatie', value)} multiline />
+    </div></div>
+    {/* Twee soorten informatie: over de soort (overal waar), en over het exemplaar hier. Die
+        staan apart omdat ze elkaar kunnen tegenspreken: een kiwi is eetbaar, maar deze draagt
+        geen vruchten. */}
+    <div className="plant-form-section"><h3>Over de soort</h3><div className="plant-field-grid">
+      <KeuzeField id="boomHeester" label="Is dit een boom of heester?" value={form.boomHeester} onChange={(value) => setForm({ ...form, boomHeester: value })} zonderOnbekend
+        help="Ja: hij kan als los punt met een letter op de kaart staan. Nee: hij staat in een bak of vrije plek." />
+      <KeuzeField id="eetbaar" label="Eetbaar?" value={form.eetbaar} onChange={(value) => setForm({ ...form, eetbaar: value })} help="Of de soort of een deel ervan veilig gegeten kan worden." />
+      <KeuzeField id="gevaarlijk" label="Gevaarlijk?" value={form.gevaarlijk} onChange={(value) => setForm({ ...form, gevaarlijk: value })} help="Ja geeft bovenaan de pagina een waarschuwing." />
+      <TextField id="eetbaarInfo" label="Wat is eetbaar?" value={form.eetbaarInfo} onChange={(value) => update('eetbaarInfo', value)} multiline />
+      <TextField id="gevaarlijkInfo" label="Waarschuwing" value={form.gevaarlijkInfo} onChange={(value) => update('gevaarlijkInfo', value)} multiline placeholder="Wat is gevaarlijk, en wat moet je doen?" />
+      <TextField id="waaromLatenStaan" label="Onkruid: waarom laten staan?" value={form.waaromLatenStaan} onChange={(value) => update('waaromLatenStaan', value)} multiline help="Alleen bij onkruid dat veilig mag blijven." />
+    </div></div>
+    <div className="plant-form-section"><h3>Deze plant in onze tuin</h3><div className="plant-field-grid">
+      <KeuzeField id="oogstbaarInTuin" label="Levert hij hier echt oogst op?" value={form.oogstbaarInTuin} onChange={(value) => setForm({ ...form, oogstbaarInTuin: value })} help="Nee: geen oogsttaken, ook als de soort eetbaar is." />
+      <TextField id="tuinOpmerking" label="Bijzonderheid in onze tuin" value={form.tuinOpmerking} onChange={(value) => update('tuinOpmerking', value)} multiline placeholder="bijv. Deze kiwi draagt geen vruchten." />
     </div></div>
     <div className="plant-form-section"><h3>Wat mag weg?</h3><div className="plant-field-grid">
       <TextField id="woekerToestemming" label="Dit mag een deelnemer verwijderen" value={form.woekerToestemming} onChange={(value) => update('woekerToestemming', value)} multiline />
@@ -198,6 +244,8 @@ export function toPayload(form: PlantForm) {
     naam: form.naam.trim(), botanischeNaam: form.botanischeNaam.trim(), plantnummer: form.plantnummer.trim(), functies: { primair: splitList(form.functiesPrimair), secundair: splitList(form.functiesSecundair) }, intro: form.intro.trim(), weetje: form.weetje.trim(),
     waterOndergrens: form.waterOndergrens.trim(), waterBovengrens: form.waterBovengrens.trim(), waterInfo: form.waterInfo.trim(), zon: form.zon.trim(), zonInfo: form.zonInfo.trim(), levensduur: form.levensduur.trim(),
     oogstTijd: splitList(form.oogstTijd), oogstMethode: form.oogstMethode.trim(), extraOogstTijd: splitList(form.extraOogstTijd), extraOogstMethode: form.extraOogstMethode.trim(), snoeiTijd: splitList(form.snoeiTijd), snoeiTijdInfo: form.snoeiTijdInfo.trim(), snoeiMethode: form.snoeiMethode.trim(), snoeiInformatie: form.snoeiInformatie.trim(), woekerToestemming: form.woekerToestemming.trim(), woekerVerbod: form.woekerVerbod.trim(), groei: splitList(form.groei), bloei: splitList(form.bloei), sterf: splitList(form.sterf), commons: form.commons.trim(), commonsIllustraties: form.commonsIllustraties.trim(),
+    boomHeester: form.boomHeester, eetbaar: form.eetbaar, eetbaarInfo: form.eetbaarInfo.trim(), oogstbaarInTuin: form.oogstbaarInTuin,
+    tuinOpmerking: form.tuinOpmerking.trim(), gevaarlijk: form.gevaarlijk, gevaarlijkInfo: form.gevaarlijkInfo.trim(), waaromLatenStaan: form.waaromLatenStaan.trim(),
     foto: form.foto, illustratie: form.illustratie,
     // Niets aangeraakt: het veld blijft weg, en dan gelden alle varianten uit de bibliotheek.
     symbolen: form.symbolen.bibliotheek === null && form.symbolen.eigen.length === 0

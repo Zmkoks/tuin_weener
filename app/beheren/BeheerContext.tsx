@@ -39,6 +39,7 @@ type Beheer = {
   zetOpPlek: (plant: Plant, plekId: string) => Promise<void>;
   maakPlekEnZetVorm: (plant: Plant, vorm: Vorm, soort: 'bak' | 'vrij') => Promise<void>;
   maakPlek: (vorm: Vorm, soort: 'bak' | 'vrij') => Promise<void>;
+  maakBoomPunt: (plant: Plant, x: number, y: number) => Promise<void>;
   wijzigPlek: (id: string, vorm: Vorm) => Promise<void>;
   haalWeg: (plant: Plant, plekId: string) => Promise<void>;
   verplaats: (plant: Plant, van: string, naar: string) => Promise<void>;
@@ -134,6 +135,24 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     klaar(
       'Nieuwe plek aangemaakt',
       `De ${plant.naam} staat nu op de nieuwe plek op de kaart. Op de gedrukte plattegrond komt die plek pas als de kaart opnieuw wordt gemaakt.`,
+    );
+  }, [bewaarBeplanting, klaar]);
+
+  /** Een nieuwe boom of heester: één punt met een letter, en de plant er meteen op. */
+  const maakBoomPunt = useCallback(async (plant: Plant, x: number, y: number) => {
+    const antwoord = await fetch('/api/plekken', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ x, y, soort: 'heester', slug: plant.slug }),
+    });
+    const gegevens = await antwoord.json().catch(() => ({})) as { plek?: Plek; error?: string };
+    if (!antwoord.ok || !gegevens.plek) throw new Error(gegevens.error || 'De boom kon niet op de kaart worden gezet.');
+    const plek = gegevens.plek;
+    setPlekken((vorige) => [...vorige, plek]);
+    await bewaarBeplanting(plek.id, [plant.slug]);
+    klaar(
+      `${plant.naam} staat op de kaart`,
+      `Hij staat als punt met de letter ${plek.label}, dezelfde letter als de andere ${plant.naam} in de legenda.`,
     );
   }, [bewaarBeplanting, klaar]);
 
@@ -271,6 +290,7 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     zetOpPlek,
     maakPlekEnZetVorm,
     maakPlek,
+    maakBoomPunt,
     wijzigPlek,
     haalWeg,
     verplaats,

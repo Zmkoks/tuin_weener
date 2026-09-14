@@ -28,17 +28,36 @@ function Formulier({ plant }: { plant: Plant }) {
         </div>
       </div>
     </form>
-    <section className="plant-verwijderen" aria-labelledby="verwijderen-kop">
-      <h2 id="verwijderen-kop">Plant volledig verwijderen</h2>
-      <p>{aantalPlekken ? `Deze plant staat op ${aantalPlekken} ${aantalPlekken === 1 ? 'plek' : 'plekken'} in de tuin. Hij wordt ook van die plekken gehaald.` : 'Deze plant staat niet in de tuin en verschijnt daarom niet op de homepage. Je kunt hem bewaren in de bibliotheek of volledig verwijderen.'}</p>
-      {bevestigen ? <>
-        <p role="alert">Wil je {plant.naam} definitief verwijderen? Alle plantinformatie en symboolkeuzes verdwijnen. Het plantenadres en de QR-code werken daarna niet meer. Dit kun je niet ongedaan maken.</p>
-        <div className="plant-form-actions">
-          <button type="button" disabled={bezig} onClick={() => setBevestigen(false)}>Annuleren</button>
-          <button type="button" className="verwijder-knop" disabled={bezig} onClick={() => void doe(() => verwijderPlant(plant))}>{bezig ? 'Bezig…' : 'Ja, definitief verwijderen'}</button>
+    {/* Onderaan en rustig: verwijderen is de uitzondering. Pas na de eerste klik wordt het een
+        duidelijk waarschuwingsvak, met de gevolgen als lijstje in plaats van één lange zin. */}
+    <section className={`plant-verwijderen${bevestigen ? ' bevestigen' : ''}`} aria-labelledby="verwijderen-kop">
+      {!bevestigen ? <>
+        <div>
+          <h2 id="verwijderen-kop">Plant volledig verwijderen</h2>
+          <p>{aantalPlekken
+            ? `De ${plant.naam} staat op ${aantalPlekken} ${aantalPlekken === 1 ? 'plek' : 'plekken'} in de tuin en wordt daar ook weggehaald.`
+            : `De ${plant.naam} staat niet in de tuin. Je kunt hem in de bibliotheek laten staan of helemaal verwijderen.`}</p>
         </div>
-        <Melding fout={fout} />
-      </> : <button type="button" disabled={bezig} onClick={() => setBevestigen(true)}>Plant verwijderen…</button>}
+        <button type="button" className="verwijder-start" disabled={bezig} onClick={() => setBevestigen(true)}>Plant verwijderen…</button>
+      </> : <>
+        <span className="verwijder-teken" aria-hidden="true">!</span>
+        <div>
+          <h2 id="verwijderen-kop">De {plant.naam} definitief verwijderen?</h2>
+          <ul role="alert">
+            <li>Alle plantinformatie, foto&apos;s en symboolkeuzes verdwijnen.</li>
+            {aantalPlekken > 0 && <li>Hij wordt van {aantalPlekken === 1 ? 'zijn plek' : `alle ${aantalPlekken} plekken`} in de tuin gehaald.</li>}
+            <li>Het plantenadres en de QR-code werken daarna niet meer.</li>
+          </ul>
+          <p className="verwijder-onomkeerbaar">Dit kun je niet ongedaan maken.</p>
+          <Melding fout={fout} />
+          <div className="beheer-knoppen">
+            <button type="button" className="beheer-doen beheer-weg" disabled={bezig} onClick={() => void doe(() => verwijderPlant(plant))}>
+              {bezig ? 'Bezig met verwijderen…' : 'Ja, definitief verwijderen'}
+            </button>
+            <button type="button" disabled={bezig} onClick={() => setBevestigen(false)}>Nee, bewaren</button>
+          </div>
+        </div>
+      </>}
     </section>
   </div>;
 }

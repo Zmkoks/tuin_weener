@@ -54,7 +54,7 @@ export default function PlekAanwijzen({ slug }: { slug: string }) {
                 </button>}
         </div>}
         <Link className="beheer-uitweg" href={`/beheren/plaatsen/${encodeURIComponent(plant.slug)}/nieuwe-plek`}>
-          <b>Ik kan de juiste plek niet aanwijzen</b>
+          <b>{plant.boomHeester ? 'Deze boom staat nog niet op de kaart' : 'Ik kan de juiste plek niet aanwijzen'}</b>
         </Link>
       </aside>
     </div>
