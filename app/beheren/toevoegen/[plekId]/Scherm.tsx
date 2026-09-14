@@ -19,7 +19,7 @@ export default function PlantZoekenVoorPlek({ plekId }: { plekId: string }) {
 
   if (!plek) return <NietGevonden
     titel="Deze plek bestaat niet meer"
-    tekst="Een plek die hier is bijgemaakt en leeg kwam te staan, wordt opgeruimd. Kies de plek opnieuw op de kaart."
+    tekst="Deze plek bestaat niet meer. Alleen een tijdelijke puntplek wordt na het weghalen van de laatste plant automatisch opgeruimd."
     naar="/beheren/plaatsen"
     tekstTerug="Een plant kiezen"
   />;

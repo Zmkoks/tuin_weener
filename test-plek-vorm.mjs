@@ -66,6 +66,9 @@ assert.deepEqual(geo.veranderVorm(circle, 'bak', 'w', -999, 0), { ...circle, rx:
 assert.deepEqual(geo.veranderVorm(circle, 'bak', 'n', 0, 99), { ...circle, rx: 2.5, ry: 2.5 });
 assert.deepEqual(geo.veranderVorm(circle, 'vrij', 'e', 2, 0), { ...circle, cx: 31, rx: 11 });
 assert.equal(geo.veranderVorm(rect, 'bak', 'e', 0.1, 0).b, 30.1);
+assert.equal(geo.isTijdelijkePuntplek({ id: 'eigen-01', vorm: { type: 'punt', x: 10, y: 20 } }), true);
+assert.equal(geo.isTijdelijkePuntplek({ id: 'eigen-02', vorm: rect }), false);
+assert.equal(geo.isTijdelijkePuntplek({ id: 'vak-02', vorm: { type: 'punt', x: 10, y: 20 } }), false);
 const request = (method, body, auth = true) => new Request('http://test/api/plekken', {
   method, headers: { 'content-type': 'application/json', ...(auth ? { 'x-test-session': 'valid' } : {}) }, body: JSON.stringify(body),
 });

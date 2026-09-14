@@ -12,6 +12,11 @@ export function bewerkbaar(plek: Pick<Plek, 'soort' | 'vorm'>) {
     || (plek.soort === 'vrij' && plek.vorm.type === 'ellipse');
 }
 
+/** Alleen een oude, losse punt-aanwijzing mag verdwijnen zodra de laatste plant is weggehaald. */
+export function isTijdelijkePuntplek(plek: Pick<Plek, 'id' | 'vorm'> | null | undefined) {
+  return Boolean(plek && plek.id.startsWith('eigen-') && plek.vorm.type === 'punt');
+}
+
 export function kader(v: Vorm) {
   return v.type === 'rect'
     ? { x: v.x!, y: v.y!, b: v.b!, h: v.h! }

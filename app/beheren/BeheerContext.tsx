@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import type { Plant } from '@/app/data/plantTypes';
 import type { Plek, Vorm } from '@/app/data/plekTypes';
 import { toPayload, type PlantForm } from '@/app/components/plantFormulier';
+import { isTijdelijkePuntplek } from '@/app/lib/plekVorm';
 
 /**
  * De gedeelde toestand van het beheren.
@@ -163,13 +164,13 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
   }, [klaar]);
 
   /**
-   * Een plek die hier is bijgemaakt en nu leeg is, is een stip op de kaart waar niets meer
-   * staat. Die ruimen we op. De vaste plekken uit tuin.json blijven altijd staan, want het
-   * drukwerk tekent ermee. Geeft terug of er inderdaad iets is opgeruimd, want dat verandert
-   * wat we de gebruiker vertellen.
+   * Alleen een bijgemaakte puntplek is een tijdelijke aanwijzing voor een plant die los op de
+   * kaart stond. Die mag verdwijnen zodra hij leeg is. Een getekende bak of vrije plek blijft
+   * juist bestaan als hij leeg raakt, zodat de beheerder hem daarna bewust kan verwijderen.
    */
   const ruimLegePlekOp = useCallback(async (plekId: string, rest: string[]) => {
-    if (!plekId.startsWith('eigen-') || rest.length > 0) return false;
+    const plek = allePlekken.find((kandidaat) => kandidaat.id === plekId);
+    if (!isTijdelijkePuntplek(plek) || rest.length > 0) return false;
     const antwoord = await fetch('/api/plekken', {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
@@ -178,7 +179,7 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     if (!antwoord.ok) return false;
     setPlekken((vorige) => vorige.filter((plek) => plek.id !== plekId));
     return true;
-  }, []);
+  }, [allePlekken]);
 
   const haalWeg = useCallback(async (plant: Plant, plekId: string) => {
     const rest = (beplant[plekId] || []).filter((slug) => slug !== plant.slug);
@@ -204,7 +205,8 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
    * **En daarom kan dit niet met de twee bestaande schermen achter elkaar.** Was de oude plek
    * hier ooit bijgemaakt (een `eigen-`-stip), dan ruimt `haalWeg` hem op zodra hij leeg is.
    * Verhuis je in twee stappen, dan is die plek dus verdwenen voordat je de plant ergens anders
-   * hebt neergezet. Hier gebeurt het opruimen pas nadat de plant veilig staat.
+   * hebt neergezet. Hier gebeurt het opruimen pas nadat de plant veilig staat. Getekende bakken
+   * en vrije plekken blijven ook na het verhuizen als lege plek bestaan.
    */
   const verplaats = useCallback(async (plant: Plant, van: string, naar: string) => {
     if (van === naar) throw new Error('De plant staat al op deze plek.');
