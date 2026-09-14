@@ -588,7 +588,7 @@ body:has(.scan) { background: #e2e8f0; }
     width: 100%;
     height: auto;
   }
-  .scan-plek-kaart .plattegrond-vak { cursor: default; }
+  .scan-plek-kaart .plattegrond-vak { cursor: pointer; }
   .scan-plek-inhoud { min-width: 0; }
 }
 

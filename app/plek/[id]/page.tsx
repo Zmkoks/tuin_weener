@@ -6,7 +6,7 @@ import { Functies, PlantFoto } from '@/app/components/paspoortDelen';
 import { icoonPad } from '@/app/data/iconen';
 import { laadBeplanting, laadPlanten, laadZones, zoekZone } from '@/app/lib/tuinData';
 import ScanKop from '@/app/components/ScanKop';
-import Plattegrond from '@/app/components/Plattegrond';
+import PlekKaart from './PlekKaart';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,8 +51,8 @@ export default async function PlekPagina({ params }: Props) {
     <ScanKop />
     <div className="scan-vel">
     <div className="scan-plek-layout">
-    <div className="scan-plek-kaart" role="img" aria-label={`Plattegrond met ${zone.label || 'de gekozen plek'} uitgelicht`}>
-      <Plattegrond zones={zones} gekozen={zone.id} namen={namen} plants={planten} placements={beplanting} />
+    <div className="scan-plek-kaart" role="region" aria-label={`Plattegrond met ${zone.label || 'de gekozen plek'} uitgelicht`}>
+      <PlekKaart zones={zones} gekozen={zone.id} namen={namen} plants={planten} placements={beplanting} />
     </div>
     <div className="scan-plek-inhoud">
 
