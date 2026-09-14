@@ -157,8 +157,60 @@
 
 .vakterm-lay { margin-top: 18px; }
 .vakterm-tekening { margin: 0; }
-.vakterm-vlak { position: relative; width: 100%; }
-.vakterm-vlak img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.vakterm-vlak { position: relative; width: 100%; overflow: hidden; border-radius: 14px; }
+.vakterm-vlak img { display: block; width: 100%; height: auto; }
+
+/* De tekening met zijn klikvlakjes; schuift en vergroot als geheel naar het gekozen deel. */
+.vakterm-doek { position: relative; transform-origin: 0 0; transition: transform .45s ease; }
+.vakterm-doek img { touch-action: manipulation; cursor: zoom-in; user-select: none; }
+@media (prefers-reduced-motion: reduce) { .vakterm-doek { transition: none; } }
+
+.vakterm-heel {
+  display: block;
+  margin: 10px 0 0 auto;
+  padding: 7px 14px;
+  border: 1px solid var(--lijn);
+  border-radius: 99px;
+  background: #fff;
+  color: var(--groen);
+  font-family: Poppins, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+}
+.vakterm-heel:focus-visible { outline: 3px solid var(--roze); outline-offset: 2px; }
+
+/* ---------- losse tekeningen (pagina 2 en 3 van het boekje) ---------- */
+/* Elke tekening een eigen kaartje. Hoogstens --kolommen naast elkaar (gezet door
+   Vaktermstukken), en nooit smaller dan 150px: op een telefoon worden het er twee. */
+.vakterm-stukken {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(max(150px, calc((100% - (var(--kolommen) - 1) * 16px) / var(--kolommen))), 1fr));
+  gap: 26px 16px;
+  margin-top: 18px;
+  align-items: start;
+}
+.vakterm-stuk { margin: 0; }
+/* Waar #term-… op een los kaartje heen wijst. De marge is de kopbalk (61px) plus de ruimte die
+   springNaar ook aanhoudt, zodat vinext en springNaar op precies dezelfde plek uitkomen. */
+.vakterm-anker { display: block; scroll-margin-top: 71px; }
+.vakterm-stuk.breed { grid-column: 1 / -1; }
+.vakterm-stuk .vakterm-vlak { margin: 0 auto; }
+/* Tot 760px: een kaartje met twee tekeningen naast elkaar krijgt de hele breedte. Pas daarboven
+   is een halve rij minstens zo breed als een telefoonscherm; daaronder werd elke tak te smal. */
+/* Staande tekeningen krijgen een hoogtegrens, via de breedte: --verhouding is breedte/hoogte.
+   Smal 560px, zodat een paar op een telefoon (±545px hoog) ongemoeid blijft maar op een tablet
+   met de hele breedte niet hoger wordt dan het scherm. Breed 420px, zodat de knop niet een
+   meter lang wordt. Zonder --verhouding (liggend) valt de grens weg. */
+@media (max-width: 759px) {
+  .vakterm-stuk.paar { grid-column: 1 / -1; }
+  .vakterm-stuk .vakterm-vlak { max-width: calc(var(--verhouding, 100) * 560px); }
+}
+@media (min-width: 760px) {
+  .vakterm-stuk .vakterm-vlak { max-width: calc(var(--verhouding, 100) * 420px); }
+}
+.vakterm-stuk .vakterm-lijst { margin-top: 10px; }
 .vakterm-tekening figcaption {
   margin-top: 8px;
   color: var(--lucht);

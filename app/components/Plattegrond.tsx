@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, type PointerEvent, type ReactNode } from 'react';
 import type { Plant } from '@/app/data/plantTypes';
 import type { Vorm } from '@/app/data/plekTypes';
+import PlekVormEditor, { type VormBewerking } from './PlekVormEditor';
 import { berekenPlantPlaatsingen, type KaartSymbool } from '@/app/lib/plattegrondPlaatsing';
 
 /**
@@ -19,10 +20,15 @@ export type PlattegrondZone = {
 };
 
 type Props = {
+  bewerking?: VormBewerking;
   zones: PlattegrondZone[];
   /** Welke plek oplicht. Een kaart die alleen laat zien wat er staat kiest niets. */
   gekozen?: string;
+  /** Plekken die mét de gekozen plek oplichten, zoals alle bomen met dezelfde letter. */
+  oplichten?: string[];
   onKies?: (id: string) => void;
+  /** Open de plekpagina rechtstreeks bij een dubbelklik op een kaartvorm. */
+  onDubbelklik?: (id: string) => void;
   /** Voor de tekst die verschijnt als je met de muis boven een vak hangt. */
   namen?: Record<string, string[]>;
   /** Aanwijsmodus voor een nieuwe plek bij het beheren. */
@@ -225,7 +231,7 @@ function Plantenlaag({ zones, plants, placements }: { zones: PlattegrondZone[]; 
   </g>;
 }
 
-export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, punt, tekenVorm, onVorm, vormPreview, plants, placements, indexLaag }: Props) {
+export default function Plattegrond({ zones, gekozen, oplichten, onKies, onDubbelklik, namen, opPunt, punt, tekenVorm, onVorm, vormPreview, plants, placements, indexLaag, bewerking }: Props) {
   const actueleBeplanting = placements ?? Object.fromEntries(zones.map((zone) => [zone.id, zone.planten ?? []]));
   const [tekenStart, setTekenStart] = useState<{ x: number; y: number } | null>(null);
   const tekenActief = Boolean(tekenVorm && onVorm);
@@ -257,7 +263,7 @@ export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, pun
     }
   };
 
-  return <svg className={`plattegrond${opPunt ? ' aanwijzen' : ''}${tekenActief ? ' tekenen' : ''}`} viewBox="0 0 210 297" role="group" aria-label="Plattegrond van de tuin">
+  return <svg className={`plattegrond${opPunt ? ' aanwijzen' : ''}${tekenActief ? ' tekenen' : ''}${bewerking ? ' bewerken' : ''}`} viewBox="0 0 210 297" role="group" aria-label="Plattegrond van de tuin">
     {/* Alleen het kale terrein: paden, gazon, banken, deur. De planten worden hierboven
         getekend uit de gegevens. Hier stond eerder een terugval naar `plattegrond-tuin.svg`,
         een volledige kaart die op 7 september is gegenereerd — die liep dus achter zodra
@@ -272,12 +278,20 @@ export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, pun
       const omschrijving = hier.length > 0 ? hier.join(', ') : 'nog leeg';
       return <g
         key={zone.id}
-        className={`plattegrond-vak ${zone.vorm.type === 'punt' ? 'punt' : ''} ${gekozen === zone.id ? 'gekozen' : ''}`}
+        className={`plattegrond-vak ${zone.vorm.type === 'punt' ? 'punt' : ''} ${gekozen === zone.id || oplichten?.includes(zone.id) ? 'gekozen' : ''}`}
         role={onKies ? 'button' : undefined}
         tabIndex={onKies ? 0 : undefined}
         aria-pressed={onKies ? gekozen === zone.id : undefined}
         aria-label={omschrijving}
-        onClick={onKies ? () => onKies(zone.id) : undefined}
+        onClick={onKies || onDubbelklik ? (event) => {
+          if (onKies) onKies(zone.id);
+          if (onDubbelklik) event.stopPropagation();
+        } : undefined}
+        onDoubleClick={onDubbelklik ? (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          onDubbelklik(zone.id);
+        } : undefined}
         onKeyDown={onKies ? (event) => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
@@ -309,6 +323,7 @@ export default function Plattegrond({ zones, gekozen, onKies, namen, opPunt, pun
       }}
     />}
     {punt && <circle className="plattegrond-nieuw" cx={punt.x} cy={punt.y} r={PUNT_STRAAL} />}
+    {bewerking && <PlekVormEditor {...bewerking} />}
     {tekenActief && <rect
       className="plattegrond-tekenvlak"
       x="0" y="0" width={KAART_BREEDTE} height={KAART_HOOGTE}

@@ -36,8 +36,9 @@ type Beheer = {
 
   /** Alle handelingen gooien bij mislukken; het scherm dat ze aanroept toont de fout. */
   zetOpPlek: (plant: Plant, plekId: string) => Promise<void>;
-  maakPlekEnZet: (plant: Plant, punt: { x: number; y: number }) => Promise<void>;
+  maakPlekEnZetVorm: (plant: Plant, vorm: Vorm, soort: 'bak' | 'vrij') => Promise<void>;
   maakPlek: (vorm: Vorm, soort: 'bak' | 'vrij') => Promise<void>;
+  wijzigPlek: (id: string, vorm: Vorm) => Promise<void>;
   haalWeg: (plant: Plant, plekId: string) => Promise<void>;
   verplaats: (plant: Plant, van: string, naar: string) => Promise<void>;
   bewaarPlant: (plant: Plant, waarden: PlantForm) => Promise<void>;
@@ -118,21 +119,33 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     );
   }, [beplant, bewaarBeplanting, klaar]);
 
-  const maakPlekEnZet = useCallback(async (plant: Plant, punt: { x: number; y: number }) => {
+  const maakPlekEnZetVorm = useCallback(async (plant: Plant, vorm: Vorm, soort: 'bak' | 'vrij') => {
     const antwoord = await fetch('/api/plekken', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(punt),
+      body: JSON.stringify({ vorm, soort }),
     });
     const gegevens = await antwoord.json() as { plek?: Plek; error?: string };
     if (!antwoord.ok || !gegevens.plek) throw new Error(gegevens.error || 'De nieuwe plek kon niet worden aangemaakt.');
-    setPlekken((vorige) => [...vorige, gegevens.plek as Plek]);
-    await bewaarBeplanting(gegevens.plek.id, [plant.slug]);
+    const plek = gegevens.plek;
+    setPlekken((vorige) => [...vorige, plek]);
+    await bewaarBeplanting(plek.id, [plant.slug]);
     klaar(
       'Nieuwe plek aangemaakt',
-      `${plant.naam} staat nu op een nieuwe plek op de kaart. Op de gedrukte plattegrond komt die plek pas als de kaart opnieuw wordt gemaakt.`,
+      `De ${plant.naam} staat nu op de nieuwe plek op de kaart. Op de gedrukte plattegrond komt die plek pas als de kaart opnieuw wordt gemaakt.`,
     );
   }, [bewaarBeplanting, klaar]);
+
+  const wijzigPlek = useCallback(async (id: string, vorm: Vorm) => {
+    const antwoord = await fetch('/api/plekken', {
+      method: 'PATCH', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id, vorm }),
+    });
+    const gegevens = await antwoord.json().catch(() => ({})) as { plek?: Plek; error?: string };
+    if (!antwoord.ok || !gegevens.plek) throw new Error(gegevens.error || 'Opslaan is niet gelukt.');
+    const plek = gegevens.plek;
+    setPlekken((vorige) => vorige.map((p) => p.id === plek.id ? plek : p));
+    klaar(`Plek ${plek.label} is aangepast`, 'De plaats en grootte zijn bijgewerkt. De planten, het nummer en de QR-code blijven bij deze plek horen.');
+  }, [klaar]);
 
   const maakPlek = useCallback(async (vorm: Vorm, soort: 'bak' | 'vrij') => {
     const antwoord = await fetch('/api/plekken', {
@@ -254,8 +267,9 @@ export function BeheerProvider({ planten, plekken, beplanting, children }: Props
     melding,
     wisMelding: () => setMelding(null),
     zetOpPlek,
-    maakPlekEnZet,
+    maakPlekEnZetVorm,
     maakPlek,
+    wijzigPlek,
     haalWeg,
     verplaats,
     bewaarPlant,

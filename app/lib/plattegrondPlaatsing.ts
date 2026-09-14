@@ -32,6 +32,9 @@ const DEEL_VAN_BAK = 0.33;
 const MARGE = 5;
 const MIN_PLANTEN = 3;
 
+/** Maximale visuele hoogte van één planttekening op de kaart (in kaart-mm). */
+export const MAX_PLANT_HOOGTE = 20;
+
 const PLANTHOOGTE: Record<string, number> = {
   bieslook: 16.5,
   tijm: 8.5,
@@ -265,7 +268,10 @@ export function berekenPlantPlaatsingen(
     const afmetingen = new Map<string, { hoogte: number; breedte: number }>();
     for (const slug of new Set(volgorde)) {
       const gekozen = symboolVan.get(slug);
-      const hoogte = hoogteVan(slug) * factor;
+      // De schaal van een groot vak kan anders een planttekening zo groot maken
+      // dat het vak onleesbaar wordt. Beperk elke soort afzonderlijk; zo blijven
+      // de onderlinge verhoudingen voor gewone maten intact.
+      const hoogte = Math.min(hoogteVan(slug) * factor, MAX_PLANT_HOOGTE * KAART_SCHAAL);
       afmetingen.set(slug, { hoogte, breedte: hoogte * (gekozen?.verhouding ?? 0.55) });
     }
 
@@ -298,6 +304,7 @@ export function berekenPlantPlaatsingen(
       const afmeting = afmetingen.get(slug);
       const symbool = symboolVan.get(slug);
       if (!afmeting) return;
+      const kaartHoogte = Math.min(MAX_PLANT_HOOGTE, afmeting.hoogte / Math.max(KAART_SCHAAL, 0.0001));
       const spiegel = toeval() < 0.5;
       const scheef = Math.round((-3 + toeval() * 6) * 10) / 10;
       uitkomst.push({
@@ -308,10 +315,10 @@ export function berekenPlantPlaatsingen(
         // `test_plattegrond.py` gebruikt voor het tekenen de opgeslagen schaal maal de
         // vaste plantmaat; de maat zonder die kaart-schaal hierboven is alleen voor de
         // plaatsing en het afklemmen aan de rand.
-        hoogte: hoogteVan(slug) * (factor / Math.max(KAART_SCHAAL, 0.0001)),
+        hoogte: kaartHoogte,
         x: Math.round(x * 100) / 100,
         y: Math.round(y * 100) / 100,
-        schaal: Math.round((factor / Math.max(KAART_SCHAAL, 0.0001)) * 10000) / 10000,
+        schaal: Math.round((kaartHoogte / Math.max(hoogteVan(slug), 0.1)) * 10000) / 10000,
         spiegel,
         scheef,
         kleur: plantKleur(plants, slug),

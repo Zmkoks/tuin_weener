@@ -1,5 +1,6 @@
 import { env } from 'cloudflare:workers';
-import type { Plek } from '@/app/data/plekTypes';
+import type { Plek, Vorm } from '@/app/data/plekTypes';
+import { nummerPositie } from '@/app/lib/plekVorm';
 import { zorgVoorDatabase } from '@/db/opzet';
 import { bewaarPlekOpdracht } from '@/db/regels';
 import { plekUitRegel, type Regel } from '@/db/velden';
@@ -27,6 +28,25 @@ export async function leesPlekken(): Promise<Plek[]> {
   await klaar();
   const regels = await env.DB.prepare('SELECT * FROM plekken ORDER BY volgorde, id').all<Regel>();
   return regels.results.map(plekUitRegel);
+}
+
+export async function leesPlek(id: string): Promise<Plek | null> {
+  await klaar();
+  const regel = await env.DB.prepare('SELECT * FROM plekken WHERE id = ?').bind(id).first<Regel>();
+  return regel ? plekUitRegel(regel) : null;
+}
+
+/** Alleen de geometrie verandert; koppelingen, identiteit en startvulling blijven intact. */
+export async function wijzigPlekVorm(plek: Plek, vorm: Vorm): Promise<Plek | null> {
+  await klaar();
+  const badge = nummerPositie(vorm, plek.soort);
+  const regel = await env.DB.prepare(`UPDATE plekken SET
+    badge_x = ?, badge_y = ?, x = ?, y = ?, b = ?, h = ?, cx = ?, cy = ?, rx = ?, ry = ?
+    WHERE id = ? AND soort = ? AND vorm_type = ? RETURNING *`)
+    .bind(badge.x, badge.y, vorm.x ?? null, vorm.y ?? null, vorm.b ?? null, vorm.h ?? null,
+      vorm.cx ?? null, vorm.cy ?? null, vorm.rx ?? null, vorm.ry ?? null, plek.id, plek.soort, vorm.type)
+    .first<Regel>();
+  return regel ? plekUitRegel(regel) : null;
 }
 
 /** Of een plek op de site is bijgemaakt. Dit blijft nodig voor het automatisch opruimen van lege punten. */

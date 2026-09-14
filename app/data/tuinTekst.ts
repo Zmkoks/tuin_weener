@@ -43,10 +43,21 @@ export function waterNiveaus(plant: Plant) {
 
 export type Taak = { type: 'Oogsten' | 'Snoeien'; uitleg: string };
 
+/**
+ * Of oogsten bij deze plant een gewone taak is: primair fruit of kruid, en niet uitdrukkelijk
+ * oneetbaar of zonder opbrengst in deze tuin. `null` (nog niet beoordeeld) telt niet als nee,
+ * anders verliest een nieuwe plant zijn oogst voordat iemand hem heeft kunnen beoordelen.
+ * Andere eetbaarheid (lavendel, azarooldoorn) staat onder "Extra informatie".
+ */
+export function oogstInTuin(plant: Plant) {
+  const soort = plant.functies.primair.includes('fruit') || plant.functies.primair.includes('kruid');
+  return soort && plant.eetbaar !== false && plant.oogstbaarInTuin !== false;
+}
+
 /** Wat er deze maand bij een plant te doen is. Leeg = niets te doen. */
 export function takenVoorMaand(plant: Plant, maand: string): Taak[] {
   const taken: Taak[] = [];
-  if ([...plant.oogstTijd, ...plant.extraOogstTijd].includes(maand)) {
+  if (oogstInTuin(plant) && [...plant.oogstTijd, ...plant.extraOogstTijd].includes(maand)) {
     taken.push({ type: 'Oogsten', uitleg: plant.oogstMethode || plant.extraOogstMethode });
   }
   if (plant.snoeiTijd.includes(maand)) taken.push({ type: 'Snoeien', uitleg: plant.snoeiMethode });

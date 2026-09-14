@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import ScanKop from '@/app/components/ScanKop';
 import SpringNaarAnker from '@/app/components/SpringNaarAnker';
 import Vaktermenkaart from '@/app/components/Vaktermenkaart';
+import Vaktermstukken from '@/app/components/Vaktermstukken';
 import { UitlegTerug, UitlegVoet } from '@/app/components/uitlegDelen';
 import { vaktermgroepen } from '@/app/data/vaktermen';
 
@@ -33,7 +34,11 @@ export default function VaktermenPagina() {
       {alleWoorden.map((term) => <a href={`#term-${term.slug}`} key={term.slug}>{term.term}</a>)}
     </nav>
 
-    {vaktermgroepen.map((groep) => <Vaktermenkaart groep={groep} key={groep.id} />)}
+    {/* De hele plant is één tekening om op in te zoomen; de losse tekeningen van pagina 2 en
+        3 krijgen elk een eigen kaartje. */}
+    {vaktermgroepen.map((groep) => groep.soort === 'los'
+      ? <Vaktermstukken groep={groep} key={groep.id} />
+      : <Vaktermenkaart groep={groep} key={groep.id} />)}
 
     <UitlegVoet nu="/uitleg/vaktermen" />
     </div>

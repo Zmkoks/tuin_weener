@@ -37,7 +37,7 @@ export default function Scherm() {
     <BovenaanBeginnen />
     <Terug naar="/beheren" tekst="Terug naar het begin" />
     <h1>Een plek toevoegen</h1>
-    <p className="lead">Geef aan wat je op de kaart wilt markeren. Een plantenbak en een vrije plek krijgen elk hun eigen manier van tekenen.</p>
+    <p className="lead">Kies eerst of je een plantenbak of een vrije plek wilt tekenen. Daarna teken je de vorm op de kaart.</p>
 
     <div className="beheer-werkblad">
       <Kaart
@@ -53,15 +53,15 @@ export default function Scherm() {
       />
       <aside>
         <div className="beheer-paneel">
-          <h2>Wat is dit?</h2>
+          <h2>Wat wil je tekenen?</h2>
           <div className="soort-keuze" role="radiogroup" aria-label="Soort plek">
             <button type="button" className={isBak ? 'gekozen' : ''} role="radio" aria-checked={isBak} onClick={() => kiesSoort(true)}>
-              <b>Dit is een bak</b>
-              <small>Een afgebakende plantenbak.</small>
+              <b>Dit is een plantenbak</b>
+              <small>Een afgebakende bak: kies daarna een rechthoek of cirkel.</small>
             </button>
             <button type="button" className={!isBak ? 'gekozen' : ''} role="radio" aria-checked={!isBak} onClick={() => kiesSoort(false)}>
-              <b>Dit is geen bak</b>
-              <small>Een vrije plek in de grond.</small>
+              <b>Dit is geen plantenbak</b>
+              <small>Een vrije plek in de grond: die teken je als ovaal.</small>
             </button>
           </div>
           <h2 className="vorm-kop">Vorm tekenen</h2>

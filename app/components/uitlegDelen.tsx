@@ -5,6 +5,7 @@ import { vaktermgroepen } from '../data/vaktermen';
 /* De tuinwoorden worden door maak_uitleg_web.py gegenereerd; tel ze dus, schrijf het aantal
    niet op. Komt er een woord bij, dan klopt de kaart op /uitleg vanzelf nog. */
 const aantalWoorden = vaktermgroepen.reduce((som, groep) => som + groep.termen.length, 0);
+const aantalTekeningen = vaktermgroepen.reduce((som, groep) => som + (groep.soort === 'los' ? groep.stukken.length : 1), 0);
 
 /**
  * De drie uitlegpagina's, in de volgorde van het boekje: water, functies, woorden.
@@ -32,7 +33,7 @@ export const uitlegPaginas = [
     icoon: 'boom',
     titel: 'Tuinwoorden',
     tekst: 'Van basis tot uitloper: welk woord hoort bij welk deel van de plant. Met tekeningen om aan te wijzen.',
-    inhoud: [`${aantalWoorden} woorden op ${vaktermgroepen.length} tekeningen`, 'Aanwijzen waar een woord op de plant zit', 'Dezelfde woorden als in de snoeitekst'],
+    inhoud: [`${aantalWoorden} woorden op ${aantalTekeningen} tekeningen`, 'Aanwijzen waar een woord op de plant zit', 'Dezelfde woorden als in de snoeitekst'],
   },
 ];
 

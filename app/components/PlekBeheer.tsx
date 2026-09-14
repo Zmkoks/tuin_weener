@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
  * die zit op de API (`geldigeSessie`). Het voorkomt alleen dat een bezoeker knoppen ziet
  * waar hij niets mee kan.
  */
-export default function PlekBeheer({ plekId, aantalPlanten, isBak }: { plekId: string; aantalPlanten: number; isBak: boolean }) {
+export default function PlekBeheer({ plekId, aantalPlanten, isBak, kanVormAanpassen }: { plekId: string; aantalPlanten: number; isBak: boolean; kanVormAanpassen: boolean }) {
   const [ingelogd, setIngelogd] = useState(false);
   const [bevestigen, setBevestigen] = useState(false);
   const [bezig, setBezig] = useState(false);
@@ -53,6 +53,7 @@ export default function PlekBeheer({ plekId, aantalPlanten, isBak }: { plekId: s
 
   return <details className="plek-beheer">
     <summary>Aanpassen</summary>
+    {kanVormAanpassen && <Link href={`/beheren/plekken/aanpassen/${id}`}>Plek verplaatsen of vergroten/verkleinen</Link>}
     <Link href={`/beheren/toevoegen/${id}`}>Plant toevoegen</Link>
     {/* Verplaatsen en weghalen hebben een plant nodig om mee te beginnen. Op een lege plek
         zouden ze naar een scherm leiden dat "hier staat niets" zegt. */}

@@ -307,7 +307,52 @@ body:has(.scan) { background: #e2e8f0; }
 .scan-regels .allowed h3 { color: var(--groen); }
 .scan-regels .forbidden { border: 0; border-left: 5px solid var(--roze); background: rgba(186, 41, 115, .07); border-radius: 0 12px 12px 0; }
 .scan-regels .forbidden h3 { color: var(--roze); }
-.scan-onkruid { margin: 24px 0 8px; font-weight: 800; }
+.scan .scan-onkruid { margin: 22px 0 10px; font-size: 20px; color: var(--blauw); }
+
+/* Waarschuwing direct onder de kop. Volle fuchsiarode rand en een lichte vulling: opvallend,
+   maar het blijft leesbare tekst en geen alarmbalk. */
+.scan-gevaar {
+  clear: both;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border: 2px solid var(--roze);
+  background: #fbeef4;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.scan-gevaar-teken {
+  flex: none;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--roze);
+  color: #fff;
+  font-weight: 800;
+  font-size: 18px;
+}
+.scan .scan-gevaar h2 { margin: 2px 0 4px; font-size: 18px; color: var(--roze); }
+.scan .scan-gevaar p { margin: 0; color: var(--blauw); line-height: 1.5; }
+
+/* Gevaarlijk onkruid: vervangt het blauwe maandvak, dezelfde vorm maar compacter en rood. */
+.scan-weghalen {
+  clear: both;
+  background: var(--roze);
+  color: #fff;
+  border-radius: 20px;
+  padding: 18px 22px;
+  margin-bottom: 18px;
+}
+.scan-weghalen .eyebrow { color: #fff; opacity: .8; margin: 0; }
+.scan .scan-weghalen h2 { font-size: 24px; margin: 4px 0 8px; color: #fff; }
+.scan .scan-weghalen p { margin: 6px 0 0; color: #fff; line-height: 1.5; max-width: 72ch; }
+.scan .scan-weghalen b { color: #fff; font-weight: 700; }
+.scan-secties .extra { background: #fffaf0; border: 0; border-left: 5px solid var(--geel); border-radius: 0 12px 12px 0; }
+.scan-secties .extra h3 { color: #8b6800; }
+/* Lokale bijzonderheid: rustig, maar wel boven de verzorging zodat "geen vruchten" niet wegvalt. */
+.scan-secties .tuin-opmerking { background: #fff; border: 2px solid var(--groen); }
+.scan-secties .tuin-opmerking h3 { color: var(--groen); }
 .scan-secties .fact { background: #eef3fb; border-color: #dce7f6; }
 .scan-secties .fact h3 { color: var(--lucht); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 
@@ -515,6 +560,47 @@ body:has(.scan) { background: #e2e8f0; }
   -webkit-box-orient: vertical;
 }
 .scan-plantregel strong { color: var(--fris); font-size: 20px; }
+
+/* Op een plekpagina is de kaart context voor de lijst. Hij verschijnt pas wanneer er
+   naast de plantenlijst genoeg breedte overblijft; op een telefoon blijft de lijst leidend. */
+.scan-plek-kaart { display: none; }
+
+@media (min-width: 760px) {
+  .scan-plek .scan-vel { max-width: 1080px; padding: 0 30px 90px; }
+  .scan-plek-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(270px, .9fr);
+    gap: 34px;
+    align-items: start;
+  }
+  .scan-plek-kaart {
+    display: block;
+    position: sticky;
+    top: 104px;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--lijn);
+    border-radius: 18px;
+    background: var(--licht);
+  }
+  .scan-plek-kaart .plattegrond {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .scan-plek-kaart .plattegrond-vak { cursor: default; }
+  .scan-plek-inhoud { min-width: 0; }
+}
+
+/* Op een telefoon krijgt de plekpagina alle beschikbare ruimte voor de plantenlijst. De
+   tekstkolom mag krimpen en afbreken, terwijl de foto en de doorklikpijl hun plek houden. */
+@media (max-width: 699px) {
+  .scan-vel { width: 100%; padding-left: 14px; padding-right: 14px; }
+  .scan-plek-kop, .scan-plantenlijst, .scan-nu { max-width: 100%; }
+  .scan-plantregel { min-width: 0; }
+  .scan-plantregel > span { min-width: 0; overflow-wrap: anywhere; }
+  .scan-plantregel strong { flex: none; }
+}
 
 @media (min-width: 700px) {
   .scan { padding-bottom: 80px; }

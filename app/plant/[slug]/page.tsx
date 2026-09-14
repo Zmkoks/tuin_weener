@@ -3,7 +3,7 @@ import Link from '@/app/components/NativeLink';
 import { notFound } from 'next/navigation';
 import { hoofdletter, korteBotanischeNaam, months, takenVoorMaand } from '@/app/data/tuinTekst';
 import { icoonPad } from '@/app/data/iconen';
-import { Functies, Kalender, PlantFoto, SectieIllustratie, SectieMagWeg, SectieMoetBlijven, SectieOogsten, SectieSnoeien, SectieVerzorging, SectieWeetje, Waterdruppels } from '@/app/components/paspoortDelen';
+import { Functies, isOnkruid, Kalender, PlantFoto, SectieExtra, SectieGevaar, SectieIllustratie, SectieInOnzeTuin, SectieMagWeg, SectieWeghalen, SectieMoetBlijven, SectieOogsten, SectieSnoeien, SectieVerzorging, SectieWeetje, Waterdruppels } from '@/app/components/paspoortDelen';
 import { laadBeplanting, laadPlanten, laadZones, plekkenVanPlant } from '@/app/lib/tuinData';
 import { fotoVan, illustratieVan } from '@/app/data/afbeeldingen';
 import { Bronvermelding } from '@/app/components/Bronvermelding';
@@ -34,6 +34,7 @@ export default async function PlantPagina({ params }: Props) {
   const plekken = plekkenVanPlant(zones, beplanting, plant.slug);
   const maand = months[new Date().getMonth()];
   const taken = takenVoorMaand(plant, maand);
+  const onkruid = isOnkruid(plant);
 
   /* `scan-plant` zet de brede indeling aan (scan.css, onderaan). De plek-pagina gebruikt
      dezelfde `.scan` maar is een lijstje en blijft smal. */
@@ -74,6 +75,11 @@ export default async function PlantPagina({ params }: Props) {
       </div>
     </header>
 
+    <SectieGevaar plant={plant} />
+
+    {/* Gevaarlijk onkruid: geen maandvak ("hoef je niets te doen" klinkt geruststellend) en
+        geen afweging tussen laten staan en weghalen. */}
+    {onkruid && plant.gevaarlijk ? <SectieWeghalen plant={plant} /> : <>
     <section className="scan-nu">
       <p className="eyebrow">WAT KAN IK NU DOEN?</p>
       <h2>{maand}</h2>
@@ -85,17 +91,21 @@ export default async function PlantPagina({ params }: Props) {
         : <p className="scan-geen-taak">Deze maand hoef je bij deze plant niets te oogsten of te snoeien.</p>}
     </section>
 
-    {[...plant.functies.primair, ...plant.functies.secundair].includes('onkruid') && <p className="scan-onkruid">Dit is onkruid.</p>}
+    {onkruid && <h2 className="scan-onkruid">Dit is onkruid</h2>}
     <div className="scan-regels">
       <SectieMagWeg plant={plant} />
       <SectieMoetBlijven plant={plant} />
     </div>
+    </>}
 
     <a className="scan-meer" href="#meer">Meer over deze plant ↓</a>
 
     <div className="scan-secties" id="meer">
+      {/* Bij gevaarlijk onkruid zegt de opmerking wat "Haal weg" al zegt. */}
+      {!(onkruid && plant.gevaarlijk) && <SectieInOnzeTuin plant={plant} />}
       <SectieVerzorging plant={plant} />
       <SectieOogsten plant={plant} />
+      <SectieExtra plant={plant} />
       <SectieSnoeien plant={plant} />
       <section className="scan-kalender"><h3>Jaarkalender</h3><div className="scan-kalender-scroll"><Kalender plant={plant} /></div><Link className="uitleg-link" href="/uitleg/functies#kalender">Wat betekenen de kleuren? →</Link></section>
       <SectieIllustratie plant={plant} />

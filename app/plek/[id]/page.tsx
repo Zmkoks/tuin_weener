@@ -4,8 +4,9 @@ import { notFound, redirect } from 'next/navigation';
 import { hoofdletter, korteBotanischeNaam, months, takenVoorMaand } from '@/app/data/tuinTekst';
 import { Functies, PlantFoto } from '@/app/components/paspoortDelen';
 import { icoonPad } from '@/app/data/iconen';
-import { laadBeplanting, laadPlanten, zoekZone } from '@/app/lib/tuinData';
+import { laadBeplanting, laadPlanten, laadZones, zoekZone } from '@/app/lib/tuinData';
 import ScanKop from '@/app/components/ScanKop';
+import Plattegrond from '@/app/components/Plattegrond';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,12 +29,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PlekPagina({ params }: Props) {
-  const zone = await zoekZone(decodeURIComponent((await params).id));
+  const { id } = await params;
+  const zones = await laadZones();
+  const zone = zones.find((plek) => plek.id === decodeURIComponent(id));
   if (!zone) notFound();
 
   const [planten, beplanting] = await Promise.all([laadPlanten(), laadBeplanting()]);
   const slugs = beplanting[zone.id] || zone.planten;
   const hier = slugs.map((slug) => planten.find((plant) => plant.slug === slug)).filter((plant) => plant !== undefined);
+  const namen = Object.fromEntries(zones.map((plek) => [plek.id, (beplanting[plek.id] || plek.planten)
+    .map((slug) => planten.find((plant) => plant.slug === slug)?.naam)
+    .filter((naam): naam is string => Boolean(naam))]));
   const maand = months[new Date().getMonth()];
   const taken = hier.flatMap((plant) => takenVoorMaand(plant, maand).map((taak) => ({ plant, taak })));
 
@@ -41,9 +47,14 @@ export default async function PlekPagina({ params }: Props) {
   // Een tussenpagina voegt dan niets toe, dus die QR gaat meteen naar het plantenpaspoort.
   if (zone.soort === 'heester' && hier.length === 1) redirect(`/plant/${hier[0].slug}`);
 
-  return <main className="scan">
+  return <main className="scan scan-plek">
     <ScanKop />
     <div className="scan-vel">
+    <div className="scan-plek-layout">
+    <div className="scan-plek-kaart" role="img" aria-label={`Plattegrond met ${zone.label || 'de gekozen plek'} uitgelicht`}>
+      <Plattegrond zones={zones} gekozen={zone.id} namen={namen} plants={planten} placements={beplanting} />
+    </div>
+    <div className="scan-plek-inhoud">
 
     <header className="scan-plek-kop">
       <p className="eyebrow">JE STAAT HIER</p>
@@ -78,6 +89,8 @@ export default async function PlekPagina({ params }: Props) {
       <Link href="/">Bekijk de hele tuin</Link>
     </footer>
 
+    </div>
+    </div>
     </div>
   </main>;
 }

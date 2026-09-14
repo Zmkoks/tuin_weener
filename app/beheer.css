@@ -124,6 +124,41 @@
 .beheer-kaart { border-radius: 20px; overflow: hidden; }
 .beheer-kaart .plattegrond { display: block; width: 100%; height: auto; }
 
+/* De bewerking ligt boven alle kaartlagen; planten en nummers blijven zichtbaar. */
+.plek-bewerkkaart { overflow: visible; }
+.plattegrond.bewerken .plattegrond-vak { pointer-events: none; }
+.plattegrond.bewerken .plattegrond-vak.gekozen > :is(rect, ellipse) { fill: transparent; stroke: transparent; }
+.plek-vorm-editor { touch-action: none; }
+.plek-sleepvlak { fill: #4be16e14; stroke: var(--blauw); stroke-width: .7; cursor: move; touch-action: none; outline: none; }
+.plek-sleepvlak:focus-visible { stroke: var(--roze); stroke-width: 1.1; }
+.plek-handgreep { outline: none; touch-action: none; }
+.greep-raakvlak { fill: transparent; stroke: transparent; stroke-width: 16px; vector-effect: non-scaling-stroke; pointer-events: all; }
+.greep-zichtbaar { fill: white; stroke: var(--blauw); stroke-width: .6; pointer-events: none; }
+.plek-handgreep:focus-visible .greep-zichtbaar { fill: var(--roze); stroke-width: 1; }
+.greep-n, .greep-s { cursor: ns-resize; }
+.greep-e, .greep-w { cursor: ew-resize; }
+.greep-ne, .greep-sw { cursor: nesw-resize; }
+.greep-nw, .greep-se { cursor: nwse-resize; }
+.plek-keuzekaart .plattegrond-vak:not(.punt) > :is(rect, ellipse) { stroke: #1e3a6a80; stroke-dasharray: 1.2 1; }
+.plek-keuzekaart .plattegrond-vak.punt { pointer-events: none; }
+.plek-keuzelijst { display: grid; gap: .5rem; }
+.plek-keuzelijst a { display: grid; gap: .2rem; padding: .75rem; border: 1px solid #1e3a6a30; border-radius: 8px; color: var(--blauw); text-decoration: none; }
+.plek-keuzelijst a:hover { background: #4be16e25; }
+.plek-keuzelijst span { font-size: .875rem; }
+.plek-bewerk-acties { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-top: 1rem; }
+.plek-bewerk-acties button { font: inherit; border: 1px solid currentColor; background: white; color: var(--blauw); border-radius: 8px; padding: .65rem; cursor: pointer; }
+.plek-bewerk-acties button:disabled { opacity: .5; cursor: default; }
+.plek-kaartkolom { min-width: 0; }
+.plek-kaartzoom { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .75rem; }
+.plek-kaartzoom button { font: inherit; font-size: .875rem; padding: .65rem; color: var(--blauw); background: white; border: 1px solid #1e3a6a40; border-radius: 8px; cursor: pointer; }
+.plek-kaartzoom button:disabled { opacity: .5; cursor: default; }
+.plek-bewerkkaart.ingezoomd { overflow: auto; max-height: 65vh; border-radius: 0; }
+@media (max-width: 600px) {
+  /* Houd kleine vakken met acht handgrepen bedienbaar op een smal scherm. */
+  .plek-bewerkkaart { overflow: auto; border-radius: 0; max-height: 65vh; }
+  .plek-bewerkkaart .plattegrond { min-width: 640px; }
+}
+
 .beheer-paneel {
   background: #fff;
   border: 1px solid var(--lijn);

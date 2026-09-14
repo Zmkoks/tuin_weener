@@ -1,5 +1,6 @@
 import type { Plant } from '../data/plantTypes';
 import type { Plek } from '../data/plekTypes';
+import { oogstInTuin } from '../data/tuinTekst';
 
 /**
  * Wat er deze maand in de tuin te doen is.
@@ -24,7 +25,7 @@ export const TAAK_NAAM: Record<TaakSoort, string> = { oogst: 'Oogsten', snoei: '
 export function takenVoor(planten: Plant[], maand: string): Taak[] {
   return planten.flatMap((plant) => {
     const taken: Taak[] = [];
-    if ([...plant.oogstTijd, ...plant.extraOogstTijd].includes(maand)) taken.push({ plant, soort: 'oogst' });
+    if (oogstInTuin(plant) && [...plant.oogstTijd, ...plant.extraOogstTijd].includes(maand)) taken.push({ plant, soort: 'oogst' });
     if (plant.snoeiTijd.includes(maand)) taken.push({ plant, soort: 'snoei' });
     return taken;
   });

@@ -26,10 +26,11 @@ const GROEPEN = [
     kop: 'Plattegrond aanpassen',
     uitleg: 'Verandert er iets aan wat er wáár in de tuin staat.',
     keuzes: [
-      { naar: '/beheren/plekken/nieuw', titel: 'Een plek toevoegen', uitleg: 'Kies: dit is een bak of dit is geen bak, en teken hem op de plattegrond.' },
       { naar: '/beheren/plaatsen', titel: 'Een plant toevoegen op een plek', uitleg: 'Zet een plant die al in de bibliotheek staat op een plek in de tuin.' },
       { naar: '/beheren/verplaatsen', titel: 'Een plant verplaatsen', uitleg: 'De plant staat ergens anders dan op de plattegrond.' },
       { naar: '/beheren/weghalen', titel: 'Een plant verwijderen van een plek', uitleg: 'De plant staat er niet meer. Hij blijft wel in de bibliotheek staan.' },
+      { naar: '/beheren/plekken/nieuw', titel: 'Een plek toevoegen', uitleg: 'Maak een nieuwe plek op de plattegrond.' },
+      { naar: '/beheren/plekken/aanpassen', titel: 'Plek verplaatsen of vergroten/verkleinen', uitleg: 'Pas de plaats of grootte van een plantenbak of vrije plek aan.' },
     ],
   },
   {

@@ -2,7 +2,7 @@ import Link from '@/app/components/NativeLink';
 import type { Plant } from '../data/plantTypes';
 import { fotoVan, illustratieVan } from '../data/afbeeldingen';
 import { functieIcoon, icoonPad, standplaatsIcoon } from '../data/iconen';
-import { functionLabels, months, monthShort, waterNiveaus } from '../data/tuinTekst';
+import { functionLabels, months, monthShort, oogstInTuin, waterNiveaus } from '../data/tuinTekst';
 import { metVaktermen } from '../data/vaktermLinks';
 import IllustratieGroot from './IllustratieGroot';
 
@@ -99,7 +99,7 @@ export function Kalender({ plant }: { plant: Plant }) {
   const rows = [
     ['Groei', plant.groei, 'grow'],
     ['Bloei', plant.bloei, 'bloom'],
-    ['Oogst', [...plant.oogstTijd, ...plant.extraOogstTijd], 'harvest'],
+    ['Oogst', oogstInTuin(plant) ? [...plant.oogstTijd, ...plant.extraOogstTijd] : [], 'harvest'],
     ['Snoei', plant.snoeiTijd, 'prune'],
     ['Rust', plant.sterf, 'rest'],
   ] as const;
@@ -129,8 +129,37 @@ export function SectieVerzorging({ plant }: { plant: Plant }) {
 
 export function SectieOogsten({ plant }: { plant: Plant }) {
   const maanden = [...plant.oogstTijd, ...plant.extraOogstTijd];
-  if (maanden.length === 0) return null;
+  if (maanden.length === 0 || !oogstInTuin(plant)) return null;
   return <section><Blokkop icoon="oogst1">Oogst &amp; gebruik</Blokkop><b>{maanden.join(', ')}</b><p>{plant.oogstMethode || plant.extraOogstMethode}</p></section>;
+}
+
+/** "juni, juli en augustus" */
+const opsomming = (woorden: string[]) =>
+  woorden.length < 2 ? woorden.join('') : `${woorden.slice(0, -1).join(', ')} en ${woorden[woorden.length - 1]}`;
+
+/**
+ * Eetbaarheid die geen gewone oogsttaak is: lavendel (sier), azarooldoorn (boom), of kiwi
+ * die hier geen vruchten draagt. De kennis blijft zo bewaard zonder dat de maandlijst oproept
+ * tot oogsten.
+ */
+export function SectieExtra({ plant }: { plant: Plant }) {
+  if (oogstInTuin(plant) || plant.eetbaar === false) return null;
+  const maanden = [...plant.oogstTijd, ...plant.extraOogstTijd];
+  const methode = plant.oogstMethode || plant.extraOogstMethode;
+  if (!plant.eetbaarInfo && !methode) return null;
+  return <section className="extra"><h3>Extra informatie</h3>
+    {plant.eetbaarInfo && <p>{plant.eetbaarInfo}</p>}
+    {/* De maanden in een zin: als losse vetgedrukte rij ("Juni, Juli, Augustus.") zei niets
+        waar ze over gingen — in het oogstblok doet de kop dat, hier niet. */}
+    {maanden.length > 0 && <p><b>Plukken kan in {opsomming(maanden.map((m) => m.toLowerCase()))}.</b></p>}
+    {methode && <p>{methode}</p>}
+  </section>;
+}
+
+/** Wat alleen voor het exemplaar in deze tuin geldt, zoals een kiwi zonder vruchten. */
+export function SectieInOnzeTuin({ plant }: { plant: Plant }) {
+  if (!plant.tuinOpmerking) return null;
+  return <section className="tuin-opmerking"><h3>In onze tuin</h3><p>{plant.tuinOpmerking}</p></section>;
 }
 
 /**
@@ -141,17 +170,44 @@ export function SectieSnoeien({ plant }: { plant: Plant }) {
   return <section><Blokkop icoon="snoei">Snoeien</Blokkop><b>{plant.snoeiTijd.join(', ') || 'Alleen wanneer nodig'}</b><p>{metVaktermen(plant.snoeiMethode)}</p><p>{metVaktermen(plant.snoeiInformatie)}</p></section>;
 }
 
+/** Onkruid als primaire óf secundaire functie: juist een plant die ook iets bijdraagt, is onkruid dat mag blijven. */
+export function isOnkruid(plant: Plant) {
+  return [...plant.functies.primair, ...plant.functies.secundair].includes('onkruid');
+}
+
+/**
+ * Waarschuwing direct onder de kop, vóór alles wat geruststellend kan klinken. Gold eerst
+ * alleen als zin in het roze regelvak onderaan, na "Deze maand hoef je niets te doen".
+ */
+export function SectieGevaar({ plant }: { plant: Plant }) {
+  if (!plant.gevaarlijk || !plant.gevaarlijkInfo) return null;
+  return <section className="scan-gevaar" role="note" aria-label="Waarschuwing">
+    <span className="scan-gevaar-teken" aria-hidden="true">!</span>
+    <div><h2>Pas op</h2><p>{plant.gevaarlijkInfo}</p></div>
+  </section>;
+}
+
+/**
+ * Bij gevaarlijk onkruid vervangt dit het blauwe maandvak én de twee regelvakken: er valt
+ * niets af te wegen, alleen hoe en wanneer je hem weghaalt.
+ */
+export function SectieWeghalen({ plant }: { plant: Plant }) {
+  return <section className="scan-weghalen">
+    <p className="eyebrow">DIT IS ONKRUID</p>
+    <h2>Haal weg</h2>
+    <p>{plant.woekerToestemming}</p>
+    {plant.snoeiTijd.length > 0 && <p><b>Wanneer:</b> {plant.snoeiTijd.join(', ').toLowerCase()}. {plant.snoeiTijdInfo}</p>}
+  </section>;
+}
+
 export function SectieMagWeg({ plant }: { plant: Plant }) {
-  const onkruid = [...plant.functies.primair, ...plant.functies.secundair].includes('onkruid');
-  if (onkruid && plant.gevaarlijk) return null;
-  if (onkruid) return <section className="allowed"><h3>Waarom laten staan?</h3><p>{plant.waaromLatenStaan || 'Deze plant mag blijven staan zolang hij andere planten niet hindert.'}</p></section>;
+  if (isOnkruid(plant)) return <section className="allowed"><h3>Waarom laten staan?</h3><p>{plant.waaromLatenStaan || 'Deze plant mag blijven staan zolang hij andere planten niet hindert.'}</p></section>;
   return <section className="allowed"><h3>Toegestaan</h3><p>{plant.woekerToestemming}</p></section>;
 }
 
 export function SectieMoetBlijven({ plant }: { plant: Plant }) {
-  const onkruid = [...plant.functies.primair, ...plant.functies.secundair].includes('onkruid');
-  if (onkruid) return <section className="forbidden"><h3>{plant.gevaarlijk ? 'Haal weg' : 'Wanneer weghalen?'}</h3>{plant.gevaarlijkInfo && <p><strong>Let op:</strong> {plant.gevaarlijkInfo}</p>}<p>{plant.woekerToestemming}</p></section>;
-  if (plant.gevaarlijk) return <section className="forbidden"><h3>Let op!</h3><p>{plant.gevaarlijkInfo}</p></section>;
+  // Eerst het moment (het verbod: "laat niet alle zaad rijp worden"), dan hoe ver je mag gaan.
+  if (isOnkruid(plant)) return <section className="forbidden"><h3>Wanneer weghalen?</h3><p>{plant.woekerVerbod}</p><p>{plant.woekerToestemming}</p></section>;
   return <section className="forbidden"><h3>Niet doen</h3><p>{plant.woekerVerbod}</p></section>;
 }
 
