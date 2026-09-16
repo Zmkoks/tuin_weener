@@ -293,3 +293,51 @@ a.manage{display:flex;align-items:center;text-decoration:none}
   .nu-lay .task-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:650px){.nu-lay .task-grid{grid-template-columns:1fr}}
+
+/* ---- Katernproef en boekjesvellen --------------------------------------------------
+   Een vel is een echt bedrukt blad. In katernvolgorde staan er twee A5-pagina's naast
+   elkaar op A4 liggend; in leesvolgorde is een vel één losse A5. De maten staan in
+   millimeters omdat ze een-op-een naar papier gaan. */
+.katernproef{background:var(--achtergrond)}
+.proef-bediening-terug{margin-bottom:32px}
+.proef-bediening-terug>a{color:var(--groen);font-weight:700;text-decoration:none}
+.proef-uitleg{max-width:60ch}
+.proef-bediening{display:flex;flex-wrap:wrap;gap:20px;align-items:center;margin:28px 0}
+.proef-bediening label{display:flex;flex-direction:column;gap:6px;font-weight:700}
+.proef-bediening input[type=number]{width:8ch;padding:9px 11px;border:1px solid #c3cbd8;border-radius:10px;font:inherit}
+.proef-bediening select{padding:9px 11px;border:1px solid #c3cbd8;border-radius:10px;font:inherit;background:#fff}
+/* Het omslag is op het scherm herkenbaar aan een randje; op papier telt alleen de inhoud. */
+.boek-vel.omslagvel{outline:2px solid var(--groen);outline-offset:4px}
+.proef-bediening .proef-keuze{flex-direction:row;align-items:center;gap:9px}
+/* De vellen zijn breder dan een telefoonscherm; laat ze schuiven in plaats van de pagina. */
+.proef-vellen{overflow-x:auto;padding-bottom:12px}
+.boek-vel{position:relative;background:#fff;margin:0 auto 20px;box-shadow:0 8px 30px #1e3a6a1c;display:flex;box-sizing:border-box}
+.boek-vel.katern{width:297mm;height:210mm}
+.boek-vel.los{width:148mm;height:210mm}
+.boek-pagina{position:relative;width:148.5mm;height:210mm;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:12mm}
+.boek-vel.los .boek-pagina{width:148mm}
+.boek-nummer{font-size:55mm;font-weight:800;color:var(--blauw);line-height:1}
+.boek-pagina.blanco .boek-nummer{font-size:7mm;color:#98a1b0;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+/* Het omslag draagt geen paginanummer: links achterkant, rechts voorkant. */
+.boek-omslagnaam{font-size:13mm;font-weight:800;letter-spacing:.14em;color:var(--groen)}
+.boek-hoek{position:absolute;left:0;right:0;text-align:center;font-size:3.6mm;font-weight:700;letter-spacing:.1em;color:#98a1b0;text-transform:uppercase}
+.boek-hoek.boven{top:7mm}
+.boek-hoek.onder{bottom:7mm}
+.boek-vouw{position:absolute;top:0;bottom:0;left:50%;border-left:1px dashed #c3cbd8}
+.boek-velnaam{position:absolute;bottom:2mm;left:0;right:0;text-align:center;font-size:3mm;color:#b4bcc9;letter-spacing:.08em}
+@media print{
+  /* Benoemde pagina's: het printblok van de plattegrond zet @page al op A4 staand voor de
+     hele site. Met een eigen naam per vel geldt die instelling hier niet. */
+  @page boekjeKatern{size:A4 landscape;margin:0}
+  @page boekjeLos{size:A5 portrait;margin:0}
+  body:has(.katernproef){background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body:has(.katernproef) .topbar,body:has(.katernproef) .site-voet,
+  .katernproef .proef-bediening,.katernproef .proef-bediening-terug,.katernproef .proef-uitleg,
+  .katernproef .workspace>.eyebrow,.katernproef .workspace>h1{display:none}
+  .katernproef .workspace{padding:0}
+  .katernproef .proef-vellen{overflow:visible;padding:0}
+  .boek-vel{margin:0;box-shadow:none;break-after:page;outline:0}
+  .boek-vel:last-child{break-after:auto}
+  .boek-vel.katern{page:boekjeKatern}
+  .boek-vel.los{page:boekjeLos}
+}
