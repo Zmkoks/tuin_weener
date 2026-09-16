@@ -27,6 +27,7 @@
 import { useState } from 'react';
 import Link from '@/app/components/NativeLink';
 import Kopbalk from '../../../components/Kopbalk';
+import { katernKanten, katernOmvang } from '@/app/lib/boekjeVellen';
 
 type Modus = 'heel' | 'omslag' | 'binnenwerk' | 'los';
 
@@ -42,19 +43,12 @@ type Kant = {
 const OMSLAG: Kant = { helften: ['ACHTERKANT', 'VOORKANT'], naam: 'omslag · buitenzijde', omslag: true };
 
 function binnenwerkKanten(paginas: number, inhoud: number): Kant[] {
-  const kanten: Kant[] = [];
-  for (let i = 0; i < paginas / 4; i += 1) {
-    const paren: [number, number][] = [[paginas - 2 * i, 1 + 2 * i], [2 + 2 * i, paginas - 1 - 2 * i]];
-    paren.forEach((paar, kant) => {
-      kanten.push({
-        // 0 betekent blanco: een opvulpagina om op een viervoud uit te komen.
-        helften: paar.map((nr) => (nr > inhoud ? 0 : nr)) as [Helft, Helft],
-        naam: `binnenwerk, vel ${i + 1} · ${kant === 1 ? 'achterkant' : 'voorkant'}`,
-        omslag: false,
-      });
-    });
-  }
-  return kanten;
+  // 0 betekent blanco: een opvulpagina om op een viervoud uit te komen.
+  return katernKanten(paginas).map((kant) => ({
+    helften: kant.helften.map((nr) => (nr > inhoud ? 0 : nr)) as [Helft, Helft],
+    naam: `binnenwerk, vel ${kant.vel} · ${kant.achterkant ? "achterkant" : "voorkant"}`,
+    omslag: false,
+  }));
 }
 
 function Pagina({ helft }: { helft: Helft }) {
@@ -79,7 +73,7 @@ export default function KaternproefPagina() {
   const [modus, setModus] = useState<Modus>('heel');
 
   // Naar boven afronden op een viervoud: minder kan niet gevouwen worden.
-  const paginas = Math.max(4, Math.ceil(inhoud / 4) * 4);
+  const paginas = katernOmvang(inhoud);
   const binnenwerk = binnenwerkKanten(paginas, inhoud);
   const kanten = modus === 'omslag' ? [OMSLAG]
     : modus === 'binnenwerk' ? binnenwerk
