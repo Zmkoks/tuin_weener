@@ -25,7 +25,7 @@ export const TAAK_NAAM: Record<TaakSoort, string> = { oogst: 'Oogsten', snoei: '
 export function takenVoor(planten: Plant[], maand: string): Taak[] {
   return planten.flatMap((plant) => {
     const taken: Taak[] = [];
-    if (oogstInTuin(plant) && [...plant.oogstTijd, ...plant.extraOogstTijd].includes(maand)) taken.push({ plant, soort: 'oogst' });
+    if (oogstInTuin(plant) && plant.oogstTijd.includes(maand)) taken.push({ plant, soort: 'oogst' });
     if (plant.snoeiTijd.includes(maand)) taken.push({ plant, soort: 'snoei' });
     return taken;
   });

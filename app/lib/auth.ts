@@ -1,7 +1,8 @@
 import { env } from 'cloudflare:workers';
 
 export const AUTH_COOKIE = 'weener_beheer';
-const MAX_AGE = 60 * 60 * 24 * 7;
+// Eén werkdag: op een gedeelde computer blijft niemand dagenlang ingelogd.
+const MAX_AGE = 60 * 60 * 8;
 
 function setting(name: string) {
   return (env as unknown as Record<string, string | undefined>)[name] || '';
@@ -32,5 +33,5 @@ export function juisteCode(code: unknown) {
 }
 
 export function cookieHeader(value: string, secure = false) {
-  return `${AUTH_COOKIE}=${value}; Path=/; HttpOnly; SameSite=Lax; ${secure ? 'Secure; ' : ''}`;
+  return `${AUTH_COOKIE}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${MAX_AGE}; ${secure ? 'Secure; ' : ''}`;
 }

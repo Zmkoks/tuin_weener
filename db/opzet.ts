@@ -278,46 +278,6 @@ export const MIGRATIES: Migratie[] = [
     ],
   },
   {
-    // Voorbeeld van de nieuwe redactionele logica: gevaarlijk onkruid dat uit de tuin weg
-    // moet. INSERT OR IGNORE houdt een eventueel al handmatig toegevoegd exemplaar intact.
-    naam: '0007_reuzenberenklauw',
-    stappen: [
-      `INSERT OR IGNORE INTO planten (
-         slug, naam, plantnummer, botanische_naam, zon, zon_info,
-         water_ondergrens, water_bovengrens, water_info,
-         functies_primair, functies_secundair,
-         eetbaar, eetbaar_info, oogstbaar_in_tuin, tuin_opmerking, boom_heester,
-         gevaarlijk, gevaarlijk_info, waarom_laten_staan,
-         oogst_tijd, oogst_methode, extra_oogst_tijd, extra_oogst_methode,
-         snoei_tijd, snoei_tijd_info, snoei_methode, snoei_informatie,
-         woeker_toestemming, woeker_verbod, levensduur, groei, bloei, sterf,
-         commons, commons_illustraties, intro, weetje, aangemaakt_op, gewijzigd_op
-       ) VALUES (
-         'reuzenberenklauw', 'reuzenberenklauw', '26',
-         'Heracleum mantegazzianum Sommier & Levier', 'halfschaduw',
-         'Reuzenberenklauw groeit op zonnige en halfbeschaduwde plekken. Hij groeit vaak op vochtige, voedselrijke grond.',
-         '1', '3', 'Deze plant hoeft geen water. Geef geen water en kom niet onnodig dichtbij.',
-         'onkruid', '',
-         0, '', 0, 'Haal deze plant weg. Voorkom in ieder geval dat hij rijpe zaden maakt.', 0,
-         1, 'Het sap kan samen met zonlicht ernstige huidbeschadiging veroorzaken. Bescherm huid en ogen.', '',
-         '', '', '', '',
-         'Maart,April,Mei,Juni,Juli,Augustus',
-         'Begin in het vroege voorjaar. Controleer de plek in de zomer opnieuw. Voorkom altijd dat de plant rijpe zaden maakt.',
-         'Draag volledig bedekkende kleding, stevige handschoenen en oogbescherming. Steek de wortel in het voorjaar minstens 15 centimeter onder de grond af. Herhaal dit als de plant terugkomt.',
-         'Het sap kan samen met zonlicht ernstige huidbeschadiging veroorzaken. Bescherm huid en ogen. Voer verwijderde delen af met het groenafval en laat ze niet in de tuin liggen.',
-         'Haal de plant weg voordat hij zaad maakt. Werk alleen met volledig bedekte huid, stevige handschoenen en oogbescherming.',
-         'Raak de plant niet met blote huid aan. Maai of knip hem niet zonder beschermende kleding. Laat geen bloemen met rijpe zaden staan.',
-         'Meerjarig', 'Maart,April,Mei,Juni,Juli,Augustus,September,Oktober',
-         'Juni,Juli,Augustus', 'November,December,Januari,Februari',
-         'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum',
-         'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)',
-         'Reuzenberenklauw is een zeer grote plant met witte bloemschermen. Het sap kan de huid ernstig beschadigen in zonlicht.',
-         'De plant kan meer dan drie meter hoog worden en maakt zeer veel zaden.',
-         CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
-      )`,
-    ],
-  },
-  {
     // Oude bijgemaakte plekken kregen nog geen kaartnummer en plaatsten hun badge in het
     // midden. Geef ze bij de eerstvolgende aanvraag dezelfde notatie als nieuwe plekken.
     naam: '0008_nummer_bijgemaakte_plekken',
@@ -349,6 +309,70 @@ export const MIGRATIES: Migratie[] = [
       `UPDATE plekken
        SET badge_x = COALESCE(cx, 0), badge_y = COALESCE(cy, 0) + COALESCE(ry, 0)
        WHERE soort = 'bak' AND vorm_type = 'ellipse'`,
+    ],
+  },
+  {
+    // Snoeien per moment: [{ maanden, wat }]. Elke bestaande plant krijgt één moment uit
+    // snoei_tijd en snoei_tijd_info; opsplitsen per moment is redactiewerk, niet iets voor SQL.
+    // Leeg ('') betekent "nog niet omgezet" en laat velden.ts terugvallen op de oude kolommen.
+    naam: '0010_snoei_momenten',
+    stappen: [
+      `ALTER TABLE planten ADD COLUMN snoei_momenten TEXT NOT NULL DEFAULT ''`,
+      `UPDATE planten SET snoei_momenten = CASE
+         WHEN snoei_tijd = '' AND snoei_tijd_info = '' THEN '[]'
+         WHEN snoei_tijd = '' THEN json_array(json_object('maanden', json_array(), 'wat', snoei_tijd_info))
+         ELSE json_array(json_object('maanden', json('["' || replace(snoei_tijd, ',', '","') || '"]'), 'wat', snoei_tijd_info))
+       END`,
+    ],
+  },
+  {
+    // Oogsten per moment, net als snoeien. Gewone en extra oogst worden elk een moment;
+    // bij de omzetting (18 september 2026) had geen enkele plant een extra oogst ingevuld.
+    naam: '0011_oogst_momenten',
+    stappen: [
+      `ALTER TABLE planten ADD COLUMN oogst_momenten TEXT NOT NULL DEFAULT ''`,
+      `UPDATE planten SET oogst_momenten = (
+         SELECT COALESCE(json_group_array(json(moment)), '[]') FROM (
+           SELECT json_object('maanden', CASE WHEN oogst_tijd = '' THEN json_array() ELSE json('["' || replace(oogst_tijd, ',', '","') || '"]') END, 'wat', oogst_methode) AS moment
+             WHERE oogst_tijd <> '' OR oogst_methode <> ''
+           UNION ALL
+           SELECT json_object('maanden', CASE WHEN extra_oogst_tijd = '' THEN json_array() ELSE json('["' || replace(extra_oogst_tijd, ',', '","') || '"]') END, 'wat', extra_oogst_methode)
+             WHERE extra_oogst_tijd <> '' OR extra_oogst_methode <> ''
+         )
+       )`,
+      `UPDATE planten SET extra_oogst_tijd = '', extra_oogst_methode = ''`,
+    ],
+  },
+  {
+    // Werk de twee besproken plantpagina's bij en ruim de tijdelijke proefplant op.
+    naam: '0012_plantgegevens_september',
+    stappen: [
+      `UPDATE planten SET
+         naam = 'wilde marjolein',
+         botanische_naam = 'Origanum vulgare L.',
+         zon_info = 'Staat graag zonnig in grond waar overtollig water makkelijk weg kan.',
+         levensduur = 'Meerjarig',
+         snoei_tijd_info = 'Knip uitgebloeide stengels weg. Ruim in het voorjaar dode resten op.',
+         snoei_momenten = '[{"maanden":["Maart","September"],"wat":"Knip uitgebloeide stengels weg. Ruim in het voorjaar dode resten op."}]',
+         snoei_informatie = 'Wilde marjolein komt elk voorjaar terug en kan zich rustig uitbreiden.',
+         commons = 'https://commons.wikimedia.org/wiki/Category:Origanum_vulgare',
+         intro = 'Wilde marjolein ruikt kruidig. De kleine roze bloemen trekken veel insecten.',
+         weetje = 'Wilde marjolein heet ook oregano. De smaak wordt sterker op een zonnige, droge plek.'
+       WHERE slug = 'marjolein'`,
+      `UPDATE planten SET
+         water_info = 'Voel eerst de grond. Geef water als de bovenste laag droog is, vooral tijdens warm weer. Is de grond nog vochtig, geef dan niets.',
+         functies_secundair = '',
+         oogst_tijd = '', oogst_methode = '',
+         extra_oogst_tijd = '', extra_oogst_methode = '',
+         oogst_momenten = '[]',
+         snoei_informatie = 'Kiwi groeit zeer krachtig en maakt lange nieuwe scheuten.',
+         intro = 'De kiwi is een sterke klimplant met grote, zachte bladeren.',
+         oogstbaar_in_tuin = 0,
+         tuin_opmerking = 'Deze kiwi draagt in onze tuin geen vruchten.'
+       WHERE slug = 'kiwi'`,
+      `DELETE FROM beplanting WHERE plant_slug = 'reuzenberenklauw'`,
+      `DELETE FROM plant_symbolen WHERE plant_slug = 'reuzenberenklauw'`,
+      `DELETE FROM planten WHERE slug = 'reuzenberenklauw'`,
     ],
   },
 ];

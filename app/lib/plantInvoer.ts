@@ -1,4 +1,5 @@
 import type { Afbeelding, Plant } from '@/app/data/plantTypes';
+import { leesMomenten, maandenVan } from '../data/momenten';
 
 /**
  * Het formulier van een plantenpaspoort nakijken en omzetten naar een `Plant`.
@@ -111,6 +112,21 @@ export function leesPlant(raw: unknown, slug: string, standaardNummer: string, h
     if (onbekendeMaand) return { fout: `Onbekende maand bij ${veld}: ${onbekendeMaand}.`, status: 400 };
   }
 
+  // Snoei- en oogstmomenten: lijsten [{ maanden, wat }]. Zonder die lijst (een ouder verzoek)
+  // worden de oude maand- en tekstvelden momenten.
+  for (const [veld, naam] of [['snoeiMomenten', 'snoeimoment'], ['oogstMomenten', 'oogstmoment']] as const) {
+    if (!Array.isArray(body[veld])) continue;
+    for (const moment of body[veld] as unknown[]) {
+      const maanden = moment && typeof moment === 'object' ? lijst(moment as Record<string, unknown>, 'maanden') : [];
+      const onbekend = maanden.find((waarde) => !MAANDEN.includes(waarde));
+      if (onbekend) return { fout: `Onbekende maand bij een ${naam}: ${onbekend}.`, status: 400 };
+    }
+  }
+  const snoeiMomenten = leesMomenten(body.snoeiMomenten, [lijst(body, 'snoeiTijd'), tekst(body, 'snoeiTijdInfo')]);
+  const oogstMomenten = leesMomenten(body.oogstMomenten,
+    [lijst(body, 'oogstTijd'), tekst(body, 'oogstMethode')],
+    [lijst(body, 'extraOogstTijd'), tekst(body, 'extraOogstMethode')]);
+
   return {
     plant: {
       slug,
@@ -136,12 +152,10 @@ export function leesPlant(raw: unknown, slug: string, standaardNummer: string, h
       zon: tekst(body, 'zon') || 'zon',
       zonInfo: tekst(body, 'zonInfo'),
       levensduur: tekst(body, 'levensduur') || 'Meerjarig',
-      oogstTijd: lijst(body, 'oogstTijd'),
-      oogstMethode: tekst(body, 'oogstMethode'),
-      extraOogstTijd: lijst(body, 'extraOogstTijd'),
-      extraOogstMethode: tekst(body, 'extraOogstMethode'),
-      snoeiTijd: lijst(body, 'snoeiTijd'),
-      snoeiTijdInfo: tekst(body, 'snoeiTijdInfo'),
+      oogstMomenten,
+      oogstTijd: maandenVan(oogstMomenten),
+      snoeiMomenten,
+      snoeiTijd: maandenVan(snoeiMomenten),
       snoeiMethode: tekst(body, 'snoeiMethode'),
       snoeiInformatie: tekst(body, 'snoeiInformatie'),
       woekerToestemming: tekst(body, 'woekerToestemming'),

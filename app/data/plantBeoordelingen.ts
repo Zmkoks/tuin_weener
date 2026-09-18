@@ -76,15 +76,6 @@ export const PLANT_BEOORDELINGEN: Record<string, PlantBeoordeling> = {
   'witte-moerbei': veilig(true, 'De rijpe vruchten van deze soort zijn eetbaar.', '', false, 'Deze witte moerbei draagt in onze tuin geen vruchten.'),
   meidoorn: veilig(true, 'Rijpe meidoornvruchten zijn eetbaar na verwijdering van de pitten.'),
   azarooldoorn: veilig(true, 'De rijpe vruchten zijn eetbaar. Verwijder de pitten voor gebruik.'),
-  reuzenberenklauw: {
-    eetbaar: false,
-    eetbaarInfo: '',
-    oogstbaarInTuin: false,
-    tuinOpmerking: 'Haal deze plant weg. Voorkom in ieder geval dat hij rijpe zaden maakt.',
-    gevaarlijk: true,
-    gevaarlijkInfo: 'Het sap kan samen met zonlicht ernstige huidbeschadiging veroorzaken. Bescherm huid en ogen.',
-    waaromLatenStaan: '',
-  },
 };
 
 /** Dezelfde zes planten staan op de plattegrond bij de boom- en heesterplekken. */
@@ -97,13 +88,6 @@ export function metPlantBeoordeling(plant: Plant): Plant {
   const beoordeling = PLANT_BEOORDELINGEN[plant.slug];
   if (!beoordeling) return plant;
   const beoordeeld = { ...plant, ...beoordeling, boomHeester: BOOM_HEESTER.has(plant.slug) };
-  if (plant.slug === 'azarooldoorn' && plant.extraOogstTijd.length > 0) return {
-    ...beoordeeld,
-    oogstTijd: plant.extraOogstTijd,
-    oogstMethode: plant.extraOogstMethode,
-    extraOogstTijd: [],
-    extraOogstMethode: '',
-  };
   if (plant.slug === 'venkel') return {
     ...beoordeeld,
     functies: { primair: ['kruid', 'insecten'], secundair: [] },

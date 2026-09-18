@@ -170,3 +170,12 @@
 
 /* De kopieerknop is de eerste stap van de LLM-route; die moet je niet hoeven zoeken. */
 .prompt-card-head .prompt-kopieer{min-height:52px;padding:0 22px;font-size:16px;border-radius:14px;box-shadow:0 4px 14px #1e3a6a30}
+/* Snoeimomenten in het beheerformulier: per moment maanden aanvinken en één tekstregel. */
+.snoeimomenten>small{display:block;font-weight:500;color:var(--grijs);margin-bottom:10px}
+.snoeimoment-rij{border:1.5px solid #cbd5e1;border-radius:14px;padding:12px 14px;margin:0 0 10px;background:#fff}
+.snoeimoment-rij legend{font-size:13px;padding:0 6px}
+.snoeimoment-maanden{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.snoeimoment-maanden button{border:1.5px solid #cbd5e1;background:#fff;border-radius:99px;padding:5px 10px;font-weight:700;font-size:13px;color:var(--grijs)}
+.snoeimoment-maanden button.gekozen{background:var(--blauw);border-color:var(--blauw);color:#fff}
+.snoeimoment-weg{margin-top:8px;border:0;background:none;color:#b0245f;font-weight:700;padding:0}
+.snoeimoment-erbij{border:1.5px dashed var(--blauw);background:none;border-radius:12px;padding:9px 14px;font-weight:800;color:var(--blauw)}

@@ -2,11 +2,13 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import type { Plant } from './data/plantTypes';
+import { leesMomenten } from './data/momenten';
 import {
   FUNCTION_OPTIONS,
   PlantFormFields,
   blankForm,
   nextPlantNumber,
+  splitList,
   toPayload,
   type Keuze,
   type PlantForm,
@@ -42,7 +44,7 @@ WERKWIJZE
 - Bepaal eerst om welke soort het gaat. Gebruik de meest gangbare Nederlandse naam en een correcte wetenschappelijke naam. Neem geen specifiek ras of cultivar aan als dat niet is genoemd.
 - Werk met de opgegeven plantnaam. Vraag niet naar een beschrijving van blad, bloem, vrucht of groeivorm, de standplaats in onze tuin, bekende opbrengst, tuinbijzonderheden of afspraken over verwijderen. Zoek soortgegevens zelf op; gebruik tuinfeiten alleen als ik die uit mezelf geef. De enige toegestane vervolgvraag gaat bij echte twijfel over gewenst laten staan of onkruid, zoals beschreven bij FUNCTIES.
 - Baseer verzorging, kalender en gebruik op betrouwbare botanische en tuinbouwkundige bronnen voor het Nederlandse klimaat. Controleer soortnaam, eetbaarheid en gevaar bij voorkeur bij een botanische tuin, tuinbouworganisatie of andere deskundige bron. Kun je bronnen niet raadplegen, beweer dan niet dat je ze hebt gecontroleerd. Verzin geen bron, eigenschap of precieze instructie bij twijfel.
-- Is de naam niet eenduidig, neem dan geen soort aan. Laat botanischeNaam leeg, benoem de twijfel kort in intro en geef geen soortgebonden oogst- of snoeiadvies totdat de soort vaststaat.
+- Is een plant lastig exact te determineren, kies dan de meest aannemelijke naam. Benoem alleen relevante onzekerheid kort in tuinOpmerking. Blokkeer gewone verzorging niet als nauw verwante soorten dezelfde praktische aanpak hebben.
 - Vul bekende soortgegevens aan. Verzin geen feiten over het exemplaar in onze tuin, zoals leeftijd, standplaats, vruchtzetting of toestemming om het weg te halen.
 - Ga bij ontbrekende standplaatsinformatie uit van een gevestigde plant in de volle grond. Beschrijf relevante verschillen voor een bak of pas geplante plant kort in waterInfo. Gebruik een genoemde standplaats of tuinbijzonderheid uit mijn beschrijving.
 - Maak alle tekst specifiek voor deze plant. Vermijd nietszeggende tekst zoals "geef regelmatig water", "snoei indien nodig" of "houd de plant in de gaten".
@@ -65,15 +67,16 @@ functies is een object met de arrays primair en secundair. Gebruik in beide arra
 
 primair bevat de belangrijkste rol waaronder deze plant op de site wordt opgenomen. Dit hoeft geen reden te zijn om hem te planten of te behouden: herkennen en verwijderen is ook een hoofdrol. primair bevat ALTIJD één of twee verschillende functies en mag NOOIT [] zijn. Kies normaal precies één. Kies alleen twee als beide afzonderlijk zeer belangrijk en vrijwel gelijkwaardig zijn.
 
-Beoordeel eerst of de plant voor deze site onder onkruid valt, en pas daarna welke andere functies passen. "Onkruid" is hier een beheerrol, geen uitspraak dat de plant geen ecologisch nut heeft. Ontbrekende afspraken over verwijderen zijn geen reden om het label weg te laten: het label geeft geen toestemming om te verwijderen.
+"Onkruid" is een beheerrol, geen uitspraak dat de plant geen ecologisch nut heeft. Het label kan primair of secundair zijn en geeft geen toestemming om de plant te verwijderen.
 
 Kies in deze volgorde:
 1. Noem ik uitdrukkelijk een gewenste toepassing in onze tuin, gebruik dan die bedoeling als hoofdrol. Alleen een soortnaam, soortbeschrijving of de vermelding dat insecten de bloemen bezoeken is geen uitdrukkelijke keuze om de plant als insectenplant te behouden.
-2. Wordt deze soort algemeen als onkruid beschouwd of doorgaans als ongewenste spontane plant beheerd, kies dan standaard primair: ["onkruid"], tenzij mijn beschrijving duidelijk een andere gewenste hoofdrol noemt. Ook bij een expliciete bedoeling om de plant te herkennen en te verwijderen kies je "onkruid". Je hoeft bij algemeen onkruid niet eerst te vragen of dat label mag. Het is een geldige, volledige hoofdrol; verzin geen tweede primaire functie om de plant toch nuttig te laten lijken.
-3. Is het geen algemeen onkruid en ontbreekt een tuindoel, kies dan de duidelijk meest gebruikelijke hoofdtoepassing van de soort als redactioneel voorstel. Dat voorstel zegt niet dat hier al toestemming voor planten of verwijderen is gegeven.
-4. Blijft er echte twijfel tussen gewenste tuinplant en onkruid, stel dan eerst één korte vraag en wacht op mijn antwoord. Bijvoorbeeld: "Deze plant wordt vaak als onkruid gezien. Wil je hem hier bewust laten staan, en zo ja waarvoor?" Vraag alleen als het antwoord de hoofdrol wezenlijk verandert en de stappen hierboven geen duidelijke keuze geven. Geef na mijn antwoord het volledige JSON-object met een ingevulde primaire functie.
+2. Is de plant duidelijk sierlijk of een echte grote insectentrekker, kies dan "sier" en/of "insecten" primair. Staat de soort ook als spontane of ongewenste plant bekend, zet "onkruid" dan secundair.
+3. Ziet de plant er vrij gewoon of rommelig uit en is insectenbezoek vooral een bijkomend voordeel, kies dan "onkruid" primair. Zet een aantoonbare insectenfunctie dan secundair. Knopherik is hiervan een voorbeeld.
+4. Is het geen onkruid en ontbreekt een tuindoel, kies dan de duidelijk meest gebruikelijke hoofdtoepassing als redactioneel voorstel.
+5. Blijft er echte twijfel tussen gewenste tuinplant en onkruid, stel dan eerst één korte vraag en wacht op mijn antwoord. Bijvoorbeeld: "Wil je deze plant vooral voor de bloemen laten staan, of behandelen we hem hier als onkruid?" Vraag alleen als het antwoord de hoofdrol wezenlijk verandert.
 
-Een voordeel voor insecten of vogels sluit onkruid niet uit. Bij een plant die hoofdzakelijk onkruid is, blijven zulke aantoonbare voordelen secundair. Maak "insecten" niet primair alleen omdat de plant bloemen heeft, insecten trekt of geen andere nuttige toepassing lijkt te hebben. Alleen secundair: ["insecten"] met primair: [] is ongeldig.
+Een voordeel voor insecten of vogels sluit onkruid niet uit. Alleen bloemen hebben maakt "insecten" meestal secundair. Gebruik "insecten" primair als de plant werkelijk veel of bijzondere insecten aantrekt.
 
 Vaste redactionele keuze voor deze tuin: bij Gevlekte scheerling (Conium maculatum) zonder uitdrukkelijk genoemde gewenste toepassing is primair altijd ["onkruid"]. Vraag voor deze standaardkeuze niets terug. Gebruik bijvoorbeeld functies: {"primair": ["onkruid"], "secundair": []}. Alleen als je een duidelijke insectenfunctie kunt onderbouwen, wordt secundair ["insecten"]. Primair ["insecten"] zonder "onkruid" is in dit geval fout. Alleen mijn uitdrukkelijke keuze om deze plant voor een ander doel te behouden kan de hoofdrol veranderen; leid die keuze niet zelf af uit insectenbezoek.
 
@@ -86,7 +89,7 @@ secundair bevat alles wat de plant óók aantoonbaar is of doet, maar wat niet d
 - vogel: biedt duidelijk voedsel, nestgelegenheid of beschutting aan vogels.
 - sier: staat er in belangrijke mate om opvallende bloemen, blad, vorm, geur of winterbeeld; niet als algemeen restlabel voor iedere mooie plant.
 - boom: heeft een boomvorm of groeit uit tot een grote houtige structuur die schaduw of beschutting geeft. Een gewone kleine struik krijgt dit label niet.
-- onkruid: een plant die algemeen als onkruid bekendstaat of die we hier als ongewenste spontane plant herkennen of beheren. Gebruik bij algemeen onkruid standaard deze hoofdrol volgens stap 2; een expliciet genoemde gewenste toepassing kan de keuze veranderen. Het mag de enige functie zijn; secundair mag dan leeg zijn. Het label geeft op zichzelf geen toestemming om een plant te verwijderen.
+- onkruid: een spontane plant die we herkennen of beheren. Zet dit secundair bij een duidelijke sier- of insectenplant. Zet het primair als de plant weinig andere hoofdwaarde heeft. Het label geeft geen toestemming om een plant te verwijderen.
 
 BOOM OF HEESTER: TRUE OF FALSE
 - boomHeester is een echte JSON-boolean: true of false, in kleine letters en zonder aanhalingstekens. Gebruik hier nooit "ja", "nee", "true", "false", TRUE of FALSE.
@@ -99,34 +102,38 @@ EETBAARHEID, GEVAAR EN ONZE TUIN
 - eetbaar: true als een herkenbaar deel van deze soort normaal en veilig door mensen gegeten wordt; false als er geen gangbaar veilig eetbaar deel is; null als je het niet betrouwbaar weet. Geneeskundig gebruik is geen bewijs van eetbaarheid.
 - eetbaarInfo: benoem bij true precies welk deel eetbaar is en welke bereiding nodig is. Noem ook welke delen niet gegeten mogen worden als verwarring mogelijk is. Geef bij twijfel kort de beperking en geen uitnodiging om te proeven.
 - gevaarlijk: true bij een bekend relevant risico op ernstige klachten door aanraken of eten, zoals giftige delen of brandwonden door sap. Gewone stekels of een mogelijke lichte individuele irritatie zijn op zichzelf geen reden voor true. Gebruik false als zo'n gevaar niet bekend is en null bij onvoldoende betrouwbare informatie; onzeker betekent niet veilig.
-- gevaarlijkInfo: benoem bij true het gevaarlijke deel, het risico en concrete voorzorgsmaatregelen. Maak duidelijk welke bescherming of deskundigheid het werk vereist. De werkwijze voor verwijderen hoort in woekerToestemming. Verwijs niet automatisch naar een begeleider en geef geen medische behandeling. Benoem bij null de onzekerheid als die veilig handelen beïnvloedt; anders leeg.
+- gevaarlijkInfo: geef een korte, duidelijke waarschuwing. Zeg welk deel iemand niet mag eten of aanraken en noem alleen bescherming die echt nodig is. Een lijst met mogelijke klachten of medische details is niet nodig.
 - eetbaar en gevaarlijk zijn onafhankelijke beoordelingen. Een soort kan een eetbaar deel én gevaarlijke andere delen hebben. Zorg dan dat beide uitlegvelden precies dezelfde grens aangeven.
 - oogstbaarInTuin: altijd null. De beheerder beoordeelt of dit exemplaar hier werkelijk oogst geeft. Zet een uitdrukkelijk genoemde bijzonderheid over de opbrengst wel in tuinOpmerking.
-- tuinOpmerking: alleen informatie uit mijn beschrijving over deze tuin, in één of twee korte zinnen. Bijvoorbeeld dat dit exemplaar geen vruchten draagt. Zonder zulke informatie: een lege tekenreeks.
+- tuinOpmerking: alleen informatie uit mijn beschrijving over deze tuin, in één korte zin (hoogstens één regel). Bijvoorbeeld dat dit exemplaar geen vruchten draagt. Zonder zulke informatie: een lege tekenreeks.
 - waaromLatenStaan: alleen bij onkruid én gevaarlijk: false. Noem een aantoonbaar nut en eventueel een voorwaarde waaronder de plant kan blijven. Verzin geen toestemming; bij ontbrekende tuinafspraken kan de beheerder beslissen. Bij gevaarlijk: true of null blijft dit veld leeg.
 
 VELDREGELS
 - intro: maximaal twee korte zinnen over waaraan je de plant herkent en waarom hij interessant is.
-- weetje: één juist, begrijpelijk en verrassend feit; herhaal de intro niet.
+- weetje: één juist, begrijpelijk en verrassend feit; herhaal de intro niet. Houd het bij voorkeur rond 40 woorden of korter.
 - plantnummer: altijd een lege tekenreeks; de website kent het nummer toe.
 - zon: exact één waarde: "zon", "halfschaduw" of "schaduw". Kies de beste hoofdstandplaats; zet nuances in zonInfo.
 - levensduur: exact één waarde: "Eenjarig", "Tweejarig" of "Meerjarig".
-- oogstTijd en oogstMethode: de gewone oogstperiode en veilige, herkenbare oogstwijze voor de soort. Vul alleen in bij eetbaar: true, ook als oogst hier nog onbekend is of fruit/kruid secundair staat. Laat beide leeg bij eetbaar: false of null. Benoem het plantdeel, het herkenbare oogstmoment en hoe iemand oogst. Geef geen medicinaal gebruik of doseringen.
-- extraOogstTijd en extraOogstMethode: alleen voor een duidelijk tweede plantdeel of afwijkende tweede oogstperiode; anders leeg.
-- snoeiTijd: alleen maanden waarin snoeien of terugknippen echt passend is. snoeiTijdInfo legt het moment uit; snoeiMethode zegt precies wat en waar te knippen; snoeiInformatie geeft noodzakelijke achtergrond, risico's of uitzonderingen. Is snoei niet nodig, gebruik lege maanden en leg in de tekstvelden kort uit wat hoogstens mag worden opgeruimd.
-- woekerToestemming: beschrijf concreet welke delen kunnen worden opgeruimd of verwijderd, wanneer en hoe. Noem waar nodig gereedschap, bescherming, omgaan met het verwijderde materiaal en vervolgcontrole. Geef een onderbouwde werkwijze binnen de genoemde tuinafspraken, ook voor een begeleider die dit zelf wil uitvoeren. Geef geen algemene toestemming om hele gewenste planten of grote takken te verwijderen. Is gespecialiseerde hulp nodig, pas dan de voorwaarden onder DOELGROEP EN ZELFSTANDIG GEBRUIK toe.
-- woekerVerbod: benoem bij gewone planten precies wat moet blijven. Bij onkruid verschijnt dit onder "Wanneer weghalen?": beschrijf dan de aanleiding om weg te halen en wat daarbij moet blijven. Bij gevaarlijk onkruid staan de noodzakelijke grenzen ook in gevaarlijkInfo en woekerToestemming, omdat woekerVerbod daar niet apart wordt getoond.
+- oogstMomenten: een lijst met per oogstmoment een object { "maanden": [...], "wat": "..." }, net als snoeiMomenten. "wat" noemt het plantdeel, het herkenbare oogstmoment en hoe iemand veilig oogst. Een ander plantdeel of een aparte oogstperiode krijgt een eigen object. Vul alleen in bij eetbaar: true. Laat leeg ([]) bij eetbaar: false of null, en ook wanneer uit mijn beschrijving blijkt dat het exemplaar in onze tuin geen oogst geeft. Geef geen medicinaal gebruik of doseringen.
+- snoeiMomenten: een lijst met per snoeimoment een object { "maanden": [...], "wat": "..." }. Neem alleen maanden waarin snoeien of terugknippen echt passend is. "wat" is één of twee korte zinnen over wat je op dát moment doet; de site toont die zin in die maanden als taak. Verschillend werk op verschillende momenten krijgt elk een eigen object, bijvoorbeeld [{ "maanden": ["Maart"], "wat": "Ruim dode bladeren op." }, { "maanden": ["Augustus"], "wat": "Knip oude bladeren en overtollige uitlopers weg." }]. Een maand hoort bij hoogstens één moment. snoeiMethode is de algemene werkwijze: gereedschap, waar je knipt en wat moet blijven; herhaal het moment niet. snoeiInformatie is alleen achtergrond over hoe de plant groeit en waarom je zo snoeit. Zet daar niets over eten (dat hoort in eetbaarInfo), gevaar (gevaarlijkInfo), verwijderen (woekerToestemming) of dit ene exemplaar (tuinOpmerking). Is snoei niet nodig, geef dan één moment met lege maanden en zeg in "wat" kort wat hoogstens mag worden opgeruimd.
+- woekerToestemming: beschrijf concreet welke delen kunnen worden opgeruimd of verwijderd, wanneer en hoe. Geef geen algemene toestemming om hele gewenste planten of grote takken te verwijderen. Houd het liefst kort, maar duidelijkheid gaat vóór het aantal woorden.
+- woekerVerbod: benoem bij gewone planten precies wat moet blijven. Bij onkruid verschijnt dit onder "Wanneer weghalen?": beschrijf dan de aanleiding om weg te halen en wat daarbij moet blijven. Houd het liefst kort, maar duidelijkheid gaat vóór het aantal woorden.
 - groei: maanden met zichtbare nieuwe bladeren of stengels.
 - bloei: maanden waarin de plant doorgaans bloeit.
 - sterf: maanden waarin een kruidachtige plant bovengronds afsterft of duidelijk in rust gaat. Voor een bladverliezende houtige plant zijn dit de maanden van bladval/rust. Gebruik [] als er geen duidelijke zichtbare rust- of afsterfperiode is.
 - commons: de directe Wikimedia Commons-categoriepagina voor precies deze soort, bij voorkeur in de vorm https://commons.wikimedia.org/wiki/Category:... Deze pagina wordt straks bij FOTO getoond als plek om een foto te zoeken en als mogelijke bron. Geef uitsluitend de kale URL als tekenreeks: geen Markdown, blokhaken, haakjes of linktekst. Gebruik https://commons.wikimedia.org/ als je de juiste categorie niet betrouwbaar weet. Kies geen specifieke foto, botanische illustratie of plattegrondsymbool.
 - commonsIllustraties: zoek op Wikimedia Commons naar een bestaande categorie met botanische illustraties van precies deze soort. De naam is vaak "Category:Wetenschappelijke_naam_-_botanical_illustrations", bijvoorbeeld https://commons.wikimedia.org/wiki/Category:Rubus_caesius_-_botanical_illustrations. Controleer dat de categorie echt bestaat; maak de URL niet alleen op basis van dit patroon. Geef uitsluitend de kale URL zonder Markdown. Gebruik een lege tekenreeks als er geen passende categorie bestaat of als je het bestaan niet betrouwbaar kunt controleren.
 
+KORT HOUDEN
+- Gebruik meestal één tot drie korte zinnen per veld. waterInfo mag vier korte zinnen hebben als dat prettig leest.
+- Houd "wat" bij een oogst- of snoeimoment praktisch en overzichtelijk.
+- Woordaantallen zijn een richtlijn, geen afkeurgrens. Schrap herhaling, maar laat nuttige uitleg gewoon staan.
+
 UITVOERREGELS
 Controleer vóór het antwoorden stil ieder tekstveld: begrijpt iemand zonder tuinervaring direct wat er bedoeld wordt, zijn moeilijke woorden uitgelegd en kan iedere instructie maar op één manier worden uitgevoerd? Kan ook een begeleider die zelf deze pagina leest ermee verder, zonder naar zichzelf te worden verwezen? Vereenvoudig of concretiseer de tekst als dat niet zo is.
 
 Controleer ook of eetbaarheid, waarschuwingen, oogst en verwijderregels elkaar niet tegenspreken. Bij twijfel over eetbaarheid blijven ook de extra oogstvelden leeg. Kopieer geen voorbeeldwaarde zonder de plant te beoordelen.
-Controleer vóór het antwoorden eerst de hoofdrol, daarna het aantal functies: is onkruid ten onrechte vervangen door insecten of een ander bijkomend nut? Voor Gevlekte scheerling zonder uitdrukkelijke gewenste toepassing moet primair ["onkruid"] zijn. Herstel een verkeerde keuze vóór je antwoordt. Primair heeft één of twee verschillende waarden, secundair mag leeg zijn, en niets staat in beide lijsten. Is primair leeg, herstel dit met de keuzestappen hierboven voordat je het JSON-object geeft.
+Controleer vóór het antwoorden de hoofdrol: is dit echt een sierlijke of sterke insectenplant, of vooral onkruid met een bijkomend voordeel? Voor Gevlekte scheerling zonder uitdrukkelijke gewenste toepassing blijft primair ["onkruid"]. Primair heeft één of twee verschillende waarden, secundair mag leeg zijn, en niets staat in beide lijsten.
 
 Als de vraag uit stap 4 nodig is, geef dan eerst alleen die ene vraag, nog geen JSON. Wacht op mijn antwoord. Deze verduidelijkingsvraag is de enige uitzondering op de regel om uitsluitend JSON te geven.
 Zodra de hoofdrol duidelijk is, geef uitsluitend één geldig JSON-object terug, zonder markdown, uitleg of codeblok. Gebruik exact de sleutels en volgorde uit het schema hieronder en voeg niets toe. Ook na een vervolgvraag geef je het volledige object, niet alleen de gewijzigde velden.
@@ -157,12 +164,8 @@ Zodra de hoofdrol duidelijk is, geef uitsluitend één geldig JSON-object terug,
   "zon": "zon",
   "zonInfo": "Concrete uitleg over licht, beschutting en relevante bodem- of vochtomstandigheden.",
   "levensduur": "Meerjarig",
-  "oogstTijd": [],
-  "oogstMethode": "",
-  "extraOogstTijd": [],
-  "extraOogstMethode": "",
-  "snoeiTijd": [],
-  "snoeiTijdInfo": "",
+  "oogstMomenten": [],
+  "snoeiMomenten": [],
   "snoeiMethode": "",
   "snoeiInformatie": "",
   "woekerToestemming": "Wat kun je verwijderen, wanneer en hoe doe je dat veilig?",
@@ -260,12 +263,12 @@ function normalizeParsed(value: unknown, plants: Plant[]): PlantForm {
     zon: valueText(record, 'zon', 'sun') || 'zon',
     zonInfo: valueText(record, 'zonInfo', 'sunInfo'),
     levensduur: valueText(record, 'levensduur', 'lifespan') || 'Meerjarig',
-    oogstTijd: valueList(record.oogstTijd ?? record.harvestMonths),
-    oogstMethode: valueText(record, 'oogstMethode', 'harvestMethod'),
-    extraOogstTijd: valueList(record.extraOogstTijd ?? record.extraHarvestMonths),
-    extraOogstMethode: valueText(record, 'extraOogstMethode', 'extraHarvestMethod'),
-    snoeiTijd: valueList(record.snoeiTijd ?? record.pruneMonths),
-    snoeiTijdInfo: valueText(record, 'snoeiTijdInfo', 'pruneTiming'),
+    // Oudere antwoorden hebben oogstTijd/oogstMethode (+ extra); die worden elk een moment.
+    oogstMomenten: leesMomenten(record.oogstMomenten,
+      [splitList(valueList(record.oogstTijd ?? record.harvestMonths)), valueText(record, 'oogstMethode', 'harvestMethod')],
+      [splitList(valueList(record.extraOogstTijd ?? record.extraHarvestMonths)), valueText(record, 'extraOogstMethode', 'extraHarvestMethod')]),
+    // Oudere antwoorden hebben snoeiTijd + snoeiTijdInfo; die worden samen één moment.
+    snoeiMomenten: leesMomenten(record.snoeiMomenten, [splitList(valueList(record.snoeiTijd ?? record.pruneMonths)), valueText(record, 'snoeiTijdInfo', 'pruneTiming')]),
     snoeiMethode: valueText(record, 'snoeiMethode', 'pruneMethod'),
     snoeiInformatie: valueText(record, 'snoeiInformatie', 'pruneInfo'),
     woekerToestemming: valueText(record, 'woekerToestemming', 'removalAllowed'),

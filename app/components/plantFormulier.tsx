@@ -14,6 +14,7 @@ import { plantFoto } from '../data/fotos';
 import { plantIllustratie } from '../data/illustraties';
 import AfbeeldingVeld, { type Afstelling } from './AfbeeldingVeld';
 import SymboolVeld, { type Symboolkeuze } from './SymboolVeld';
+import type { Moment } from '../data/momenten';
 
 export const MONTHS = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
 export const FUNCTION_OPTIONS = ['fruit', 'kruid', 'insecten', 'vogel', 'sier', 'boom', 'onkruid'];
@@ -33,12 +34,8 @@ export type PlantForm = {
   zon: string;
   zonInfo: string;
   levensduur: string;
-  oogstTijd: string;
-  oogstMethode: string;
-  extraOogstTijd: string;
-  extraOogstMethode: string;
-  snoeiTijd: string;
-  snoeiTijdInfo: string;
+  oogstMomenten: Moment[];
+  snoeiMomenten: Moment[];
   snoeiMethode: string;
   snoeiInformatie: string;
   woekerToestemming: string;
@@ -87,7 +84,7 @@ export function blankForm(plants: Plant[]): PlantForm {
   return {
     naam: '', botanischeNaam: '', plantnummer: nextPlantNumber(plants), functiesPrimair: '', functiesSecundair: '', intro: '', weetje: '',
     waterOndergrens: '1', waterBovengrens: '3', waterInfo: '', zon: 'zon', zonInfo: '', levensduur: 'Meerjarig',
-    oogstTijd: '', oogstMethode: '', extraOogstTijd: '', extraOogstMethode: '', snoeiTijd: '', snoeiTijdInfo: '',
+    oogstMomenten: [], snoeiMomenten: [],
     snoeiMethode: '', snoeiInformatie: '', woekerToestemming: '', woekerVerbod: '', groei: '', bloei: '', sterf: '', commons: '', commonsIllustraties: '',
     boomHeester: 'nee', eetbaar: '', eetbaarInfo: '', oogstbaarInTuin: '', tuinOpmerking: '', gevaarlijk: '', gevaarlijkInfo: '', waaromLatenStaan: '',
     foto: { ...LEEG_BEELD }, illustratie: { ...LEEG_BEELD }, symbolen: { ...LEGE_SYMBOLEN },
@@ -107,8 +104,8 @@ export function formVanPlant(plant: Plant): PlantForm {
     naam: plant.naam, botanischeNaam: plant.botanischeNaam, plantnummer: plant.plantnummer, functiesPrimair: rij(plant.functies.primair), functiesSecundair: rij(plant.functies.secundair),
     intro: plant.intro, weetje: plant.weetje, waterOndergrens: plant.waterOndergrens, waterBovengrens: plant.waterBovengrens,
     waterInfo: plant.waterInfo, zon: plant.zon, zonInfo: plant.zonInfo, levensduur: plant.levensduur,
-    oogstTijd: rij(plant.oogstTijd), oogstMethode: plant.oogstMethode, extraOogstTijd: rij(plant.extraOogstTijd),
-    extraOogstMethode: plant.extraOogstMethode, snoeiTijd: rij(plant.snoeiTijd), snoeiTijdInfo: plant.snoeiTijdInfo,
+    oogstMomenten: kopie(plant.oogstMomenten),
+    snoeiMomenten: kopie(plant.snoeiMomenten),
     snoeiMethode: plant.snoeiMethode, snoeiInformatie: plant.snoeiInformatie, woekerToestemming: plant.woekerToestemming,
     woekerVerbod: plant.woekerVerbod, groei: rij(plant.groei), bloei: rij(plant.bloei), sterf: rij(plant.sterf), commons: plant.commons, commonsIllustraties: plant.commonsIllustraties || '',
     boomHeester: keuzeVan(plant.boomHeester ?? false), eetbaar: keuzeVan(plant.eetbaar), eetbaarInfo: plant.eetbaarInfo || '',
@@ -131,6 +128,7 @@ export function TextField({ id, label, value, onChange, multiline = false, type 
   return <label className={`plant-field ${multiline ? 'wide' : ''}`} htmlFor={`plant-${id}`}><span>{label}</span>{multiline ? <textarea id={`plant-${id}`} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} rows={3} /> : <input id={`plant-${id}`} type={type} value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} />}{help && <small>{help}</small>}</label>;
 }
 
+
 /** Een ja/nee-vraag met een uitdrukkelijke "weet ik niet"; die bewaart de server als niet beoordeeld. */
 function KeuzeField({ id, label, value, onChange, help, zonderOnbekend = false }: { id: keyof PlantForm; label: string; value: Keuze; onChange: (value: Keuze) => void; help?: string; zonderOnbekend?: boolean }) {
   return <label className="plant-field" htmlFor={`plant-${id}`}><span>{label}</span>
@@ -139,6 +137,32 @@ function KeuzeField({ id, label, value, onChange, help, zonderOnbekend = false }
       <option value="nee">Nee</option>
       {!zonderOnbekend && <option value="">Weet ik niet</option>}
     </select>{help && <small>{help}</small>}</label>;
+}
+
+const kopie = (momenten: Moment[]) => momenten.map((moment) => ({ ...moment, maanden: [...moment.maanden] }));
+
+/**
+ * Snoei- of oogstmomenten: per moment de maanden aanvinken en in één regel zeggen wat je dan
+ * doet. Die regel is in die maanden de taak op de site; zie `app/data/momenten.ts`.
+ */
+function MomentenVeld({ titel, uitleg, voorbeeld, momenten, onChange }: { titel: string; uitleg: string; voorbeeld: string; momenten: Moment[]; onChange: (momenten: Moment[]) => void }) {
+  const wijzig = (nummer: number, moment: Moment) => onChange(momenten.map((ander, i) => (i === nummer ? moment : ander)));
+  return <div className="plant-field wide snoeimomenten"><span>{titel}</span>
+    <small>{uitleg}</small>
+    {momenten.map((moment, nummer) => <fieldset className="snoeimoment-rij" key={nummer}>
+      <legend>Moment {nummer + 1}</legend>
+      <div className="snoeimoment-maanden">{MONTHS.map((maand) => {
+        const aan = moment.maanden.includes(maand);
+        return <button type="button" key={maand} className={aan ? 'gekozen' : ''} aria-pressed={aan} title={maand}
+          onClick={() => wijzig(nummer, { ...moment, maanden: aan ? moment.maanden.filter((m) => m !== maand) : MONTHS.filter((m) => m === maand || moment.maanden.includes(m)) })}>
+          {maand.slice(0, 3)}</button>;
+      })}</div>
+      <textarea aria-label={`Wat doe je bij moment ${nummer + 1}?`} rows={2} value={moment.wat} placeholder={voorbeeld}
+        onChange={(event) => wijzig(nummer, { ...moment, wat: event.target.value })} />
+      <button type="button" className="snoeimoment-weg" onClick={() => onChange(momenten.filter((_, i) => i !== nummer))}>Moment verwijderen</button>
+    </fieldset>)}
+    <button type="button" className="snoeimoment-erbij" onClick={() => onChange([...momenten, { maanden: [], wat: '' }])}>+ Moment toevoegen</button>
+  </div>;
 }
 
 export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (form: PlantForm) => void }) {
@@ -164,12 +188,12 @@ export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (
       <TextField id="zonInfo" label="Informatie standplaats" value={form.zonInfo} onChange={(value) => update('zonInfo', value)} multiline />
     </div></div>
     <div className="plant-form-section"><h3>Oogsten en snoeien</h3><div className="plant-field-grid">
-      <TextField id="oogstTijd" label="Oogstmaanden" value={form.oogstTijd} onChange={(value) => update('oogstTijd', value)} placeholder="Juni, Juli" help="Gebruik maandnamen, gescheiden door komma’s." />
-      <TextField id="extraOogstTijd" label="Extra oogstmaanden" value={form.extraOogstTijd} onChange={(value) => update('extraOogstTijd', value)} placeholder="Oktober" />
-      <TextField id="oogstMethode" label="Hoe oogsten?" value={form.oogstMethode} onChange={(value) => update('oogstMethode', value)} multiline />
-      <TextField id="extraOogstMethode" label="Extra oogstinformatie" value={form.extraOogstMethode} onChange={(value) => update('extraOogstMethode', value)} multiline />
-      <TextField id="snoeiTijd" label="Snoeimaanden" value={form.snoeiTijd} onChange={(value) => update('snoeiTijd', value)} placeholder="Maart, Augustus" />
-      <TextField id="snoeiTijdInfo" label="Wanneer snoeien?" value={form.snoeiTijdInfo} onChange={(value) => update('snoeiTijdInfo', value)} multiline />
+      <MomentenVeld titel="Oogstmomenten" momenten={form.oogstMomenten} onChange={(oogstMomenten) => setForm({ ...form, oogstMomenten })}
+        uitleg="Per moment: vink de maanden aan en schrijf wat je dan plukt en hoe. Een ander plantdeel of een tweede oogst krijgt een eigen moment. Laat leeg als er niets te eten valt."
+        voorbeeld="bijv. Pluk een aardbei als hij helemaal rood is. Knip het steeltje door." />
+      <MomentenVeld titel="Snoeimomenten" momenten={form.snoeiMomenten} onChange={(snoeiMomenten) => setForm({ ...form, snoeiMomenten })}
+        uitleg="Per moment: vink de maanden aan en schrijf wat je dan doet. Die zin is in die maanden de taak op de site. Snoei je alleen als het nodig is, laat de maanden dan leeg."
+        voorbeeld="bijv. Knip na de bloei de oude stengels terug tot 5 centimeter." />
       <TextField id="snoeiMethode" label="Hoe snoeien?" value={form.snoeiMethode} onChange={(value) => update('snoeiMethode', value)} multiline />
       <TextField id="snoeiInformatie" label="Extra snoei-informatie" value={form.snoeiInformatie} onChange={(value) => update('snoeiInformatie', value)} multiline />
     </div></div>
@@ -239,11 +263,14 @@ export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (
   </>;
 }
 
+/** Lege momenten weg, tekst zonder witruimte eromheen. */
+const opgeschoond = (momenten: Moment[]) => momenten.map((moment) => ({ maanden: moment.maanden, wat: moment.wat.trim() })).filter((moment) => moment.maanden.length || moment.wat);
+
 export function toPayload(form: PlantForm) {
   return {
     naam: form.naam.trim(), botanischeNaam: form.botanischeNaam.trim(), plantnummer: form.plantnummer.trim(), functies: { primair: splitList(form.functiesPrimair), secundair: splitList(form.functiesSecundair) }, intro: form.intro.trim(), weetje: form.weetje.trim(),
     waterOndergrens: form.waterOndergrens.trim(), waterBovengrens: form.waterBovengrens.trim(), waterInfo: form.waterInfo.trim(), zon: form.zon.trim(), zonInfo: form.zonInfo.trim(), levensduur: form.levensduur.trim(),
-    oogstTijd: splitList(form.oogstTijd), oogstMethode: form.oogstMethode.trim(), extraOogstTijd: splitList(form.extraOogstTijd), extraOogstMethode: form.extraOogstMethode.trim(), snoeiTijd: splitList(form.snoeiTijd), snoeiTijdInfo: form.snoeiTijdInfo.trim(), snoeiMethode: form.snoeiMethode.trim(), snoeiInformatie: form.snoeiInformatie.trim(), woekerToestemming: form.woekerToestemming.trim(), woekerVerbod: form.woekerVerbod.trim(), groei: splitList(form.groei), bloei: splitList(form.bloei), sterf: splitList(form.sterf), commons: form.commons.trim(), commonsIllustraties: form.commonsIllustraties.trim(),
+    oogstMomenten: opgeschoond(form.oogstMomenten), snoeiMomenten: opgeschoond(form.snoeiMomenten), snoeiMethode: form.snoeiMethode.trim(), snoeiInformatie: form.snoeiInformatie.trim(), woekerToestemming: form.woekerToestemming.trim(), woekerVerbod: form.woekerVerbod.trim(), groei: splitList(form.groei), bloei: splitList(form.bloei), sterf: splitList(form.sterf), commons: form.commons.trim(), commonsIllustraties: form.commonsIllustraties.trim(),
     boomHeester: form.boomHeester, eetbaar: form.eetbaar, eetbaarInfo: form.eetbaarInfo.trim(), oogstbaarInTuin: form.oogstbaarInTuin,
     tuinOpmerking: form.tuinOpmerking.trim(), gevaarlijk: form.gevaarlijk, gevaarlijkInfo: form.gevaarlijkInfo.trim(), waaromLatenStaan: form.waaromLatenStaan.trim(),
     foto: form.foto, illustratie: form.illustratie,

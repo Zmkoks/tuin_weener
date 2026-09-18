@@ -31,8 +31,8 @@ const { PLANT_BEOORDELINGEN, metPlantBeoordeling } = load('app/data/plantBeoorde
 const { MIGRATIES } = load('db/opzet.ts');
 const planten = JSON.parse(fs.readFileSync('app/data/planten.json'));
 const bron = JSON.parse(fs.readFileSync('../sept_data.json')).planten;
-assert.equal(planten.length, 26);
-assert.deepEqual(planten.filter(p => p.slug !== 'reuzenberenklauw').map(p => p.slug).sort(), bron.map(p => p.id).sort());
+assert.equal(planten.length, 25);
+assert.deepEqual(planten.map(p => p.slug).sort(), bron.map(p => p.id).sort());
 assert.deepEqual(Object.keys(PLANT_BEOORDELINGEN).sort(), planten.map(p => p.slug).sort());
 for (const plant of planten) {
   const b = bron.find(b => b.id === plant.slug);
@@ -91,6 +91,9 @@ assert.equal(plantUitRegel({ slug: 'x', naam: 'X', eetbaar: null, gevaarlijk: nu
 
 // Totdat de formulierstap klaar is, bewaart een wijziging de al beoordeelde nieuwe velden.
 const zonderNieuweVelden = toPayload(formVanPlant(planten[0]));
+for (const veld of ['eetbaar', 'eetbaarInfo', 'oogstbaarInTuin', 'tuinOpmerking', 'boomHeester', 'gevaarlijk', 'gevaarlijkInfo', 'waaromLatenStaan']) {
+  delete zonderNieuweVelden[veld];
+}
 const bewaard = leesPlant(zonderNieuweVelden, beoordeling.slug, beoordeling.plantnummer, beoordeling);
 assert.ok('plant' in bewaard);
 assert.equal(bewaard.plant.eetbaar, true);
@@ -112,20 +115,18 @@ assert.equal(beoordeeldePlanten.find((plant) => plant.slug === 'kiwi').eetbaar, 
 assert.equal(beoordeeldePlanten.find((plant) => plant.slug === 'kiwi').oogstbaarInTuin, false);
 assert.deepEqual(beoordeeldePlanten.filter((plant) => plant.eetbaar && !plant.oogstbaarInTuin).map((plant) => plant.slug).sort(),
   ['kiwi', 'witte-moerbei']);
-assert.ok(beoordeeldePlanten.find((plant) => plant.slug === 'kiwi').extraOogstTijd.length > 0);
+assert.deepEqual(beoordeeldePlanten.find((plant) => plant.slug === 'kiwi').functies,
+  { primair: ['sier'], secundair: [] });
+assert.equal(beoordeeldePlanten.find((plant) => plant.slug === 'kiwi').oogstMomenten.length, 0);
 assert.ok(beoordeeldePlanten.find((plant) => plant.slug === 'azarooldoorn').oogstTijd.length > 0);
-assert.deepEqual(beoordeeldePlanten.find((plant) => plant.slug === 'azarooldoorn').extraOogstTijd, []);
 
 const vast = planten[0];
 for (const functies of [{ primair: [], secundair: [] }, { primair: ['fruit'], secundair: ['fruit'] }, { primair: ['fout'], secundair: [] }]) {
   assert.ok('fout' in leesPlant({ ...vast, functies }, vast.slug, vast.plantnummer));
 }
-assert.ok('plant' in leesPlant({ ...planten.find((plant) => plant.slug === 'reuzenberenklauw'), functies: { primair: ['onkruid'], secundair: [] } }, 'reuzenberenklauw', '26'));
-
-// Ook een bestaande database krijgt de voorbeeldplant via migratie 0007.
+// De verwijderde proefplant komt ook via migraties niet terug.
 const proefDatabase = new DatabaseSync(':memory:');
 for (const migratie of MIGRATIES) for (const stap of migratie.stappen) proefDatabase.exec(stap);
-const proefOnkruid = proefDatabase.prepare("SELECT functies_primair, gevaarlijk, oogstbaar_in_tuin FROM planten WHERE slug = 'reuzenberenklauw'").get();
-assert.deepEqual({ ...proefOnkruid }, { functies_primair: 'onkruid', gevaarlijk: 1, oogstbaar_in_tuin: 0 });
+assert.equal(proefDatabase.prepare("SELECT 1 FROM planten WHERE slug = 'reuzenberenklauw'").get(), undefined);
 proefDatabase.close();
 console.log(`Geslaagd: ${planten.length} planten, formulier/opslag-rondgang, bronnen, de rondgang door de database en ongeldige functies.`);

@@ -76,6 +76,8 @@ export default async function PlantPagina({ params }: Props) {
     </header>
 
     <SectieGevaar plant={plant} />
+    {/* Bij gevaarlijk onkruid zegt de opmerking wat "Haal weg" al zegt. */}
+    {!(onkruid && plant.gevaarlijk) && <SectieInOnzeTuin plant={plant} />}
 
     {/* Gevaarlijk onkruid: geen maandvak ("hoef je niets te doen" klinkt geruststellend) en
         geen afweging tussen laten staan en weghalen. */}
@@ -101,12 +103,10 @@ export default async function PlantPagina({ params }: Props) {
     <a className="scan-meer" href="#meer">Meer over deze plant ↓</a>
 
     <div className="scan-secties" id="meer">
-      {/* Bij gevaarlijk onkruid zegt de opmerking wat "Haal weg" al zegt. */}
-      {!(onkruid && plant.gevaarlijk) && <SectieInOnzeTuin plant={plant} />}
       <SectieVerzorging plant={plant} />
       <SectieOogsten plant={plant} />
-      <SectieExtra plant={plant} />
       <SectieSnoeien plant={plant} />
+      <SectieExtra plant={plant} />
       <section className="scan-kalender"><h3>Jaarkalender</h3><div className="scan-kalender-scroll"><Kalender plant={plant} /></div><Link className="uitleg-link" href="/uitleg/functies#kalender">Wat betekenen de kleuren? →</Link></section>
       <SectieIllustratie plant={plant} />
       <SectieWeetje plant={plant} />

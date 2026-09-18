@@ -5,6 +5,7 @@ import { functieIcoon, icoonPad, standplaatsIcoon } from '../data/iconen';
 import { functionLabels, months, monthShort, oogstInTuin, waterNiveaus } from '../data/tuinTekst';
 import { metVaktermen } from '../data/vaktermLinks';
 import IllustratieGroot from './IllustratieGroot';
+import { momentLabel } from '../data/momenten';
 
 /**
  * Foto van een plant, of een nette vervanger wanneer er nog geen foto is. De foto staat
@@ -93,27 +94,35 @@ export function Standplaats({ plant, naarUitleg }: { plant: Plant; naarUitleg?: 
   return <Link className="standplaats" href={`/uitleg/functies#standplaats-${icoon}`} aria-label={`Wat betekent ${plant.zon}?`} title={`Wat betekent ${plant.zon}?`}>{inhoud}</Link>;
 }
 
-const KALENDER_RIJEN = ['groei', 'bloei', 'oogst', 'snoei'] as const;
+const KALENDER_ICOON: Record<string, string> = { Groei: 'groei', Bloei: 'bloei', Oogst: 'oogst', Snoei: 'snoei' };
 
+/**
+ * Jaarkalender. De rij Oogst staat er alleen bij een echte oogstplant (`oogstInTuin`). Is de
+ * plant wel eetbaar maar geen oogstplant, dan krijgt de rij `kalender-extra-oogst`: verborgen,
+ * tot iemand "Extra informatie" openklapt (zie scan.css). Anders niets.
+ */
 export function Kalender({ plant }: { plant: Plant }) {
+  const oogstMaanden = plant.oogstTijd;
+  const oogst = oogstInTuin(plant);
+  const extraOogst = !oogst && plant.eetbaar !== false && oogstMaanden.length > 0;
   const rows = [
-    ['Groei', plant.groei, 'grow'],
-    ['Bloei', plant.bloei, 'bloom'],
-    ['Oogst', oogstInTuin(plant) ? [...plant.oogstTijd, ...plant.extraOogstTijd] : [], 'harvest'],
-    ['Snoei', plant.snoeiTijd, 'prune'],
-    ['Rust', plant.sterf, 'rest'],
+    ['Groei', plant.groei, 'grow', ''],
+    ['Bloei', plant.bloei, 'bloom', ''],
+    ...(oogst || extraOogst ? [['Oogst', oogstMaanden, 'harvest', oogst ? '' : ' kalender-extra-oogst'] as const] : []),
+    ['Snoei', plant.snoeiTijd, 'prune', ''],
+    ['Rust', plant.sterf, 'rest', ''],
   ] as const;
   return <div className="calendar">
     <div />
     <>{monthShort.map((m, i) => <b key={i}>{m}</b>)}</>
-    {rows.map(([label, active, kind], index) => <div className="calendar-row" key={label}>
+    {rows.map(([label, active, kind, extra]) => <div className={`calendar-row${extra}`} key={label}>
       <strong>
         <Link className="kalender-rijkop" href={`/uitleg/functies#kalender-${kind}`} title={`Wat betekent ${label.toLowerCase()}?`}>
-          {KALENDER_RIJEN[index] && <img className="kalender-icoon" src={icoonPad(KALENDER_RIJEN[index])} alt="" />}
+          {KALENDER_ICOON[label] && <img className="kalender-icoon" src={icoonPad(KALENDER_ICOON[label])} alt="" />}
           {label}
         </Link>
       </strong>
-      {months.map((m) => <i className={active.includes(m) ? kind : ''} key={m} title={`${label}: ${m}`} />)}
+      {months.map((m) => <i className={(active as readonly string[]).includes(m) ? kind : ''} key={m} title={`${label}: ${m}`} />)}
     </div>)}
   </div>;
 }
@@ -127,47 +136,51 @@ export function SectieVerzorging({ plant }: { plant: Plant }) {
   return <section><Blokkop icoon="drop">Waterbehoefte &amp; standplaats</Blokkop><div className="blok-kenmerken"><Waterdruppels plant={plant} naarUitleg /><Standplaats plant={plant} naarUitleg /></div><p>{plant.waterInfo}</p><p>{plant.zonInfo}</p><Link className="uitleg-link" href="/uitleg/water">Wat betekenen de druppels? →</Link></section>;
 }
 
-export function SectieOogsten({ plant }: { plant: Plant }) {
-  const maanden = [...plant.oogstTijd, ...plant.extraOogstTijd];
-  if (maanden.length === 0 || !oogstInTuin(plant)) return null;
-  return <section><Blokkop icoon="oogst1">Oogst &amp; gebruik</Blokkop><b>{maanden.join(', ')}</b><p>{plant.oogstMethode || plant.extraOogstMethode}</p></section>;
+/** Per moment de maanden vetgedrukt en wat je dan doet; gedeeld door Oogst en Snoeien. */
+function Momenten({ momenten }: { momenten: Plant['oogstMomenten'] }) {
+  return <>{momenten.map((moment, i) => <p className="snoeimoment" key={i}><b>{momentLabel(moment)}</b>{moment.wat && <> {metVaktermen(moment.wat)}</>}</p>)}</>;
 }
 
-/** "juni, juli en augustus" */
-const opsomming = (woorden: string[]) =>
-  woorden.length < 2 ? woorden.join('') : `${woorden.slice(0, -1).join(', ')} en ${woorden[woorden.length - 1]}`;
+export function SectieOogsten({ plant }: { plant: Plant }) {
+  if (plant.oogstMomenten.length === 0 || !oogstInTuin(plant)) return null;
+  return <section><Blokkop icoon="oogst1">Oogst &amp; gebruik</Blokkop><Momenten momenten={plant.oogstMomenten} /></section>;
+}
 
 /**
- * Eetbaarheid die geen gewone oogsttaak is: lavendel (sier), azarooldoorn (boom), of kiwi
- * die hier geen vruchten draagt. De kennis blijft zo bewaard zonder dat de maandlijst oproept
- * tot oogsten.
+ * Eetbaarheid die geen gewone oogsttaak is: lavendel (sier), azarooldoorn (boom), teunisbloem,
+ * of kiwi die hier geen vruchten draagt. Dichtgeklapt, zodat de pagina niet oproept tot oogsten;
+ * alleen primair fruit of kruid krijgt een groot oogstblok (zie `oogstInTuin`).
  */
 export function SectieExtra({ plant }: { plant: Plant }) {
   if (oogstInTuin(plant) || plant.eetbaar === false) return null;
-  const maanden = [...plant.oogstTijd, ...plant.extraOogstTijd];
-  const methode = plant.oogstMethode || plant.extraOogstMethode;
-  if (!plant.eetbaarInfo && !methode) return null;
-  return <section className="extra"><h3>Extra informatie</h3>
+  if (!plant.eetbaarInfo && plant.oogstMomenten.length === 0) return null;
+  return <details className="extra"><summary><h3>Extra informatie</h3></summary>
+    {/* Zonder deze zin leest "de vruchten zijn eetbaar" als een uitnodiging om te zoeken. */}
+    {plant.oogstbaarInTuin === false && <p>In onze tuin vind je hier niets om te eten. Bij andere exemplaren van deze soort geldt:</p>}
     {plant.eetbaarInfo && <p>{plant.eetbaarInfo}</p>}
-    {/* De maanden in een zin: als losse vetgedrukte rij ("Juni, Juli, Augustus.") zei niets
-        waar ze over gingen — in het oogstblok doet de kop dat, hier niet. */}
-    {maanden.length > 0 && <p><b>Plukken kan in {opsomming(maanden.map((m) => m.toLowerCase()))}.</b></p>}
-    {methode && <p>{methode}</p>}
-  </section>;
+    {plant.oogstMomenten.length > 0 && <><p><b>Plukken:</b></p><Momenten momenten={plant.oogstMomenten} /></>}
+  </details>;
 }
 
-/** Wat alleen voor het exemplaar in deze tuin geldt, zoals een kiwi zonder vruchten. */
+/**
+ * Wat alleen voor het exemplaar in deze tuin geldt, zoals een kiwi zonder vruchten. Staat
+ * direct onder de kop: bij een kiwi denkt iedereen meteen aan fruit, dus alleen het
+ * weglaten van de oogst zegt niet genoeg.
+ */
 export function SectieInOnzeTuin({ plant }: { plant: Plant }) {
   if (!plant.tuinOpmerking) return null;
-  return <section className="tuin-opmerking"><h3>In onze tuin</h3><p>{plant.tuinOpmerking}</p></section>;
+  return <section className="scan-tuin" role="note"><h2>In onze tuin</h2><p>{plant.tuinOpmerking}</p></section>;
 }
 
 /**
  * De tuinwoorden in de snoeitekst zijn zelf de link naar hun uitleg — geen losse regel
  * eronder die vraagt of je een woord niet kent. Zie `metVaktermen` in vaktermLinks.tsx.
+ *
+ * Volgorde: per snoeimoment de maanden en wat je dan doet (`snoeiMomenten`), hoe je knipt (`snoeiMethode`), waarom
+ * (`snoeiInformatie`). Het eerste stond eerst alleen in het boekje.
  */
 export function SectieSnoeien({ plant }: { plant: Plant }) {
-  return <section><Blokkop icoon="snoei">Snoeien</Blokkop><b>{plant.snoeiTijd.join(', ') || 'Alleen wanneer nodig'}</b><p>{metVaktermen(plant.snoeiMethode)}</p><p>{metVaktermen(plant.snoeiInformatie)}</p></section>;
+  return <section><Blokkop icoon="snoei">Snoeien</Blokkop>{plant.snoeiMomenten.length === 0 && <b>Alleen wanneer nodig</b>}<Momenten momenten={plant.snoeiMomenten} /><p>{metVaktermen(plant.snoeiMethode)}</p><p>{metVaktermen(plant.snoeiInformatie)}</p></section>;
 }
 
 /** Onkruid als primaire óf secundaire functie: juist een plant die ook iets bijdraagt, is onkruid dat mag blijven. */
@@ -196,7 +209,7 @@ export function SectieWeghalen({ plant }: { plant: Plant }) {
     <p className="eyebrow">DIT IS ONKRUID</p>
     <h2>Haal weg</h2>
     <p>{plant.woekerToestemming}</p>
-    {plant.snoeiTijd.length > 0 && <p><b>Wanneer:</b> {plant.snoeiTijd.join(', ').toLowerCase()}. {plant.snoeiTijdInfo}</p>}
+    {plant.snoeiMomenten.map((moment, i) => <p key={i}><b>{momentLabel(moment)}:</b> {moment.wat}</p>)}
   </section>;
 }
 

@@ -353,9 +353,18 @@ body:has(.scan) { background: #e2e8f0; }
 .scan .scan-weghalen b { color: #fff; font-weight: 700; }
 .scan-secties .extra { background: #fffaf0; border: 0; border-left: 5px solid var(--geel); border-radius: 0 12px 12px 0; }
 .scan-secties .extra h3 { color: #8b6800; }
-/* Lokale bijzonderheid: rustig, maar wel boven de verzorging zodat "geen vruchten" niet wegvalt. */
-.scan-secties .tuin-opmerking { background: #fff; border: 2px solid var(--groen); }
-.scan-secties .tuin-opmerking h3 { color: var(--groen); }
+/* Lokale bijzonderheid direct onder de kop, in de vorm van de waarschuwing maar groen:
+   opvallend genoeg dat "geen vruchten" niet wegvalt, zonder alarm. */
+.scan-tuin { clear: both; border: 2px solid var(--groen); background: #fff; border-radius: 16px; padding: 14px 18px; margin-bottom: 14px; }
+.scan .scan-tuin h2 { margin: 0 0 4px; font-size: 18px; color: var(--groen); }
+.scan .scan-tuin p { margin: 0; color: var(--blauw); line-height: 1.5; }
+/* Extra informatie is dichtgeklapt; de kop is de knop. */
+.scan-secties details.extra summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 8px; }
+.scan-secties details.extra summary::-webkit-details-marker { display: none; }
+.scan-secties details.extra summary h3 { margin: 0; }
+.scan-secties details.extra summary::after { content: "+"; margin-left: auto; font-weight: 800; color: #8b6800; }
+.scan-secties details.extra[open] summary::after { content: "−"; }
+.scan-secties details.extra[open] summary { margin-bottom: 8px; }
 .scan-secties .fact { background: #eef3fb; border-color: #dce7f6; }
 .scan-secties .fact h3 { color: var(--lucht); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 
@@ -728,4 +737,25 @@ a.icoon-uitleg:focus-visible, a.functie-item:focus-visible, a.standplaats:focus-
 
   .scan-plant .scan-bronnen { max-width: 78ch; }
   .scan-plant .scan-voet { margin-top: 44px; }
+}
+
+/* Extra informatie is een <details>, geen <section>, en kreeg daardoor de binnenruimte van
+   de andere blokken niet mee: de tekst stond tegen de gele rand. */
+.scan-secties details.extra { padding: 20px; min-width: 0; }
+
+/* Proef 18 september 2026: vanaf 600px is de strook naast de foto breed genoeg (±250px)
+   voor de inleiding, dus die mag daar naast de foto lopen in plaats van eronder. */
+@media (min-width: 600px) and (max-width: 999px) {
+  .scan-intro { clear: none; }
+}
+
+/* Oogstrij van een plant die wel eetbaar is maar geen oogstplant: pas zichtbaar als
+   "Extra informatie" open staat (Kalender in paspoortDelen.tsx). */
+.calendar-row.kalender-extra-oogst { display: none; }
+.scan-secties:has(details.extra[open]) .calendar-row.kalender-extra-oogst { display: contents; }
+
+@media (min-width: 1000px) {
+  /* Dichtgeklapt is het één regel; in een halve kolom rekte hij op tot de hoogte van zijn
+     buurblok en leek hij leeg. Over de volle breedte blijft het een smalle balk. */
+  .scan-plant .scan-secties details.extra { grid-column: 1 / -1; align-self: start; }
 }

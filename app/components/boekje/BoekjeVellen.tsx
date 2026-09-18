@@ -22,7 +22,7 @@ function afdrukmaand(nu = new Date()) {
  */
 export default function BoekjeVellen({ paginas }: { paginas: React.ReactNode[] }) {
   const [modus, setModus] = useState<Modus>('lees');
-  const [overloop, setOverloop] = useState<string[] | null>(null);
+  const [overloop, setOverloop] = useState<{ tekst: string; slug?: string }[] | null>(null);
   const [klaar, setKlaar] = useState(false);
   const [beeldfouten, setBeeldfouten] = useState<string[]>([]);
   const vellen = useRef<HTMLDivElement>(null);
@@ -50,7 +50,14 @@ export default function BoekjeVellen({ paginas }: { paginas: React.ReactNode[] }
         el.classList.toggle('bp-overloop', vol);
         return vol;
       });
-      setOverloop([...new Set(te.map((el) => `${el.dataset.pagina}: ${el.dataset.paginanaam}`))]);
+      // Een plantpagina krijgt een link naar zijn beheerpagina, zodat je de tekst meteen kunt inkorten.
+      const gezien = new Set<string>();
+      setOverloop(te.flatMap((el) => {
+        const tekst = `${el.dataset.pagina}: ${el.dataset.paginanaam}`;
+        if (gezien.has(tekst)) return [];
+        gezien.add(tekst);
+        return [{ tekst, slug: el.dataset.slug }];
+      }));
     };
     // Pas meten als lettertypen en afbeeldingen er zijn: die bepalen de hoogte.
     const fouten: string[] = [];
@@ -124,7 +131,9 @@ export default function BoekjeVellen({ paginas }: { paginas: React.ReactNode[] }
       ? <p className="proef-uitleg bp-meting">Pagina&rsquo;s worden gemeten…</p>
       : overloop.length > 0
         ? <p className="proef-uitleg bp-meting bp-meting-fout" role="alert">
-            <b>Past niet op één pagina:</b> {overloop.join(', ')}. Deze pagina&rsquo;s zijn rood omrand; controleer de opmaak voordat je afdrukt. Behoud waarschuwingen en verzorgingsinformatie.
+            <b>Past niet op één pagina:</b>{' '}
+            {overloop.map((pagina, i) => <span key={pagina.tekst}>{i > 0 && ', '}{pagina.slug ? <a href={`/beheren/aanpassen/${pagina.slug}`}>{pagina.tekst}</a> : pagina.tekst}</span>)}.
+            {' '}Maak de tekst korter om het goed te laten passen. Deze pagina&rsquo;s zijn rood omrand.
           </p>
         : <p className="proef-uitleg bp-meting">Alle pagina&rsquo;s passen op één A5.</p>)}
 

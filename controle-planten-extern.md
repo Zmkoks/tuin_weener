@@ -7,7 +7,7 @@ Datum controle: 10 september 2026.
 - **Onkruid** is voor deze site uiteindelijk een tuinbesluit: komt de plant hier spontaan op en mag hij worden verwijderd? Externe bronnen kunnen wel aantonen dat een soort een bekend akkeronkruid, een sterke uitzaaier of een schadelijke invasieve exoot is.
 - **Eetbaar: ja** betekent dat normaal menselijk voedselgebruik van de genoemde soort bekend is. Of het aanwezige exemplaar werkelijk oogst geeft, staat los daarvan in `oogstbaarInTuin`.
 - **Gevaarlijk: ja** is gereserveerd voor een relevante waarschuwing op de pagina. Gewone voedselallergieën, doorns en risico's van geconcentreerde etherische olie staan als aandachtspunt vermeld, maar maken een plant niet automatisch `gevaarlijk`.
-- Geen van de oorspronkelijke 25 soorten staat op de EU-Unielijst van invasieve exoten. Trosbosbes staat wel in het NVWA-overzicht van invasieve landplanten waarvoor verspreiding naar de natuur moet worden voorkomen. De later toegevoegde reuzenberenklauw staat wél op de Unielijst.
+- Geen van de 25 soorten staat op de EU-Unielijst van invasieve exoten. Trosbosbes staat wel in het NVWA-overzicht van invasieve landplanten waarvoor verspreiding naar de natuur moet worden voorkomen.
 
 ## Controlelijst
 
@@ -38,7 +38,6 @@ Datum controle: 10 september 2026.
 | witte moerbei (*Morus alba*) | Nee; geen Nederlandse verwijderplicht gevonden | Ja | Nee bij gebruik van rijpe vruchten | `eetbaar: true`, `oogstbaarInTuin: false`. Tuinopmerking: deze boom draagt in onze tuin geen vruchten. |
 | meidoorn (*Crataegus rhipidophylla*) | Nee | Vruchten gelden als eetbaar, maar soortcontrole is verstandig | Nee als giftige plant; scherpe doorns zijn praktisch risico | Controleer de determinatie van deze minder gebruikelijke meidoornsoort. Bij bevestiging `eetbaar: true`, als Extra informatie. |
 | azarooldoorn (*Crataegus azarolus*) | Nee | Ja, rijpe vruchten; extra informatie | Nee als giftige plant; scherpe doorns zijn praktisch risico | `eetbaar: true`; bestaande extra-oogstgegevens staan na migratie in de gewone oogstvelden, maar verschijnen door de primaire functies alleen onder Extra informatie. |
-| reuzenberenklauw (*Heracleum mantegazzianum*) | Ja, invasieve exoot op de EU-Unielijst | Nee | Ja: het sap kan met zonlicht ernstige huidbeschadiging veroorzaken | Proefgeval `onkruid + gevaarlijk`: weghalen en zaadvorming voorkomen. De NVWA zegt dat hij in een tuin mag blijven als zaadvorming wordt voorkomen, maar noemt verwijderen de effectiefste maatregel tegen verspreiding en gezondheidsschade. |
 
 ## Planten die eerst aandacht vragen
 
@@ -52,7 +51,6 @@ Datum controle: 10 september 2026.
 
 - [NVWA — overzicht invasieve landplanten](https://www.nvwa.nl/onderwerpen/plant/invasieve-exoten/invasieve-planten/invasieve-landplanten/overzicht-soorten-invasieve-landplanten)
 - [NVWA — Unielijst invasieve exoten](https://www.nvwa.nl/onderwerpen/plant/invasieve-exoten/unielijst-invasieve-exoten)
-- [NVWA — factsheet reuzenberenklauw](https://www.nvwa.nl/documenten/planten-in-de-natuur/exoten/risicobeoordelingen/factsheet-reuzenberenklauw)
 - [Flora van Nederland — Knopherik](https://www.floravannederland.nl/planten/knopherik)
 - [RHS — potentieel schadelijke tuinplanten](https://www.rhs.org.uk/prevention-protection/potentially-harmful-garden-plants)
 - [RHS — wegedoorn](https://www.rhs.org.uk/plants/14452/rhamnus-cathartica/details)

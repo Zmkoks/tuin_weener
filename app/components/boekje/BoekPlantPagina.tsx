@@ -3,6 +3,7 @@ import { fotoVan, illustratieVan } from '@/app/data/afbeeldingen';
 import { icoonPad, standplaatsIcoon } from '@/app/data/iconen';
 import { functionLabels, months, oogstInTuin, waterNiveaus } from '@/app/data/tuinTekst';
 import { isOnkruid } from '../paspoortDelen';
+import { momentLabel } from '@/app/data/momenten';
 
 /**
  * Eén plant op één A5-pagina, zoals `maak_pagina_fragment` in sept_booklet_layout.py hem
@@ -138,7 +139,7 @@ function Kalender({ plant }: { plant: Plant }) {
   const rijen: [string, string, string[]][] = [
     ['Groei', 'groei', plant.groei],
     ['Bloei', 'bloei', plant.bloei],
-    ['Oogst', 'oogst', oogstInTuin(plant) ? [...plant.oogstTijd, ...plant.extraOogstTijd] : []],
+    ['Oogst', 'oogst', oogstInTuin(plant) ? plant.oogstTijd : []],
     ['Snoei', 'snoei', plant.snoeiTijd],
     ['Rust', 'rust', plant.sterf],
   ];
@@ -161,14 +162,18 @@ export default function BoekPlantPagina({ plant, nummer, jaar }: { plant: Plant;
   const gevaarlijkOnkruid = isOnkruid(plant) && plant.gevaarlijk;
   const seizoen = seizoenTekst(plant);
   const waterStandplaats = [plant.waterInfo, plant.zonInfo].filter(Boolean).join(' ');
-  const snoei = [plant.snoeiTijdInfo, plant.snoeiMethode, plant.snoeiInformatie].filter(Boolean);
+  // Per snoeimoment een regel met de maanden vetgedrukt, daarna werkwijze en achtergrond.
+  const snoei = [
+    ...plant.snoeiMomenten.filter((moment) => moment.wat).map((moment) => <><b className="bp-nadruk">{momentLabel(moment)}:</b> {moment.wat}</>),
+    plant.snoeiMethode, plant.snoeiInformatie,
+  ].filter(Boolean);
   // Staat er een tuinopmerking, dan zegt die al wat hier geldt ("draagt geen vruchten");
   // een algemene regel over eetbaarheid ernaast verwart dan alleen. Geldt voor kiwi en witte moerbei.
   const extraEetbaar = !oogst && plant.eetbaar !== false && !plant.tuinOpmerking ? plant.eetbaarInfo : '';
   // Even pagina's liggen links in het opengeslagen boekje; de groene bies hoort aan de buitenrand.
   const links = nummer % 2 === 0;
 
-  return <article className={`bp-pagina${links ? ' bp-links' : ''}`} data-plant={plant.naam} data-pagina={nummer} data-paginanaam={plant.naam}>
+  return <article className={`bp-pagina${links ? ' bp-links' : ''}`} data-plant={plant.naam} data-slug={plant.slug} data-pagina={nummer} data-paginanaam={plant.naam}>
     <div className="bp-bies" />
 
     <div className="bp-inhoud">
@@ -204,7 +209,7 @@ export default function BoekPlantPagina({ plant, nummer, jaar }: { plant: Plant;
         </Blok>}
 
         {plant.tuinOpmerking && !gevaarlijkOnkruid && <Blok kop="In onze tuin"><p>{plant.tuinOpmerking}</p></Blok>}
-        {oogst && plant.oogstMethode && <Blok kop="Oogst en gebruik"><p>{plant.oogstMethode}</p></Blok>}
+        {oogst && plant.oogstMomenten.some((moment) => moment.wat) && <Blok kop="Oogst en gebruik">{plant.oogstMomenten.filter((moment) => moment.wat).map((moment, i) => <p key={i}><b className="bp-nadruk">{momentLabel(moment)}:</b> {moment.wat}</p>)}</Blok>}
         {extraEetbaar && <Blok kop="Extra informatie"><p>{extraEetbaar}</p></Blok>}
         {snoei.length > 0 && !gevaarlijkOnkruid && <Blok kop="Snoei door het jaar">{snoei.map((tekst, i) => <p key={i}>{tekst}</p>)}</Blok>}
         {/* Gevaarlijk onkruid: geen vakken Toegestaan/Niet doen onderaan, maar een gewoon tekstblok

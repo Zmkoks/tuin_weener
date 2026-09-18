@@ -1,5 +1,6 @@
 import type { Afbeelding, Plant } from '@/app/data/plantTypes';
 import type { Plek, Vorm } from '@/app/data/plekTypes';
+import { leesMomenten, maandenVan, type Moment } from '../app/data/momenten';
 
 /**
  * Heen en weer tussen een regel in de database en een plant of plek in de code.
@@ -66,6 +67,11 @@ export function plantUitRegel(regel: Regel, eigenSymbolen: { bestand: string; br
   const symbolen = keuze === null || keuze === undefined
     ? undefined
     : { bibliotheek: uitLijst(String(keuze)), eigen: eigenSymbolen };
+  // Een regel van vóór migratie 0010/0011 heeft nog geen momenten; dan tellen de oude kolommen.
+  const snoeiMomenten = leesMomenten(regel.snoei_momenten, [uitLijst(tekst(regel, 'snoei_tijd')), tekst(regel, 'snoei_tijd_info')]);
+  const oogstMomenten = leesMomenten(regel.oogst_momenten,
+    [uitLijst(tekst(regel, 'oogst_tijd')), tekst(regel, 'oogst_methode')],
+    [uitLijst(tekst(regel, 'extra_oogst_tijd')), tekst(regel, 'extra_oogst_methode')]);
 
   return {
     slug: tekst(regel, 'slug'),
@@ -88,12 +94,10 @@ export function plantUitRegel(regel: Regel, eigenSymbolen: { bestand: string; br
     gevaarlijk: booleanKeuze(regel, 'gevaarlijk'),
     gevaarlijkInfo: tekst(regel, 'gevaarlijk_info'),
     waaromLatenStaan: tekst(regel, 'waarom_laten_staan'),
-    oogstTijd: uitLijst(tekst(regel, 'oogst_tijd')),
-    oogstMethode: tekst(regel, 'oogst_methode'),
-    extraOogstTijd: uitLijst(tekst(regel, 'extra_oogst_tijd')),
-    extraOogstMethode: tekst(regel, 'extra_oogst_methode'),
-    snoeiTijd: uitLijst(tekst(regel, 'snoei_tijd')),
-    snoeiTijdInfo: tekst(regel, 'snoei_tijd_info'),
+    oogstMomenten,
+    oogstTijd: maandenVan(oogstMomenten),
+    snoeiMomenten,
+    snoeiTijd: maandenVan(snoeiMomenten),
     snoeiMethode: tekst(regel, 'snoei_methode'),
     snoeiInformatie: tekst(regel, 'snoei_informatie'),
     woekerToestemming: tekst(regel, 'woeker_toestemming'),
@@ -121,8 +125,8 @@ export const PLANTKOLOMMEN = [
   'eetbaar', 'eetbaar_info', 'oogstbaar_in_tuin', 'tuin_opmerking',
   'boom_heester',
   'gevaarlijk', 'gevaarlijk_info', 'waarom_laten_staan',
-  'oogst_tijd', 'oogst_methode', 'extra_oogst_tijd', 'extra_oogst_methode',
-  'snoei_tijd', 'snoei_tijd_info', 'snoei_methode', 'snoei_informatie',
+  'oogst_momenten', 'oogst_tijd', 'oogst_methode', 'extra_oogst_tijd', 'extra_oogst_methode',
+  'snoei_momenten', 'snoei_tijd', 'snoei_tijd_info', 'snoei_methode', 'snoei_informatie',
   'woeker_toestemming', 'woeker_verbod', 'levensduur',
   'groei', 'bloei', 'sterf', 'commons', 'commons_illustraties', 'intro', 'weetje',
   'foto_ingesteld', 'foto_bestand', 'foto_bron', 'foto_x', 'foto_y', 'foto_zoom',
@@ -130,6 +134,12 @@ export const PLANTKOLOMMEN = [
   'illustratie_x', 'illustratie_y', 'illustratie_zoom',
   'symbolen_bibliotheek', 'aangemaakt_op', 'gewijzigd_op',
 ] as const;
+
+/** [momenten als JSON, alle maanden als komma-lijst, alle teksten achter elkaar]. */
+function momentKolommen(momenten: readonly Moment[] | undefined) {
+  const lijst = momenten ?? [];
+  return [JSON.stringify(lijst), naarLijst(maandenVan(lijst)), lijst.map((moment) => moment.wat).filter(Boolean).join(' ')];
+}
 
 export function waardenVanPlant(plant: Plant, aangemaaktOp: string, gewijzigdOp: string) {
   const beeld = (soort: 'foto' | 'illustratie') => {
@@ -148,9 +158,10 @@ export function waardenVanPlant(plant: Plant, aangemaaktOp: string, gewijzigdOp:
     Number(plant.boomHeester ?? false),
     plant.gevaarlijk == null ? null : Number(plant.gevaarlijk), plant.gevaarlijkInfo ?? '',
     plant.waaromLatenStaan ?? '',
-    naarLijst(plant.oogstTijd), plant.oogstMethode ?? '',
-    naarLijst(plant.extraOogstTijd), plant.extraOogstMethode ?? '',
-    naarLijst(plant.snoeiTijd), plant.snoeiTijdInfo ?? '',
+    // De oude maand- en tekstkolommen blijven afgeleid gevuld voor de oude Python-generatoren;
+    // de site leest alleen de momenten. De extra-oogstkolommen blijven leeg.
+    ...momentKolommen(plant.oogstMomenten), '', '',
+    ...momentKolommen(plant.snoeiMomenten),
     plant.snoeiMethode ?? '', plant.snoeiInformatie ?? '',
     plant.woekerToestemming ?? '', plant.woekerVerbod ?? '', plant.levensduur ?? '',
     naarLijst(plant.groei), naarLijst(plant.bloei), naarLijst(plant.sterf),

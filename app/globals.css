@@ -341,3 +341,8 @@ a.manage{display:flex;align-items:center;text-decoration:none}
   .boek-vel.katern{page:boekjeKatern}
   .boek-vel.los{page:boekjeLos}
 }
+/* Homepage: de plattegrondknoppen zijn links naar /plattegrond, maar zien eruit als de knoppen ernaast. */
+.hero-actions a.button{display:inline-block;border-radius:99px;background:var(--blauw);color:white;padding:14px 21px;font-weight:800;text-decoration:none}.hero-actions a.button.secondary{background:transparent;color:var(--blauw);border:2px solid var(--blauw)}
+a.map-card{display:block}
+/* Tuinopmerking op het plantkaartje ("draagt hier geen vruchten"): kort, groen, boven de intro. */
+.plant-card .kaart-tuin{margin:6px 0 0;color:var(--groen);font-weight:700;font-size:14px}

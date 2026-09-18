@@ -45,7 +45,7 @@ assert.equal(schema.oogstbaarInTuin, null);
 // Kunstmatige antwoorden controleren de gegevensstroom, niet de botanische inhoud.
 const voorbeelden = [
   { naam: 'Boom of heester', boomHeester: true, eetbaar: false, gevaarlijk: false, functies: { primair: ['sier'], secundair: [] } },
-  { naam: 'Eetbare plant', boomHeester: false, eetbaar: true, gevaarlijk: false, functies: { primair: ['kruid'], secundair: [] }, oogstTijd: ['Juni', 'Juli'], oogstMethode: 'Pluk de jonge bladeren.' },
+  { naam: 'Eetbare plant', boomHeester: false, eetbaar: true, gevaarlijk: false, functies: { primair: ['kruid'], secundair: [] }, oogstMomenten: [{ maanden: ['Juni', 'Juli'], wat: 'Pluk de jonge bladeren.' }] },
   { naam: 'Gevaarlijk onkruid', boomHeester: false, eetbaar: false, gevaarlijk: true, functies: { primair: ['onkruid'], secundair: [] }, gevaarlijkInfo: 'Vermijd contact met het sap.' },
   { naam: 'Veilig onkruid', boomHeester: false, eetbaar: false, gevaarlijk: false, functies: { primair: ['onkruid'], secundair: [] }, waaromLatenStaan: 'De bloemen geven voedsel aan insecten.' },
   { naam: 'Nog niet beoordeeld', boomHeester: false, eetbaar: null, gevaarlijk: null },
@@ -63,7 +63,7 @@ for (const voorbeeld of voorbeelden) {
   const gelezen = leesPlant(toPayload(form), 'llm-proef', '29');
   assert.ok('plant' in gelezen, gelezen.fout);
   const terug = plantUitRegel(regelVanPlant(gelezen.plant), []);
-  for (const veld of ['boomHeester', 'eetbaar', 'gevaarlijk', 'oogstbaarInTuin', 'tuinOpmerking', 'waaromLatenStaan', 'gevaarlijkInfo', 'oogstTijd', 'oogstMethode']) {
+  for (const veld of ['boomHeester', 'eetbaar', 'gevaarlijk', 'oogstbaarInTuin', 'tuinOpmerking', 'waaromLatenStaan', 'gevaarlijkInfo', 'oogstMomenten']) {
     assert.deepEqual(terug[veld], antwoord[veld], `${voorbeeld.naam}: ${veld} blijft behouden.`);
   }
 }
@@ -79,9 +79,24 @@ assert.equal(engels.gevaarlijk, 'ja');
 for (const waarde of [true, false, null, 'ja', 'nee']) {
   assert.equal(normalizeParsed({ ...schema, oogstbaarInTuin: waarde }, []).oogstbaarInTuin, '');
 }
-const oud = normalizeParsed({ ...schema, extraOogstTijd: ['Oktober'], extraOogstMethode: 'Tweede oogst.' }, []);
-assert.equal(oud.extraOogstTijd, 'Oktober');
-assert.equal(oud.extraOogstMethode, 'Tweede oogst.');
+// Snoeimomenten: nieuw formaat per moment, oud formaat wordt één moment, en alles overleeft de database.
+const momenten = [{ maanden: ['januari', 'Februari'], wat: 'Winter.' }, { maanden: ['Juni'], wat: 'Zomer.' }];
+const snoeiForm = normalizeParsed({ ...schema, snoeiMomenten: momenten }, []);
+assert.deepEqual(snoeiForm.snoeiMomenten, [{ maanden: ['Januari', 'Februari'], wat: 'Winter.' }, { maanden: ['Juni'], wat: 'Zomer.' }]);
+assert.deepEqual(normalizeParsed({ ...schema, snoeiMomenten: undefined, snoeiTijd: ['Maart', 'augustus'], snoeiTijdInfo: 'Oud.' }, []).snoeiMomenten, [{ maanden: ['Maart', 'Augustus'], wat: 'Oud.' }]);
+{
+  const gelezen = leesPlant(toPayload({ ...snoeiForm, naam: 'Proef', botanischeNaam: 'Test', intro: 'Intro.', functiesPrimair: 'sier' }), 'proef', '99');
+  assert.ok('plant' in gelezen, gelezen.fout);
+  assert.deepEqual(gelezen.plant.snoeiTijd, ['Januari', 'Februari', 'Juni']);
+  const terug = plantUitRegel(regelVanPlant(gelezen.plant), []);
+  assert.deepEqual(terug.snoeiMomenten, snoeiForm.snoeiMomenten);
+  assert.deepEqual(terug.snoeiTijd, ['Januari', 'Februari', 'Juni']);
+  // Een databaseregel van vóór migratie 0010 valt terug op de oude kolommen.
+  assert.deepEqual(plantUitRegel({ slug: 'x', naam: 'X', snoei_momenten: '', snoei_tijd: 'Maart', snoei_tijd_info: 'Oud.' }, []).snoeiMomenten, [{ maanden: ['Maart'], wat: 'Oud.' }]);
+}
+// Een ouder antwoord met gewone en extra oogst wordt twee oogstmomenten.
+const oud = normalizeParsed({ ...schema, oogstMomenten: undefined, oogstTijd: ['Juni'], oogstMethode: 'Eerste oogst.', extraOogstTijd: ['Oktober'], extraOogstMethode: 'Tweede oogst.' }, []);
+assert.deepEqual(oud.oogstMomenten, [{ maanden: ['Juni'], wat: 'Eerste oogst.' }, { maanden: ['Oktober'], wat: 'Tweede oogst.' }]);
 assert.deepEqual(parseJsonAnswer('```json\n' + schemaText + '\n```'), schema);
 assert.deepEqual(parseJsonAnswer('Hier is de plant:\n' + schemaText), schema);
 assert.throws(() => parseJsonAnswer('{"boomHeester": TRUE}'), /niet geldig/);
@@ -100,11 +115,11 @@ assert.throws(() => normalizeParsed({ ...schema, functies: { primair: ['kruid', 
 
 // Bronverwijzingen zijn geldige tekst; kopieeropmaak kan de JSON-escapes beschadigen.
 const bronAntwoord = {
-  ...schema, naam: 'Reuzenberenklauw', botanischeNaam: 'Heracleum mantegazzianum',
+  ...schema, naam: 'Gevlekte scheerling', botanischeNaam: 'Conium maculatum',
   functies: { primair: ['onkruid'], secundair: [] }, boomHeester: false, gevaarlijk: true,
   weetje: 'Een feit. ([NVWA](https://www.nvwa.nl/))',
-  commons: '[Categorie](https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum)',
-  commonsIllustraties: '[Illustraties](https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations))',
+  commons: '[Categorie](https://commons.wikimedia.org/wiki/Category:Conium_maculatum)',
+  commonsIllustraties: '[Illustraties](https://commons.wikimedia.org/wiki/Category:Conium_maculatum_-_botanical_illustrations)',
 };
 const bronJson = JSON.stringify(bronAntwoord, null, 2);
 const gekopieerd = bronJson.replaceAll('_', '\\_').replaceAll('_(illustrations)', '_\\(illustrations\\)').replaceAll('\n', '\\\n');
@@ -114,13 +129,13 @@ for (const input of [bronJson, gekopieerd, '"' + gekopieerd + '"', 'Antwoord:\n'
   assert.deepEqual(antwoord, bronAntwoord);
   const form = normalizeParsed(antwoord, []);
   assert.equal(form.weetje, bronAntwoord.weetje);
-  assert.equal(form.commons, 'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum');
-  assert.equal(form.commonsIllustraties, 'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)');
+  assert.equal(form.commons, 'https://commons.wikimedia.org/wiki/Category:Conium_maculatum');
+  assert.equal(form.commonsIllustraties, 'https://commons.wikimedia.org/wiki/Category:Conium_maculatum_-_botanical_illustrations');
   assert.equal(form.boomHeester, 'nee');
   assert.equal(form.gevaarlijk, 'ja');
 }
-assert.equal(normalizeParsed({ ...schema, commonsIllustraties: 'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)' }, []).commonsIllustraties,
-  'https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)');
+assert.equal(normalizeParsed({ ...schema, commonsIllustraties: 'https://commons.wikimedia.org/wiki/Category:Conium_maculatum_-_botanical_illustrations' }, []).commonsIllustraties,
+  'https://commons.wikimedia.org/wiki/Category:Conium_maculatum_-_botanical_illustrations');
 assert.deepEqual(parseJsonAnswer(bronJson.replace('"naam":', 'citeturn0search0 "naam":')), bronAntwoord);
 const geldigeEscapes = { ...schema, intro: 'Regel één\nRegel twee\t"geciteerd"', weetje: 'C:\\tuin\\foto en letterlijk \\_ en \\n' };
 assert.deepEqual(parseJsonAnswer(JSON.stringify(geldigeEscapes)), geldigeEscapes);
@@ -137,7 +152,9 @@ assert.throws(() => parseJsonAnswer('{"naam":"Test", "intro":"ongeldig\\q"}'), /
 const brandnetelKopie = fs.readFileSync('test-fixtures/llm-brandnetel-kopie.txt', 'utf8');
 assert.throws(() => JSON.parse(brandnetelKopie));
 const brandnetel = parseJsonAnswer(brandnetelKopie);
-assert.deepEqual(Object.keys(brandnetel), Object.keys(schema));
+// Dit kopieerantwoord is van vóór de momenten: losse maand- en tekstvelden voor snoei en oogst.
+assert.deepEqual(Object.keys(brandnetel), Object.keys(schema).flatMap((k) => ({ snoeiMomenten: ['snoeiTijd', 'snoeiTijdInfo'], oogstMomenten: ['oogstTijd', 'oogstMethode', 'extraOogstTijd', 'extraOogstMethode'] })[k] ?? [k]));
+assert.deepEqual(normalizeParsed(brandnetel, []).snoeiMomenten, [{ maanden: [], wat: brandnetel.snoeiTijdInfo }]);
 assert.equal(brandnetel.naam, 'Grote brandnetel');
 assert.equal(brandnetel.botanischeNaam, 'Urtica dioica');
 assert.deepEqual(brandnetel.functies, { primair: ['onkruid'], secundair: ['insecten'] });

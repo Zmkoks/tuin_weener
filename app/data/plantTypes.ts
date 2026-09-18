@@ -1,3 +1,5 @@
+import type { Moment } from './momenten';
+
 /**
  * Een foto of illustratie bij een plant: waar het bestand staat, waar het vandaan komt,
  * en hoe het in beeld is gezet.
@@ -44,12 +46,14 @@ export type Plant = {
   gevaarlijkInfo?: string;
   /** Alleen relevant voor onkruid dat veilig kan blijven staan. */
   waaromLatenStaan?: string;
+  /** Per oogstmoment de maanden en wat je dan plukt en hoe. Zie `app/data/momenten.ts`. */
+  oogstMomenten: Moment[];
+  /** Afgeleid: alle maanden uit `oogstMomenten`. Niet los invullen. */
   oogstTijd: string[];
-  oogstMethode: string;
-  extraOogstTijd: string[];
-  extraOogstMethode: string;
+  /** Per snoeimoment de maanden en wat je dan doet. Zie `app/data/momenten.ts`. */
+  snoeiMomenten: Moment[];
+  /** Afgeleid: alle maanden uit `snoeiMomenten`. Niet los invullen. */
   snoeiTijd: string[];
-  snoeiTijdInfo: string;
   snoeiMethode: string;
   snoeiInformatie: string;
   woekerToestemming: string;

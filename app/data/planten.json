@@ -16,19 +16,34 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Mei",
+          "Juni",
+          "Juli"
+        ],
+        "wat": "Pluk een aardbei als hij helemaal rood is. Pak hem voorzichtig bij het steeltje en knip of knijp het steeltje door."
+      }
+    ],
     "oogstTijd": [
       "Mei",
       "Juni",
       "Juli"
     ],
-    "oogstMethode": "Pluk een aardbei als hij helemaal rood is. Pak hem voorzichtig bij het steeltje en knip of knijp het steeltje door.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Maart",
+          "Augustus"
+        ],
+        "wat": "Ruim in maart dode bladeren op. Knip na de laatste oogst in augustus oude bladeren en overtollige uitlopers weg."
+      }
+    ],
     "snoeiTijd": [
       "Maart",
       "Augustus"
     ],
-    "snoeiTijdInfo": "Ruim in maart dode bladeren op. Knip na de laatste oogst in augustus oude bladeren en overtollige uitlopers weg.",
     "snoeiMethode": "Knip bruine, zieke en beschadigde bladeren laag af. Verwijder uitlopers die niet nodig zijn.",
     "snoeiInformatie": "Het groene hart in het midden maakt de nieuwe bladeren. Uitlopers kunnen nieuwe planten vormen, maar nemen ook ruimte in.",
     "woekerToestemming": "Knip uitlopers weg die over het pad of naar andere planten groeien. Bruine en beschimmelde bladeren mogen ook weg.",
@@ -88,19 +103,34 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Juli",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Pluk alleen donkerblauwe bessen die makkelijk loslaten. Trek niet aan de takken."
+      }
+    ],
     "oogstTijd": [
       "Juli",
       "Augustus",
       "September"
     ],
-    "oogstMethode": "Pluk alleen donkerblauwe bessen die makkelijk loslaten. Trek niet aan de takken.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Maart"
+        ],
+        "wat": "Snoei aan het einde van de winter, voordat de nieuwe groei begint."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Maart"
     ],
-    "snoeiTijdInfo": "Snoei aan het einde van de winter, voordat de nieuwe groei begint.",
     "snoeiMethode": "Haal dode en beschadigde takken weg. Verwijder bij een oudere struik af en toe één oude tak laag bij de grond.",
     "snoeiInformatie": "Een open struik krijgt meer licht en lucht. Jonge struiken hoeven nauwelijks te worden gesnoeid.",
     "woekerToestemming": "Knip lage of hinderlijke dunne takken terug tot een zijtak. Dode en gebroken takken mogen helemaal weg.",
@@ -157,6 +187,20 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Knip groene sprieten met een schone schaar enkele centimeters boven de grond af. Laat een deel van de pol staan om verder te groeien."
+      }
+    ],
     "oogstTijd": [
       "April",
       "Mei",
@@ -166,14 +210,19 @@
       "September",
       "Oktober"
     ],
-    "oogstMethode": "Knip groene sprieten met een schone schaar enkele centimeters boven de grond af. Laat een deel van de pol staan om verder te groeien.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Juli",
+          "Oktober"
+        ],
+        "wat": "Knip na de bloei terug voor nieuwe sprieten. Ruim in de herfst slappe en gele sprieten op."
+      }
+    ],
     "snoeiTijd": [
       "Juli",
       "Oktober"
     ],
-    "snoeiTijdInfo": "Knip na de bloei terug voor nieuwe sprieten. Ruim in de herfst slappe en gele sprieten op.",
     "snoeiMethode": "Knip de pol na de bloei terug tot ongeveer 5 centimeter. Verwijder later alleen wat geel of dood is.",
     "snoeiInformatie": "Bieslook groeit opnieuw uit vanaf de basis. Regelmatig oogsten houdt de sprieten jong.",
     "woekerToestemming": "Sprieten en uitgebloeide bloemen mogen laag worden afgeknipt. Een te brede buitenrand mag worden uitgedund.",
@@ -223,24 +272,29 @@
     "plantnummer": "4",
     "waterOndergrens": "2",
     "waterBovengrens": "3",
-    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral tijdens warm weer en wanneer vruchten groeien. Is de grond nog vochtig, geef dan niets.",
+    "waterInfo": "Voel eerst de grond. Geef water als de bovenste laag droog is, vooral tijdens warm weer. Is de grond nog vochtig, geef dan niets.",
     "zon": "zon",
     "zonInfo": "Staat het liefst zonnig, warm en beschut bij een stevig rek, een schutting of een muur.",
     "functies": {
       "primair": [
         "sier"
       ],
-      "secundair": [
-        "fruit"
-      ]
+      "secundair": []
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [
-      "Oktober",
-      "November"
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Januari",
+          "Februari",
+          "Juni",
+          "Juli",
+          "Augustus"
+        ],
+        "wat": "Snoei in de winter vóór de nieuwe groei. Kort vanaf juni lange zomerscheuten in om de klimplant beheersbaar te houden."
+      }
     ],
-    "extraOogstMethode": "Deze plant geeft niet altijd vruchten. Vaak is daar een tweede kiwiplant voor nodig. Zijn er wel kiwi's? Knip ontwikkelde vruchten vóór strenge nachtvorst met het steeltje los. Laat harde vruchten binnen verder rijpen.",
     "snoeiTijd": [
       "Januari",
       "Februari",
@@ -248,9 +302,8 @@
       "Juli",
       "Augustus"
     ],
-    "snoeiTijdInfo": "Snoei in de winter vóór de nieuwe groei. Kort vanaf juni lange zomerscheuten in om de klimplant beheersbaar te houden.",
     "snoeiMethode": "Laat de stam en de vaste zijtakken aan het rek zitten. Kort losse zijscheuten in en verwijder zwakke of beschadigde groei.",
-    "snoeiInformatie": "Kiwi groeit zeer krachtig. Vruchten ontstaan op nieuwe scheuten die uit groei van het vorige jaar komen.",
+    "snoeiInformatie": "Kiwi groeit zeer krachtig en maakt lange nieuwe scheuten.",
     "woekerToestemming": "Lange, dunne scheuten die loshangen, om andere planten draaien of in de weg zitten, mogen flink worden ingekort.",
     "woekerVerbod": "Knip de dikke stam en de vaste takken aan het rek niet weg. Maak geen grote snoeiwonden wanneer de plant in het voorjaar al groeit.",
     "levensduur": "Meerjarig",
@@ -272,7 +325,7 @@
     ],
     "botanischeNaam": "Actinidia chinensis Planch.",
     "commons": "https://commons.wikimedia.org/wiki/Category:Actinidia_chinensis",
-    "intro": "De kiwi is een sterke klimplant met grote, zachte bladeren. Vruchten komen alleen als er een tweede kiwiplant in de buurt staat.",
+    "intro": "De kiwi is een sterke klimplant met grote, zachte bladeren.",
     "weetje": "De kiwi komt oorspronkelijk uit China en heette hier vroeger \"Chinese kruisbes\". Kwekers in Nieuw-Zeeland gaven hem de naam van hun nationale vogel: de kiwi.",
     "foto": {
       "bestand": "",
@@ -305,6 +358,18 @@
       ],
       "secundair": []
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Knip jonge toppen of hele groene stengels af. Gebruik vooral frisse, onbeschadigde bladeren."
+      }
+    ],
     "oogstTijd": [
       "Mei",
       "Juni",
@@ -312,16 +377,23 @@
       "Augustus",
       "September"
     ],
-    "oogstMethode": "Knip jonge toppen of hele groene stengels af. Gebruik vooral frisse, onbeschadigde bladeren.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Knip tijdens de zomer terug wanneer de plant te groot wordt. Knip na de bloei opnieuw terug om uitzaaien te beperken."
+      }
+    ],
     "snoeiTijd": [
       "Juni",
       "Juli",
       "Augustus",
       "September"
     ],
-    "snoeiTijdInfo": "Knip tijdens de zomer terug wanneer de plant te groot wordt. Knip na de bloei opnieuw terug om uitzaaien te beperken.",
     "snoeiMethode": "Knip stengels tot ongeveer 10 centimeter boven de grond terug. Verwijder droge en zieke delen.",
     "snoeiInformatie": "Citroenmelisse groeit snel opnieuw uit en kan zich ook uitzaaien.",
     "woekerToestemming": "Hele stengels aan de buitenkant mogen laag worden afgeknipt. Verwijder jonge planten die buiten het vak opkomen.",
@@ -377,6 +449,18 @@
       ],
       "secundair": []
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Knip jonge toppen of groene zijtakjes af. Laat onderaan voldoende groene groei staan."
+      }
+    ],
     "oogstTijd": [
       "Mei",
       "Juni",
@@ -384,9 +468,18 @@
       "Augustus",
       "September"
     ],
-    "oogstMethode": "Knip jonge toppen of groene zijtakjes af. Laat onderaan voldoende groene groei staan.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Knip in de zomer terug zodra de plant te hoog of breed wordt. Knip in de herfst de oude stengels laag af."
+      }
+    ],
     "snoeiTijd": [
       "Juni",
       "Juli",
@@ -394,7 +487,6 @@
       "September",
       "Oktober"
     ],
-    "snoeiTijdInfo": "Knip in de zomer terug zodra de plant te hoog of breed wordt. Knip in de herfst de oude stengels laag af.",
     "snoeiMethode": "Kort lange stengels flink in. Aan het einde van het seizoen mag de plant tot 5 à 10 centimeter boven de grond worden teruggeknipt.",
     "snoeiInformatie": "Dragon groeit opnieuw uit vanaf de basis. De plant hoeft niet hoog te blijven om gezond te zijn.",
     "woekerToestemming": "Takken die over andere planten hangen of in de weg zitten, mogen tot 10 centimeter boven de grond worden teruggeknipt.",
@@ -453,15 +545,21 @@
         "onkruid"
       ]
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Maart",
+          "September"
+        ],
+        "wat": "Knip na de bloei uitgebloeide stengels weg. Ruim in maart de laatste dode delen op."
+      }
+    ],
     "snoeiTijd": [
       "Maart",
       "September"
     ],
-    "snoeiTijdInfo": "Knip na de bloei uitgebloeide stengels weg. Ruim in maart de laatste dode delen op.",
     "snoeiMethode": "Knip uitgebloeide bloemstengels laag af. Verwijder in het voorjaar bruine en dode resten.",
     "snoeiInformatie": "De plant loopt opnieuw uit vanuit lage bladrozetten en kan zich via de wortels uitbreiden.",
     "woekerToestemming": "Uitgebloeide stengels mogen laag worden afgeknipt. Buitenste delen die te breed worden, mogen worden uitgestoken.",
@@ -519,22 +617,40 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Juli",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Pak een rijpe framboos voorzichtig vast. Trek heel zacht: een rijpe vrucht laat vanzelf los."
+      }
+    ],
     "oogstTijd": [
       "Juli",
       "Augustus",
       "September",
       "Oktober"
     ],
-    "oogstMethode": "Pak een rijpe framboos voorzichtig vast. Trek heel zacht: een rijpe vrucht laat vanzelf los.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Knip na de oogst stengels weg die duidelijk vruchten hebben gedragen. Ruim in februari dode of zwakke stengels op."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Augustus",
       "September",
       "Oktober"
     ],
-    "snoeiTijdInfo": "Knip na de oogst stengels weg die duidelijk vruchten hebben gedragen. Ruim in februari dode of zwakke stengels op.",
     "snoeiMethode": "Knip oude, afgedragen stengels tot aan de grond af. Laat gezonde nieuwe stengels staan en bind ze zo nodig aan.",
     "snoeiInformatie": "De precieze snoei hangt af van het ras. Het veiligst is alleen duidelijk afgedragen, dode en hinderlijke stengels te verwijderen.",
     "woekerToestemming": "Nieuwe scheuten die buiten de bak, buiten het vak of op het pad opkomen, mogen met wortel en al worden verwijderd.",
@@ -592,16 +708,23 @@
       ],
       "secundair": []
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Juli",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Knip stengels weg voordat veel zaadpeulen bruin en rijp worden."
+      }
+    ],
     "snoeiTijd": [
       "Juli",
       "Augustus",
       "September"
     ],
-    "snoeiTijdInfo": "Knip stengels weg voordat veel zaadpeulen bruin en rijp worden.",
     "snoeiMethode": "Knip uitgebloeide stengels laag af. Trek overtollige jonge planten met wortel en al uit.",
     "snoeiInformatie": "Knopherik is eenjarig en maakt veel zaden die lang in de grond kunnen blijven.",
     "woekerToestemming": "Planten die te dicht staan of op de verkeerde plek groeien, mogen helemaal worden verwijderd. Laat alleen het gewenste aantal staan.",
@@ -660,20 +783,36 @@
         "kruid"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Juni",
+          "Juli",
+          "Augustus"
+        ],
+        "wat": "Knip bloemstengels wanneer de eerste bloemen open zijn. Knip alleen in het groene deel van de plant."
+      }
+    ],
     "oogstTijd": [
       "Juni",
       "Juli",
       "Augustus"
     ],
-    "oogstMethode": "Knip bloemstengels wanneer de eerste bloemen open zijn. Knip alleen in het groene deel van de plant.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "April",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Ruim in het voorjaar beschadigde toppen op. Knip na de bloei de bloemstengels en wat jong groen terug."
+      }
+    ],
     "snoeiTijd": [
       "April",
       "Augustus",
       "September"
     ],
-    "snoeiTijdInfo": "Ruim in het voorjaar beschadigde toppen op. Knip na de bloei de bloemstengels en wat jong groen terug.",
     "snoeiMethode": "Knip na de bloei tot een compacte vorm, maar laat overal groene blaadjes onder de knip zitten.",
     "snoeiInformatie": "Lavendel loopt slecht opnieuw uit vanuit kaal, oud hout. Jaarlijks licht snoeien voorkomt dat de plant te houtig wordt.",
     "woekerToestemming": "Uitgebloeide stengels en groene takjes die over het pad hangen, mogen worden ingekort.",
@@ -713,13 +852,13 @@
   },
   {
     "slug": "marjolein",
-    "naam": "marjolein",
+    "naam": "wilde marjolein",
     "plantnummer": "11",
     "waterOndergrens": "1",
     "waterBovengrens": "3",
     "waterInfo": "Voel eerst de grond. Geef water wanneer de bovenste laag droog is. Laat de grond daarna weer iets opdrogen en laat geen water rond de wortels staan.",
     "zon": "zon",
-    "zonInfo": "Staat graag zonnig en beschut in grond waar overtollig water makkelijk weg kan. Is gevoelig voor kou en natte winters.",
+    "zonInfo": "Staat graag zonnig in grond waar overtollig water makkelijk weg kan.",
     "functies": {
       "primair": [
         "kruid",
@@ -727,25 +866,41 @@
       ],
       "secundair": []
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Knip groene stengels af en laat onderaan enkele blaadjes staan. Gebruik de blaadjes vers of laat de takjes drogen."
+      }
+    ],
     "oogstTijd": [
       "Juni",
       "Juli",
       "Augustus",
       "September"
     ],
-    "oogstMethode": "Knip groene stengels af en laat onderaan enkele blaadjes staan. Gebruik de blaadjes vers of laat de takjes drogen.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Maart",
+          "September"
+        ],
+        "wat": "Knip uitgebloeide stengels weg. Ruim in het voorjaar dode resten op."
+      }
+    ],
     "snoeiTijd": [
       "Maart",
       "September"
     ],
-    "snoeiTijdInfo": "Knip uitgebloeide stengels weg. Ruim in het voorjaar alleen resten op als de plant de winter heeft overleefd.",
     "snoeiMethode": "Knip stengels terug tot net boven groene groei. Verwijder dode en bruine delen.",
-    "snoeiInformatie": "Marjolein is niet betrouwbaar winterhard en wordt in Nederland vaak als eenjarige plant gehouden.",
+    "snoeiInformatie": "Wilde marjolein komt elk voorjaar terug en kan zich rustig uitbreiden.",
     "woekerToestemming": "Lange en uitgebloeide stengels mogen flink worden ingekort. Een te breed deel mag worden weggehaald.",
     "woekerVerbod": "Knip niet al het groen helemaal tot op kale grond weg. Laat een klein groen deel staan zolang de plant nog groeit.",
-    "levensduur": "Eenjarig of kortlevend",
+    "levensduur": "Meerjarig",
     "groei": [
       "Mei",
       "Juni",
@@ -762,10 +917,10 @@
       "Oktober",
       "November"
     ],
-    "botanischeNaam": "Origanum majorana L.",
-    "commons": "https://commons.wikimedia.org/wiki/Category:Origanum_majorana",
-    "intro": "Marjolein is familie van oregano en ruikt kruidig. De kleine bloemetjes zijn een feestmaal voor insecten.",
-    "weetje": "Marjolein is het zachtere zusje van oregano. In het oude Griekenland stond de plant symbool voor geluk.",
+    "botanischeNaam": "Origanum vulgare L.",
+    "commons": "https://commons.wikimedia.org/wiki/Category:Origanum_vulgare",
+    "intro": "Wilde marjolein ruikt kruidig. De kleine roze bloemen trekken veel insecten.",
+    "weetje": "Wilde marjolein heet ook oregano. De smaak wordt sterker op een zonnige, droge plek.",
     "foto": {
       "bestand": "",
       "x": 100,
@@ -798,6 +953,19 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Knip groene toppen of hele stengels af, net boven een paar blaadjes. De plant groeit daarna opnieuw uit."
+      }
+    ],
     "oogstTijd": [
       "Mei",
       "Juni",
@@ -806,9 +974,18 @@
       "September",
       "Oktober"
     ],
-    "oogstMethode": "Knip groene toppen of hele stengels af, net boven een paar blaadjes. De plant groeit daarna opnieuw uit.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September",
+          "November"
+        ],
+        "wat": "Knip tijdens het groeiseizoen terug zodra de munt te groot wordt. Knip dode stengels in de late herfst laag af."
+      }
+    ],
     "snoeiTijd": [
       "Juni",
       "Juli",
@@ -816,7 +993,6 @@
       "September",
       "November"
     ],
-    "snoeiTijdInfo": "Knip tijdens het groeiseizoen terug zodra de munt te groot wordt. Knip dode stengels in de late herfst laag af.",
     "snoeiMethode": "Knip lange stengels zo ver terug als nodig is. Graaf uitlopers weg die buiten de afgesproken plek groeien.",
     "snoeiInformatie": "Aarmunt verspreidt zich snel met ondergrondse uitlopers. Een klein achtergebleven wortelstuk kan opnieuw uitlopen.",
     "woekerToestemming": "Stengels, losse planten en uitlopers buiten de gewenste plek mogen worden weggeknipt of uitgegraven. Flink uitdunnen is geen probleem.",
@@ -877,19 +1053,34 @@
         "vogel"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Juni",
+          "Juli",
+          "Augustus"
+        ],
+        "wat": "Pluk of knip een heel trosje als alle bessen rood en rijp zijn. Houd het trosje bij het steeltje vast."
+      }
+    ],
     "oogstTijd": [
       "Juni",
       "Juli",
       "Augustus"
     ],
-    "oogstMethode": "Pluk of knip een heel trosje als alle bessen rood en rijp zijn. Houd het trosje bij het steeltje vast.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Maart"
+        ],
+        "wat": "Snoei aan het einde van de winter, voordat de knoppen uitlopen."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Maart"
     ],
-    "snoeiTijdInfo": "Snoei aan het einde van de winter, voordat de knoppen uitlopen.",
     "snoeiMethode": "Verwijder dode en kruisende takken. Haal bij een oude struik af en toe één oude hoofdtak laag weg en laat vervangende jonge takken staan.",
     "snoeiInformatie": "Rode bes draagt vooral aan korte zijtakjes op ouder hout. Te veel snoei geeft minder bessen.",
     "woekerToestemming": "Lage, gebroken of hinderlijke dunne takken mogen worden teruggeknipt tot een gezonde zijtak.",
@@ -946,6 +1137,21 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Maart",
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Knip jonge, groene takjes af. Laat onder de knip voldoende blaadjes staan."
+      }
+    ],
     "oogstTijd": [
       "Maart",
       "April",
@@ -956,9 +1162,18 @@
       "September",
       "Oktober"
     ],
-    "oogstMethode": "Knip jonge, groene takjes af. Laat onder de knip voldoende blaadjes staan.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "April",
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus"
+        ],
+        "wat": "Knip in het voorjaar en na de bloei licht terug. Vermijd grote snoei vlak voor de winter."
+      }
+    ],
     "snoeiTijd": [
       "April",
       "Mei",
@@ -966,7 +1181,6 @@
       "Juli",
       "Augustus"
     ],
-    "snoeiTijdInfo": "Knip in het voorjaar en na de bloei licht terug. Vermijd grote snoei vlak voor de winter.",
     "snoeiMethode": "Kort jonge, groene takken in om de struik compact te houden. Verwijder dode en beschadigde takjes.",
     "snoeiInformatie": "Rozemarijn loopt slecht opnieuw uit vanuit kaal, oud hout. Regelmatig licht knippen is veiliger dan één zware snoeibeurt.",
     "woekerToestemming": "Groene takken die te breed groeien of over het pad hangen, mogen worden ingekort.",
@@ -1022,6 +1236,19 @@
       ],
       "secundair": []
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Pluk losse blaadjes of knip een jonge groene top af. Laat onder de knip enkele blaadjes staan."
+      }
+    ],
     "oogstTijd": [
       "Mei",
       "Juni",
@@ -1030,15 +1257,21 @@
       "September",
       "Oktober"
     ],
-    "oogstMethode": "Pluk losse blaadjes of knip een jonge groene top af. Laat onder de knip enkele blaadjes staan.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "April",
+          "Juli",
+          "Augustus"
+        ],
+        "wat": "Knip in het voorjaar terug zodra nieuwe groei zichtbaar is. Knip uitgebloeide stengels in de zomer weg."
+      }
+    ],
     "snoeiTijd": [
       "April",
       "Juli",
       "Augustus"
     ],
-    "snoeiTijdInfo": "Knip in het voorjaar terug zodra nieuwe groei zichtbaar is. Knip uitgebloeide stengels in de zomer weg.",
     "snoeiMethode": "Kort jonge takken in tot vlak boven groene blaadjes of knoppen. Verwijder dode delen.",
     "snoeiInformatie": "Jaarlijks licht snoeien houdt salie compact. Oude kale takken lopen niet altijd opnieuw uit.",
     "woekerToestemming": "Groene takken die over het pad of andere planten hangen, mogen worden ingekort. Uitgebloeide stengels mogen weg.",
@@ -1095,16 +1328,23 @@
         "vogel"
       ]
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Knip uitgebloeide stengels weg als er genoeg planten staan of als uitzaaien niet gewenst is."
+      }
+    ],
     "snoeiTijd": [
       "Augustus",
       "September",
       "Oktober"
     ],
-    "snoeiTijdInfo": "Knip uitgebloeide stengels weg als er genoeg planten staan of als uitzaaien niet gewenst is.",
     "snoeiMethode": "Knip hoge of uitgebloeide stengels laag af. Trek overtollige jonge rozetten uit de grond.",
     "snoeiInformatie": "Teunisbloem is meestal tweejarig: eerst ontstaat een lage bladrozet, daarna een bloemstengel. Na bloei en zaadvorming sterft die plant af.",
     "woekerToestemming": "Planten op de verkeerde plek en stengels die in de weg staan, mogen helemaal worden verwijderd. Laat alleen het gewenste aantal staan.",
@@ -1163,6 +1403,18 @@
       ],
       "secundair": []
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Mei",
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Knip jonge takjes af. Laat onder de knip groene blaadjes staan."
+      }
+    ],
     "oogstTijd": [
       "Mei",
       "Juni",
@@ -1170,15 +1422,21 @@
       "Augustus",
       "September"
     ],
-    "oogstMethode": "Knip jonge takjes af. Laat onder de knip groene blaadjes staan.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "April",
+          "Juli",
+          "Augustus"
+        ],
+        "wat": "Knip in het voorjaar en kort na de bloei licht terug om de plant compact te houden."
+      }
+    ],
     "snoeiTijd": [
       "April",
       "Juli",
       "Augustus"
     ],
-    "snoeiTijdInfo": "Knip in het voorjaar en kort na de bloei licht terug om de plant compact te houden.",
     "snoeiMethode": "Knip uitstekende en uitgebloeide groene takjes terug. Geef de plant een compacte vorm.",
     "snoeiInformatie": "Oude tijm kan kaal en houtig worden. Hard snoeien tot in kaal hout is riskant.",
     "woekerToestemming": "Groene takjes die over de rand of het pad hangen, mogen worden ingekort.",
@@ -1234,15 +1492,35 @@
         "kruid"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Juli",
+          "Augustus",
+          "September",
+          "Oktober"
+        ],
+        "wat": "Knip jonge groene blaadjes naar behoefte. Knip alleen enkele droge zaadschermen voor zaad en voorkom dat de rest uitzaait."
+      }
+    ],
     "oogstTijd": [
       "Juli",
       "Augustus",
       "September",
       "Oktober"
     ],
-    "oogstMethode": "Knip jonge groene blaadjes naar behoefte. Knip alleen enkele droge zaadschermen voor zaad en voorkom dat de rest uitzaait.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Juni",
+          "Juli",
+          "Augustus",
+          "September",
+          "November"
+        ],
+        "wat": "Kort de plant tijdens de zomer in als hij te hoog of breed wordt. Knip na de bloei schermen weg om uitzaaien te beperken."
+      }
+    ],
     "snoeiTijd": [
       "Juni",
       "Juli",
@@ -1250,7 +1528,6 @@
       "September",
       "November"
     ],
-    "snoeiTijdInfo": "Kort de plant tijdens de zomer in als hij te hoog of breed wordt. Knip na de bloei schermen weg om uitzaaien te beperken.",
     "snoeiMethode": "Knip hinderlijke stengels laag af. In de late herfst mogen dode stengels tot vlak boven de grond worden verwijderd.",
     "snoeiInformatie": "Venkel kan groot worden en zich ruim uitzaaien. De plant kan opnieuw uitlopen vanuit de basis.",
     "woekerToestemming": "Hoge stengels die in de weg staan, mogen laag worden afgeknipt. Overtollige jonge planten en zaadschermen mogen weg.",
@@ -1309,19 +1586,34 @@
         "vogel"
       ]
     },
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "Juli",
+          "Augustus"
+        ],
+        "wat": "Pluk of knip een heel trosje als alle bessen zwart en rijp zijn. Houd het trosje bij het steeltje vast."
+      }
+    ],
     "oogstTijd": [
       "Juli",
       "Augustus"
     ],
-    "oogstMethode": "Pluk of knip een heel trosje als alle bessen zwart en rijp zijn. Houd het trosje bij het steeltje vast.",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Augustus",
+          "September"
+        ],
+        "wat": "Snoei na de oogst of aan het einde van de winter. Verwijder vooral oud hout."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Augustus",
       "September"
     ],
-    "snoeiTijdInfo": "Snoei na de oogst of aan het einde van de winter. Verwijder vooral oud hout.",
     "snoeiMethode": "Knip bij een oudere struik één of meer van de donkerste oude takken laag bij de grond weg. Laat de jongere, lichtere takken staan.",
     "snoeiInformatie": "Zwarte bes draagt het beste op jonge takken. Jaarlijks wat oud hout weghalen stimuleert vervangende groei.",
     "woekerToestemming": "Lage, gebroken en hinderlijke dunne takken mogen weg. Eén oude, donkere tak mag laag worden verwijderd.",
@@ -1378,15 +1670,21 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "November",
+          "December"
+        ],
+        "wat": "Snoei na de bladval en vóór januari om sterk sapverlies in het voorjaar te vermijden."
+      }
+    ],
     "snoeiTijd": [
       "November",
       "December"
     ],
-    "snoeiTijdInfo": "Snoei na de bladval en vóór januari om sterk sapverlies in het voorjaar te vermijden.",
     "snoeiMethode": "Knip dunne, hinderlijke scheuten terug. Verwijder dode of kruisende takken alleen als dit veilig kan.",
     "snoeiInformatie": "Spaanse aak verdraagt vormsnoei, maar kan in het voorjaar sap uit verse snoeiwonden verliezen.",
     "woekerToestemming": "Dunne scheuten die over het pad groeien of duidelijk buiten de gewenste vorm steken, mogen in november of december worden ingekort.",
@@ -1445,15 +1743,21 @@
         "boom"
       ]
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Maart"
+        ],
+        "wat": "Snoei aan het einde van de winter of vroeg in het voorjaar, voordat de struik sterk uitloopt."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Maart"
     ],
-    "snoeiTijdInfo": "Snoei aan het einde van de winter of vroeg in het voorjaar, voordat de struik sterk uitloopt.",
     "snoeiMethode": "Draag stevige handschoenen. Knip dode, kruisende en hinderlijke takken terug. Houd een haag op de gewenste breedte.",
     "snoeiInformatie": "De bessen zijn niet voor mensen om te eten. De struik kan vanuit de basis nieuwe scheuten maken.",
     "woekerToestemming": "Takken die het pad blokkeren of te breed uitgroeien, mogen worden ingekort. Jonge scheuten buiten het vak mogen weg.",
@@ -1511,15 +1815,21 @@
         "vogel"
       ]
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Maart"
+        ],
+        "wat": "Snoei alleen als de struik te groot, beschadigd of erg dicht is."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Maart"
     ],
-    "snoeiTijdInfo": "Snoei alleen als de struik te groot, beschadigd of erg dicht is.",
     "snoeiMethode": "Draag handschoenen. Knip dode, kruisende en hinderlijke takken terug tot een gezonde zijtak.",
     "snoeiInformatie": "Alle delen, vooral de vruchten, zijn schadelijk bij eten. De struik heeft meestal weinig snoei nodig.",
     "woekerToestemming": "Dunne takken die over het pad hangen of in de weg zitten, mogen worden ingekort.",
@@ -1577,15 +1887,21 @@
         "sier"
       ]
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "November",
+          "December"
+        ],
+        "wat": "Snoei na de bladval, in de late herfst of vroege winter, om sterk sapverlies te vermijden."
+      }
+    ],
     "snoeiTijd": [
       "November",
       "December"
     ],
-    "snoeiTijdInfo": "Snoei na de bladval, in de late herfst of vroege winter, om sterk sapverlies te vermijden.",
     "snoeiMethode": "Knip alleen jonge scheuten terug als de vorm dat vraagt. Laat grote takken en de stam met rust.",
     "snoeiInformatie": "Dit exemplaar is vruchtloos. Witte moerbei kan veel sap verliezen uit snoeiwonden die te laat in de winter of in het voorjaar zijn gemaakt.",
     "woekerToestemming": "Dunne, jonge scheuten die duidelijk in de weg zitten, mogen in november of december worden ingekort.",
@@ -1641,16 +1957,23 @@
         "insecten"
       ]
     },
+    "oogstMomenten": [],
     "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Maart",
+          "Juni"
+        ],
+        "wat": "Knip een haag na de bloei in juni. Verwijder in februari of maart alleen dode, beschadigde of zeer storende takken."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Maart",
       "Juni"
     ],
-    "snoeiTijdInfo": "Knip een haag na de bloei in juni. Verwijder in februari of maart alleen dode, beschadigde of zeer storende takken.",
     "snoeiMethode": "Draag stevige handschoenen. Knip jonge uitstekende scheuten terug en verwijder dode of kruisende takken.",
     "snoeiInformatie": "Meidoorn verdraagt snoei goed, maar grote snoei is voor deelnemers niet nodig. Let op de scherpe doorns.",
     "woekerToestemming": "Dunne takken die het pad blokkeren of uit een haag steken, mogen worden ingekort.",
@@ -1709,18 +2032,32 @@
         "fruit"
       ]
     },
-    "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [
+    "oogstMomenten": [
+      {
+        "maanden": [
+          "September",
+          "Oktober"
+        ],
+        "wat": "Pluk rijpe vruchten als ze geel tot rood en iets zacht zijn. Eet de pitten niet; verwijder ze vóór gebruik."
+      }
+    ],
+    "oogstTijd": [
       "September",
       "Oktober"
     ],
-    "extraOogstMethode": "Pluk rijpe vruchten als ze geel tot rood en iets zacht zijn. Eet de pitten niet; verwijder ze vóór gebruik.",
+    "snoeiMomenten": [
+      {
+        "maanden": [
+          "Februari",
+          "Maart"
+        ],
+        "wat": "Snoei zo weinig mogelijk aan het einde van de winter, voordat de nieuwe groei begint."
+      }
+    ],
     "snoeiTijd": [
       "Februari",
       "Maart"
     ],
-    "snoeiTijdInfo": "Snoei zo weinig mogelijk aan het einde van de winter, voordat de nieuwe groei begint.",
     "snoeiMethode": "Draag stevige handschoenen. Verwijder dode, kruisende en hinderlijke dunne takken. Laat korte zijtakjes zoveel mogelijk zitten.",
     "snoeiInformatie": "Vruchten ontstaan aan korte zijtakjes op ouder hout. De pitten zijn niet bedoeld om te eten.",
     "woekerToestemming": "Dunne takken die laag hangen of het pad blokkeren, mogen worden teruggeknipt tot een gezonde zijtak.",
@@ -1759,53 +2096,6 @@
       "y": 50,
       "zoom": 1,
       "bron": "https://commons.wikimedia.org/w/index.php?curid=2252267"
-    }
-  },
-  {
-    "slug": "reuzenberenklauw",
-    "naam": "reuzenberenklauw",
-    "plantnummer": "26",
-    "waterOndergrens": "1",
-    "waterBovengrens": "3",
-    "waterInfo": "Deze plant hoeft geen water. Geef geen water en kom niet onnodig dichtbij.",
-    "zon": "halfschaduw",
-    "zonInfo": "Reuzenberenklauw groeit op zonnige en halfbeschaduwde plekken. Hij groeit vaak op vochtige, voedselrijke grond.",
-    "functies": {
-      "primair": ["onkruid"],
-      "secundair": []
-    },
-    "oogstTijd": [],
-    "oogstMethode": "",
-    "extraOogstTijd": [],
-    "extraOogstMethode": "",
-    "snoeiTijd": ["Maart", "April", "Mei", "Juni", "Juli", "Augustus"],
-    "snoeiTijdInfo": "Begin in het vroege voorjaar. Controleer de plek in de zomer opnieuw. Voorkom altijd dat de plant rijpe zaden maakt.",
-    "snoeiMethode": "Draag volledig bedekkende kleding, stevige handschoenen en oogbescherming. Steek de wortel in het voorjaar minstens 15 centimeter onder de grond af. Herhaal dit als de plant terugkomt.",
-    "snoeiInformatie": "Het sap kan samen met zonlicht ernstige huidbeschadiging veroorzaken. Bescherm huid en ogen. Voer verwijderde delen af met het groenafval en laat ze niet in de tuin liggen.",
-    "woekerToestemming": "Haal de plant weg voordat hij zaad maakt. Werk alleen met volledig bedekte huid, stevige handschoenen en oogbescherming.",
-    "woekerVerbod": "Raak de plant niet met blote huid aan. Maai of knip hem niet zonder beschermende kleding. Laat geen bloemen met rijpe zaden staan.",
-    "levensduur": "Meerjarig",
-    "groei": ["Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober"],
-    "bloei": ["Juni", "Juli", "Augustus"],
-    "sterf": ["November", "December", "Januari", "Februari"],
-    "botanischeNaam": "Heracleum mantegazzianum Sommier & Levier",
-    "commons": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum",
-    "commonsIllustraties": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)",
-    "intro": "Reuzenberenklauw is een zeer grote plant met witte bloemschermen. Het sap kan de huid ernstig beschadigen in zonlicht.",
-    "weetje": "De plant kan meer dan drie meter hoog worden en maakt zeer veel zaden.",
-    "foto": {
-      "bestand": "",
-      "x": 50,
-      "y": 50,
-      "zoom": 1,
-      "bron": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum"
-    },
-    "illustratie": {
-      "bestand": "",
-      "x": 50,
-      "y": 50,
-      "zoom": 1,
-      "bron": "https://commons.wikimedia.org/wiki/Category:Heracleum_mantegazzianum_(illustrations)"
     }
   }
 ]

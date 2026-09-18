@@ -267,6 +267,13 @@ export default function SymboolVeld({ naam, botanischeNaam, slug, waarde, onChan
       <details>
         <summary>Zelf maken <span>met een tekenprogramma</span></summary><div>
           <p>Maak of bewerk een SVG in een tekenprogramma. Dat kan bijvoorbeeld met het gratis programma <a href="https://inkscape.org/" target="_blank" rel="noreferrer">Inkscape</a>. Sla de tekening op als SVG-bestand en voeg dat hier toe.</p>
+          {/* Dezelfde eisen als `keurSymbool` in db/media.ts; wie ze vooraf leest, krijgt geen weigering achteraf. */}
+          <p className="media-tip">Het bestand moet:</p>
+          <ul className="media-tip">
+            <li>een SVG zijn (geen PNG of JPEG), kleiner dan 8 MB;</li>
+            <li>een <code>viewBox</code> hebben (Inkscape doet dat vanzelf);</li>
+            <li>op zichzelf staan: geen links naar internet, geen script en geen ingesloten webinhoud.</li>
+          </ul>
           <button type="button" onClick={() => kiezer.current?.click()} disabled={bezig}>
             {bezig ? 'Bezig met uploaden…' : 'SVG-bestand uploaden'}
           </button>

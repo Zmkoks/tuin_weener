@@ -1,4 +1,5 @@
 import type { Plant } from './plantTypes';
+import { watInMaand } from './momenten';
 
 export const months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
 export const monthShort = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
@@ -54,13 +55,17 @@ export function oogstInTuin(plant: Plant) {
   return soort && plant.eetbaar !== false && plant.oogstbaarInTuin !== false;
 }
 
-/** Wat er deze maand bij een plant te doen is. Leeg = niets te doen. */
+/**
+ * Wat er deze maand bij een plant te doen is. Leeg = niets te doen.
+ * Bij snoeien is dat de tekst van het snoeimoment waar deze maand in valt, niet de algemene werkwijze:
+ * bij de kiwi zei juni anders "laat de stam zitten" in plaats van "kort zomerscheuten in".
+ */
 export function takenVoorMaand(plant: Plant, maand: string): Taak[] {
   const taken: Taak[] = [];
-  if (oogstInTuin(plant) && [...plant.oogstTijd, ...plant.extraOogstTijd].includes(maand)) {
-    taken.push({ type: 'Oogsten', uitleg: plant.oogstMethode || plant.extraOogstMethode });
+  if (oogstInTuin(plant) && plant.oogstTijd.includes(maand)) {
+    taken.push({ type: 'Oogsten', uitleg: watInMaand(plant.oogstMomenten, maand) });
   }
-  if (plant.snoeiTijd.includes(maand)) taken.push({ type: 'Snoeien', uitleg: plant.snoeiMethode });
+  if (plant.snoeiTijd.includes(maand)) taken.push({ type: 'Snoeien', uitleg: watInMaand(plant.snoeiMomenten, maand) || plant.snoeiMethode });
   return taken;
 }
 
