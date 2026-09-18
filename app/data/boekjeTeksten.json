@@ -1,0 +1,250 @@
+{
+  "voorwerk": {
+    "label_tuin": "Werken in de tuin",
+    "inhoud": "Inhoud",
+    "in_dit_boekje": "In dit boekje",
+    "planten": "Planten",
+    "paginanummer": "Paginanummer",
+    "label_plattegrond": "Bij de plattegrond",
+    "zoek_titel": "Welke plant, welke pagina?",
+    "zoek_intro": "Zoek het nummer of de letter van de plattegrond hiernaast op. Daarachter staat op welke pagina die plant staat.",
+    "label_lezen": "Hoe lees je dit boekje?",
+    "water_titel": "Water geven",
+    "water_intro": "Bij iedere plant staan druppels. Die vertellen niet hoeveel water je moet geven. Ze vertellen hoe droog de grond mag worden voordat je water geeft.",
+    "water_kern": "Voel altijd eerst aan de grond, ongeveer twee tot drie centimeter diep. Is de grond nog te nat voor deze plant? Geef dan geen water. Zo voorkom je dat een plant twee keer op een dag water krijgt.",
+    "vijf_niveaus": "De vijf niveaus",
+    "bereik_titel": "Twee getallen: een bereik",
+    "bereik_1": "De meeste planten hebben twee waardes. Dat betekent niet: geef twee tot drie keer water.",
+    "bereik_laag": "Het laagste getal",
+    "bereik_2": "zegt hoe droog de plant kan staan.",
+    "bereik_hoog": "Het hoogste getal",
+    "bereik_3": "zegt hoe vroeg je veilig water mag geven.",
+    "bereik_4": "Is de grond nog vochtiger dan het hoogste getal? Dan geef je niets.",
+    "gedeelde_titel": "Meerdere planten in één bak",
+    "gedeelde_tekst": "Staan meerdere planten in een bak, zoek dan een waterniveau dat voor alle planten veilig is. Is er geen gezamenlijk niveau, geef dan plaatselijk water.",
+    "functies_titel": "Functies, standplaats en kalender",
+    "functies": "Functies",
+    "functies_intro": "Bij iedere plant staat waarom hij in onze tuin staat. Sommige planten doen meer dan een ding: de belangrijkste functies staan voorop, de rest lees je verderop in de tekst.",
+    "standplaats": "Standplaats",
+    "jaarkalender": "De jaarkalender",
+    "kalender_intro": "Onderaan iedere plantpagina staat een kalender. Gekleurde vakjes betekenen: in deze maand gebeurt dit.",
+    "kalender_uitleg": {
+      "groei": "De plant maakt nieuwe blaadjes en stengels.",
+      "bloei": "De plant heeft bloemen.",
+      "oogst": "In deze maanden kun je plukken of knippen om te gebruiken.",
+      "snoei": "In deze maanden mag deze plant gesnoeid worden.",
+      "rust": "De plant trekt zich terug. Hij is niet dood; hij komt in het voorjaar terug."
+    },
+    "snoei_kern": "Het snoeimoment verschilt per plant. Kijk altijd naar de kalender van de plant zelf. Hoe je snoeit, staat op de pagina van die plant. De woorden die daarbij horen, staan op de volgende pagina.",
+    "vaktermen_label": "Vaktermen",
+    "term_titels": [
+      "Wat zit waar?",
+      "Waar groeit de plant verder?",
+      "Jong hout, oud hout"
+    ],
+    "term_intros": [
+      "In dit boekje staan woorden die je in de tuin gebruikt. Hiernaast zie je precies waar je ze op de plant terugvindt.",
+      "Deze woorden gaan over knoppen, scheuten en uitlopers: de plekken waar een plant nieuwe groei maakt.",
+      "Deze woorden helpen je herkennen wat je moet snoeien of laten staan, en of een plant nog bloeit."
+    ]
+  },
+  "functies": [
+    [
+      "fruit.svg",
+      "Fruit",
+      "Geeft eetbare vruchten of bessen."
+    ],
+    [
+      "kruid.svg",
+      "Kruid",
+      "Blaadjes voor in de thee of het eten."
+    ],
+    [
+      "bij.svg",
+      "Insecten",
+      "De bloemen geven eten aan bijen, hommels en vlinders."
+    ],
+    [
+      "vogel.svg",
+      "Vogel",
+      "Vogels eten de bessen of zaden, of schuilen in de plant."
+    ],
+    [
+      "sier.svg",
+      "Sier",
+      "Staat er vooral omdat hij mooi is."
+    ],
+    [
+      "boom.svg",
+      "Boom",
+      "Wordt groot en geeft schaduw en beschutting."
+    ],
+    [
+      "onkruid.svg",
+      "Onkruid",
+      "Komt vanzelf op. Lees bij de plant wanneer je hem laat staan of weghaalt."
+    ]
+  ],
+  "standplaatsen": [
+    [
+      "zon.svg",
+      "Zon",
+      "Staat het grootste deel van de dag in de volle zon."
+    ],
+    [
+      "halfschaduw.svg",
+      "Halfschaduw",
+      "Krijgt een paar uur zon per dag, of licht door bladeren heen."
+    ]
+  ],
+  "vaktermen": {
+    "groep_1": [
+      [
+        "Basis",
+        "De plek vlak boven de grond waar stengels of takken beginnen."
+      ],
+      [
+        "Top",
+        "Het bovenste uiteinde van een stengel of tak."
+      ],
+      [
+        "Blad",
+        "Het meestal groene, platte deel van de plant."
+      ],
+      [
+        "Bloem",
+        "Het deel met bloemblaadjes; hieruit kan zaad of een vrucht ontstaan."
+      ],
+      [
+        "Vrucht / fruit",
+        "Het deel dat na de bloem groeit; vaak eetbaar."
+      ],
+      [
+        "Wortel",
+        "Het deel onder de grond. Wortels houden de plant vast en nemen water op."
+      ],
+      [
+        "Knol",
+        "Een dik opslagdeel onder de grond."
+      ],
+      [
+        "Stam",
+        "De hoofdstengel van een struik of boom, waar de takken uit groeien."
+      ],
+      [
+        "Stengel",
+        "Een meestal groene, buigzame steel."
+      ],
+      [
+        "Tak",
+        "Een stevig, vaak houtig deel van een struik of boom."
+      ],
+      [
+        "Hoofdtak",
+        "Een dikke tak die rechtstreeks uit de stam of basis groeit."
+      ],
+      [
+        "Zijtak",
+        "Een dunnere tak die uit een andere tak groeit."
+      ],
+      [
+        "Kruisende takken",
+        "Takken die over elkaar groeien of tegen elkaar schuren."
+      ],
+      [
+        "Pol",
+        "Een groep stengels of sprieten uit dezelfde basis."
+      ],
+      [
+        "Wortelblok",
+        "Alle wortels en het onderste deel van de plant samen."
+      ]
+    ],
+    "groep_2": [
+      [
+        "Knop",
+        "Het gesloten begin van een blad, bloem of scheut."
+      ],
+      [
+        "Oog",
+        "Een klein punt op een tak waar een knop of scheut kan groeien."
+      ],
+      [
+        "Scheut",
+        "Een nieuw stuk groei met een jonge stengel en bladeren."
+      ],
+      [
+        "Oksel",
+        "De hoek waar een blad of zijtak aan de stengel vastzit."
+      ],
+      [
+        "Bladrozet",
+        "Een kring bladeren die laag rond het midden groeit."
+      ],
+      [
+        "Groen hart",
+        "Het midden van de aardbeiplant waar nieuwe bladeren groeien."
+      ],
+      [
+        "Moederplant",
+        "De oorspronkelijke plant waaruit een uitloper een nieuw plantje maakt."
+      ],
+      [
+        "Uitloper",
+        "Een lange stengel die verderop een nieuw plantje kan maken."
+      ],
+      [
+        "Dochterplant",
+        "Het nieuwe plantje dat via een uitloper uit de moederplant ontstaat."
+      ]
+    ],
+    "groep_3": [
+      [
+        "Jonge tak",
+        "Nieuwe, vaak lichte en buigzame tak."
+      ],
+      [
+        "Oude tak",
+        "Dikkere, donkerdere en hardere tak."
+      ],
+      [
+        "Jonge stengel",
+        "Een frisse stengel die nog geen vruchten droeg."
+      ],
+      [
+        "Afgedragen stengel",
+        "Een frambozenstengel die al vruchten gaf."
+      ],
+      [
+        "Groene groei",
+        "Het deel met groen, bladeren, knoppen of scheuten."
+      ],
+      [
+        "Kaal hout",
+        "Hout zonder bladeren of groene scheuten."
+      ],
+      [
+        "Bloeiend",
+        "Er zitten open bloemen aan de plant."
+      ],
+      [
+        "Uitgebloeid",
+        "De bloei is voorbij; blaadjes zijn droog of afgevallen."
+      ]
+    ]
+  },
+  "water_niveaus": [
+    "Alleen water geven bij lange, extreme droogte. Deze plant staat liever droog.",
+    "Water geven wanneer de grond helemaal droog aanvoelt.",
+    "Water geven wanneer de bovenste laag droog aanvoelt. Dieper mag de grond nog een beetje vochtig zijn.",
+    "Water geven zodra de grond niet meer nat aanvoelt. Niet wachten tot de grond droog is.",
+    "De grond altijd nat houden. Dit niveau komt in onze tuin niet voor."
+  ],
+  "kalender_labels": {
+    "groei": "Groei",
+    "bloei": "Bloei",
+    "oogst": "Oogst",
+    "snoei": "Snoei",
+    "rust": "Rust"
+  }
+}

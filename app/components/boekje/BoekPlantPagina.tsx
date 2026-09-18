@@ -72,26 +72,60 @@ function Druppels({ plant }: { plant: Plant }) {
   </div>;
 }
 
+/**
+ * Ronde foto met twee ringen. Maten letterlijk uit het ontwerp in Inkscape
+ * (automatic-save-0-2026_09_17_08_34_06-1776-1.svg, 17 september 2026), in de eenheden van dat
+ * bestand. Het spreadsheet cirkel-generator.xlsx is hierdoor vervallen.
+ *
+ * Lagen van onder naar boven: foto, ring 2 (dekking 0,519), ring 1 (multiply). Beide ringen
+ * frisgroen. De lijn ligt, zoals in SVG gebruikelijk, half binnen en half buiten de cirkel.
+ * Het geheel wordt geschaald zodat ring 1 (zonder lijn) CIRKEL_MM hoog is.
+ */
+const FOTO = { cx: 63.907757, cy: 65.510834, rx: 39.089241, ry: 37.316833 };
+const RING_2 = { cx: 63.754002, cy: 63.754002, r: 38.015335, lijn: 6.77333 };
+const RING_1 = { cx: 63.5, cy: 63.5, r: 40.136234, lijn: 4.3942 };
+const CIRKEL_MM = 26.307;
+
+// Kader om alles heen: de buitenrand van ring 1, lijn meegerekend.
+const RAND = RING_1.r + RING_1.lijn / 2;
+const KADER = { x: RING_1.cx - RAND, y: RING_1.cy - RAND, zijde: 2 * RAND };
+const SCHAAL = CIRKEL_MM / (2 * RING_1.r);
+
+function FotoCirkels({ plant }: { plant: Plant }) {
+  const foto = fotoVan(plant);
+  const mm = (waarde: number) => `${waarde * SCHAAL}mm`;
+  const viewBox = `${KADER.x} ${KADER.y} ${KADER.zijde} ${KADER.zijde}`;
+  return <div className="bp-foto" style={{ width: mm(KADER.zijde), height: mm(KADER.zijde) }}>
+    <span className="bp-beeld" style={{
+      left: mm(FOTO.cx - FOTO.rx - KADER.x), top: mm(FOTO.cy - FOTO.ry - KADER.y),
+      width: mm(2 * FOTO.rx), height: mm(2 * FOTO.ry),
+    }}>
+      {foto && <img src={foto.src} style={foto.stijlMetZoom} alt={plant.naam} />}
+    </span>
+    <svg className="bp-ring bp-ring-2" viewBox={viewBox} aria-hidden="true">
+      <circle cx={RING_2.cx} cy={RING_2.cy} r={RING_2.r} strokeWidth={RING_2.lijn} />
+    </svg>
+    <svg className="bp-ring bp-ring-1" viewBox={viewBox} aria-hidden="true">
+      <circle cx={RING_1.cx} cy={RING_1.cy} r={RING_1.r} strokeWidth={RING_1.lijn} />
+    </svg>
+  </div>;
+}
+
 function Blok({ kop, children }: { kop: string; children: React.ReactNode }) {
   return <><div className="bp-bodykop">{kop}</div>{children}</>;
 }
 
 function Regelvakken({ plant }: { plant: Plant }) {
   const onkruid = isOnkruid(plant);
-  if (onkruid && plant.gevaarlijk) {
-    return <section className="bp-regels bp-regels-een">
-      <div className="bp-regelbox bp-nietdoen">
-        <strong>Haal weg:</strong> {plant.woekerToestemming}
-        {plant.snoeiTijd.length > 0 && <> <strong>Wanneer:</strong> {maandOpsomming(plant.snoeiTijd)}.</>}
-      </div>
-    </section>;
-  }
+  // Gevaarlijk onkruid heeft niets af te wegen; "Haal weg" staat daar als tekstblok. Zie hieronder.
+  if (onkruid && plant.gevaarlijk) return null;
   const links = onkruid
     ? { kop: 'Waarom laten staan?', tekst: plant.waaromLatenStaan || 'Deze plant mag blijven staan zolang hij andere planten niet hindert.' }
     : { kop: 'Toegestaan:', tekst: plant.woekerToestemming };
-  // Eerst het moment (het verbod), dan hoe ver je mag gaan — zoals SectieMoetBlijven op de site.
+  // Op de site volgt hier ook de toestemming ("hoe ver mag je gaan"). Op A5 duwde dat de
+  // teunisbloem van de pagina; het boekje noemt alleen het moment.
   const rechts = onkruid
-    ? { kop: 'Wanneer weghalen?', tekst: [plant.woekerVerbod, plant.woekerToestemming].filter(Boolean).join(' ') }
+    ? { kop: 'Wanneer weghalen?', tekst: plant.woekerVerbod }
     : { kop: 'Niet doen:', tekst: plant.woekerVerbod };
   if (!links.tekst && !rechts.tekst) return null;
   return <section className="bp-regels">
@@ -122,64 +156,72 @@ function Kalender({ plant }: { plant: Plant }) {
 }
 
 export default function BoekPlantPagina({ plant, nummer, jaar }: { plant: Plant; nummer: number; jaar: number }) {
-  const foto = fotoVan(plant);
   const illustratie = illustratieVan(plant);
   const oogst = oogstInTuin(plant);
   const gevaarlijkOnkruid = isOnkruid(plant) && plant.gevaarlijk;
   const seizoen = seizoenTekst(plant);
   const waterStandplaats = [plant.waterInfo, plant.zonInfo].filter(Boolean).join(' ');
   const snoei = [plant.snoeiTijdInfo, plant.snoeiMethode, plant.snoeiInformatie].filter(Boolean);
-  const extraEetbaar = !oogst && plant.eetbaar !== false ? plant.eetbaarInfo : '';
+  // Staat er een tuinopmerking, dan zegt die al wat hier geldt ("draagt geen vruchten");
+  // een algemene regel over eetbaarheid ernaast verwart dan alleen. Geldt voor kiwi en witte moerbei.
+  const extraEetbaar = !oogst && plant.eetbaar !== false && !plant.tuinOpmerking ? plant.eetbaarInfo : '';
   // Even pagina's liggen links in het opengeslagen boekje; de groene bies hoort aan de buitenrand.
   const links = nummer % 2 === 0;
 
-  return <article className={`bp-pagina${links ? ' bp-links' : ''}`} data-plant={plant.naam}>
+  return <article className={`bp-pagina${links ? ' bp-links' : ''}`} data-plant={plant.naam} data-pagina={nummer} data-paginanaam={plant.naam}>
     <div className="bp-bies" />
 
-    <header className="bp-kop">
-      <div className="bp-kop-tekst">
-        <Functielabel plant={plant} />
-        <h1>{plant.naam.charAt(0).toUpperCase() + plant.naam.slice(1)}</h1>
-        {plant.botanischeNaam && <div className="bp-botanisch">{plant.botanischeNaam}</div>}
-        {plant.intro && <p className="bp-inleiding">{plant.intro}</p>}
-        <Druppels plant={plant} />
-      </div>
-      {/* Ronde foto met de afstelling uit Beheren; het kader knipt af, dus inzoomen mag. */}
-      <div className="bp-foto">
-        {foto && <img src={foto.src} style={foto.stijlMetZoom} alt={plant.naam} />}
-      </div>
-    </header>
+    <div className="bp-inhoud">
+      <header className="bp-kop">
+        <div className="bp-kop-tekst">
+          <Functielabel plant={plant} />
+          <h1>{plant.naam.charAt(0).toUpperCase() + plant.naam.slice(1)}</h1>
+          {plant.botanischeNaam && <div className="bp-botanisch">{plant.botanischeNaam}</div>}
+          {plant.intro && <p className="bp-inleiding">{plant.intro}</p>}
+          <Druppels plant={plant} />
+        </div>
+        <FotoCirkels plant={plant} />
+      </header>
 
-    {plant.gevaarlijk && plant.gevaarlijkInfo && <section className="bp-gevaar">
-      <strong>Pas op:</strong> {plant.gevaarlijkInfo}
-    </section>}
+      {plant.gevaarlijk && plant.gevaarlijkInfo && <section className="bp-gevaar">
+        <strong>Pas op:</strong> {plant.gevaarlijkInfo}
+      </section>}
 
-    <section className="bp-tekst">
-      {(illustratie || plant.weetje) && <div className="bp-illustratie-blok">
-        {illustratie && <>
-          <img className="bp-illustratie" src={illustratie.src} style={illustratie.stijl} alt={`Botanische illustratie van de ${plant.naam}`} />
-          <div className="bp-bijschrift">Botanische illustratie van de {plant.naam}.</div>
-        </>}
-        {plant.weetje && <div className="bp-weetje"><div className="bp-weetje-kop">Wist je dat?</div>{plant.weetje}</div>}
-      </div>}
-
-      {(plant.zon || waterStandplaats) && <Blok kop="Water en standplaats">
-        {plant.zon && <div className="bp-standplaats">
-          <img src={icoonPad(standplaatsIcoon(plant.zon))} alt="" /><span>{plant.zon}</span>
+      <section className="bp-tekst">
+        {(illustratie || plant.weetje) && <div className="bp-illustratie-blok">
+          {illustratie && <>
+            <img className="bp-illustratie" src={illustratie.src} style={illustratie.stijl} alt={`Botanische illustratie van de ${plant.naam}`} />
+            <div className="bp-bijschrift">Botanische illustratie van de {plant.naam}.</div>
+          </>}
+          {plant.weetje && <div className="bp-weetje"><div className="bp-weetje-kop">Wist je dat?</div>{plant.weetje}</div>}
         </div>}
-        {waterStandplaats && <p>{waterStandplaats}</p>}
-      </Blok>}
 
-      {plant.tuinOpmerking && !gevaarlijkOnkruid && <Blok kop="In onze tuin"><p>{plant.tuinOpmerking}</p></Blok>}
-      {oogst && plant.oogstMethode && <Blok kop="Oogst en gebruik"><p>{plant.oogstMethode}</p></Blok>}
-      {extraEetbaar && <Blok kop="Extra informatie"><p>{extraEetbaar}</p></Blok>}
-      {snoei.length > 0 && !gevaarlijkOnkruid && <Blok kop="Snoei door het jaar">{snoei.map((tekst, i) => <p key={i}>{tekst}</p>)}</Blok>}
-      {seizoen && <Blok kop="Door het seizoen"><p>{seizoen}</p></Blok>}
-    </section>
+        {(plant.zon || waterStandplaats) && <Blok kop="Water en standplaats">
+          {plant.zon && <div className="bp-standplaats">
+            <img src={icoonPad(standplaatsIcoon(plant.zon))} alt="" /><span>{plant.zon}</span>
+          </div>}
+          {waterStandplaats && <p>{waterStandplaats}</p>}
+        </Blok>}
 
-    <Regelvakken plant={plant} />
-    <Kalender plant={plant} />
+        {plant.tuinOpmerking && !gevaarlijkOnkruid && <Blok kop="In onze tuin"><p>{plant.tuinOpmerking}</p></Blok>}
+        {oogst && plant.oogstMethode && <Blok kop="Oogst en gebruik"><p>{plant.oogstMethode}</p></Blok>}
+        {extraEetbaar && <Blok kop="Extra informatie"><p>{extraEetbaar}</p></Blok>}
+        {snoei.length > 0 && !gevaarlijkOnkruid && <Blok kop="Snoei door het jaar">{snoei.map((tekst, i) => <p key={i}>{tekst}</p>)}</Blok>}
+        {/* Gevaarlijk onkruid: geen vakken Toegestaan/Niet doen onderaan, maar een gewoon tekstblok
+            op de plek van snoei. Het loopt dan om de illustratie heen in plaats van eronder. */}
+        {gevaarlijkOnkruid && plant.woekerToestemming && <Blok kop="Haal weg">
+          <p>{plant.woekerToestemming}</p>
+          {plant.snoeiTijd.length > 0 && <p><b className="bp-nadruk">Wanneer:</b> {maandOpsomming(plant.snoeiTijd)}.</p>}
+        </Blok>}
+        {seizoen && <Blok kop="Door het seizoen"><p>{seizoen}</p></Blok>}
+      </section>
 
-    <footer className="bp-voet"><b>{nummer}</b> {BOEKJE_TITEL} / {jaar}</footer>
+      <Regelvakken plant={plant} />
+    </div>
+
+    <div className="bp-onderkant">
+      <Kalender plant={plant} />
+      <footer className="bp-voet"><b>{nummer}</b> {BOEKJE_TITEL} / {jaar}</footer>
+    </div>
   </article>;
 }

@@ -106,7 +106,10 @@ body:has(.scan) { background: #e2e8f0; }
 
 .scan-hero { margin-bottom: 24px; }
 
-/* Foto met twee ringen: letterlijk .left-visual uit maak_infokaarten.py, horizontaal
+/* Verhoudingen sinds 17 september 2026 uit het Inkscape-ontwerp van de fotocirkel, hetzelfde
+   als het boekje (BoekPlantPagina.tsx): ring 1 hield zijn buitenmaat en plek, foto en ring 2
+   zijn daaruit afgeleid. Beide ringen frisgroen; ring 2 op 51,9%, ring 1 multiply.
+   Oorspronkelijk: letterlijk .left-visual uit maak_infokaarten.py, horizontaal
    gespiegeld. Daar is het vlak 340 × 425,667 px en staan .photo, .ring-dark en .ring-bright
    er absoluut in, samen geschaald met 1,2278844 vanuit (319, 0). Hieronder staan de maten
    NA die schaal, als honderdsten van de vlakbreedte (cqw), maar gemeten vanaf rechts.
@@ -126,21 +129,21 @@ body:has(.scan) { background: #e2e8f0; }
 }
 .scan-foto-vlak {
   position: absolute;
-  right: -53.16cqw;
-  top: 2.89cqw;
-  width: 144.46cqw;
-  height: 145.9cqw;
+  right: -70.32cqw;
+  top: 14.24cqw;
+  width: 158.39cqw;
+  height: 151.21cqw;
   z-index: 1;
   overflow: hidden;
   background: var(--licht);
-  clip-path: ellipse(49.5% 49.5% at 50% 50%);
+  clip-path: ellipse(50% 50% at 50% 50%);
 }
 .scan-foto-vlak .scan-foto { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 .scan-foto-vlak .foto-leeg { width: 100%; height: 100%; font-size: 40px; }
 .scan-visual .ring-dark,
 .scan-visual .ring-bright { position: absolute; top: 0; border-radius: 50%; pointer-events: none; }
-.scan-visual .ring-dark { right: -63.27cqw; width: 153.49cqw; height: 153.49cqw; z-index: 2; border: 4.117cqw solid rgba(22, 198, 47, .51); }
-.scan-visual .ring-bright { right: -77.72cqw; width: 171.54cqw; height: 171.54cqw; z-index: 3; border: 8.236cqw solid var(--fris); mix-blend-mode: multiply; }
+.scan-visual .ring-dark { right: -75.32cqw; top: 2.4cqw; width: 167.77cqw; height: 167.77cqw; z-index: 2; border: 13.72cqw solid var(--fris); opacity: .519; }
+.scan-visual .ring-bright { right: -77.72cqw; width: 171.54cqw; height: 171.54cqw; z-index: 3; border: 8.9cqw solid var(--fris); mix-blend-mode: multiply; }
 .foto-leeg {
   display: grid;
   place-items: center;

@@ -1,0 +1,86 @@
+/* Voorwerk naar VOORWERK_CSS in sept_booklet_layout.py. Alle regels zijn beperkt tot
+   het boekje; de vaste PDF-ontwerpen blijven als afdrukbeelden behouden. */
+.boekje-drukwerk .proef-bediening label { min-width: 0; max-width: 100%; }
+.boekje-drukwerk .proef-bediening select { min-width: 0; max-width: 100%; }
+.bv-pagina { --bv-hemel: #689cd4; padding: 12mm 11mm 6mm; }
+.bv-pagina h1 { margin: 3px 0 0; font-size: 20pt; line-height: 1.08; }
+.bv-pagina h2 { margin: 5mm 0 0; font-family: BoekRaleway, Arial, sans-serif; font-size: 13pt; font-weight: 700; line-height: 1.1; color: var(--bp-blauw); letter-spacing: 0; }
+.bv-pagina p { margin: 3px 0 0; font-size: 8.5pt; line-height: 1.48; color: var(--bp-grijs); }
+.bv-label { font-size: 7.5pt; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--bp-groen); }
+.bv-pagina .bv-inleiding { font-size: 9pt; color: var(--bp-groen); max-width: 112mm; margin-top: 2mm; }
+.bv-kernregel { margin-top: 3mm; background: rgb(75 225 110 / 10%); border-left: 1.2mm solid var(--bp-fris); padding: 2.5mm 3mm; font-size: 8.5pt; color: var(--bp-groen); line-height: 1.45; }
+.bv-voet { flex: 0 0 auto; display: flex; align-items: baseline; justify-content: flex-end; gap: 2mm; padding-top: 3mm; font-size: 7.5pt; color: #94a3b8; position: relative; }
+.bv-voet b { color: var(--bp-groen); font-weight: 600; }
+.bp-links .bv-voet { justify-content: flex-start; }
+
+.bv-inhoudpagina { padding-top: 0; }
+.bv-inhoudpagina > .bp-bies { display: none; }
+.bv-inhoud-kop { position: relative; isolation: isolate; width: calc(100% + 11mm); height: 38mm; margin: 0 0 0 -11mm; padding: 11mm 13mm 0; background: var(--bp-blauw); border-radius: 0 0 9mm 0; }
+.bv-inhoud-kop::before, .bv-inhoud-kop::after { content: ''; position: absolute; z-index: 2; border-radius: 50%; }
+.bv-inhoud-kop::before { width: 19mm; height: 19mm; right: -10mm; top: 9mm; background: var(--bv-hemel); }
+.bv-inhoud-kop::after { width: 7mm; height: 7mm; right: -4mm; top: 29mm; background: var(--bp-blauw); box-shadow: 0 0 0 1.3mm white; }
+.bv-inhoud-kop .bv-label { color: var(--bv-hemel); font-size: 7pt; letter-spacing: .25px; }
+.bv-inhoud-kop h1 { position: relative; z-index: 3; margin-top: 4mm; font-family: Poppins, Arial, sans-serif; font-size: 24pt; font-weight: 400; text-transform: uppercase; color: white; }
+.bv-inhoud-body { padding: 6mm 2mm 0; }
+.bv-inhoud-subkop { font-size: 7pt; font-weight: 600; letter-spacing: .15px; text-transform: uppercase; color: var(--bv-hemel); }
+.bv-inhoud-hoofdgrid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 9mm; row-gap: 3mm; margin-top: 4mm; }
+.bv-inhoud-hoofdregel { display: grid; grid-template-columns: 6mm 1fr; align-items: center; gap: 2.6mm; min-height: 8mm; font-size: 8pt; line-height: 1.3; }
+.bv-inhoud-cirkel { width: 6mm; height: 6mm; border-radius: 50%; display: grid; place-items: center; background: var(--bp-blauw); color: white; font-size: 6pt; font-weight: 600; line-height: 1; }
+.bv-inhoud-scheidingslijn { height: .35mm; margin: 5mm 0 4mm; background: rgb(104 156 212 / 28%); }
+.bv-pagina .bv-inhoud-plantenkop { margin: 0; font-family: Poppins, Arial, sans-serif; font-size: 14pt; font-weight: 400; }
+.bv-pagina .bv-inhoud-plantenhint { margin-top: 1.3mm; font-size: 6.8pt; color: var(--bv-hemel); }
+.bv-inhoud-plantgrid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 5mm; margin-top: 4mm; }
+.bv-inhoud-plantregel { display: grid; grid-template-columns: 5.4mm minmax(0, 1fr); align-items: center; gap: 2mm; min-height: 6.5mm; margin-bottom: 2.2mm; font-size: 7.4pt; line-height: 1.3; overflow-wrap: anywhere; }
+.bv-inhoud-plantregel .bv-inhoud-cirkel { width: 5.4mm; height: 5.4mm; font-size: 5.8pt; background: var(--bv-hemel); }
+.bv-inhoudpagina .bv-voet { border-top: .35mm solid rgb(104 156 212 / 20%); padding-top: 3mm; }
+
+.bv-zoektabel { margin-top: 4mm; display: grid; grid-template-columns: 1fr 1fr; gap: 0 6mm; align-items: start; }
+.bv-zoektabel table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.bv-zoektabel th { font-size: 6.5pt; font-weight: 600; text-align: left; color: var(--bp-groen); padding-bottom: 1mm; }
+.bv-zoektabel th:first-child { width: 8mm; text-align: center; }
+.bv-zoektabel th:last-child { width: 8mm; text-align: right; }
+.bv-zoektabel td { padding: .9mm 0; border-bottom: .2mm solid #eef2f7; font-size: 7.2pt; line-height: 1.25; color: var(--bp-grijs); vertical-align: top; }
+.bv-zoektabel .bv-zt-nr { color: var(--bp-blauw); font-weight: 600; text-align: center; }
+.bv-zoektabel .bv-zt-plant { padding-left: 1.5mm; overflow-wrap: anywhere; }
+.bv-zoektabel .bv-zt-pag { text-align: right; color: var(--bp-groen); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.bv-niveaus { margin-top: 2.5mm; }
+.bv-niveau { display: grid; grid-template-columns: 28mm 1fr; gap: 3mm; align-items: start; padding: 1mm 0; border-bottom: 1px solid #eef2f7; font-size: 8.3pt; color: var(--bp-grijs); line-height: 1.4; }
+.bv-niveau:last-child { border-bottom: 0; }
+.bv-niveau strong { color: var(--bp-blauw); font-weight: 600; }
+.bv-druppels { display: inline-flex; gap: 1.2mm; align-items: center; min-height: 4mm; }
+.bv-druppels img { width: 3.2mm; height: 4.3mm; object-fit: contain; }
+.bv-bereik-blok { margin-top: 2.5mm; display: grid; grid-template-columns: 39mm 1fr; gap: 5mm; align-items: start; }
+.bv-bereik-visual { display: flex; align-items: center; padding: 2.5mm; background: #f8fafc; border-radius: 3mm; }
+.bv-bereik-visual .bp-tot { flex: 0 0 5mm; margin: 0 1.2mm; }
+.bv-bereik-blok p { margin: 0 0 1.2mm; }
+
+.bv-legenda { margin-top: 2.2mm; display: grid; grid-template-columns: 1fr 1fr; gap: 1.8mm 5mm; }
+.bv-legenda-item { display: grid; grid-template-columns: 8mm 1fr; gap: 2.2mm; align-items: start; }
+.bv-legenda-item img { width: 8mm; height: 8mm; object-fit: contain; }
+.bv-legenda-item strong { font-size: 8.3pt; font-weight: 600; line-height: 1.35; }
+.bv-legenda-item p { font-size: 7.2pt; line-height: 1.32; margin: 0; }
+.bv-functiepagina h2 { margin-top: 2.7mm; }
+.bv-kalenderrijen { margin-top: 1.8mm; }
+.bv-kalenderrij { display: grid; grid-template-columns: 19mm 1fr; gap: 3mm; align-items: center; padding: .6mm 0; }
+.bv-kalenderrij strong { min-height: 5mm; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 7.3pt; font-weight: 600; }
+.bv-kalenderrij p { margin: 0; font-size: 7.5pt; }
+.bv-functiepagina .bv-kernregel { margin-top: 2mm; padding: 2mm 3mm; font-size: 7.7pt; line-height: 1.35; }
+
+.bv-termen-grid { margin-top: 4mm; display: grid; grid-template-columns: 1fr 1fr; gap: 0 7mm; }
+.bv-termen-grid dl { margin: 0; }
+.bv-term { margin-bottom: 2.7mm; }
+.bv-term dt { font-family: BoekRaleway, Arial, sans-serif; font-size: 8.5pt; font-weight: 700; line-height: 1.2; }
+.bv-term dd { margin: 1mm 0 0; font-size: 7.3pt; color: var(--bp-grijs); line-height: 1.35; }
+
+.bv-illustratiepagina, .bv-kaartpagina, .bv-sectiepagina { padding: 0; }
+.bv-paginabeeld { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.bv-illustratiepagina > .bp-bies, .bv-kaartpagina > .bp-bies, .bv-sectiepagina > .bp-bies { display: none; }
+.bv-illustratiepagina .bv-voet { position: absolute; bottom: 0; left: 8mm; right: 8mm; height: 10mm; background: white; padding: 0 3mm 5mm; align-items: end; font-size: 6.8pt; }
+.bv-kaart { position: absolute; inset: 0 0 9mm; }
+.bv-kaart > svg { display: block; width: 100%; height: 100%; }
+.bv-kaart text[font-family^='Raleway'] { font-family: BoekRaleway, Arial, sans-serif; }
+.bv-kaartpagina .bv-voet, .bv-sectiepagina .bv-voet { position: absolute; bottom: 3mm; left: 11mm; right: 11mm; padding: 0; font-size: 6.8pt; }
+.bv-sectie-namen { position: absolute; top: 82mm; left: 0; right: 0; height: 65mm; background: #1c386a; padding: 5mm 14mm; isolation: isolate; }
+.bv-sectie-namen::before { content: ''; position: absolute; z-index: -1; top: 1mm; right: -12mm; width: 54mm; height: 54mm; border: 4.5mm solid #4be16e; border-radius: 50%; box-sizing: border-box; }
+.bv-sectie-namen p { margin: 0; max-width: 88mm; font-size: 10pt; line-height: 1.5; color: #94b5d9; }
