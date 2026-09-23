@@ -1,6 +1,7 @@
 import Link from '@/app/components/NativeLink';
 import type { ReactNode } from 'react';
 import { vaktermgroepen } from './vaktermen';
+import { vaktermAliassen } from './vaktermAliassen';
 
 /**
  * Tuinwoorden in een lopende tekst zelf aanklikbaar maken.
@@ -99,16 +100,25 @@ const woordenboek = (() => {
       }
     }
   }
+  // Gewone formuleringen hoeven niet letterlijk de titel van een vakterm te herhalen.
+  // Aliassen staan centraal per vakterm, zodat ze overal automatisch worden herkend.
+  for (const [slug, aliassen] of Object.entries(vaktermAliassen)) {
+    for (const alias of aliassen) {
+      const genormaliseerd = alias.trim().split(/[\s,;:]+/).join(' ');
+      for (const vorm of vormen(genormaliseerd)) paren.push({ vorm, slug });
+    }
+  }
   paren.sort((links, rechts) => rechts.vorm.length - links.vorm.length);
   return paren;
 })();
 
 const slugPerVorm = new Map(woordenboek.map(({ vorm, slug }) => [vorm.toLowerCase(), slug]));
+const patroonVoorVorm = (vorm: string) => vorm.split(' ').map(ontsnap).join('[\\s,;:]+');
 
 /* De lookarounds houden hele woorden vast: zonder die van achteren zou "tak" ook in
    "taks" of "taktiek" oplichten. */
 const zoeker = new RegExp(
-  `(?<![a-zà-ÿ])(${woordenboek.map((paar) => ontsnap(paar.vorm)).join('|')})(?![a-zà-ÿ])`,
+  `(?<![a-zà-ÿ])(${woordenboek.map((paar) => patroonVoorVorm(paar.vorm)).join('|')})(?![a-zà-ÿ])`,
   'gi',
 );
 
@@ -124,7 +134,8 @@ export function metVaktermen(tekst: string | undefined): ReactNode {
   let gevonden = 0;
 
   for (const match of tekst.matchAll(zoeker)) {
-    const slug = slugPerVorm.get(match[0].toLowerCase());
+    const vorm = match[0].toLowerCase().replace(/[\s,;:]+/g, ' ');
+    const slug = slugPerVorm.get(vorm);
     if (slug === undefined || match.index === undefined) continue;
     if (match.index > vanaf) stukken.push(tekst.slice(vanaf, match.index));
     stukken.push(
