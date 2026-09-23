@@ -277,6 +277,7 @@ a.manage{display:flex;align-items:center;text-decoration:none}
 .nu-ring{fill:#fff}
 .nu-oogst .nu-bol{fill:var(--geel)}
 .nu-snoei .nu-bol{fill:var(--roze)}
+.nu-winter .nu-bol{fill:#a9dbe8}
 /* De iconen worden hier als silhouet getekend en niet in hun eigen kleuren. Twee redenen:
    ze staan op de kaart maar zo'n tien punten groot, en dan is een tekening met vier kleuren
    een vlekje - en ze botsen met de bol eronder. De schaar is zelf fuchsiarood en de vrucht
@@ -284,6 +285,7 @@ a.manage{display:flex;align-items:center;text-decoration:none}
    Donker op warmgeel, wit op fuchsiarood: de gewone regel, licht vlak - donker merk. */
 .nu-oogst image{filter:brightness(0)}
 .nu-snoei image{filter:brightness(0) invert(1)}
+.nu-winter image{filter:brightness(0)}
 /* Hangt de bezoeker boven een taak in de lijst, dan wijst de kaart de bak aan. */
 .nu-plek.aan .nu-omtrek>*{fill:#4be16e55;stroke-width:2.2;stroke-dasharray:none;opacity:1}
 .nu-plek.aan .nu-ring{stroke:var(--blauw);stroke-width:2;vector-effect:non-scaling-stroke}
@@ -293,6 +295,8 @@ a.manage{display:flex;align-items:center;text-decoration:none}
   .nu-lay .task-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:650px){.nu-lay .task-grid{grid-template-columns:1fr}}
+.winter-uitleg{display:flex;align-items:flex-start;gap:10px;max-width:760px;margin:-8px 0 24px;padding:14px 16px;border-radius:16px;background:#e9f6f8;color:var(--blauw);line-height:1.5}
+.winter-uitleg img{width:24px;height:24px;flex:none}
 
 /* ---- Katernproef en boekjesvellen --------------------------------------------------
    Een vel is een echt bedrukt blad. In katernvolgorde staan er twee A5-pagina's naast

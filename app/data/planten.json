@@ -487,6 +487,13 @@
       "September",
       "Oktober"
     ],
+    "winterMomenten": [
+      {
+        "maanden": ["September", "Oktober", "November"],
+        "wat": "Controleer of regenwater snel wegloopt. Zet bij lang nat en koud weer een doorzichtige kap boven de plant. Laat de zijkanten open voor lucht."
+      }
+    ],
+    "winterTijd": ["September", "Oktober", "November"],
     "snoeiMethode": "Kort lange stengels flink in. Aan het einde van het seizoen mag de plant tot 5 à 10 centimeter boven de grond worden teruggeknipt.",
     "snoeiInformatie": "Dragon groeit opnieuw uit vanaf de basis. De plant hoeft niet hoog te blijven om gezond te zijn.",
     "woekerToestemming": "Takken die over andere planten hangen of in de weg zitten, mogen tot 10 centimeter boven de grond worden teruggeknipt.",
@@ -813,6 +820,13 @@
       "Augustus",
       "September"
     ],
+    "winterMomenten": [
+      {
+        "maanden": ["September", "Oktober", "November"],
+        "wat": "Haal natte bladeren rond het hart van de plant weg. Controleer of regenwater snel wegloopt. Pak de plant niet in."
+      }
+    ],
+    "winterTijd": ["September", "Oktober", "November"],
     "snoeiMethode": "Knip na de bloei tot een compacte vorm, maar laat overal groene blaadjes onder de knip zitten.",
     "snoeiInformatie": "Lavendel loopt slecht opnieuw uit vanuit kaal, oud hout. Jaarlijks licht snoeien voorkomt dat de plant te houtig wordt.",
     "woekerToestemming": "Uitgebloeide stengels en groene takjes die over het pad hangen, mogen worden ingekort.",
@@ -1181,6 +1195,13 @@
       "Juli",
       "Augustus"
     ],
+    "winterMomenten": [
+      {
+        "maanden": ["September", "Oktober", "November"],
+        "wat": "Controleer of regenwater snel wegloopt. Dek de plant pas af bij aangekondigde langdurige vorst. Gebruik ademend vliesdoek en haal het weg zodra het dooit."
+      }
+    ],
+    "winterTijd": ["September", "Oktober", "November"],
     "snoeiMethode": "Kort jonge, groene takken in om de struik compact te houden. Verwijder dode en beschadigde takjes.",
     "snoeiInformatie": "Rozemarijn loopt slecht opnieuw uit vanuit kaal, oud hout. Regelmatig licht knippen is veiliger dan één zware snoeibeurt.",
     "woekerToestemming": "Groene takken die te breed groeien of over het pad hangen, mogen worden ingekort.",
@@ -1272,6 +1293,13 @@
       "Juli",
       "Augustus"
     ],
+    "winterMomenten": [
+      {
+        "maanden": ["September", "Oktober", "November"],
+        "wat": "Haal natte bladeren rond de plant weg. Controleer of regenwater snel wegloopt. Snoei nu niet hard terug."
+      }
+    ],
+    "winterTijd": ["September", "Oktober", "November"],
     "snoeiMethode": "Kort jonge takken in tot vlak boven groene blaadjes of knoppen. Verwijder dode delen.",
     "snoeiInformatie": "Jaarlijks licht snoeien houdt salie compact. Oude kale takken lopen niet altijd opnieuw uit.",
     "woekerToestemming": "Groene takken die over het pad of andere planten hangen, mogen worden ingekort. Uitgebloeide stengels mogen weg.",
@@ -1437,6 +1465,13 @@
       "Juli",
       "Augustus"
     ],
+    "winterMomenten": [
+      {
+        "maanden": ["September", "Oktober", "November"],
+        "wat": "Haal natte bladeren rond de plant weg. Controleer of regenwater snel wegloopt. Pak de plant niet in."
+      }
+    ],
+    "winterTijd": ["September", "Oktober", "November"],
     "snoeiMethode": "Knip uitstekende en uitgebloeide groene takjes terug. Geef de plant een compacte vorm.",
     "snoeiInformatie": "Oude tijm kan kaal en houtig worden. Hard snoeien tot in kaal hout is riskant.",
     "woekerToestemming": "Groene takjes die over de rand of het pad hangen, mogen worden ingekort.",

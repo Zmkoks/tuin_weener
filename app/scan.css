@@ -501,6 +501,7 @@ body:has(.scan) { background: #e2e8f0; }
 .scan-kalender .calendar-row i.bloom { background: #93bde4; }
 .scan-kalender .calendar-row i.harvest { background: #f7cf62; }
 .scan-kalender .calendar-row i.prune { background: #e295ba; }
+.scan-kalender .calendar-row i.winter { background: #a9dbe8; }
 .scan-kalender .calendar-row i.rest { background: #c2c1ba; }
 
 /* ---------- doorklikken naar de plek ---------- */

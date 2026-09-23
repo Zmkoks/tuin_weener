@@ -2,6 +2,7 @@
  * Momenten in het jaar: per moment de maanden en wat je dan doet. Gebruikt voor snoeien
  * (`snoeiMomenten`) en oogsten (`oogstMomenten`).
  *
+ * Wintervoorbereiding gebruikt hetzelfde momentmodel als snoeien en oogsten.
  * Hiervoor was het per onderwerp één maandlijst en één tekst voor alle momenten samen. De
  * maandtaak liet dan in juni bij de kiwi ook de winterinstructie zien. Nu hoort bij elke
  * maand precies één tekst.

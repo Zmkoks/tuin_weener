@@ -94,7 +94,7 @@ export function Standplaats({ plant, naarUitleg }: { plant: Plant; naarUitleg?: 
   return <Link className="standplaats" href={`/uitleg/functies#standplaats-${icoon}`} aria-label={`Wat betekent ${plant.zon}?`} title={`Wat betekent ${plant.zon}?`}>{inhoud}</Link>;
 }
 
-const KALENDER_ICOON: Record<string, string> = { Groei: 'groei', Bloei: 'bloei', Oogst: 'oogst', Snoei: 'snoei' };
+const KALENDER_ICOON: Record<string, string> = { Groei: 'groei', Bloei: 'bloei', Oogst: 'oogst', Snoei: 'snoei', Winter: 'winter' };
 
 /**
  * Jaarkalender. De rij Oogst staat er alleen bij een echte oogstplant (`oogstInTuin`). Is de
@@ -110,6 +110,7 @@ export function Kalender({ plant }: { plant: Plant }) {
     ['Bloei', plant.bloei, 'bloom', ''],
     ...(oogst || extraOogst ? [['Oogst', oogstMaanden, 'harvest', oogst ? '' : ' kalender-extra-oogst'] as const] : []),
     ['Snoei', plant.snoeiTijd, 'prune', ''],
+    ...((plant.winterTijd ?? []).length ? [['Winter', plant.winterTijd ?? [], 'winter', ''] as const] : []),
     ['Rust', plant.sterf, 'rest', ''],
   ] as const;
   return <div className="calendar">
@@ -137,7 +138,7 @@ export function SectieVerzorging({ plant }: { plant: Plant }) {
 }
 
 /** Per moment de maanden vetgedrukt en wat je dan doet; gedeeld door Oogst en Snoeien. */
-function Momenten({ momenten }: { momenten: Plant['oogstMomenten'] }) {
+function Momenten({ momenten }: { momenten: import('../data/momenten').Moment[] }) {
   return <>{momenten.map((moment, i) => <p className="snoeimoment" key={i}><b>{momentLabel(moment)}</b>{moment.wat && <> {metVaktermen(moment.wat)}</>}</p>)}</>;
 }
 
@@ -181,6 +182,12 @@ export function SectieInOnzeTuin({ plant }: { plant: Plant }) {
  */
 export function SectieSnoeien({ plant }: { plant: Plant }) {
   return <section><Blokkop icoon="snoei">Snoeien</Blokkop>{plant.snoeiMomenten.length === 0 && <b>Alleen wanneer nodig</b>}<Momenten momenten={plant.snoeiMomenten} /><p>{metVaktermen(plant.snoeiMethode)}</p><p>{metVaktermen(plant.snoeiInformatie)}</p></section>;
+}
+
+export function SectieWinterklaar({ plant }: { plant: Plant }) {
+  const momenten = plant.winterMomenten ?? [];
+  if (momenten.length === 0) return null;
+  return <section><Blokkop icoon="winter">Winterklaar maken</Blokkop><Momenten momenten={momenten} /></section>;
 }
 
 /** Onkruid als primaire óf secundaire functie: juist een plant die ook iets bijdraagt, is onkruid dat mag blijven. */

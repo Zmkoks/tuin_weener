@@ -375,6 +375,19 @@ export const MIGRATIES: Migratie[] = [
       `DELETE FROM planten WHERE slug = 'reuzenberenklauw'`,
     ],
   },
+  {
+    // Wintervoorbereiding staat los van snoeien. In het milde Nederlandse klimaat krijgt
+    // alleen een plant die echt iets nodig heeft een taak; de rest blijft bewust leeg.
+    naam: '0013_winterklaar',
+    stappen: [
+      `ALTER TABLE planten ADD COLUMN winter_momenten TEXT NOT NULL DEFAULT '[]'`,
+      `UPDATE planten SET winter_momenten = '[{"maanden":["September","Oktober","November"],"wat":"Controleer of regenwater snel wegloopt. Zet bij lang nat en koud weer een doorzichtige kap boven de plant. Laat de zijkanten open voor lucht."}]' WHERE slug = 'dragon'`,
+      `UPDATE planten SET winter_momenten = '[{"maanden":["September","Oktober","November"],"wat":"Haal natte bladeren rond het hart van de plant weg. Controleer of regenwater snel wegloopt. Pak de plant niet in."}]' WHERE slug = 'lavendel'`,
+      `UPDATE planten SET winter_momenten = '[{"maanden":["September","Oktober","November"],"wat":"Controleer of regenwater snel wegloopt. Dek de plant pas af bij aangekondigde langdurige vorst. Gebruik ademend vliesdoek en haal het weg zodra het dooit."}]' WHERE slug = 'rozemarijn'`,
+      `UPDATE planten SET winter_momenten = '[{"maanden":["September","Oktober","November"],"wat":"Haal natte bladeren rond de plant weg. Controleer of regenwater snel wegloopt. Snoei nu niet hard terug."}]' WHERE slug = 'salie'`,
+      `UPDATE planten SET winter_momenten = '[{"maanden":["September","Oktober","November"],"wat":"Haal natte bladeren rond de plant weg. Controleer of regenwater snel wegloopt. Pak de plant niet in."}]' WHERE slug = 'tijm'`,
+    ],
+  },
 ];
 
 let gedaan: Promise<void> | null = null;

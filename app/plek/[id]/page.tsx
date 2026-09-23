@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from '@/app/components/NativeLink';
 import { notFound, redirect } from 'next/navigation';
-import { hoofdletter, korteBotanischeNaam, months, takenVoorMaand } from '@/app/data/tuinTekst';
+import { hoofdletter, korteBotanischeNaam, months, taakIcoon, takenVoorMaand } from '@/app/data/tuinTekst';
 import { Functies, PlantFoto } from '@/app/components/paspoortDelen';
 import { icoonPad } from '@/app/data/iconen';
 import { laadBeplanting, laadPlanten, laadZones, zoekZone } from '@/app/lib/tuinData';
@@ -80,7 +80,7 @@ export default async function PlekPagina({ params }: Props) {
       <p className="eyebrow">WAT KAN IK HIER NU DOEN?</p>
       <h2>{maand}</h2>
       {taken.map(({ plant, taak }) => <div className="scan-taak" key={`${plant.slug}-${taak.type}`}>
-        <img className="taak-icoon" src={icoonPad(taak.type === 'Oogsten' ? 'oogst' : 'snoei')} alt="" />
+        <img className="taak-icoon" src={icoonPad(taakIcoon(taak.type))} alt="" />
         <div><b>{taak.type}: {plant.naam}</b>{taak.uitleg && <p>{taak.uitleg}</p>}</div>
       </div>)}
     </section>}

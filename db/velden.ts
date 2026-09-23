@@ -72,6 +72,7 @@ export function plantUitRegel(regel: Regel, eigenSymbolen: { bestand: string; br
   const oogstMomenten = leesMomenten(regel.oogst_momenten,
     [uitLijst(tekst(regel, 'oogst_tijd')), tekst(regel, 'oogst_methode')],
     [uitLijst(tekst(regel, 'extra_oogst_tijd')), tekst(regel, 'extra_oogst_methode')]);
+  const winterMomenten = leesMomenten(regel.winter_momenten);
 
   return {
     slug: tekst(regel, 'slug'),
@@ -98,6 +99,8 @@ export function plantUitRegel(regel: Regel, eigenSymbolen: { bestand: string; br
     oogstTijd: maandenVan(oogstMomenten),
     snoeiMomenten,
     snoeiTijd: maandenVan(snoeiMomenten),
+    winterMomenten,
+    winterTijd: maandenVan(winterMomenten),
     snoeiMethode: tekst(regel, 'snoei_methode'),
     snoeiInformatie: tekst(regel, 'snoei_informatie'),
     woekerToestemming: tekst(regel, 'woeker_toestemming'),
@@ -127,6 +130,7 @@ export const PLANTKOLOMMEN = [
   'gevaarlijk', 'gevaarlijk_info', 'waarom_laten_staan',
   'oogst_momenten', 'oogst_tijd', 'oogst_methode', 'extra_oogst_tijd', 'extra_oogst_methode',
   'snoei_momenten', 'snoei_tijd', 'snoei_tijd_info', 'snoei_methode', 'snoei_informatie',
+  'winter_momenten',
   'woeker_toestemming', 'woeker_verbod', 'levensduur',
   'groei', 'bloei', 'sterf', 'commons', 'commons_illustraties', 'intro', 'weetje',
   'foto_ingesteld', 'foto_bestand', 'foto_bron', 'foto_x', 'foto_y', 'foto_zoom',
@@ -163,6 +167,7 @@ export function waardenVanPlant(plant: Plant, aangemaaktOp: string, gewijzigdOp:
     ...momentKolommen(plant.oogstMomenten), '', '',
     ...momentKolommen(plant.snoeiMomenten),
     plant.snoeiMethode ?? '', plant.snoeiInformatie ?? '',
+    JSON.stringify(plant.winterMomenten ?? []),
     plant.woekerToestemming ?? '', plant.woekerVerbod ?? '', plant.levensduur ?? '',
     naarLijst(plant.groei), naarLijst(plant.bloei), naarLijst(plant.sterf),
     plant.commons ?? '', plant.commonsIllustraties ?? '', plant.intro ?? '', plant.weetje ?? '',

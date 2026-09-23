@@ -34,6 +34,8 @@ const bron = JSON.parse(fs.readFileSync('../sept_data.json')).planten;
 assert.equal(planten.length, 25);
 assert.deepEqual(planten.map(p => p.slug).sort(), bron.map(p => p.id).sort());
 assert.deepEqual(Object.keys(PLANT_BEOORDELINGEN).sort(), planten.map(p => p.slug).sort());
+assert.deepEqual(planten.filter(p => p.winterMomenten?.length).map(p => p.slug).sort(),
+  ['dragon', 'lavendel', 'rozemarijn', 'salie', 'tijm']);
 for (const plant of planten) {
   const b = bron.find(b => b.id === plant.slug);
   if (b) assert.deepEqual(plant.functies, { primair: b.functies.primair, secundair: b.functies.secundair });

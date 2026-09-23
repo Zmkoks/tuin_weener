@@ -116,6 +116,7 @@ VELDREGELS
 - levensduur: exact één waarde: "Eenjarig", "Tweejarig" of "Meerjarig".
 - oogstMomenten: een lijst met per oogstmoment een object { "maanden": [...], "wat": "..." }, net als snoeiMomenten. "wat" noemt het plantdeel, het herkenbare oogstmoment en hoe iemand veilig oogst. Een ander plantdeel of een aparte oogstperiode krijgt een eigen object. Vul alleen in bij eetbaar: true. Laat leeg ([]) bij eetbaar: false of null, en ook wanneer uit mijn beschrijving blijkt dat het exemplaar in onze tuin geen oogst geeft. Geef geen medicinaal gebruik of doseringen.
 - snoeiMomenten: een lijst met per snoeimoment een object { "maanden": [...], "wat": "..." }. Neem alleen maanden waarin snoeien of terugknippen echt passend is. "wat" is één of twee korte zinnen over wat je op dát moment doet; de site toont die zin in die maanden als taak. Verschillend werk op verschillende momenten krijgt elk een eigen object, bijvoorbeeld [{ "maanden": ["Maart"], "wat": "Ruim dode bladeren op." }, { "maanden": ["Augustus"], "wat": "Knip oude bladeren en overtollige uitlopers weg." }]. Een maand hoort bij hoogstens één moment. snoeiMethode is de algemene werkwijze: gereedschap, waar je knipt en wat moet blijven; herhaal het moment niet. snoeiInformatie is alleen achtergrond over hoe de plant groeit en waarom je zo snoeit. Zet daar niets over eten (dat hoort in eetbaarInfo), gevaar (gevaarlijkInfo), verwijderen (woekerToestemming) of dit ene exemplaar (tuinOpmerking). Is snoei niet nodig, geef dan één moment met lege maanden en zeg in "wat" kort wat hoogstens mag worden opgeruimd.
+- winterMomenten: alleen concrete voorbereidingen die vóór de winter echt nodig zijn. Ga uit van een gevestigde plant in de volle grond en het milde Nederlandse klimaat. Leg meer nadruk op natte grond en koude wind dan op automatisch inpakken. Noem afdekken alleen bij een kwetsbare soort en zeg wanneer het materiaal weer weg kan. Gebruik [] als de plant zonder extra werk buiten kan blijven.
 - woekerToestemming: beschrijf concreet welke delen kunnen worden opgeruimd of verwijderd, wanneer en hoe. Geef geen algemene toestemming om hele gewenste planten of grote takken te verwijderen. Houd het liefst kort, maar duidelijkheid gaat vóór het aantal woorden.
 - woekerVerbod: benoem bij gewone planten precies wat moet blijven. Bij onkruid verschijnt dit onder "Wanneer weghalen?": beschrijf dan de aanleiding om weg te halen en wat daarbij moet blijven. Houd het liefst kort, maar duidelijkheid gaat vóór het aantal woorden.
 - groei: maanden met zichtbare nieuwe bladeren of stengels.
@@ -126,7 +127,7 @@ VELDREGELS
 
 KORT HOUDEN
 - Gebruik meestal één tot drie korte zinnen per veld. waterInfo mag vier korte zinnen hebben als dat prettig leest.
-- Houd "wat" bij een oogst- of snoeimoment praktisch en overzichtelijk.
+- Houd "wat" bij een oogst-, snoei- of wintermoment praktisch en overzichtelijk.
 - Woordaantallen zijn een richtlijn, geen afkeurgrens. Schrap herhaling, maar laat nuttige uitleg gewoon staan.
 
 UITVOERREGELS
@@ -166,6 +167,7 @@ Zodra de hoofdrol duidelijk is, geef uitsluitend één geldig JSON-object terug,
   "levensduur": "Meerjarig",
   "oogstMomenten": [],
   "snoeiMomenten": [],
+  "winterMomenten": [],
   "snoeiMethode": "",
   "snoeiInformatie": "",
   "woekerToestemming": "Wat kun je verwijderen, wanneer en hoe doe je dat veilig?",
@@ -269,6 +271,7 @@ function normalizeParsed(value: unknown, plants: Plant[]): PlantForm {
       [splitList(valueList(record.extraOogstTijd ?? record.extraHarvestMonths)), valueText(record, 'extraOogstMethode', 'extraHarvestMethod')]),
     // Oudere antwoorden hebben snoeiTijd + snoeiTijdInfo; die worden samen één moment.
     snoeiMomenten: leesMomenten(record.snoeiMomenten, [splitList(valueList(record.snoeiTijd ?? record.pruneMonths)), valueText(record, 'snoeiTijdInfo', 'pruneTiming')]),
+    winterMomenten: leesMomenten(record.winterMomenten),
     snoeiMethode: valueText(record, 'snoeiMethode', 'pruneMethod'),
     snoeiInformatie: valueText(record, 'snoeiInformatie', 'pruneInfo'),
     woekerToestemming: valueText(record, 'woekerToestemming', 'removalAllowed'),

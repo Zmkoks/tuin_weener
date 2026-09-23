@@ -54,6 +54,10 @@ export type Plant = {
   snoeiMomenten: Moment[];
   /** Afgeleid: alle maanden uit `snoeiMomenten`. Niet los invullen. */
   snoeiTijd: string[];
+  /** Alleen concrete voorbereidingen die vóór de winter echt nodig zijn. */
+  winterMomenten?: Moment[];
+  /** Afgeleid: alle maanden uit `winterMomenten`. Niet los invullen. */
+  winterTijd?: string[];
   snoeiMethode: string;
   snoeiInformatie: string;
   woekerToestemming: string;

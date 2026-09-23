@@ -36,6 +36,7 @@ export type PlantForm = {
   levensduur: string;
   oogstMomenten: Moment[];
   snoeiMomenten: Moment[];
+  winterMomenten: Moment[];
   snoeiMethode: string;
   snoeiInformatie: string;
   woekerToestemming: string;
@@ -84,7 +85,7 @@ export function blankForm(plants: Plant[]): PlantForm {
   return {
     naam: '', botanischeNaam: '', plantnummer: nextPlantNumber(plants), functiesPrimair: '', functiesSecundair: '', intro: '', weetje: '',
     waterOndergrens: '1', waterBovengrens: '3', waterInfo: '', zon: 'zon', zonInfo: '', levensduur: 'Meerjarig',
-    oogstMomenten: [], snoeiMomenten: [],
+    oogstMomenten: [], snoeiMomenten: [], winterMomenten: [],
     snoeiMethode: '', snoeiInformatie: '', woekerToestemming: '', woekerVerbod: '', groei: '', bloei: '', sterf: '', commons: '', commonsIllustraties: '',
     boomHeester: 'nee', eetbaar: '', eetbaarInfo: '', oogstbaarInTuin: '', tuinOpmerking: '', gevaarlijk: '', gevaarlijkInfo: '', waaromLatenStaan: '',
     foto: { ...LEEG_BEELD }, illustratie: { ...LEEG_BEELD }, symbolen: { ...LEGE_SYMBOLEN },
@@ -106,6 +107,7 @@ export function formVanPlant(plant: Plant): PlantForm {
     waterInfo: plant.waterInfo, zon: plant.zon, zonInfo: plant.zonInfo, levensduur: plant.levensduur,
     oogstMomenten: kopie(plant.oogstMomenten),
     snoeiMomenten: kopie(plant.snoeiMomenten),
+    winterMomenten: kopie(plant.winterMomenten ?? []),
     snoeiMethode: plant.snoeiMethode, snoeiInformatie: plant.snoeiInformatie, woekerToestemming: plant.woekerToestemming,
     woekerVerbod: plant.woekerVerbod, groei: rij(plant.groei), bloei: rij(plant.bloei), sterf: rij(plant.sterf), commons: plant.commons, commonsIllustraties: plant.commonsIllustraties || '',
     boomHeester: keuzeVan(plant.boomHeester ?? false), eetbaar: keuzeVan(plant.eetbaar), eetbaarInfo: plant.eetbaarInfo || '',
@@ -142,7 +144,7 @@ function KeuzeField({ id, label, value, onChange, help, zonderOnbekend = false }
 const kopie = (momenten: Moment[]) => momenten.map((moment) => ({ ...moment, maanden: [...moment.maanden] }));
 
 /**
- * Snoei- of oogstmomenten: per moment de maanden aanvinken en in één regel zeggen wat je dan
+ * Snoei-, oogst- of wintermomenten: per moment de maanden aanvinken en in één regel zeggen wat je dan
  * doet. Die regel is in die maanden de taak op de site; zie `app/data/momenten.ts`.
  */
 function MomentenVeld({ titel, uitleg, voorbeeld, momenten, onChange }: { titel: string; uitleg: string; voorbeeld: string; momenten: Moment[]; onChange: (momenten: Moment[]) => void }) {
@@ -187,13 +189,16 @@ export function PlantFormFields({ form, setForm }: { form: PlantForm; setForm: (
       <TextField id="waterInfo" label="Water geven" value={form.waterInfo} onChange={(value) => update('waterInfo', value)} multiline />
       <TextField id="zonInfo" label="Informatie standplaats" value={form.zonInfo} onChange={(value) => update('zonInfo', value)} multiline />
     </div></div>
-    <div className="plant-form-section"><h3>Oogsten en snoeien</h3><div className="plant-field-grid">
+    <div className="plant-form-section"><h3>Oogsten, snoeien en winterklaar maken</h3><div className="plant-field-grid">
       <MomentenVeld titel="Oogstmomenten" momenten={form.oogstMomenten} onChange={(oogstMomenten) => setForm({ ...form, oogstMomenten })}
         uitleg="Per moment: vink de maanden aan en schrijf wat je dan plukt en hoe. Een ander plantdeel of een tweede oogst krijgt een eigen moment. Laat leeg als er niets te eten valt."
         voorbeeld="bijv. Pluk een aardbei als hij helemaal rood is. Knip het steeltje door." />
       <MomentenVeld titel="Snoeimomenten" momenten={form.snoeiMomenten} onChange={(snoeiMomenten) => setForm({ ...form, snoeiMomenten })}
         uitleg="Per moment: vink de maanden aan en schrijf wat je dan doet. Die zin is in die maanden de taak op de site. Snoei je alleen als het nodig is, laat de maanden dan leeg."
         voorbeeld="bijv. Knip na de bloei de oude stengels terug tot 5 centimeter." />
+      <MomentenVeld titel="Winterklaar maken" momenten={form.winterMomenten} onChange={(winterMomenten) => setForm({ ...form, winterMomenten })}
+        uitleg="Vul dit alleen in als deze plant vóór de winter echt iets nodig heeft. Houd rekening met het milde Nederlandse klimaat. Noem vooral bescherming tegen natte grond, koude wind of langdurige vorst."
+        voorbeeld="bijv. Controleer of regenwater wegloopt. Dek alleen af bij langdurige vorst." />
       <TextField id="snoeiMethode" label="Hoe snoeien?" value={form.snoeiMethode} onChange={(value) => update('snoeiMethode', value)} multiline />
       <TextField id="snoeiInformatie" label="Extra snoei-informatie" value={form.snoeiInformatie} onChange={(value) => update('snoeiInformatie', value)} multiline />
     </div></div>
@@ -270,7 +275,7 @@ export function toPayload(form: PlantForm) {
   return {
     naam: form.naam.trim(), botanischeNaam: form.botanischeNaam.trim(), plantnummer: form.plantnummer.trim(), functies: { primair: splitList(form.functiesPrimair), secundair: splitList(form.functiesSecundair) }, intro: form.intro.trim(), weetje: form.weetje.trim(),
     waterOndergrens: form.waterOndergrens.trim(), waterBovengrens: form.waterBovengrens.trim(), waterInfo: form.waterInfo.trim(), zon: form.zon.trim(), zonInfo: form.zonInfo.trim(), levensduur: form.levensduur.trim(),
-    oogstMomenten: opgeschoond(form.oogstMomenten), snoeiMomenten: opgeschoond(form.snoeiMomenten), snoeiMethode: form.snoeiMethode.trim(), snoeiInformatie: form.snoeiInformatie.trim(), woekerToestemming: form.woekerToestemming.trim(), woekerVerbod: form.woekerVerbod.trim(), groei: splitList(form.groei), bloei: splitList(form.bloei), sterf: splitList(form.sterf), commons: form.commons.trim(), commonsIllustraties: form.commonsIllustraties.trim(),
+    oogstMomenten: opgeschoond(form.oogstMomenten), snoeiMomenten: opgeschoond(form.snoeiMomenten), winterMomenten: opgeschoond(form.winterMomenten), snoeiMethode: form.snoeiMethode.trim(), snoeiInformatie: form.snoeiInformatie.trim(), woekerToestemming: form.woekerToestemming.trim(), woekerVerbod: form.woekerVerbod.trim(), groei: splitList(form.groei), bloei: splitList(form.bloei), sterf: splitList(form.sterf), commons: form.commons.trim(), commonsIllustraties: form.commonsIllustraties.trim(),
     boomHeester: form.boomHeester, eetbaar: form.eetbaar, eetbaarInfo: form.eetbaarInfo.trim(), oogstbaarInTuin: form.oogstbaarInTuin,
     tuinOpmerking: form.tuinOpmerking.trim(), gevaarlijk: form.gevaarlijk, gevaarlijkInfo: form.gevaarlijkInfo.trim(), waaromLatenStaan: form.waaromLatenStaan.trim(),
     foto: form.foto, illustratie: form.illustratie,

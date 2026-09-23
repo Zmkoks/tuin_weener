@@ -42,7 +42,13 @@ export function waterNiveaus(plant: Plant) {
   return { laag: grens(plant.waterOndergrens), hoog: grens(plant.waterBovengrens) };
 }
 
-export type Taak = { type: 'Oogsten' | 'Snoeien'; uitleg: string };
+export type Taak = { type: 'Oogsten' | 'Snoeien' | 'Winterklaar maken'; uitleg: string };
+
+export function taakIcoon(type: Taak['type']) {
+  if (type === 'Oogsten') return 'oogst';
+  if (type === 'Snoeien') return 'snoei';
+  return 'winter';
+}
 
 /**
  * Of oogsten bij deze plant een gewone taak is: primair fruit of kruid, en niet uitdrukkelijk
@@ -66,6 +72,9 @@ export function takenVoorMaand(plant: Plant, maand: string): Taak[] {
     taken.push({ type: 'Oogsten', uitleg: watInMaand(plant.oogstMomenten, maand) });
   }
   if (plant.snoeiTijd.includes(maand)) taken.push({ type: 'Snoeien', uitleg: watInMaand(plant.snoeiMomenten, maand) || plant.snoeiMethode });
+  if ((plant.winterTijd ?? []).includes(maand)) {
+    taken.push({ type: 'Winterklaar maken', uitleg: watInMaand(plant.winterMomenten ?? [], maand) });
+  }
   return taken;
 }
 

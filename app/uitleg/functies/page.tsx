@@ -38,6 +38,7 @@ const KALENDER = [
   { kleur: 'bloom', icoon: 'bloei', naam: 'Bloei', tekst: 'De plant heeft bloemen.' },
   { kleur: 'harvest', icoon: 'oogst', naam: 'Oogst', tekst: 'In deze maanden kun je plukken of knippen om te gebruiken.' },
   { kleur: 'prune', icoon: 'snoei', naam: 'Snoei', tekst: 'In deze maanden mag deze plant gesnoeid worden.' },
+  { kleur: 'winter', icoon: 'winter', naam: 'Winter', tekst: 'In deze maanden maak je een kwetsbare plant klaar voor nat weer of vorst.' },
   { kleur: 'rest', icoon: '', naam: 'Rust', tekst: 'De plant trekt zich terug. Hij is niet dood; hij komt in het voorjaar terug.' },
 ];
 

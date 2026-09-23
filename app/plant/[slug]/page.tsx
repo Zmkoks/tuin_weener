@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import Link from '@/app/components/NativeLink';
 import { notFound } from 'next/navigation';
-import { hoofdletter, korteBotanischeNaam, months, takenVoorMaand } from '@/app/data/tuinTekst';
+import { hoofdletter, korteBotanischeNaam, months, taakIcoon, takenVoorMaand } from '@/app/data/tuinTekst';
 import { icoonPad } from '@/app/data/iconen';
-import { Functies, isOnkruid, Kalender, PlantFoto, SectieExtra, SectieGevaar, SectieIllustratie, SectieInOnzeTuin, SectieMagWeg, SectieWeghalen, SectieMoetBlijven, SectieOogsten, SectieSnoeien, SectieVerzorging, SectieWeetje, Waterdruppels } from '@/app/components/paspoortDelen';
+import { Functies, isOnkruid, Kalender, PlantFoto, SectieExtra, SectieGevaar, SectieIllustratie, SectieInOnzeTuin, SectieMagWeg, SectieWeghalen, SectieMoetBlijven, SectieOogsten, SectieSnoeien, SectieVerzorging, SectieWeetje, SectieWinterklaar, Waterdruppels } from '@/app/components/paspoortDelen';
 import { laadBeplanting, laadPlanten, laadZones, plekkenVanPlant } from '@/app/lib/tuinData';
 import { fotoVan, illustratieVan } from '@/app/data/afbeeldingen';
 import { Bronvermelding } from '@/app/components/Bronvermelding';
@@ -87,10 +87,10 @@ export default async function PlantPagina({ params }: Props) {
       <h2>{maand}</h2>
       {taken.length > 0
         ? taken.map((taak) => <div className="scan-taak" key={taak.type}>
-            <img className="taak-icoon" src={icoonPad(taak.type === 'Oogsten' ? 'oogst' : 'snoei')} alt="" />
+            <img className="taak-icoon" src={icoonPad(taakIcoon(taak.type))} alt="" />
             <div><b>{taak.type}</b>{taak.uitleg && <p>{taak.uitleg}</p>}</div>
           </div>)
-        : <p className="scan-geen-taak">Deze maand hoef je bij deze plant niets te oogsten of te snoeien.</p>}
+        : <p className="scan-geen-taak">Deze maand is er bij deze plant geen taak.</p>}
     </section>
 
     {onkruid && <h2 className="scan-onkruid">Dit is onkruid</h2>}
@@ -106,6 +106,7 @@ export default async function PlantPagina({ params }: Props) {
       <SectieVerzorging plant={plant} />
       <SectieOogsten plant={plant} />
       <SectieSnoeien plant={plant} />
+      <SectieWinterklaar plant={plant} />
       <SectieExtra plant={plant} />
       <section className="scan-kalender"><h3>Jaarkalender</h3><div className="scan-kalender-scroll"><Kalender plant={plant} /></div><Link className="uitleg-link" href="/uitleg/functies#kalender">Wat betekenen de kleuren? →</Link></section>
       <SectieIllustratie plant={plant} />

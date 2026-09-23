@@ -22,7 +22,7 @@ import { TAAK_NAAM, type PlekTaak } from '../lib/taken';
 const RING = 4.6;
 const BOL = 4.1;
 const ICOON = 5.2;
-/** Staan er twee iconen op één bak, dan schuift elk er zoveel vanaf. */
+/** Meerdere iconen op één bak krijgen deze onderlinge afstand. */
 const UIT_ELKAAR = 4.6;
 /** Straal van een boom of heester; gelijk aan `PUNT_STRAAL` in Plattegrond.tsx. */
 const PUNT_STRAAL = 3.1;
@@ -60,7 +60,7 @@ export default function TakenKaart({ plekken, maand, actief }: Props) {
           <title>{`${namen} — ${wat}`}</title>
           <g className="nu-omtrek"><Omtrek vorm={plek.plek.vorm} /></g>
           {plek.soorten.map((soort, nummer) => {
-            const x = plek.midden.x + (plek.soorten.length === 1 ? 0 : (nummer === 0 ? -UIT_ELKAAR : UIT_ELKAAR) / 2);
+            const x = plek.midden.x + (nummer - (plek.soorten.length - 1) / 2) * UIT_ELKAAR;
             const y = plek.midden.y;
             return <g className={`nu-speld nu-${soort}`} key={soort}>
               {/* Witte ring eronder, zodat het icoon leesbaar blijft op zowel het gazon als
