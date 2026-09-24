@@ -15,9 +15,15 @@ Op de site kun je onder andere:
 - de volledige plantenbibliotheek bekijken;
 - informatie en drukwerk voor de tuin gebruiken.
 
+## Werkhandleidingen
+
+- [IT-overdracht: hosting, broncode, database en verhuizing](README-IT.md)
+- [Kaart en drukwerk aanpassen](README-KAART-EN-DRUKWERK.md)
+- [Overige wijzigingen en onderhoud](README-ONDERHOUD.md)
+
 ## Lokaal starten
 
-Deze site gebruikt Node.js 22 of nieuwer.
+Deze site gebruikt Node.js 22.13 of nieuwer.
 
 ```bash
 npm install
@@ -34,23 +40,15 @@ npx tsc --noEmit
 Lokale instellingen horen in `.env.local`. Dat bestand wordt bewust niet naar GitHub
 gestuurd; gebruik `.env.example` als beginpunt.
 
-## Hoe GitHub hier werkt
+## Broncode en publicatie
 
-GitHub is de plek waar de code en de geschiedenis van dit project worden bewaard.
+De code staat in een Git-repository met twee remotes: `origin` is de bronrepository die
+aan Sites is gekoppeld; `github` wijst naar
+[github.com/Zmkoks/tuin_weener](https://github.com/Zmkoks/tuin_weener). De lokale
+`main` volgt GitHub. Op 23 september 2026 liep GitHub vijf commits achter op de lokale
+hoofdversie; controleer de stand voordat je GitHub als actuele overdrachtskopie gebruikt.
 
-- `main` is de huidige hoofdversie.
-- Een **commit** is een opgeslagen momentopname van wijzigingen.
-- `git push` zet lokale commits op GitHub.
-- De live site hierboven is een aparte publicatie. Een push naar GitHub verandert de
-  live site dus niet automatisch.
-
-Voor een volgende wijziging:
-
-```bash
-git status
-git add <bestand>
-git commit -m "Korte beschrijving van de wijziging"
-git push
-```
-
-De repository staat op [github.com/Zmkoks/tuin_weener](https://github.com/Zmkoks/tuin_weener).
+Een push naar GitHub publiceert de openbare site niet. Productie wordt apart via Sites
+gebouwd, opgeslagen en uitgerold. Gebruik voor eigenaarschap, gegevens, geheimen en een
+eventuele verhuizing de [IT-overdracht](README-IT.md); voer geen ongerichte push naar een
+remote uit om de productie te proberen bij te werken.
